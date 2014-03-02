@@ -1,4 +1,4 @@
-package net.nemerosa.iteach.service.model;
+package net.nemerosa.iteach.common;
 
 public enum TokenType {
 	/**

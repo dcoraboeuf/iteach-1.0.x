@@ -11,7 +11,7 @@ import net.nemerosa.iteach.service.TemplateService;
 import net.nemerosa.iteach.service.TokenService;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
 import net.nemerosa.iteach.service.model.TemplateModel;
-import net.nemerosa.iteach.service.model.TokenType;
+import net.nemerosa.iteach.common.TokenType;
 import net.sf.jstring.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
