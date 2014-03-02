@@ -17,15 +17,7 @@ public class AccountJdbcDao extends AbstractJdbcDaoSupport implements AccountDao
     }
 
     @Override
-    public boolean isAdminInitialized() {
-        return getJdbcTemplate().queryForObject(
-                SQL.ACCOUNT_ADMINISTRATOR_COUNT,
-                Integer.class
-        ) > 0;
-    }
-
-    @Override
-    public void createAccount(AuthenticationMode mode, String identifier, String email, String name, boolean administrator, boolean verified, String encodedPassword) {
+    public void createAccount(AuthenticationMode mode, String identifier, String email, String name, String encodedPassword) {
         // Checks for unicity of identifier
         Integer existingAccountId = getFirstItem(SQL.ACCOUNT_ID_BY_IDENTIFIER, params("identifier", identifier), Integer.class);
         if (existingAccountId != null) {
@@ -39,9 +31,6 @@ public class AccountJdbcDao extends AbstractJdbcDaoSupport implements AccountDao
         // Parameters
         MapSqlParameterSource params = params("email", email);
         params.addValue("name", name);
-        // Administrator accounts are not to be verified
-        params.addValue("administrator", administrator);
-        params.addValue("verified", verified);
         // Mode
         params.addValue("mode", mode.name());
         params.addValue("identifier", identifier);

@@ -36,33 +36,22 @@ public class AccountServiceImpl implements AccountService {
         this.strings = strings;
     }
 
-    protected boolean isAdminInitialized() {
-        return accountDao.isAdminInitialized();
-    }
-
     @Override
     @Transactional
     public Ack register(Locale locale, TeacherRegistrationForm form) {
-        // Admin?
-        boolean administrator = !isAdminInitialized();
         // Creates the account
         accountDao.createAccount(
                 AuthenticationMode.PASSWORD,
                 form.getEmail(),
                 form.getEmail(),
                 form.getName(),
-                administrator,
-                administrator,
                 passwordEncoder.encode(form.getPassword())
         );
 
-        // In case of not administrator
-        if (!administrator) {
-            // Its initial state is not verified and a notification must be sent by email
-            Message message = createNewUserMessage(locale, form.getName(), form.getEmail());
-            // Sends the message
-            messageService.sendMessage(message, form.getEmail());
-        }
+        // Its initial state is not verified and a notification must be sent by email
+        Message message = createNewUserMessage(locale, form.getName(), form.getEmail());
+        // Sends the message
+        messageService.sendMessage(message, form.getEmail());
 
         // OK
         return Ack.OK;
