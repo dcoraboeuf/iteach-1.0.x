@@ -36,6 +36,10 @@
         <module>iteach-ui-client</module>
         <module>iteach-acceptance</module>
         <module>iteach-test-utils</module>
+        <module>iteach-service</module>
+        <module>iteach-service-impl</module>
+        <module>iteach-dao</module>
+        <module>iteach-dao-jdbc</module>
 	</modules>
 
 	<dependencyManagement>
