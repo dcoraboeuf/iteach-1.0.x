@@ -1,7 +1,7 @@
 package net.nemerosa.iteach.dao.jdbc;
 
+import java.sql.Timestamp;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
 public final class SQLUtils {
 
@@ -12,7 +12,8 @@ public final class SQLUtils {
         return ZonedDateTime.now();
     }
 
-    public static String toTimestamp(ZonedDateTime dateTime) {
-        return dateTime.format(DateTimeFormatter.ISO_DATE_TIME);
+    public static Timestamp toTimestamp(ZonedDateTime dateTime) {
+        return new Timestamp(dateTime.toInstant().getEpochSecond() * 1000L);
     }
+
 }

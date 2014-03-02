@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.sql.Timestamp;
 
 @Component
 public class TokenJdbcDao extends AbstractJdbcDaoSupport implements TokenDao {
@@ -19,7 +20,7 @@ public class TokenJdbcDao extends AbstractJdbcDaoSupport implements TokenDao {
     @Override
     public void saveToken(TokenType type, String key, String token) {
         // Creation date
-        String creation = SQLUtils.toTimestamp(SQLUtils.now());
+        Timestamp creation = SQLUtils.toTimestamp(SQLUtils.now());
         // Saves the token
         getNamedParameterJdbcTemplate().update(
                 SQL.TOKEN_SAVE,

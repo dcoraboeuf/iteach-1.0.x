@@ -1,9 +1,6 @@
 package net.nemerosa.iteach.service.impl;
 
-import net.nemerosa.iteach.common.Ack;
-import net.nemerosa.iteach.common.AuthenticationMode;
-import net.nemerosa.iteach.common.Message;
-import net.nemerosa.iteach.common.MessageContent;
+import net.nemerosa.iteach.common.*;
 import net.nemerosa.iteach.dao.AccountDao;
 import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.MessageService;
@@ -11,11 +8,11 @@ import net.nemerosa.iteach.service.TemplateService;
 import net.nemerosa.iteach.service.TokenService;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
 import net.nemerosa.iteach.service.model.TemplateModel;
-import net.nemerosa.iteach.common.TokenType;
 import net.sf.jstring.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Locale;
 
@@ -44,6 +41,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public Ack register(Locale locale, TeacherRegistrationForm form) {
         // Admin?
         boolean administrator = !isAdminInitialized();
@@ -67,7 +65,7 @@ public class AccountServiceImpl implements AccountService {
         }
 
         // OK
-        return Ack.validate(administrator);
+        return Ack.OK;
     }
 
     private Message createNewUserMessage(Locale locale, String name, String email) {
