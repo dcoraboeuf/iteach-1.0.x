@@ -26,11 +26,14 @@ public class UIAccountAPIController implements UIAccountAPI {
     @Override
     @RequestMapping(value = "/register")
     public Ack registerAsTeacherWithPassword(Locale locale, @RequestBody UITeacherPasswordForm form) {
-        return accountService.register(new TeacherRegistrationForm(
-                form.getName(),
-                form.getEmail(),
-                form.getPassword()
-        ));
+        return accountService.register(
+                locale,
+                new TeacherRegistrationForm(
+                        form.getName(),
+                        form.getEmail(),
+                        form.getPassword()
+                )
+        );
     }
 
 }
