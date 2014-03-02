@@ -30,6 +30,9 @@
 	</properties>
 
 	<modules>
+        <module>iteach-common</module>
+        <module>iteach-ui-model</module>
+        <module>iteach-ui</module>
 	</modules>
 
 	<dependencyManagement>
