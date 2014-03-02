@@ -60,7 +60,7 @@
                             </includes>
                             <argLine>-Xmx512m</argLine>
                             <systemPropertyVariables>
-                                <ood.url>${iteach.url}</ood.url>
+                                <iteach.url>${iteach.url}</iteach.url>
                             </systemPropertyVariables>
                         </configuration>
                         <executions>
