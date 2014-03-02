@@ -13,6 +13,12 @@
 
     <name>iteach Acceptance</name>
 
+    <properties>
+        <iteach.version>${project.version}</iteach.version>
+        <iteach.url>http://localhost:9999/iteach</iteach.url>
+        <iteach.local.port>9999</iteach.local.port>
+    </properties>
+
     <dependencies>
         <!-- iTeach -->
         <dependency>
@@ -21,5 +27,145 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
+
+
+    <profiles>
+
+        <!-- Running the acceptance tests -->
+
+        <profile>
+            <id>acceptance</id>
+            <build>
+                <plugins>
+
+                    <!-- Running acceptance tests in integration phase -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/ACC*.java</include>
+                            </includes>
+                            <argLine>-Xmx512m</argLine>
+                            <systemPropertyVariables>
+                                <ood.url>${iteach.url}</ood.url>
+                            </systemPropertyVariables>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <!-- Runs the acceptance server by launching a local Jetty server
+            using the iteach-ui WAR downloaded as a dependency. The version of the WAR
+            to launch defaults to this project's version. This version can be overridden
+            by the <code>iteach.version</code> system property.
+            By default, the application in launched on port 9999 (can be overridden
+            by the <code>iteach.local.port</code> system property
+            -->
+            <id>acceptance-local</id>
+            <properties>
+                <ood.url>http://localhost:${iteach.local.port}/iteach</ood.url>
+            </properties>
+            <build>
+                <plugins>
+                    <!-- Getting the WAR to deploy -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>acceptance-jetty-war</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>${project.groupId}</groupId>
+                                            <artifactId>iteach-ui</artifactId>
+                                            <version>${iteach.version}</version>
+                                            <type>war</type>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Starting and stopping the web application -->
+                    <plugin>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>acceptance-jetty-start</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>run-war</goal>
+                                </goals>
+                                <configuration>
+                                    <war>${basedir}/target/dependency/iteach-ui-${iteach.version}.war</war>
+                                    <webApp>
+                                        <contextPath>/iteach</contextPath>
+                                        <jettyEnvXml>
+                                            ${project.basedir}/src/test/resources/jetty/jetty-env-acceptance.xml
+                                        </jettyEnvXml>
+                                    </webApp>
+                                    <stopPort>9966</stopPort>
+                                    <stopKey>foo</stopKey>
+                                    <daemon>true</daemon>
+                                    <systemProperties>
+                                        <systemProperty>
+                                            <name>spring.profiles.active</name>
+                                            <value>acceptance</value>
+                                        </systemProperty>
+                                        <systemProperty>
+                                            <name>jetty.port</name>
+                                            <value>${iteach.local.port}</value>
+                                        </systemProperty>
+                                    </systemProperties>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>acceptance-jetty-stop</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                                <configuration>
+                                    <stopPort>9966</stopPort>
+                                    <stopKey>foo</stopKey>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>com.h2database</groupId>
+                                <artifactId>h2</artifactId>
+                                <version>1.3.166</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>commons-dbcp</groupId>
+                                <artifactId>commons-dbcp</artifactId>
+                                <version>1.4</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
 
 </project>
