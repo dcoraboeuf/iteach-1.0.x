@@ -6,6 +6,8 @@ For a version 1.0, we want:
 
 ... and their link to the pages & API.
 
+### As an administrator...
+
 ### As a teacher...
 
 #### I want to register in iTeach:

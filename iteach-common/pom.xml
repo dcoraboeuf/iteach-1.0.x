@@ -25,6 +25,17 @@
             <groupId>net.sf.jstring</groupId>
             <artifactId>jstring</artifactId>
         </dependency>
+        <!-- Testing with... -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>

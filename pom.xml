@@ -35,6 +35,7 @@
         <module>iteach-ui</module>
         <module>iteach-ui-client</module>
         <module>iteach-acceptance</module>
+        <module>iteach-test-utils</module>
 	</modules>
 
 	<dependencyManagement>
