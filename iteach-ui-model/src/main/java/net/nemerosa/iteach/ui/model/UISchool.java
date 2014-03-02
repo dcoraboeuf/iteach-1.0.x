@@ -1,8 +1,10 @@
 package net.nemerosa.iteach.ui.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.joda.money.Money;
 
+@EqualsAndHashCode(callSuper = false)
 @Data
 public class UISchool extends UIResource<UISchool> {
 
