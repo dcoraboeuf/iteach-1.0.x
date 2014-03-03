@@ -89,7 +89,7 @@ public class UIForm {
                             }
                         }
                 ).build(),
-                value -> Money.parse(value)
+                Money::parse
         );
     }
 
