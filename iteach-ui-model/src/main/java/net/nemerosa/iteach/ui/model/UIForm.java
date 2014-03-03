@@ -43,7 +43,7 @@ public class UIForm {
 
     public String getEmail(boolean required) {
         // TODO Email validation (done at browser but still needs to be done at server side)
-        return get("email", required, null, FormValidation.builder().withMaxLength(80).withMinLength(0).build(), Function.identity());
+        return get("email", required, null, FormValidation.builder().withMaxLength(120).withMinLength(0).build(), Function.identity());
     }
 
     @JsonIgnore
