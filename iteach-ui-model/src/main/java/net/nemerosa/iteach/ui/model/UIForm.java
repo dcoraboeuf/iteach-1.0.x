@@ -48,7 +48,7 @@ public class UIForm {
 
     @JsonIgnore
     public String getColour() {
-        return get("colour", false, "#000000", FormValidation.builder().withRegex("#[A-Z0-9]{6}", new LocalizableMessage("validation.format.colour")).build(), Function.identity());
+        return get("colour", false, "#000000", FormValidation.builder().withRegex("#[A-F0-9]{6}", new LocalizableMessage("validation.format.colour")).build(), Function.identity());
     }
 
     @JsonIgnore

@@ -9,3 +9,11 @@ validation.maxlength
 validation.minlength
     en -> minimum length is 1
     fr -> longueur minimale de 1
+
+validation.regex
+    en -> {0} ({1})
+    fr -> {0} ({1})
+
+validation.format.colour
+    en -> must be a colour code like #FFDD44
+    fr -> doit être un code de couleur comme #FFDD44

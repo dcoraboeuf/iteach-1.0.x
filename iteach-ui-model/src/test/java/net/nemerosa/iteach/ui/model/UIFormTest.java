@@ -62,6 +62,35 @@ public class UIFormTest {
         );
     }
 
+    @Test
+    public void validation_name_color_ok() {
+        assertEquals("#FFDD55", UIForm.create().withColour("#FFDD55").getColour());
+    }
+
+    @Test
+    public void validation_name_color_nok_range() {
+        validateNOK(
+                () -> UIForm.create().withColour("#FFHH55").getColour(),
+                "Incorrect value for field \"colour\" - must be a colour code like #FFDD44 (#[A-F0-9]{6})"
+        );
+    }
+
+    @Test
+    public void validation_name_color_nok_too_small() {
+        validateNOK(
+                () -> UIForm.create().withColour("#FF5").getColour(),
+                "Incorrect value for field \"colour\" - must be a colour code like #FFDD44 (#[A-F0-9]{6})"
+        );
+    }
+
+    @Test
+    public void validation_name_color_nok_too_long() {
+        validateNOK(
+                () -> UIForm.create().withColour("#FF5FF5F").getColour(),
+                "Incorrect value for field \"colour\" - must be a colour code like #FFDD44 (#[A-F0-9]{6})"
+        );
+    }
+
     private void validateNOK(Runnable task, String expectedMessage) {
         try {
             task.run();
