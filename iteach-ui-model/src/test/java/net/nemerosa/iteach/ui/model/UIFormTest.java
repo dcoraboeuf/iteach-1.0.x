@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.jstring.Strings;
 import net.sf.jstring.support.StringsLoader;
 import org.apache.commons.lang3.StringUtils;
+import org.joda.money.Money;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
@@ -63,12 +65,12 @@ public class UIFormTest {
     }
 
     @Test
-    public void validation_name_color_ok() {
+    public void validation_color_ok() {
         assertEquals("#FFDD55", UIForm.create().withColour("#FFDD55").getColour());
     }
 
     @Test
-    public void validation_name_color_nok_range() {
+    public void validation_color_nok_range() {
         validateNOK(
                 () -> UIForm.create().withColour("#FFHH55").getColour(),
                 "Incorrect value for field \"colour\" - must be a colour code like #FFDD44 (#[A-F0-9]{6})"
@@ -76,7 +78,7 @@ public class UIFormTest {
     }
 
     @Test
-    public void validation_name_color_nok_too_small() {
+    public void validation_color_nok_too_small() {
         validateNOK(
                 () -> UIForm.create().withColour("#FF5").getColour(),
                 "Incorrect value for field \"colour\" - must be a colour code like #FFDD44 (#[A-F0-9]{6})"
@@ -84,10 +86,41 @@ public class UIFormTest {
     }
 
     @Test
-    public void validation_name_color_nok_too_long() {
+    public void validation_color_nok_too_long() {
         validateNOK(
                 () -> UIForm.create().withColour("#FF5FF5F").getColour(),
                 "Incorrect value for field \"colour\" - must be a colour code like #FFDD44 (#[A-F0-9]{6})"
+        );
+    }
+
+    @Test
+    public void validation_hourlyRate_ok() {
+        Money rate = UIForm.create().with("hourlyRate", "EUR 45.00").getHourlyRate();
+        assertEquals(new BigDecimal("45.00"), rate.getAmount());
+        assertEquals("EUR", rate.getCurrencyUnit().getCode());
+    }
+
+    @Test
+    public void validation_hourlyRate_nok_currency() {
+        validateNOK(
+                () -> UIForm.create().with("hourlyRate", "45F 45.00").getHourlyRate(),
+                "Incorrect value for field \"hourlyRate\" - not a valid amount (EUR 45.00 for example)"
+        );
+    }
+
+    @Test
+    public void validation_hourlyRate_nok_amount() {
+        validateNOK(
+                () -> UIForm.create().with("hourlyRate", "EUR mmm7").getHourlyRate(),
+                "Incorrect value for field \"hourlyRate\" - not a valid amount (EUR 45.00 for example)"
+        );
+    }
+
+    @Test
+    public void validation_hourlyRate_nok_format() {
+        validateNOK(
+                () -> UIForm.create().with("hourlyRate", "45.00").getHourlyRate(),
+                "Incorrect value for field \"hourlyRate\" - not a valid amount (EUR 45.00 for example)"
         );
     }
 

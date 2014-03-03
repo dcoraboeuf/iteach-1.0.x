@@ -17,3 +17,7 @@ validation.regex
 validation.format.colour
     en -> must be a colour code like #FFDD44
     fr -> doit être un code de couleur comme #FFDD44
+
+validation.format.money
+    en -> not a valid amount (EUR 45.00 for example)
+    fr -> montant non valide (EUR 45.00 par exemple)
