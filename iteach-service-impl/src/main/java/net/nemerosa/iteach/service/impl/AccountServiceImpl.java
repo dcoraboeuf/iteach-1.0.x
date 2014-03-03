@@ -1,7 +1,7 @@
 package net.nemerosa.iteach.service.impl;
 
 import net.nemerosa.iteach.common.*;
-import net.nemerosa.iteach.dao.AccountDao;
+import net.nemerosa.iteach.dao.AccountRepository;
 import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.MessageService;
 import net.nemerosa.iteach.service.TemplateService;
@@ -22,16 +22,16 @@ public class AccountServiceImpl implements AccountService {
     private final MessageService messageService;
     private final TokenService tokenService;
     private final TemplateService templateService;
-    private final AccountDao accountDao;
+    private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
     private final Strings strings;
 
     @Autowired
-    public AccountServiceImpl(MessageService messageService, TokenService tokenService, TemplateService templateService, AccountDao accountDao, PasswordEncoder passwordEncoder, Strings strings) {
+    public AccountServiceImpl(MessageService messageService, TokenService tokenService, TemplateService templateService, AccountRepository accountRepository, PasswordEncoder passwordEncoder, Strings strings) {
         this.messageService = messageService;
         this.tokenService = tokenService;
         this.templateService = templateService;
-        this.accountDao = accountDao;
+        this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
         this.strings = strings;
     }
@@ -40,7 +40,7 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     public Ack register(Locale locale, TeacherRegistrationForm form) {
         // Creates the account
-        accountDao.createAccount(
+        accountRepository.createAccount(
                 AuthenticationMode.PASSWORD,
                 form.getEmail(),
                 form.getEmail(),

@@ -5,16 +5,17 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class AbstractJdbcDaoSupport extends NamedParameterJdbcDaoSupport {
+public abstract class AbstractJdbcRepository extends NamedParameterJdbcDaoSupport {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    protected AbstractJdbcDaoSupport(DataSource dataSource) {
+    protected AbstractJdbcRepository(DataSource dataSource) {
         setDataSource(dataSource);
     }
 
@@ -36,6 +37,12 @@ public abstract class AbstractJdbcDaoSupport extends NamedParameterJdbcDaoSuppor
         } catch (IOException e) {
             throw new JsonReadingException(e);
         }
+    }
+
+    protected int dbCreate(String sql, MapSqlParameterSource params) {
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+        getNamedParameterJdbcTemplate().update(sql, params, keyHolder);
+        return keyHolder.getKey().intValue();
     }
 
     protected <T> T getFirstItem(String sql, MapSqlParameterSource criteria, Class<T> type) {

@@ -1,7 +1,7 @@
 package net.nemerosa.iteach.dao.jdbc;
 
 import net.nemerosa.iteach.common.AuthenticationMode;
-import net.nemerosa.iteach.dao.AccountDao;
+import net.nemerosa.iteach.dao.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 
 @Component
-public class AccountJdbcDao extends AbstractJdbcDaoSupport implements AccountDao {
+public class AccountJdbcRepository extends AbstractJdbcRepository implements AccountRepository {
 
     @Autowired
-    public AccountJdbcDao(DataSource dataSource) {
+    public AccountJdbcRepository(DataSource dataSource) {
         super(dataSource);
     }
 

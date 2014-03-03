@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 import java.sql.Timestamp;
 
 @Component
-public class TokenJdbcDao extends AbstractJdbcDaoSupport implements TokenDao {
+public class TokenJdbcDao extends AbstractJdbcRepository implements TokenDao {
 
     @Autowired
     public TokenJdbcDao(DataSource dataSource) {
