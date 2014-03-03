@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.ui.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import net.sf.jstring.Localizable;
 import net.sf.jstring.LocalizableMessage;
@@ -35,6 +36,7 @@ public class UIForm {
         return this;
     }
 
+    @JsonIgnore
     public String getName() {
         return get("name", true, null, FormValidation.builder().withMaxLength(80).withMinLength(1).build(), Function.identity());
     }
@@ -44,30 +46,37 @@ public class UIForm {
         return get("email", required, null, FormValidation.builder().withMaxLength(80).withMinLength(0).build(), Function.identity());
     }
 
+    @JsonIgnore
     public String getColour() {
         return get("colour", false, "#000000", FormValidation.builder().withRegex("#[A-Z0-9]{6}", new LocalizableMessage("validation.format.colour")).build(), Function.identity());
     }
 
+    @JsonIgnore
     public String getContact() {
         return get("contact", false, null, FormValidation.builder().withMaxLength(80).withMinLength(0).build(), Function.identity());
     }
 
+    @JsonIgnore
     public String getPostalAddress() {
         return get("postalAddress", false, null, FormValidation.builder().withMaxLength(200).withMinLength(0).build(), Function.identity());
     }
 
+    @JsonIgnore
     public String getPhone() {
         return get("phone", false, null, FormValidation.builder().withMaxLength(40).withMinLength(0).build(), Function.identity());
     }
 
+    @JsonIgnore
     public String getMobilePhone() {
         return get("mobilePhone", false, null, FormValidation.builder().withMaxLength(40).withMinLength(0).build(), Function.identity());
     }
 
+    @JsonIgnore
     public String getWebSite() {
         return get("webSite", false, null, FormValidation.builder().withMaxLength(200).withMinLength(0).build(), Function.identity());
     }
 
+    @JsonIgnore
     public Money getHourlyRate() {
         return get("hourlyRate", false, null,
                 FormValidation.builder().with(
