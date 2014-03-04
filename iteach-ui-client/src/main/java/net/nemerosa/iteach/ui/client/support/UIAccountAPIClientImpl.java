@@ -1,6 +1,6 @@
 package net.nemerosa.iteach.ui.client.support;
 
-import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.ui.client.UIAccountAPIClient;
 import net.nemerosa.iteach.ui.model.UITeacherPasswordForm;
 
@@ -13,8 +13,8 @@ public class UIAccountAPIClientImpl extends AbstractClient implements UIAccountA
     }
 
     @Override
-    public Ack registerAsTeacherWithPassword(Locale locale, UITeacherPasswordForm form) {
-        return post(locale, Ack.class, form, "/api/account/register");
+    public ID registerAsTeacherWithPassword(Locale locale, UITeacherPasswordForm form) {
+        return post(locale, ID.class, form, "/api/account/register");
     }
 
 }
