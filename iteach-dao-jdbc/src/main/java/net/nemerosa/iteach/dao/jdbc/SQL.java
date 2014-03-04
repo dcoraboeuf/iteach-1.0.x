@@ -13,4 +13,6 @@ public interface SQL {
     String TOKEN_BY_TOKEN_AND_TYPE = "SELECT * FROM TOKEN WHERE TOKEN = :token AND TOKENTYPE = :tokentype ORDER BY CREATION DESC LIMIT 1";
     String TOKEN_DELETE = "DELETE FROM TOKEN WHERE TOKENTYPE = :tokentype AND TOKENKEY = :tokenkey";
 
+    String SCHOOL_BY_ID = "SELECT * FROM SCHOOL WHERE TEACHERID = :teacherId AND ID = :schoolId";
+    String SCHOOL_CREATE = "INSERT INTO SCHOOL (TEACHERID, NAME, CONTACT, COLOUR, EMAIL, HOURLYRATE, POSTALADDRESS, PHONE, MOBILEPHONE, WEBSITE) VALUES (:teacherId, :name, :contact, :colour, :email, :hourlyRate, :postalAddress, :phone, :mobilePhone, :webSite)";
 }
