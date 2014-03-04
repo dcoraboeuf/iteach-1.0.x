@@ -2,6 +2,7 @@ package net.nemerosa.iteach.service.impl;
 
 import net.nemerosa.iteach.common.*;
 import net.nemerosa.iteach.dao.AccountRepository;
+import net.nemerosa.iteach.dao.model.TAccount;
 import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.MessageService;
 import net.nemerosa.iteach.service.TemplateService;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Locale;
 
 @Service
+@Transactional
 public class AccountServiceImpl implements AccountService {
 
     private final MessageService messageService;
@@ -37,7 +39,6 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    @Transactional
     public Ack register(Locale locale, TeacherRegistrationForm form) {
         // Creates the account
         accountRepository.createAccount(
@@ -55,6 +56,19 @@ public class AccountServiceImpl implements AccountService {
 
         // OK
         return Ack.OK;
+    }
+
+    @Override
+    public Ack completeRegistration(Locale locale, String token) {
+        // User email
+        TokenKey key = tokenService.checkToken(token, TokenType.REGISTRATION);
+        String email = key.getKey();
+        // Gets the user basic data for display
+        TAccount account = accountRepository.findByEmail(email);
+        // Consumes the token
+        tokenService.consumesToken(token, TokenType.REGISTRATION, account.getEmail());
+        // Updates the verified flag
+        return accountRepository.accountVerified(account.getId());
     }
 
     private Message createNewUserMessage(Locale locale, String name, String email) {

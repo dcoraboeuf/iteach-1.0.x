@@ -9,4 +9,6 @@ public interface AccountService {
 
     Ack register(Locale locale, TeacherRegistrationForm form);
 
+    Ack completeRegistration(Locale locale, String token);
+
 }
