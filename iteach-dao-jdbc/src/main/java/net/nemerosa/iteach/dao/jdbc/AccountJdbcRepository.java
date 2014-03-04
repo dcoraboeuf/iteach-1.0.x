@@ -18,7 +18,8 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
     private final RowMapper<TAccount> accountRowMapper = (rs, rowNum) -> new TAccount(
             rs.getInt("id"),
             rs.getString("name"),
-            rs.getString("email")
+            rs.getString("email"),
+            rs.getBoolean("administrator")
     );
 
     @Autowired
@@ -76,5 +77,13 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+    }
+
+    @Override
+    public TAccount getById(int id) {
+        return getNamedParameterJdbcTemplate().queryForObject(
+                SQL.ACCOUNT_SUMMARY_BY_ID,
+                params("id", id),
+                accountRowMapper);
     }
 }

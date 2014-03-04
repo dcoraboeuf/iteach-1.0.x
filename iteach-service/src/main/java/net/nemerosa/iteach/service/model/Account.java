@@ -6,8 +6,8 @@ import lombok.Data;
 public class Account {
 
     private final int id;
-    private final int name;
-    private final int email;
+    private final String name;
+    private final String email;
     private final boolean administrator;
 
 }

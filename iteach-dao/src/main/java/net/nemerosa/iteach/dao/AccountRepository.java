@@ -14,4 +14,5 @@ public interface AccountRepository {
 
     TAccount findUserByUsernameForPasswordMode(String email);
 
+    TAccount getById(int id);
 }

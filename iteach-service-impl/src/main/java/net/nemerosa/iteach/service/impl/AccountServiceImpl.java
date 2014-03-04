@@ -7,6 +7,7 @@ import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.MessageService;
 import net.nemerosa.iteach.service.TemplateService;
 import net.nemerosa.iteach.service.TokenService;
+import net.nemerosa.iteach.service.model.Account;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
 import net.nemerosa.iteach.service.model.TemplateModel;
 import net.sf.jstring.Strings;
@@ -69,6 +70,17 @@ public class AccountServiceImpl implements AccountService {
         tokenService.consumesToken(token, TokenType.REGISTRATION, account.getEmail());
         // Updates the verified flag
         return accountRepository.accountVerified(account.getId());
+    }
+
+    @Override
+    public Account getAccount(int id) {
+        TAccount t = accountRepository.getById(id);
+        return new Account(
+                t.getId(),
+                t.getName(),
+                t.getEmail(),
+                t.isAdministrator()
+        );
     }
 
     private Message createNewUserMessage(Locale locale, String name, String email) {

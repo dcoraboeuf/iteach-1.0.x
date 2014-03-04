@@ -1,11 +1,11 @@
 package net.nemerosa.iteach.ui.model;
 
-import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.ID;
 
 import java.util.Locale;
 
 public interface UIAccountAPI {
 
-    Ack registerAsTeacherWithPassword(Locale locale, UITeacherPasswordForm form);
+    ID registerAsTeacherWithPassword(Locale locale, UITeacherPasswordForm form);
 
 }

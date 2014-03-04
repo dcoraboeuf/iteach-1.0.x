@@ -4,11 +4,18 @@ import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.common.Message;
 import net.nemerosa.iteach.service.AccountService;
+import net.nemerosa.iteach.service.model.Account;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
+import net.nemerosa.iteach.service.security.AccountAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
+import java.util.concurrent.Callable;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -56,5 +63,24 @@ public class ServiceITSupportImpl implements ServiceITSupport {
             }
         }
         return ID.failure();
+    }
+
+    @Override
+    public <T> T asTeacher(int teacherId, Callable<T> call) throws Exception {
+        Account account = accountService.getAccount(teacherId);
+        return asAccount(account, call);
+    }
+
+    private <T> T asAccount(Account account, Callable<T> call) throws Exception {
+        SecurityContext context = new SecurityContextImpl();
+        Authentication authentication = new AccountAuthentication(account);
+        context.setAuthentication(authentication);
+        SecurityContext oldContext = SecurityContextHolder.getContext();
+        try {
+            SecurityContextHolder.setContext(context);
+            return call.call();
+        } finally {
+            SecurityContextHolder.setContext(oldContext);
+        }
     }
 }

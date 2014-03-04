@@ -1,6 +1,6 @@
 package net.nemerosa.iteach.ui;
 
-import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
 import net.nemerosa.iteach.ui.model.UIAccountAPI;
@@ -25,7 +25,7 @@ public class UIAccountAPIController implements UIAccountAPI {
 
     @Override
     @RequestMapping(value = "/register")
-    public Ack registerAsTeacherWithPassword(Locale locale, @RequestBody UITeacherPasswordForm form) {
+    public ID registerAsTeacherWithPassword(Locale locale, @RequestBody UITeacherPasswordForm form) {
         return accountService.register(
                 locale,
                 new TeacherRegistrationForm(
