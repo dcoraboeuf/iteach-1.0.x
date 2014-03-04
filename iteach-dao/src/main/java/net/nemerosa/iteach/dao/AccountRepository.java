@@ -11,4 +11,7 @@ public interface AccountRepository {
     TAccount findByEmail(String email);
 
     Ack accountVerified(int id);
+
+    TAccount findUserByUsernameForPasswordMode(String email);
+
 }

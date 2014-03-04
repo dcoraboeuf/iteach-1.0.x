@@ -5,13 +5,12 @@ import net.nemerosa.iteach.common.AuthenticationMode;
 import net.nemerosa.iteach.dao.AccountRepository;
 import net.nemerosa.iteach.dao.model.TAccount;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 @Component
 public class AccountJdbcRepository extends AbstractJdbcRepository implements AccountRepository {
@@ -64,5 +63,18 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
         return Ack.one(getNamedParameterJdbcTemplate().update(
                 SQL.ACCOUNT_SET_VERIFIED,
                 params("id", id)));
+    }
+
+
+    @Override
+    public TAccount findUserByUsernameForPasswordMode(String email) {
+        try {
+            return getNamedParameterJdbcTemplate().queryForObject(
+                    SQL.ACCOUNT_BY_PASSWORD,
+                    params("identifier", email),
+                    accountRowMapper);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 }
