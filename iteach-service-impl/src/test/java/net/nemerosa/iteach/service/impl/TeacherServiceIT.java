@@ -6,7 +6,6 @@ import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.School;
 import net.nemerosa.iteach.service.model.SchoolForm;
 import org.joda.money.Money;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -60,7 +59,6 @@ public class TeacherServiceIT extends AbstractITTestSupport {
     }
 
     @Test(expected = AccessDeniedException.class)
-    @Ignore
     public void create_school_not_authorized() {
         // Creates a teacher
         ID id1 = serviceITSupport.createTeacherAndCompleteRegistration(uid("T"), String.format("%s@test.com", uid("T")));

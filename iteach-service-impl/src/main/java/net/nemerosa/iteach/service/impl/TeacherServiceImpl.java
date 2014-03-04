@@ -2,6 +2,7 @@ package net.nemerosa.iteach.service.impl;
 
 import net.nemerosa.iteach.dao.SchoolRepository;
 import net.nemerosa.iteach.dao.model.TSchool;
+import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.School;
 import net.nemerosa.iteach.service.model.SchoolForm;
@@ -14,15 +15,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class TeacherServiceImpl implements TeacherService {
 
     private final SchoolRepository schoolRepository;
+    private final SecurityUtils securityUtils;
 
     @Autowired
-    public TeacherServiceImpl(SchoolRepository schoolRepository) {
+    public TeacherServiceImpl(SchoolRepository schoolRepository, SecurityUtils securityUtils) {
         this.schoolRepository = schoolRepository;
+        this.securityUtils = securityUtils;
     }
 
     @Override
     public int createSchool(int teacherId, SchoolForm form) {
-        // FIXME Checks the teacher access
+        // Checks the teacher access
+        securityUtils.checkTeacher(teacherId);
         // Creation
         return schoolRepository.create(
                 teacherId,
@@ -40,7 +44,9 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public School getSchool(int teacherId, int schoolId) {
-        // FIXME Checks the teacher access
+        // Checks the teacher access
+        securityUtils.checkTeacher(teacherId);
+        // Access
         TSchool t = schoolRepository.getById(teacherId, schoolId);
         return new School(
                 t.getId(),
