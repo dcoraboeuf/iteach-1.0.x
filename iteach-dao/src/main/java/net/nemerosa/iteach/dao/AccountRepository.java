@@ -6,7 +6,7 @@ import net.nemerosa.iteach.dao.model.TAccount;
 
 public interface AccountRepository {
 
-    void createAccount(AuthenticationMode mode, String identifier, String email, String name, String encodedPassword);
+    int createAccount(AuthenticationMode mode, String identifier, String email, String name, String encodedPassword);
 
     TAccount findByEmail(String email);
 

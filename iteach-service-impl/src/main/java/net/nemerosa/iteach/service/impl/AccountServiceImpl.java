@@ -39,9 +39,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Ack register(Locale locale, TeacherRegistrationForm form) {
+    public ID register(Locale locale, TeacherRegistrationForm form) {
         // Creates the account
-        accountRepository.createAccount(
+        int id = accountRepository.createAccount(
                 AuthenticationMode.PASSWORD,
                 form.getEmail(),
                 form.getEmail(),
@@ -55,7 +55,7 @@ public class AccountServiceImpl implements AccountService {
         messageService.sendMessage(message, form.getEmail());
 
         // OK
-        return Ack.OK;
+        return ID.success(id);
     }
 
     @Override

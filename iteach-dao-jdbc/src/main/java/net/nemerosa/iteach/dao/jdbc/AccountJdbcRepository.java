@@ -27,7 +27,7 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
     }
 
     @Override
-    public void createAccount(AuthenticationMode mode, String identifier, String email, String name, String encodedPassword) {
+    public int createAccount(AuthenticationMode mode, String identifier, String email, String name, String encodedPassword) {
         // Checks for unicity of identifier
         Integer existingAccountId = getFirstItem(SQL.ACCOUNT_ID_BY_IDENTIFIER, params("identifier", identifier), Integer.class);
         if (existingAccountId != null) {
@@ -46,7 +46,7 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
         params.addValue("identifier", identifier);
         params.addValue("password", encodedPassword);
         // Insert the user
-        getNamedParameterJdbcTemplate().update(SQL.ACCOUNT_CREATE, params);
+        return dbCreate(SQL.ACCOUNT_CREATE, params);
 
     }
 

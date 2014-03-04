@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.service.impl;
 
+import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.it.AbstractITTestSupport;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.test.TestUtils;
@@ -19,7 +20,7 @@ public class TeacherServiceIT extends AbstractITTestSupport {
         String name = TestUtils.uid("T");
         String email = String.format("%s@test.com", name);
         // Creates a teacher
-        serviceITSupport.createTeacherAndCompleteRegistration(name, email);
+        ID id = serviceITSupport.createTeacherAndCompleteRegistration(name, email);
         // TODO Creates a school for this teacher
     }
 

@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.service.impl;
 
 import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.dao.AccountRepository;
 import net.nemerosa.iteach.dao.model.TAccount;
 import net.nemerosa.iteach.it.AbstractITTestSupport;
@@ -22,12 +23,12 @@ public class AccountServiceIT extends AbstractITTestSupport {
     public void register() {
         String name = TestUtils.uid("T");
         String email = String.format("%s@test.com", name);
-        Ack ack = serviceITSupport.createTeacher(name, email);
-        assertTrue(ack.isSuccess());
+        ID id = serviceITSupport.createTeacher(name, email);
+        assertTrue(id.isSuccess());
         // Checks we CANNOT authenticate with the account yet
         assertNull("A non verified account cannot be authenticated", accountRepository.findUserByUsernameForPasswordMode(name));
         // Completes the registration
-        ack = serviceITSupport.completeRegistration(email);
+        Ack ack = serviceITSupport.completeRegistration(email);
         assertTrue("Account registration cannot be completed", ack.isSuccess());
         // Checks we can authenticate with the new account
         TAccount account = accountRepository.findUserByUsernameForPasswordMode(email);

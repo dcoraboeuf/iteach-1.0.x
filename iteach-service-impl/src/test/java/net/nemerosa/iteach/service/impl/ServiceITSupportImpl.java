@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.service.impl;
 
 import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.common.Message;
 import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
@@ -24,7 +25,7 @@ public class ServiceITSupportImpl implements ServiceITSupport {
     }
 
     @Override
-    public Ack createTeacher(String name, String email) {
+    public ID createTeacher(String name, String email) {
         return accountService.register(
                 Locale.ENGLISH,
                 new TeacherRegistrationForm(
@@ -46,10 +47,14 @@ public class ServiceITSupportImpl implements ServiceITSupport {
     }
 
     @Override
-    public Ack createTeacherAndCompleteRegistration(String name, String email) {
-        return Ack.validate(
-                createTeacher(name, email).isSuccess()
-                && completeRegistration(email).isSuccess()
-        );
+    public ID createTeacherAndCompleteRegistration(String name, String email) {
+        ID id = createTeacher(name, email);
+        if (id.isSuccess()) {
+            Ack ack = completeRegistration(email);
+            if (ack.isSuccess()) {
+                return id;
+            }
+        }
+        return ID.failure();
     }
 }
