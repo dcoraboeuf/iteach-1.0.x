@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.util.stream.Stream;
 
 @Component
 public class AccountJdbcRepository extends AbstractJdbcRepository implements AccountRepository {
@@ -85,5 +86,13 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
                 SQL.ACCOUNT_SUMMARY_BY_ID,
                 params("id", id),
                 accountRowMapper);
+    }
+
+    @Override
+    public Stream<TAccount> findAll() {
+        return getJdbcTemplate().query(
+                SQL.ACCOUNT_ALL,
+                accountRowMapper
+        ).stream();
     }
 }

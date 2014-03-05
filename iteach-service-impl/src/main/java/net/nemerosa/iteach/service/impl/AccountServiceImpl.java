@@ -3,10 +3,7 @@ package net.nemerosa.iteach.service.impl;
 import net.nemerosa.iteach.common.*;
 import net.nemerosa.iteach.dao.AccountRepository;
 import net.nemerosa.iteach.dao.model.TAccount;
-import net.nemerosa.iteach.service.AccountService;
-import net.nemerosa.iteach.service.MessageService;
-import net.nemerosa.iteach.service.TemplateService;
-import net.nemerosa.iteach.service.TokenService;
+import net.nemerosa.iteach.service.*;
 import net.nemerosa.iteach.service.model.Account;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
 import net.nemerosa.iteach.service.model.TemplateModel;
@@ -17,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Locale;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -28,15 +27,24 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
     private final Strings strings;
+    private final SecurityUtils securityUtils;
+    private final Function<? super TAccount, ? extends Account> accountMapper = t ->
+            new Account(
+                    t.getId(),
+                    t.getName(),
+                    t.getEmail(),
+                    t.isAdministrator()
+            );
 
     @Autowired
-    public AccountServiceImpl(MessageService messageService, TokenService tokenService, TemplateService templateService, AccountRepository accountRepository, PasswordEncoder passwordEncoder, Strings strings) {
+    public AccountServiceImpl(MessageService messageService, TokenService tokenService, TemplateService templateService, AccountRepository accountRepository, PasswordEncoder passwordEncoder, Strings strings, SecurityUtils securityUtils) {
         this.messageService = messageService;
         this.tokenService = tokenService;
         this.templateService = templateService;
         this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
         this.strings = strings;
+        this.securityUtils = securityUtils;
     }
 
     @Override
@@ -74,12 +82,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account getAccount(int id) {
-        TAccount t = accountRepository.getById(id);
-        return new Account(
-                t.getId(),
-                t.getName(),
-                t.getEmail(),
-                t.isAdministrator()
+        return accountMapper.apply(accountRepository.getById(id));
+    }
+
+    @Override
+    public Stream<Account> getAccounts() {
+        securityUtils.checkAdmin();
+        return accountRepository.findAll().parallel().map(
+                accountMapper
         );
     }
 

@@ -1,12 +1,16 @@
 package net.nemerosa.iteach.ui.client.support;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.ParseException;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.ContentType;
@@ -19,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 
 import static java.lang.String.format;
@@ -39,6 +44,29 @@ public abstract class AbstractClient {
 
     protected String getUrl(String path, Object... parameters) {
         return format("%s%s", url, format(path, parameters));
+    }
+
+    protected <T> T get(Locale locale, Class<T> returnType, String path, Object... parameters) {
+        return request(locale, new HttpGet(getUrl(path, parameters)), returnType);
+    }
+
+    protected <T> List<T> list(Locale locale, final Class<T> elementType, String path, Object... parameters) {
+        return request(locale, new HttpGet(getUrl(path, parameters)), content -> {
+            JsonNode node = mapper.readTree(content);
+            if (node.isArray()) {
+                return Lists.newArrayList(
+                        Iterables.transform(node, input -> {
+                            try {
+                                return mapper.treeToValue(input, elementType);
+                            } catch (IOException e) {
+                                throw new ClientGeneralException(path, e);
+                            }
+                        })
+                );
+            } else {
+                throw new IOException("Did not receive a JSON array");
+            }
+        });
     }
 
     protected <T> T post(Locale locale, Class<T> returnType, Object body, String path, Object... parameters) {

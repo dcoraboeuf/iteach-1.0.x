@@ -4,6 +4,8 @@ import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.AuthenticationMode;
 import net.nemerosa.iteach.dao.model.TAccount;
 
+import java.util.stream.Stream;
+
 public interface AccountRepository {
 
     int createAccount(AuthenticationMode mode, String identifier, String email, String name, String encodedPassword);
@@ -15,4 +17,6 @@ public interface AccountRepository {
     TAccount findUserByUsernameForPasswordMode(String email);
 
     TAccount getById(int id);
+
+    Stream<TAccount> findAll();
 }

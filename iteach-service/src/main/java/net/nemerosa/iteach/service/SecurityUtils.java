@@ -4,4 +4,5 @@ public interface SecurityUtils {
 
     void checkTeacher(int teacherId);
 
+    void checkAdmin();
 }
