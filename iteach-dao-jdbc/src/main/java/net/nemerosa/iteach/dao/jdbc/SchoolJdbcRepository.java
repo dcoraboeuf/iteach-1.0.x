@@ -10,11 +10,24 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
 
 @Component
 public class SchoolJdbcRepository extends AbstractJdbcRepository implements SchoolRepository {
+
+    private RowMapper<TSchool> schoolRowMapper = (rs, rowNum) -> new TSchool(
+            rs.getInt("id"),
+            rs.getInt("teacherId"),
+            rs.getString("name"),
+            rs.getString("colour"),
+            rs.getString("contact"),
+            SQLUtils.toMoney(rs, "hourlyRate"),
+            rs.getString("postalAddress"),
+            rs.getString("phone"),
+            rs.getString("mobilePhone"),
+            rs.getString("email"),
+            rs.getString("webSite")
+    );
 
     @Autowired
     public SchoolJdbcRepository(DataSource dataSource) {
@@ -47,24 +60,16 @@ public class SchoolJdbcRepository extends AbstractJdbcRepository implements Scho
         return getNamedParameterJdbcTemplate().queryForObject(
                 SQL.SCHOOL_BY_ID,
                 params("teacherId", teacherId).addValue("schoolId", schoolId),
-                new RowMapper<TSchool>() {
-                    @Override
-                    public TSchool mapRow(ResultSet rs, int rowNum) throws SQLException {
-                        return new TSchool(
-                                rs.getInt("id"),
-                                rs.getInt("teacherId"),
-                                rs.getString("name"),
-                                rs.getString("colour"),
-                                rs.getString("contact"),
-                                SQLUtils.toMoney(rs, "hourlyRate"),
-                                rs.getString("postalAddress"),
-                                rs.getString("phone"),
-                                rs.getString("mobilePhone"),
-                                rs.getString("email"),
-                                rs.getString("webSite")
-                        );
-                    }
-                }
+                schoolRowMapper
+        );
+    }
+
+    @Override
+    public List<TSchool> findAll(int teacherId) {
+        return getNamedParameterJdbcTemplate().query(
+                SQL.SCHOOL_ALL,
+                params("teacherId", teacherId),
+                schoolRowMapper
         );
     }
 }

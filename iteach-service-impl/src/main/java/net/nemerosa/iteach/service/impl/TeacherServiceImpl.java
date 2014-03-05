@@ -10,17 +10,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 public class TeacherServiceImpl implements TeacherService {
 
     private final SchoolRepository schoolRepository;
     private final SecurityUtils securityUtils;
+    private final Function<? super TSchool, ? extends School> schoolFn = t -> new School(
+            t.getId(),
+            t.getTeacherId(),
+            t.getName(),
+            t.getColour(),
+            t.getContact(),
+            t.getHourlyRate(),
+            t.getPostalAddress(),
+            t.getPhone(),
+            t.getMobilePhone(),
+            t.getEmail(),
+            t.getWebSite()
+    );
 
     @Autowired
     public TeacherServiceImpl(SchoolRepository schoolRepository, SecurityUtils securityUtils) {
         this.schoolRepository = schoolRepository;
         this.securityUtils = securityUtils;
+    }
+
+    @Override
+    public List<School> getSchools(int teacherId) {
+        // Checks the teacher access
+        securityUtils.checkTeacher(teacherId);
+        // Lists
+        return schoolRepository.findAll(teacherId).parallelStream().map(schoolFn).collect(Collectors.toList());
     }
 
     @Override
@@ -47,20 +72,7 @@ public class TeacherServiceImpl implements TeacherService {
         // Checks the teacher access
         securityUtils.checkTeacher(teacherId);
         // Access
-        TSchool t = schoolRepository.getById(teacherId, schoolId);
-        return new School(
-                t.getId(),
-                t.getTeacherId(),
-                t.getName(),
-                t.getColour(),
-                t.getContact(),
-                t.getHourlyRate(),
-                t.getPostalAddress(),
-                t.getPhone(),
-                t.getMobilePhone(),
-                t.getEmail(),
-                t.getWebSite()
-        );
+        return schoolFn.apply(schoolRepository.getById(teacherId, schoolId));
     }
 
 }
