@@ -78,7 +78,7 @@
         </profile>
 
         <profile>
-            <!-- Runs the acceptance server by launching a local Jetty server
+            <!-- Runs the acceptance server by launching a local Tomcat server
             using the iteach-ui WAR downloaded as a dependency. The version of the WAR
             to launch defaults to this project's version. This version can be overridden
             by the <code>iteach.version</code> system property.
@@ -97,10 +97,10 @@
                         <artifactId>maven-dependency-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>acceptance-jetty-war</id>
+                                <id>acceptance-war</id>
                                 <phase>pre-integration-test</phase>
                                 <goals>
-                                    <goal>copy</goal>
+                                    <goal>unpack</goal>
                                 </goals>
                                 <configuration>
                                     <artifactItems>
@@ -111,54 +111,42 @@
                                             <type>war</type>
                                         </artifactItem>
                                     </artifactItems>
+                                    <outputDirectory>${project.build.directory}/iteach-war</outputDirectory>
+                                    <overWriteReleases>true</overWriteReleases>
+                                    <overWriteSnapshots>true</overWriteSnapshots>
                                 </configuration>
                             </execution>
                         </executions>
                     </plugin>
                     <!-- Starting and stopping the web application -->
                     <plugin>
-                        <groupId>org.eclipse.jetty</groupId>
-                        <artifactId>jetty-maven-plugin</artifactId>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>acceptance-jetty-start</id>
+                                <id>acceptance-tomcat-start</id>
                                 <phase>pre-integration-test</phase>
                                 <goals>
-                                    <goal>run-war</goal>
+                                    <goal>run-war-only</goal>
                                 </goals>
                                 <configuration>
-                                    <war>${basedir}/target/dependency/iteach-ui-${iteach.version}.war</war>
-                                    <webApp>
-                                        <contextPath>/iteach</contextPath>
-                                        <jettyEnvXml>
-                                            ${project.basedir}/src/test/resources/jetty/jetty-env-acceptance.xml
-                                        </jettyEnvXml>
-                                    </webApp>
-                                    <stopPort>9966</stopPort>
-                                    <stopKey>foo</stopKey>
-                                    <daemon>true</daemon>
+                                    <port>${iteach.local.port}</port>
+                                    <path>/iteach</path>
+                                    <contextFile>${project.basedir}/src/test/resources/tomcat/context-acceptance.xml</contextFile>
+                                    <fork>true</fork>
+                                    <ignorePackaging>true</ignorePackaging>
+                                    <warDirectory>${project.build.directory}/iteach-war</warDirectory>
                                     <systemProperties>
-                                        <systemProperty>
-                                            <name>spring.profiles.active</name>
-                                            <value>acceptance</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <name>jetty.port</name>
-                                            <value>${iteach.local.port}</value>
-                                        </systemProperty>
+                                        <spring.profiles.active>acceptance</spring.profiles.active>
                                     </systemProperties>
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>acceptance-jetty-stop</id>
+                                <id>acceptance-tomcat-stop</id>
                                 <phase>post-integration-test</phase>
                                 <goals>
-                                    <goal>stop</goal>
+                                    <goal>shutdown</goal>
                                 </goals>
-                                <configuration>
-                                    <stopPort>9966</stopPort>
-                                    <stopKey>foo</stopKey>
-                                </configuration>
                             </execution>
                         </executions>
                         <dependencies>
