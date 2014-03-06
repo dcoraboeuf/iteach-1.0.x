@@ -20,10 +20,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // Default
         http.antMatcher("/api/**")
                 .httpBasic().realmName("iteach").and()
                 .authorizeRequests().anyRequest().permitAll()
         ;
+        // Registration (no CSRF)
+        http.antMatcher("/api/account/register")
+                .csrf().disable();
     }
 
     @Override
