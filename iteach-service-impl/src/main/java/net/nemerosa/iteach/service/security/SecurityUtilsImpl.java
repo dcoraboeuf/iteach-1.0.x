@@ -1,7 +1,6 @@
 package net.nemerosa.iteach.service.security;
 
 import net.nemerosa.iteach.service.SecurityUtils;
-import net.nemerosa.iteach.service.model.Account;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,20 +17,20 @@ public class SecurityUtilsImpl implements SecurityUtils {
         checkAccount(account -> account != null && (account.isAdministrator() || account.getId() == teacherId));
     }
 
-    protected void checkAccount(Predicate<Account> check) {
+    protected void checkAccount(Predicate<AccountAuthentication> check) {
         boolean ok = withAccount(check::test);
         if (!ok) {
             throw new AccessDeniedException("Not authorized");
         }
     }
 
-    protected <T> T withAccount(Function<Account, T> fn) {
+    protected <T> T withAccount(Function<AccountAuthentication, T> fn) {
         // Gets the current authentication context if any
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             Object details = authentication.getDetails();
-            if (details instanceof Account) {
-                Account account = (Account) details;
+            if (details instanceof AccountAuthentication) {
+                AccountAuthentication account = (AccountAuthentication) details;
                 return fn.apply(account);
             }
         }

@@ -19,4 +19,6 @@ public interface AccountRepository {
     TAccount getById(int id);
 
     Stream<TAccount> findAll();
+
+    boolean checkPassword(String username, String encodedPassword);
 }

@@ -6,7 +6,7 @@ import net.nemerosa.iteach.common.Message;
 import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.model.Account;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
-import net.nemerosa.iteach.service.security.AccountAuthentication;
+import net.nemerosa.iteach.service.security.AccountAuthenticationDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -73,7 +73,13 @@ public class ServiceITSupportImpl implements ServiceITSupport {
 
     private <T> T asAccount(Account account, Callable<T> call) throws Exception {
         SecurityContext context = new SecurityContextImpl();
-        Authentication authentication = new AccountAuthentication(account);
+        Authentication authentication = new AccountAuthenticationToken(
+                new AccountAuthenticationDetails(
+                        account.getId(),
+                        account.isAdministrator(),
+                        account.getEmail()
+                )
+        );
         context.setAuthentication(authentication);
         SecurityContext oldContext = SecurityContextHolder.getContext();
         try {

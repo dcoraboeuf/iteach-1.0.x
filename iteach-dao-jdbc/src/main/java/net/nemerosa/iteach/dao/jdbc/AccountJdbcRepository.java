@@ -95,4 +95,13 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
                 accountRowMapper
         ).stream();
     }
+
+    @Override
+    public boolean checkPassword(String username, String encodedPassword) {
+        return getFirstItem(
+                SQL.ACCOUNT_PASSWORD_CHECK,
+                params("username", username).addValue("encodedPassword", encodedPassword),
+                Integer.class
+        ) != null;
+    }
 }
