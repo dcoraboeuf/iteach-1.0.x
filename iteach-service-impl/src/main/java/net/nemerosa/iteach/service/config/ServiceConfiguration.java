@@ -22,4 +22,15 @@ public class ServiceConfiguration {
         return StringsLoader.auto(Locale.ENGLISH, Locale.FRENCH, Locale.GERMAN);
     }
 
+    public static void main(String[] args) {
+        StandardPasswordEncoder encoder = new StandardPasswordEncoder();
+        for (String arg : args) {
+            System.out.format(
+                    "%s ---> %s",
+                    arg,
+                    encoder.encode(arg)
+            );
+        }
+    }
+
 }
