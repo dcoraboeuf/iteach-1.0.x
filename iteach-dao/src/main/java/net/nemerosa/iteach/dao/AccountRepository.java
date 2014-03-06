@@ -4,6 +4,7 @@ import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.AuthenticationMode;
 import net.nemerosa.iteach.dao.model.TAccount;
 
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public interface AccountRepository {
@@ -20,5 +21,6 @@ public interface AccountRepository {
 
     Stream<TAccount> findAll();
 
-    boolean checkPassword(String username, String encodedPassword);
+    boolean checkPassword(int id, Predicate<String> check);
+
 }

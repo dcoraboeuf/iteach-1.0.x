@@ -4,8 +4,8 @@ import net.sf.jstring.Strings;
 import net.sf.jstring.support.StringsLoader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import java.util.Locale;
 
@@ -14,7 +14,7 @@ public class ServiceConfiguration {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new StandardPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -23,7 +23,7 @@ public class ServiceConfiguration {
     }
 
     public static void main(String[] args) {
-        StandardPasswordEncoder encoder = new StandardPasswordEncoder();
+        PasswordEncoder encoder = new ServiceConfiguration().passwordEncoder();
         for (String arg : args) {
             System.out.format(
                     "%s ---> %s",

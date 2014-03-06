@@ -29,12 +29,12 @@ public class AccountAuthenticationToken implements Authentication {
 
     @Override
     public Object getDetails() {
-        return account;
+        return null;
     }
 
     @Override
     public Object getPrincipal() {
-        return account.getEmail();
+        return account;
     }
 
     @Override

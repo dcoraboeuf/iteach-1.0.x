@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 
 @Configuration
 @Profile(RunProfile.TEST)
@@ -17,7 +18,7 @@ public class ITConfiguration {
     private static final Logger log = LoggerFactory.getLogger(ITConfiguration.class);
 
     @Bean
-    public DataSource dataSource() {
+    public DataSource dataSource() throws IOException {
         String dbURL = "jdbc:h2:target/db";
         log.info("Using database at {}", dbURL);
         BasicDataSource ds = new BasicDataSource();

@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 @Component
@@ -97,11 +98,12 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
     }
 
     @Override
-    public boolean checkPassword(String username, String encodedPassword) {
-        return getFirstItem(
-                SQL.ACCOUNT_PASSWORD_CHECK,
-                params("username", username).addValue("encodedPassword", encodedPassword),
-                Integer.class
-        ) != null;
+    public boolean checkPassword(int id, Predicate<String> check) {
+        String encodedPassword = getFirstItem(
+                SQL.ACCOUNT_PASSWORD,
+                params("id", id),
+                String.class
+        );
+        return encodedPassword != null && check.test(encodedPassword);
     }
 }

@@ -28,9 +28,9 @@ public class SecurityUtilsImpl implements SecurityUtils {
         // Gets the current authentication context if any
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
-            Object details = authentication.getDetails();
-            if (details instanceof AccountAuthentication) {
-                AccountAuthentication account = (AccountAuthentication) details;
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof AccountAuthentication) {
+                AccountAuthentication account = (AccountAuthentication) principal;
                 return fn.apply(account);
             }
         }

@@ -17,10 +17,6 @@ public class LogMessagePost implements MessagePost {
 
     private final Logger logger = LoggerFactory.getLogger(LogMessagePost.class);
 
-    public LogMessagePost() {
-        System.out.println("Log message post");
-    }
-
     @Override
     public void post(Message message, String email) {
         logger.info(

@@ -17,22 +17,25 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @Qualifier("password")
 @Transactional
-public class PasswordAuthenticationManager extends AbstractUserDetailsAuthenticationProvider {
+public class PasswordAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public PasswordAuthenticationManager(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
+    public PasswordAuthenticationProvider(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
         this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
-        String encodedPassword = passwordEncoder.encode((String) authentication.getCredentials());
-        boolean passwordOk = accountRepository.checkPassword(userDetails.getUsername(), encodedPassword);
-        if (!passwordOk) {
+        String rawPassword = (String) authentication.getCredentials();
+        boolean ok = accountRepository.checkPassword(
+                ((AccountAuthentication) userDetails).getId(),
+                encodedPassword -> passwordEncoder.matches(rawPassword, encodedPassword)
+        );
+        if (!ok) {
             throw new BadCredentialsException("Incorrect password");
         }
     }
