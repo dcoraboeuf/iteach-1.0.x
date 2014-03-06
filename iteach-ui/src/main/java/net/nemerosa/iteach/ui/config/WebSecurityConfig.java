@@ -15,10 +15,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    /**
+     * By default, all queries are accessible anonymously. Security is enforced at service level.
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/api/**")
-                .httpBasic().realmName("iteach")
+                .httpBasic().realmName("iteach").and()
+                .authorizeRequests().anyRequest().permitAll()
         ;
     }
 
