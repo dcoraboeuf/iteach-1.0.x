@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 @Component
@@ -14,28 +15,37 @@ public class SecurityUtilsImpl implements SecurityUtils {
 
     @Override
     public void checkTeacher(int teacherId) {
-        checkAccount(account -> account.isAdministrator() || account.getId() == teacherId);
+        checkAccount(account -> account != null && (account.isAdministrator() || account.getId() == teacherId));
     }
 
     protected void checkAccount(Predicate<Account> check) {
+        boolean ok = withAccount(check::test);
+        if (!ok) {
+            throw new AccessDeniedException("Not authorized");
+        }
+    }
+
+    protected <T> T withAccount(Function<Account, T> fn) {
         // Gets the current authentication context if any
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             Object details = authentication.getDetails();
             if (details instanceof Account) {
                 Account account = (Account) details;
-                if (check.test(account)) {
-                    // OK
-                    return;
-                }
+                return fn.apply(account);
             }
         }
-        throw new AccessDeniedException("Not authorized");
+        return fn.apply(null);
     }
 
     @Override
     public void checkAdmin() {
-        checkAccount(Account::isAdministrator);
+        checkAccount(account -> account != null && account.isAdministrator());
+    }
+
+    @Override
+    public String getCurrentAccountName() {
+        return withAccount(account -> account != null ? account.getEmail() : null);
     }
 
 }

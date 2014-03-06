@@ -2,6 +2,7 @@ package net.nemerosa.iteach.ui.support;
 
 import net.nemerosa.iteach.common.InputException;
 import net.nemerosa.iteach.common.NotFoundException;
+import net.nemerosa.iteach.service.SecurityUtils;
 import net.sf.jstring.Strings;
 import net.sf.jstring.support.CoreException;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -23,10 +25,12 @@ public class UIErrorHandler {
 
     private final Logger logger = LoggerFactory.getLogger(UIErrorHandler.class);
 
+    private final SecurityUtils securityUtils;
     private final Strings strings;
 
     @Autowired
-    public UIErrorHandler(Strings strings) {
+    public UIErrorHandler(SecurityUtils securityUtils, Strings strings) {
+        this.securityUtils = securityUtils;
         this.strings = strings;
     }
 
@@ -52,13 +56,13 @@ public class UIErrorHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> onException(Locale locale, Exception ex) throws Exception {
+    public ResponseEntity<String> onException(Locale locale, HttpServletRequest request, Exception ex) throws Exception {
         // Ignores access errors
         if (ex instanceof AccessDeniedException) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         // Error message
-        ErrorMessage error = handleError(locale, ex);
+        ErrorMessage error = handleError(locale, request, ex);
         // Returns a message to display to the user
         String message = strings.get(locale, "general.error.full", error.getMessage(), error.getUuid());
         // Ok
@@ -73,7 +77,7 @@ public class UIErrorHandler {
         return new ResponseEntity<>(message, responseHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    protected ErrorMessage handleError(Locale locale, Exception ex) {
+    protected ErrorMessage handleError(Locale locale, HttpServletRequest request, Exception ex) {
         // Generates a UUID
         String uuid = UUID.randomUUID().toString();
         // Error message
@@ -96,9 +100,17 @@ public class UIErrorHandler {
             }
         }
         // Traces the error
-        // TODO Adds request information
-        // TODO Adds authentication information
-        String formattedLoggedMessage = String.format("[%s] %s", uuid, loggedMessage);
+        // Adds request information
+        String pathInfo = request.getPathInfo();
+        // Adds authentication information
+        String securityInfo = securityUtils.getCurrentAccountName();
+        // Message to display in the log
+        String formattedLoggedMessage = String.format("[%s] user=%s,path=%s - %s",
+                uuid,
+                securityInfo,
+                pathInfo,
+                loggedMessage
+        );
         if (stackTrace) {
             logger.error(formattedLoggedMessage, ex);
         } else {
