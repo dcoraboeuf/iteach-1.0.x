@@ -15,8 +15,8 @@
 
     <properties>
         <iteach.version>${project.version}</iteach.version>
-        <iteach.url>http://localhost:9999/iteach</iteach.url>
         <iteach.local.port>9999</iteach.local.port>
+        <iteach.url>http://localhost:${iteach.local.port}/iteach</iteach.url>
     </properties>
 
     <dependencies>
@@ -86,9 +86,6 @@
             by the <code>iteach.local.port</code> system property
             -->
             <id>acceptance-local</id>
-            <properties>
-                <ood.url>http://localhost:${iteach.local.port}/iteach</ood.url>
-            </properties>
             <build>
                 <plugins>
                     <!-- Getting the WAR to deploy -->
@@ -138,6 +135,7 @@
                                     <warDirectory>${project.build.directory}/iteach-war</warDirectory>
                                     <systemProperties>
                                         <spring.profiles.active>acceptance</spring.profiles.active>
+                                        <iteach.url>${iteach.url}</iteach.url>
                                     </systemProperties>
                                 </configuration>
                             </execution>
