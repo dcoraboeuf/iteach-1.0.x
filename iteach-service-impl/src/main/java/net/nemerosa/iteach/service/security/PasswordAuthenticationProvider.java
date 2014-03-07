@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.service.security;
 
+import net.nemerosa.iteach.common.AccountAuthentication;
 import net.nemerosa.iteach.dao.AccountRepository;
 import net.nemerosa.iteach.dao.model.TAccount;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +47,10 @@ public class PasswordAuthenticationProvider extends AbstractUserDetailsAuthentic
         if (t != null) {
             return new AccountAuthenticationDetails(
                     t.getId(),
+                    t.getName(),
+                    t.getEmail(),
                     t.isAdministrator(),
-                    t.getEmail()
-            );
+                    t.getAuthenticationMode());
         } else {
             throw new UsernameNotFoundException(String.format("User %s cannot be found", username));
         }

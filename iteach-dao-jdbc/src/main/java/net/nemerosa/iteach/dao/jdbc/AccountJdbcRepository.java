@@ -21,7 +21,8 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
             rs.getInt("id"),
             rs.getString("name"),
             rs.getString("email"),
-            rs.getBoolean("administrator")
+            rs.getBoolean("administrator"),
+            SQLUtils.getEnum(AuthenticationMode.class, rs, "mode")
     );
 
     @Autowired

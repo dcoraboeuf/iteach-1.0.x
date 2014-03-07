@@ -3,6 +3,7 @@ package net.nemerosa.iteach.ui.client.support;
 import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.ui.client.UIAccountAPIClient;
 import net.nemerosa.iteach.ui.model.UIAccount;
+import net.nemerosa.iteach.ui.model.UITeacher;
 import net.nemerosa.iteach.ui.model.UITeacherPasswordForm;
 
 import java.util.List;
@@ -12,6 +13,11 @@ public class UIAccountAPIClientImpl extends AbstractClient implements UIAccountA
 
     public UIAccountAPIClientImpl(String url) {
         super(url);
+    }
+
+    @Override
+    public UITeacher login(Locale locale) {
+        return get(locale, UITeacher.class, "/api/account/login");
     }
 
     @Override

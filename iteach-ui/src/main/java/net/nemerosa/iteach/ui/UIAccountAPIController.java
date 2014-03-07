@@ -1,12 +1,16 @@
 package net.nemerosa.iteach.ui;
 
+import net.nemerosa.iteach.common.AccountAuthentication;
 import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.service.AccountService;
+import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
 import net.nemerosa.iteach.ui.model.UIAccount;
 import net.nemerosa.iteach.ui.model.UIAccountAPI;
+import net.nemerosa.iteach.ui.model.UITeacher;
 import net.nemerosa.iteach.ui.model.UITeacherPasswordForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,10 +25,27 @@ import java.util.stream.Collectors;
 public class UIAccountAPIController implements UIAccountAPI {
 
     private final AccountService accountService;
+    private final SecurityUtils securityUtils;
 
     @Autowired
-    public UIAccountAPIController(AccountService accountService) {
+    public UIAccountAPIController(AccountService accountService, SecurityUtils securityUtils) {
         this.accountService = accountService;
+        this.securityUtils = securityUtils;
+    }
+
+    @Override
+    public UITeacher login(Locale locale) {
+        AccountAuthentication authentication = securityUtils.getCurrentAccount();
+        if (authentication == null) {
+            throw new AccessDeniedException("No authentication");
+        }
+        return new UITeacher(
+                authentication.getId(),
+                authentication.getName(),
+                authentication.getEmail(),
+                authentication.isAdministrator(),
+                authentication.getAuthenticationMode()
+        );
     }
 
     @Override

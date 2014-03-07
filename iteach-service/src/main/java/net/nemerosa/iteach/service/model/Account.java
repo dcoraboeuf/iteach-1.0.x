@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.service.model;
 
 import lombok.Data;
+import net.nemerosa.iteach.common.AuthenticationMode;
 
 @Data
 public class Account {
@@ -9,5 +10,6 @@ public class Account {
     private final String name;
     private final String email;
     private final boolean administrator;
+    private final AuthenticationMode authenticationMode;
 
 }

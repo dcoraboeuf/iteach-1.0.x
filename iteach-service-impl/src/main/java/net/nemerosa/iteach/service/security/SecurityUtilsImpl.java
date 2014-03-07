@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.service.security;
 
+import net.nemerosa.iteach.common.AccountAuthentication;
 import net.nemerosa.iteach.service.SecurityUtils;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
@@ -32,6 +33,11 @@ public class SecurityUtilsImpl implements SecurityUtils {
     @Override
     public String getCurrentAccountName() {
         return withAccount(account -> account != null ? account.getEmail() : null);
+    }
+
+    @Override
+    public AccountAuthentication getCurrentAccount() {
+        return withAccount(Function.identity());
     }
 
     protected <T> T withAccount(Function<AccountAuthentication, T> fn) {

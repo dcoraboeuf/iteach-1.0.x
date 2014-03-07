@@ -1,5 +1,7 @@
 package net.nemerosa.iteach.service.security;
 
+import net.nemerosa.iteach.common.AccountAuthentication;
+import net.nemerosa.iteach.common.AuthenticationMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,13 +11,17 @@ import java.util.Collections;
 public class AccountAuthenticationDetails implements UserDetails, AccountAuthentication {
 
     private final int id;
-    private final boolean administrator;
+    private final String name;
     private final String email;
+    private final boolean administrator;
+    private final AuthenticationMode authenticationMode;
 
-    public AccountAuthenticationDetails(int id, boolean administrator, String email) {
+    public AccountAuthenticationDetails(int id, String name, String email, boolean administrator, AuthenticationMode authenticationMode) {
         this.id = id;
+        this.name = name;
         this.administrator = administrator;
         this.email = email;
+        this.authenticationMode = authenticationMode;
     }
 
     @Override
@@ -31,6 +37,16 @@ public class AccountAuthenticationDetails implements UserDetails, AccountAuthent
     @Override
     public String getEmail() {
         return email;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public AuthenticationMode getAuthenticationMode() {
+        return authenticationMode;
     }
 
     @Override

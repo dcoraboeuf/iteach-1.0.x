@@ -1,6 +1,6 @@
 package net.nemerosa.iteach.service.impl;
 
-import net.nemerosa.iteach.service.security.AccountAuthentication;
+import net.nemerosa.iteach.common.AccountAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

@@ -7,6 +7,8 @@ import java.util.Locale;
 
 public interface UIAccountAPI {
 
+    UITeacher login(Locale locale);
+
     List<UIAccount> getAccounts(Locale locale);
 
     ID registerAsTeacherWithPassword(Locale locale, UITeacherPasswordForm form);

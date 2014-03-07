@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.service.security;
 
+import net.nemerosa.iteach.common.AccountAuthentication;
 import net.nemerosa.iteach.it.AbstractITTestSupport;
 import net.nemerosa.iteach.service.impl.ServiceITSupport;
 import org.junit.Test;

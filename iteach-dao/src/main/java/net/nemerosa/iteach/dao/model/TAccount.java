@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.dao.model;
 
 import lombok.Data;
+import net.nemerosa.iteach.common.AuthenticationMode;
 
 @Data
 public class TAccount {
@@ -9,6 +10,6 @@ public class TAccount {
     private final String name;
     private final String email;
     private final boolean administrator;
-    // TODO All other account fields but the password
+    private final AuthenticationMode authenticationMode;
 
 }

@@ -77,9 +77,10 @@ public class ServiceITSupportImpl implements ServiceITSupport {
         Authentication authentication = new AccountAuthenticationToken(
                 new AccountAuthenticationDetails(
                         account.getId(),
+                        account.getName(),
+                        account.getEmail(),
                         account.isAdministrator(),
-                        account.getEmail()
-                )
+                        account.getAuthenticationMode())
         );
         context.setAuthentication(authentication);
         SecurityContext oldContext = SecurityContextHolder.getContext();

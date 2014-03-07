@@ -35,7 +35,8 @@ public class AccountServiceImpl implements AccountService {
                     t.getId(),
                     t.getName(),
                     t.getEmail(),
-                    t.isAdministrator()
+                    t.isAdministrator(),
+                    t.getAuthenticationMode()
             );
 
     @Autowired
