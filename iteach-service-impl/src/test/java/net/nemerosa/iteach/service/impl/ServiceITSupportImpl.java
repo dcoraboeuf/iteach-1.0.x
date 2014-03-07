@@ -7,6 +7,7 @@ import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.model.Account;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
 import net.nemerosa.iteach.service.security.AccountAuthenticationDetails;
+import net.nemerosa.iteach.service.support.InMemoryPost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;

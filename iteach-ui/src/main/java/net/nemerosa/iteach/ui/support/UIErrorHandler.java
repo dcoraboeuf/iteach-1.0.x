@@ -57,10 +57,6 @@ public class UIErrorHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> onException(Locale locale, HttpServletRequest request, Exception ex) throws Exception {
-        // Ignores access errors
-        if (ex instanceof AccessDeniedException) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
         // Error message
         ErrorMessage error = handleError(locale, request, ex);
         // Returns a message to display to the user
