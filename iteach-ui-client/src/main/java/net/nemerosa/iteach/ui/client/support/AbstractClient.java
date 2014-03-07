@@ -4,18 +4,23 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.json.ObjectMapperFactory;
+import net.nemerosa.iteach.ui.client.UIClient;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.ParseException;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -29,18 +34,53 @@ import java.util.Locale;
 
 import static java.lang.String.format;
 
-public abstract class AbstractClient {
+public abstract class AbstractClient implements UIClient {
 
     private final Logger logger = LoggerFactory.getLogger(AbstractClient.class);
     private final ObjectMapper mapper = ObjectMapperFactory.create();
     private final String url;
-    private final CloseableHttpClient httpClient;
 
     public AbstractClient(String url) {
         this.url = url;
-        this.httpClient = HttpClientBuilder.create()
-                .setConnectionManager(new PoolingHttpClientConnectionManager())
-                .build();
+    }
+
+    private CloseableHttpClient http() {
+        return httpBuilder().build();
+    }
+
+    private HttpClientBuilder httpBuilder() {
+        return HttpClientBuilder.create()
+                .setConnectionManager(new PoolingHttpClientConnectionManager());
+    }
+
+    @Override
+    public void login(String user, String password) {
+        // Forces the logout
+        logout();
+        // Configures the client for the credentials
+        logger.debug("[client] Login {}", user);
+        BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+        credentialsProvider.setCredentials(
+                new AuthScope(null, -1),
+                new UsernamePasswordCredentials(user, password)
+        );
+        CloseableHttpClient http = httpBuilder().setDefaultCredentialsProvider(credentialsProvider).build();
+        try {
+            // Gets the server to send a challenge back
+            get(Locale.ENGLISH, Ack.class, "/api/login");
+        } finally {
+            try {
+                http.close();
+            } catch (IOException ignored) {
+            }
+        }
+    }
+
+    @Override
+    public void logout() {
+        logger.debug("[client] Logout");
+        // Executes the call
+        request(Locale.ENGLISH, new HttpGet(getUrl("/api/logout")), new NOPResponseHandler());
     }
 
     protected String getUrl(String path, Object... parameters) {
@@ -108,7 +148,7 @@ public abstract class AbstractClient {
         request.setHeader("Accept-Language", locale != null ? locale.toString() : "en");
         // Executes the call
         try {
-            HttpResponse response = httpClient.execute(request);
+            HttpResponse response = http().execute(request);
             logger.debug("[response] {}", response);
             // Entity response
             HttpEntity entity = response.getEntity();
@@ -140,6 +180,15 @@ public abstract class AbstractClient {
                 return null;
             }
         }
+    }
+
+    protected static class NOPResponseHandler implements ResponseHandler<Void> {
+
+        @Override
+        public Void handleResponse(HttpRequestBase request, HttpResponse response, HttpEntity entity) throws ParseException, IOException {
+            return null;
+        }
+
     }
 
     protected static abstract class BaseResponseHandler<T> implements ResponseHandler<T> {

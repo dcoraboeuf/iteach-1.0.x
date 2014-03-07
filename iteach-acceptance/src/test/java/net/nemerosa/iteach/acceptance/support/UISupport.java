@@ -1,7 +1,9 @@
 package net.nemerosa.iteach.acceptance.support;
 
+import net.nemerosa.iteach.common.Message;
 import net.nemerosa.iteach.test.TestUtils;
 import net.nemerosa.iteach.ui.client.UIAccountAPIClient;
+import net.nemerosa.iteach.ui.client.UITestAPIClient;
 import net.nemerosa.iteach.ui.model.UITeacher;
 import net.nemerosa.iteach.ui.model.UITeacherPasswordForm;
 
@@ -23,19 +25,20 @@ public class UISupport {
     }
 
     private UITeacher doCreateTeacher(String name) {
+        String email = String.format("%s@test.com", name);
         // Registers a new teacher
         client.asAnonymous(
-                (UIAccountAPIClient client) ->
-                        client.registerAsTeacherWithPassword(
-                                Locale.ENGLISH,
-                                new UITeacherPasswordForm(
-                                        name,
-                                        String.format("%s@test.com", name),
-                                        name
-                                )
+                (UIAccountAPIClient client) -> client.registerAsTeacherWithPassword(
+                        Locale.ENGLISH,
+                        new UITeacherPasswordForm(
+                                name,
+                                email,
+                                name
                         )
+                )
         );
-        // TODO Checks the returned mail
+        // Checks the returned mail
+        Message message = client.test().asAdmin().call(((UITestAPIClient client) -> client.getMessage(email)));
         // TODO Validates the mail
         // TODO Gets the teacher by ID
         return null;
