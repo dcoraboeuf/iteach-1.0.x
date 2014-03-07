@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * This component is only available when running in {@link RunProfile#ACCEPTANCE} mode.
  */
-@Profile(RunProfile.ACCEPTANCE)
+@Profile({RunProfile.ACCEPTANCE, RunProfile.DEV})
 @Component
 public class InMemoryPost implements AccessibleMessagePost {
 

@@ -7,7 +7,11 @@ import net.nemerosa.iteach.ui.client.UITestAPIClient;
 import net.nemerosa.iteach.ui.model.UITeacher;
 import net.nemerosa.iteach.ui.model.UITeacherPasswordForm;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.Locale;
+
+import static org.junit.Assert.assertNotNull;
 
 public class UISupport {
 
@@ -39,7 +43,14 @@ public class UISupport {
         );
         // Checks the returned mail
         Message message = client.test().asAdmin().call(((UITestAPIClient client) -> client.getMessage(email)));
-        // TODO Validates the mail
+        assertNotNull(String.format("Cannot find any message for %s", email), message);
+        // Validates the mail by "clicking" on the URL
+        String link = message.getContent().getLink();
+        try {
+            new URL(link).openConnection();
+        } catch (IOException ex) {
+            throw new UICannotAccessLinkException(ex, link);
+        }
         // TODO Gets the teacher by ID
         return null;
     }

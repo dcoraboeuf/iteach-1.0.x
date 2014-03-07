@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * This controller is enabled only when the active profile is {@link RunProfile#ACCEPTANCE} and allows
  * acceptance tests to connect to the API to get additional information.
  */
-@Profile(RunProfile.ACCEPTANCE)
+@Profile({RunProfile.ACCEPTANCE, RunProfile.DEV})
 @RestController
 @RequestMapping("/api/test")
 public class UITestAPIController implements UITestAPI {
