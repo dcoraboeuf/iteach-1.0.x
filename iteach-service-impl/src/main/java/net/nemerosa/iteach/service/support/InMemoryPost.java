@@ -10,9 +10,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * This component is only available when running in {@link RunProfile#ACCEPTANCE} mode.
+ * This component is only available when running in {@link RunProfile#ACCEPTANCE},
+ * {@link RunProfile#DEV} or {@link RunProfile#TEST} mode.
  */
-@Profile({RunProfile.ACCEPTANCE, RunProfile.DEV})
+@Profile({RunProfile.ACCEPTANCE, RunProfile.DEV, RunProfile.TEST})
 @Component
 public class InMemoryPost implements AccessibleMessagePost {
 
