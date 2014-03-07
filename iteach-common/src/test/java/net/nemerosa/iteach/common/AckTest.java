@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -46,7 +47,7 @@ public class AckTest {
 
     @Test
     public void to_json() throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = ObjectMapperFactory.create();
         String value = mapper.writeValueAsString(Ack.OK);
         assertEquals("{\"success\":true}", value);
     }

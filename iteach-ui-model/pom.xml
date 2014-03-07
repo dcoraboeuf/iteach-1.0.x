@@ -31,11 +31,6 @@
             <groupId>org.joda</groupId>
             <artifactId>joda-money</artifactId>
         </dependency>
-        <!-- Json -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
         <!-- Tests -->
         <dependency>
             <groupId>junit</groupId>

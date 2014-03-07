@@ -2,6 +2,7 @@ package net.nemerosa.iteach.ui.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import net.sf.jstring.Strings;
 import net.sf.jstring.support.StringsLoader;
 import org.apache.commons.lang3.StringUtils;
@@ -17,7 +18,7 @@ import static org.junit.Assert.fail;
 
 public class UIFormTest {
 
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = ObjectMapperFactory.create();
     private final Strings strings = StringsLoader.auto(Locale.ENGLISH, Locale.FRENCH);
 
     @Test

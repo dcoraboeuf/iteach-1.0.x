@@ -3,6 +3,7 @@ package net.nemerosa.iteach.dao.jdbc;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public abstract class AbstractJdbcRepository extends NamedParameterJdbcDaoSupport {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = ObjectMapperFactory.create();
 
     protected AbstractJdbcRepository(DataSource dataSource) {
         setDataSource(dataSource);

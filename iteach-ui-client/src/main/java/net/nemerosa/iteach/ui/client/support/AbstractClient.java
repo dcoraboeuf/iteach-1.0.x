@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -31,7 +32,7 @@ import static java.lang.String.format;
 public abstract class AbstractClient {
 
     private final Logger logger = LoggerFactory.getLogger(AbstractClient.class);
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = ObjectMapperFactory.create();
     private final String url;
     private final CloseableHttpClient httpClient;
 

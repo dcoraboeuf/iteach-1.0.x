@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.ui.config;
 
+import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -30,7 +31,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         // Plain text
         converters.add(new StringHttpMessageConverter());
         // JSON
-        converters.add(new MappingJackson2HttpMessageConverter());
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        converter.setObjectMapper(ObjectMapperFactory.create());
+        converters.add(converter);
     }
 
 }
