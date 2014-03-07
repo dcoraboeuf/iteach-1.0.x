@@ -34,6 +34,7 @@ public class UIAccountAPIController implements UIAccountAPI {
     }
 
     @Override
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public UITeacher login(Locale locale) {
         AccountAuthentication authentication = securityUtils.getCurrentAccount();
         if (authentication == null) {
