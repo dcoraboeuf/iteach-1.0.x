@@ -1,7 +1,7 @@
 package net.nemerosa.iteach.acceptance;
 
 import net.nemerosa.iteach.acceptance.support.AbstractACCSupport;
-import net.nemerosa.iteach.ui.model.UITeacher;
+import net.nemerosa.iteach.acceptance.support.TeacherID;
 import org.junit.Test;
 
 public class ACCTeacher extends AbstractACCSupport {
@@ -9,7 +9,7 @@ public class ACCTeacher extends AbstractACCSupport {
     @Test
     public void create_a_school() {
         // Prerequisites
-        UITeacher teacher = support.doCreateTeacher();
+        TeacherID teacherID = support.doCreateTeacher();
         // Data
         // final String schoolName = uid("SCH");
         // Creates a school for this teacher
