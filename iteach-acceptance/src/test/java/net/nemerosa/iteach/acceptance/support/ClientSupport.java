@@ -7,6 +7,8 @@ import net.nemerosa.iteach.ui.client.UITestAPIClient;
 
 import java.util.function.Function;
 
+import static net.nemerosa.iteach.test.TestUtils.getEnvIfPresent;
+
 public class ClientSupport {
 
     private final UIAccountAPIClient accountClient;
@@ -56,9 +58,10 @@ public class ClientSupport {
 
         @Override
         public Client<C> asAdmin() {
+            String adminPassword = getEnvIfPresent("iteach.admin.password", "ITEACH_ADMIN_PASSWORD", "admin");
             return new AuthenticationClient<>(
                     "admin",
-                    "admin",
+                    adminPassword,
                     internalClient,
                     this
             );
