@@ -18,9 +18,11 @@ public class ClientSupport {
         testClient = clientFactory.testClient();
     }
 
-    @Deprecated
-    public <T> T asAnonymous(Function<UIAccountAPIClient, T> call) {
-        return call.apply(accountClient);
+    /**
+     * Client for the Account API.
+     */
+    public ConfigurableClient<UIAccountAPIClient> account() {
+        return new ClientImpl<>(accountClient);
     }
 
     /**
@@ -40,6 +42,8 @@ public class ClientSupport {
 
         Client<C> asAdmin();
 
+        Client<C> anonymous();
+
     }
 
     private static class ClientImpl<C extends UIClient> implements Client<C>, ConfigurableClient<C> {
@@ -55,6 +59,14 @@ public class ClientSupport {
             return new AuthenticationClient<>(
                     "admin",
                     "admin",
+                    internalClient,
+                    this
+            );
+        }
+
+        @Override
+        public Client<C> anonymous() {
+            return new AnonymousClient<>(
                     internalClient,
                     this
             );
@@ -91,6 +103,25 @@ public class ClientSupport {
                 // Logout
                 uiClient.logout();
             }
+        }
+    }
+
+    private static class AnonymousClient<C extends UIClient> implements Client<C> {
+
+        private final C uiClient;
+        private final Client<C> client;
+
+        private AnonymousClient(C uiClient, Client<C> client) {
+            this.uiClient = uiClient;
+            this.client = client;
+        }
+
+        @Override
+        public <T> T call(Function<C, T> call) {
+            // Makes sure to logout first
+            uiClient.logout();
+            // Call
+            return client.call(call);
         }
     }
 

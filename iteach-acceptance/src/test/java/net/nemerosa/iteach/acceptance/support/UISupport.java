@@ -31,7 +31,7 @@ public class UISupport {
     private UITeacher doCreateTeacher(String name) {
         String email = String.format("%s@test.com", name);
         // Registers a new teacher
-        client.asAnonymous(
+        client.account().anonymous().call(
                 (UIAccountAPIClient client) -> client.registerAsTeacherWithPassword(
                         Locale.ENGLISH,
                         new UITeacherPasswordForm(
