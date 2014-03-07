@@ -204,7 +204,7 @@ public abstract class AbstractClient implements UIClient {
             } else if (statusCode == HttpStatus.SC_FORBIDDEN) {
                 throw new ClientForbiddenException(request);
             } else if (statusCode == HttpStatus.SC_NOT_FOUND) {
-                return handleEntity(null);
+                throw new ClientNotFoundException(response.getStatusLine().getReasonPhrase());
             } else if (statusCode == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
                 String content = EntityUtils.toString(response.getEntity(), "UTF-8");
                 if (StringUtils.isNotBlank(content)) {
