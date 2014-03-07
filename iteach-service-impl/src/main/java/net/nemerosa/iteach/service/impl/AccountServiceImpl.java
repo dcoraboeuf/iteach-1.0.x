@@ -7,6 +7,7 @@ import net.nemerosa.iteach.service.*;
 import net.nemerosa.iteach.service.model.Account;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
 import net.nemerosa.iteach.service.model.TemplateModel;
+import net.nemerosa.iteach.service.support.EnvService;
 import net.sf.jstring.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +25,7 @@ public class AccountServiceImpl implements AccountService {
     private final MessageService messageService;
     private final TokenService tokenService;
     private final TemplateService templateService;
+    private final EnvService envService;
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
     private final Strings strings;
@@ -37,10 +39,11 @@ public class AccountServiceImpl implements AccountService {
             );
 
     @Autowired
-    public AccountServiceImpl(MessageService messageService, TokenService tokenService, TemplateService templateService, AccountRepository accountRepository, PasswordEncoder passwordEncoder, Strings strings, SecurityUtils securityUtils) {
+    public AccountServiceImpl(MessageService messageService, TokenService tokenService, TemplateService templateService, EnvService envService, AccountRepository accountRepository, PasswordEncoder passwordEncoder, Strings strings, SecurityUtils securityUtils) {
         this.messageService = messageService;
         this.tokenService = tokenService;
         this.templateService = templateService;
+        this.envService = envService;
         this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
         this.strings = strings;
@@ -102,9 +105,13 @@ public class AccountServiceImpl implements AccountService {
                                       String title) {
         // Generates a token for the response
         String token = tokenService.generateToken(tokenType, email);
-        // FIXME Gets the return link
-        // String link = uiService.getLink(tokenType, token);
-        String link = "TODO-ReturnLink";
+        // Gets the return link
+        String link = String.format(
+                "%s/api/account/token/%s/%s",
+                envService.getBaseURL(),
+                tokenType,
+                token
+        );
         // Message template model
         TemplateModel model = new TemplateModel();
         model.add("userName", name);
