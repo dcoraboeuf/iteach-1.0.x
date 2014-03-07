@@ -28,6 +28,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         ;
         // Admin for the test API
         http.authorizeRequests().antMatchers("/api/test/**").hasRole(SecurityRoles.ADMIN.substring(5));
+        // Login
+        http.authorizeRequests().antMatchers("/api/account/login").fullyAuthenticated();
         // Registration (no CSRF)
         http.antMatcher("/api/account/register").csrf().disable();
     }

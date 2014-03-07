@@ -67,7 +67,7 @@ public abstract class AbstractClient implements UIClient {
         CloseableHttpClient http = httpBuilder().setDefaultCredentialsProvider(credentialsProvider).build();
         try {
             // Gets the server to send a challenge back
-            return get(Locale.ENGLISH, UITeacher.class, "/api/login");
+            return get(Locale.ENGLISH, UITeacher.class, "/api/account/login");
         } finally {
             try {
                 http.close();
