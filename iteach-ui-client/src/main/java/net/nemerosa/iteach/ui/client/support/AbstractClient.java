@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import net.nemerosa.iteach.ui.client.UIClient;
+import net.nemerosa.iteach.ui.model.UITeacher;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -54,7 +54,7 @@ public abstract class AbstractClient implements UIClient {
     }
 
     @Override
-    public void login(String user, String password) {
+    public UITeacher login(String user, String password) {
         // Forces the logout
         logout();
         // Configures the client for the credentials
@@ -67,7 +67,7 @@ public abstract class AbstractClient implements UIClient {
         CloseableHttpClient http = httpBuilder().setDefaultCredentialsProvider(credentialsProvider).build();
         try {
             // Gets the server to send a challenge back
-            get(Locale.ENGLISH, Ack.class, "/api/login");
+            return get(Locale.ENGLISH, UITeacher.class, "/api/login");
         } finally {
             try {
                 http.close();

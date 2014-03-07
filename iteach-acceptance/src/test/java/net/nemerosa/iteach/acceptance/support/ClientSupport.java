@@ -4,6 +4,7 @@ import net.nemerosa.iteach.ui.client.UIAccountAPIClient;
 import net.nemerosa.iteach.ui.client.UIClient;
 import net.nemerosa.iteach.ui.client.UIClientFactory;
 import net.nemerosa.iteach.ui.client.UITestAPIClient;
+import net.nemerosa.iteach.ui.model.UITeacher;
 
 import java.util.function.Function;
 
@@ -32,6 +33,13 @@ public class ClientSupport {
      */
     public ConfigurableClient<UITestAPIClient> test() {
         return new ClientImpl<>(testClient);
+    }
+
+    /**
+     * Connection as teacher
+     */
+    public UITeacher login(String email, String password) {
+        return account().anonymous().call(client -> client.login(email, password));
     }
 
     public static interface Client<C extends UIClient> {

@@ -4,6 +4,7 @@ import net.nemerosa.iteach.common.Message;
 import net.nemerosa.iteach.test.TestUtils;
 import net.nemerosa.iteach.ui.client.UIAccountAPIClient;
 import net.nemerosa.iteach.ui.client.UITestAPIClient;
+import net.nemerosa.iteach.ui.model.UITeacher;
 import net.nemerosa.iteach.ui.model.UITeacherPasswordForm;
 
 import java.io.IOException;
@@ -23,11 +24,11 @@ public class UISupport {
         client = new ClientSupport(url);
     }
 
-    public TeacherID doCreateTeacher() {
+    public TeacherContext doCreateTeacher() {
         return doCreateTeacher(TestUtils.uid("T"));
     }
 
-    private TeacherID doCreateTeacher(String name) {
+    private TeacherContext doCreateTeacher(String name) {
         return doCreateTeacher(
                 name,
                 String.format("%s@test.com", name),
@@ -35,7 +36,7 @@ public class UISupport {
 
     }
 
-    private TeacherID doCreateTeacher(String name, String email, String password) {
+    private TeacherContext doCreateTeacher(String name, String email, String password) {
         // Registers a new teacher
         client.account().anonymous().call(
                 (UIAccountAPIClient client) -> client.registerAsTeacherWithPassword(
@@ -57,8 +58,10 @@ public class UISupport {
         } catch (IOException ex) {
             throw new UICannotAccessLinkException(ex, link);
         }
+        // Login
+        UITeacher teacher = client.login(email, password);
         // Gets the teacher
-        return new TeacherID(name, email, password);
+        return new TeacherContext(teacher, password);
     }
 
 }
