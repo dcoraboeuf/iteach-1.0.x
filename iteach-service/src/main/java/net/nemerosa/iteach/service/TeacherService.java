@@ -7,9 +7,10 @@ import java.util.List;
 
 public interface TeacherService {
 
-    List<School> getSchools(int teacherId);
+    List<School> getSchools();
 
-    int createSchool(int teacherId, SchoolForm form);
+    int createSchool(SchoolForm form);
 
-    School getSchool(int teacherId, int schoolId);
+    School getSchool(int schoolId);
+
 }

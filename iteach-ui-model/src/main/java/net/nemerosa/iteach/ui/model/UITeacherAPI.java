@@ -11,16 +11,16 @@ public interface UITeacherAPI {
     /**
      * Gets the list of schools for a teacher
      */
-    List<UISchoolSummary> getSchools(Locale locale, int teacherId);
+    List<UISchoolSummary> getSchools(Locale locale);
 
     /**
      * Creates a school
      */
-    UISchool createSchool(Locale locale, int teacherId, UIForm form);
+    UISchool createSchool(Locale locale, UIForm form);
 
     /**
      * Gets a school
      */
-    UISchool getSchool(Locale locale, int teacherId, int schoolId);
+    UISchool getSchool(Locale locale, int schoolId);
 
 }

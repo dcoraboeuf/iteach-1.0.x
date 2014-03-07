@@ -41,17 +41,17 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<School> getSchools(int teacherId) {
+    public List<School> getSchools() {
         // Checks the teacher access
-        securityUtils.checkTeacher(teacherId);
+        int teacherId = securityUtils.checkTeacher();
         // Lists
         return schoolRepository.findAll(teacherId).parallelStream().map(schoolFn).collect(Collectors.toList());
     }
 
     @Override
-    public int createSchool(int teacherId, SchoolForm form) {
+    public int createSchool(SchoolForm form) {
         // Checks the teacher access
-        securityUtils.checkTeacher(teacherId);
+        int teacherId = securityUtils.checkTeacher();
         // Creation
         return schoolRepository.create(
                 teacherId,
@@ -68,9 +68,9 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public School getSchool(int teacherId, int schoolId) {
+    public School getSchool(int schoolId) {
         // Checks the teacher access
-        securityUtils.checkTeacher(teacherId);
+        int teacherId = securityUtils.checkTeacher();
         // Access
         return schoolFn.apply(schoolRepository.getById(teacherId, schoolId));
     }

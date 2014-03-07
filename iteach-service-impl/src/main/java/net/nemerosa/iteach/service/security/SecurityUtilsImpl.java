@@ -13,15 +13,25 @@ import java.util.function.Predicate;
 public class SecurityUtilsImpl implements SecurityUtils {
 
     @Override
-    public void checkTeacher(int teacherId) {
-        checkAccount(account -> account != null && (account.isAdministrator() || account.getId() == teacherId));
+    public int checkTeacher() {
+        return checkAccount(account -> true);
     }
 
-    protected void checkAccount(Predicate<AccountAuthentication> check) {
-        boolean ok = withAccount(check::test);
-        if (!ok) {
-            throw new AccessDeniedException("Not authorized");
-        }
+    @Override
+    public int checkAdmin() {
+        return checkAccount(AccountAuthentication::isAdministrator);
+    }
+
+    protected int checkAccount(Predicate<AccountAuthentication> check) {
+        return withAccount(account -> {
+            if (account != null && check.test(account)) return account.getId();
+            else throw new AccessDeniedException("Not authorized");
+        });
+    }
+
+    @Override
+    public String getCurrentAccountName() {
+        return withAccount(account -> account != null ? account.getEmail() : null);
     }
 
     protected <T> T withAccount(Function<AccountAuthentication, T> fn) {
@@ -35,16 +45,6 @@ public class SecurityUtilsImpl implements SecurityUtils {
             }
         }
         return fn.apply(null);
-    }
-
-    @Override
-    public void checkAdmin() {
-        checkAccount(account -> account != null && account.isAdministrator());
-    }
-
-    @Override
-    public String getCurrentAccountName() {
-        return withAccount(account -> account != null ? account.getEmail() : null);
     }
 
 }

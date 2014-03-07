@@ -29,9 +29,9 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     @Override
-    @RequestMapping(value = "/{teacherId}/school", method = RequestMethod.GET)
-    public List<UISchoolSummary> getSchools(Locale locale, @PathVariable int teacherId) {
-        List<School> schools = teacherService.getSchools(teacherId);
+    @RequestMapping(value = "/school", method = RequestMethod.GET)
+    public List<UISchoolSummary> getSchools(Locale locale) {
+        List<School> schools = teacherService.getSchools();
         return schools.parallelStream().map(school -> new UISchoolSummary(
                 school.getId(),
                 school.getName(),
@@ -40,10 +40,9 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     @Override
-    @RequestMapping(value = "/{teacherId}/school", method = RequestMethod.POST)
-    public UISchool createSchool(Locale locale, @PathVariable int teacherId, @RequestBody UIForm form) {
+    @RequestMapping(value = "/school", method = RequestMethod.POST)
+    public UISchool createSchool(Locale locale, @RequestBody UIForm form) {
         int schoolId = teacherService.createSchool(
-                teacherId,
                 new SchoolForm(
                         form.getName(),
                         form.getColour(),
@@ -56,12 +55,12 @@ public class UITeacherAPIController implements UITeacherAPI {
                         form.getWebSite()
                 )
         );
-        return getSchool(locale, teacherId, schoolId);
+        return getSchool(locale, schoolId);
     }
 
     @Override
-    @RequestMapping(value = "/{teacherId}/school/{schoolId}", method = RequestMethod.POST)
-    public UISchool getSchool(Locale locale, @PathVariable int teacherId, @PathVariable int schoolId) {
+    @RequestMapping(value = "/school/{schoolId}", method = RequestMethod.POST)
+    public UISchool getSchool(Locale locale, @PathVariable int schoolId) {
         // FIXME Method net.nemerosa.iteach.ui.UITeacherAPIController.getSchool
         return null;
     }

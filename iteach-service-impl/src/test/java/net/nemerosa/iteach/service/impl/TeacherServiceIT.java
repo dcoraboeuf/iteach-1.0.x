@@ -7,7 +7,6 @@ import net.nemerosa.iteach.service.model.SchoolForm;
 import org.joda.money.Money;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
 
 import static net.nemerosa.iteach.test.TestUtils.uid;
 import static org.junit.Assert.*;
@@ -30,7 +29,6 @@ public class TeacherServiceIT extends AbstractITTestSupport {
         String schoolName = uid("S");
         School school = serviceITSupport.asTeacher(teacherId, () -> {
             int schoolId = teacherService.createSchool(
-                    teacherId,
                     new SchoolForm(
                             schoolName,
                             "#FFFF00",
@@ -43,7 +41,7 @@ public class TeacherServiceIT extends AbstractITTestSupport {
                             "http://school.test.com"
                     ));
             // Gets the school back and checks its fields
-            return teacherService.getSchool(teacherId, schoolId);
+            return teacherService.getSchool(schoolId);
         });
         assertNotNull(school);
         assertTrue(school.getId() > 0);
@@ -56,27 +54,6 @@ public class TeacherServiceIT extends AbstractITTestSupport {
         assertEquals("4567", school.getMobilePhone());
         assertEquals("school@test.com", school.getEmail());
         assertEquals("http://school.test.com", school.getWebSite());
-    }
-
-    @Test(expected = AccessDeniedException.class)
-    public void create_school_not_authorized() throws Exception {
-        // Creates a teacher
-        int id1 = serviceITSupport.createTeacherAndCompleteRegistration(uid("T"), String.format("%s@test.com", uid("T"))).getValue();
-        int id2 = serviceITSupport.createTeacherAndCompleteRegistration(uid("T"), String.format("%s@test.com", uid("T"))).getValue();
-        // Trying to create a school for teacher2 as teacher1
-        // Sets the security context for teacher 1
-        serviceITSupport.asTeacher(id1, () -> teacherService.createSchool(id2, new SchoolForm(
-                uid("S"),
-                "#FFFF00",
-                "",
-                Money.parse("EUR 45"),
-                "",
-                "",
-                "",
-                "",
-                ""
-        )
-        ));
     }
 
 }
