@@ -8,6 +8,7 @@ import net.nemerosa.iteach.ui.model.UITeacher;
 import net.nemerosa.iteach.ui.model.UITeacherPasswordForm;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Locale;
 
@@ -21,7 +22,11 @@ public class UISupport {
         // Base URL
         String url = TestUtils.getEnv("iteach.url", "ITEACH_URL", "iTeach base URL");
         // Client support
-        client = new ClientSupport(url);
+        try {
+            client = new ClientSupport(url);
+        } catch (MalformedURLException e) {
+            throw new UIMalformedURLException(url, e);
+        }
     }
 
     public ClientSupport client() {

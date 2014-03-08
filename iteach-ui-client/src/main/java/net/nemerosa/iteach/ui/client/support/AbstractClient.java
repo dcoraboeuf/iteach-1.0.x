@@ -9,19 +9,20 @@ import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import net.nemerosa.iteach.ui.client.UIClient;
 import net.nemerosa.iteach.ui.model.UITeacher;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.ParseException;
+import org.apache.http.*;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.AuthCache;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -31,6 +32,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
@@ -41,10 +44,17 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
     private final Logger logger = LoggerFactory.getLogger(AbstractClient.class);
     private final ObjectMapper mapper = ObjectMapperFactory.create();
     private final String url;
-    private CredentialsProvider credentialsProvider = null;
+    private final HttpHost host;
+    private HttpClientContext httpContext = HttpClientContext.create();
 
-    public AbstractClient(String url) {
+    public AbstractClient(String url) throws MalformedURLException {
         this.url = url;
+        URL u = new URL(url);
+        this.host = new HttpHost(
+                u.getHost(),
+                u.getPort(),
+                u.getProtocol()
+        );
     }
 
     private CloseableHttpClient http() {
@@ -52,29 +62,32 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
     }
 
     private HttpClientBuilder httpBuilder() {
-        HttpClientBuilder builder = HttpClientBuilder.create().setConnectionManager(new PoolingHttpClientConnectionManager());
-        if (credentialsProvider != null) {
-            builder.setDefaultCredentialsProvider(credentialsProvider);
-        }
-        return builder;
-
+        return HttpClientBuilder.create().setConnectionManager(new PoolingHttpClientConnectionManager());
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public C withBasicLogin(String email, String password) {
-        credentialsProvider = new BasicCredentialsProvider();
+        CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials(
-                new AuthScope(null, -1),
+                new AuthScope(host),
                 new UsernamePasswordCredentials(email, password)
         );
+
+        AuthCache authCache = new BasicAuthCache();
+        authCache.put(host, new BasicScheme());
+
+        httpContext = HttpClientContext.create();
+        httpContext.setCredentialsProvider(credentialsProvider);
+        httpContext.setAuthCache(authCache);
+
         return (C) this;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public C anonymous() {
-        credentialsProvider = null;
+        httpContext = HttpClientContext.create();
         return (C) this;
     }
 
@@ -159,7 +172,7 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
         // Executes the call
         try {
             try (CloseableHttpClient http = http()) {
-                HttpResponse response = http.execute(request);
+                HttpResponse response = http.execute(host, request, httpContext);
                 logger.debug("[response] {}", response);
                 // Entity response
                 HttpEntity entity = response.getEntity();

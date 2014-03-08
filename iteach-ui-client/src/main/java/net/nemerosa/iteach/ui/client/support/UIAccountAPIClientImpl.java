@@ -7,12 +7,13 @@ import net.nemerosa.iteach.ui.model.UIAccount;
 import net.nemerosa.iteach.ui.model.UITeacher;
 import net.nemerosa.iteach.ui.model.UITeacherPasswordForm;
 
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Locale;
 
 public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> implements UIAccountAPIClient {
 
-    public UIAccountAPIClientImpl(String url) {
+    public UIAccountAPIClientImpl(String url) throws MalformedURLException {
         super(url);
     }
 

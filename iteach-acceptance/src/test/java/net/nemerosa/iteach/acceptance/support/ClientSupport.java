@@ -6,6 +6,7 @@ import net.nemerosa.iteach.ui.client.UIClientFactory;
 import net.nemerosa.iteach.ui.client.UITestAPIClient;
 import net.nemerosa.iteach.ui.model.UITeacher;
 
+import java.net.MalformedURLException;
 import java.util.function.Function;
 
 import static net.nemerosa.iteach.test.TestUtils.getEnvIfPresent;
@@ -15,7 +16,7 @@ public class ClientSupport {
     private final UIAccountAPIClient accountClient;
     private final UITestAPIClient testClient;
 
-    public ClientSupport(String url) {
+    public ClientSupport(String url) throws MalformedURLException {
         UIClientFactory clientFactory = UIClientFactory.create(url);
         accountClient = clientFactory.accountClient();
         testClient = clientFactory.testClient();

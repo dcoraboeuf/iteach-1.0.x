@@ -5,12 +5,13 @@ import net.nemerosa.iteach.ui.model.UIForm;
 import net.nemerosa.iteach.ui.model.UISchool;
 import net.nemerosa.iteach.ui.model.UISchoolSummary;
 
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Locale;
 
 public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> implements UITeacherAPIClient {
 
-    public UITeacherAPIClientImpl(String url) {
+    public UITeacherAPIClientImpl(String url) throws MalformedURLException {
         super(url);
     }
 
