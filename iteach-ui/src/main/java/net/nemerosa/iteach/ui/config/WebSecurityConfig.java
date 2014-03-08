@@ -22,7 +22,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/api/**").httpBasic().realmName("iteach").and()
                 .logout().logoutUrl("/api/account/logout").logoutSuccessUrl("/api/account/logged-out").and()
-                .csrf().requireCsrfProtectionMatcher(new CSRFRequestMatcher()).and()
+                //.csrf().requireCsrfProtectionMatcher(new CSRFRequestMatcher()).and()
+                // FIXME CSRF protection for a stateless API?
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/**").permitAll()
                 .anyRequest().authenticated().and()
