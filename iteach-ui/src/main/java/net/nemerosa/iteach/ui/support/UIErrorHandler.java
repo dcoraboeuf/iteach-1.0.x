@@ -34,11 +34,6 @@ public class UIErrorHandler {
         this.strings = strings;
     }
 
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<String> onAccessDeniedException(Locale locale, AccessDeniedException ex) {
-        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-    }
-
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<String> onNotFoundException(Locale locale, NotFoundException ex) {
         // Returns a message to display to the user
@@ -57,6 +52,10 @@ public class UIErrorHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> onException(Locale locale, HttpServletRequest request, Exception ex) throws Exception {
+        // Ignoring security exceptions
+        if (ex instanceof AccessDeniedException) {
+            throw ex;
+        }
         // Error message
         ErrorMessage error = handleError(locale, request, ex);
         // Returns a message to display to the user

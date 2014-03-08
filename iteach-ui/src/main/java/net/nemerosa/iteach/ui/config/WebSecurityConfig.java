@@ -1,6 +1,5 @@
 package net.nemerosa.iteach.ui.config;
 
-import net.nemerosa.iteach.common.SecurityRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,17 +20,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // Default
-        http.antMatcher("/api/**")
-                .httpBasic().realmName("iteach").and()
-                .authorizeRequests().anyRequest().permitAll()
+        http.antMatcher("/api/**").httpBasic().realmName("iteach").and()
+                .authorizeRequests()
+                .antMatchers("/api/**").permitAll()
+                .anyRequest().authenticated().and()
+        //.antMatcher("/api/account/register").csrf().disable()
         ;
-        // Admin for the test API
-        http.authorizeRequests().antMatchers("/api/test/**").hasRole(SecurityRoles.ADMIN.substring(5));
-        // Login
-        http.authorizeRequests().antMatchers("/api/account/login").fullyAuthenticated();
-        // Registration (no CSRF)
-        http.antMatcher("/api/account/register").csrf().disable();
     }
 
     @Override
