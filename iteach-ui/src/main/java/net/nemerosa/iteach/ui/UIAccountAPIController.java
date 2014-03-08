@@ -53,9 +53,8 @@ public class UIAccountAPIController implements UIAccountAPI {
     /**
      * See {@link net.nemerosa.iteach.ui.config.WebSecurityConfig} for the actual logout.
      */
-    @Override
     @RequestMapping(value = "/logged-out", method = RequestMethod.GET)
-    public Ack logout(Locale locale) {
+    public Ack logout() {
         return Ack.validate(securityUtils.isLogged());
     }
 

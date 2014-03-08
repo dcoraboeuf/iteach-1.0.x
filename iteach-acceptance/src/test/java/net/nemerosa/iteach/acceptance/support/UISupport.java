@@ -24,6 +24,10 @@ public class UISupport {
         client = new ClientSupport(url);
     }
 
+    public ClientSupport client() {
+        return client;
+    }
+
     public TeacherContext doCreateTeacher() {
         return doCreateTeacher(TestUtils.uid("T"));
     }

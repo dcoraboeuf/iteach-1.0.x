@@ -7,13 +7,8 @@ import lombok.EqualsAndHashCode;
 @Data
 public class UISchoolSummary extends UIResource<UISchoolSummary> {
 
+    private final int id;
     private final String name;
     private final String colour;
-
-    public UISchoolSummary(int id, String name, String colour) {
-        super(id);
-        this.name = name;
-        this.colour = colour;
-    }
 
 }

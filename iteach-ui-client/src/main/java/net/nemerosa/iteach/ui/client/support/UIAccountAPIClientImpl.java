@@ -22,11 +22,6 @@ public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> i
     }
 
     @Override
-    public Ack logout(Locale locale) {
-        return post(locale, Ack.class, null, "/api/account/logout");
-    }
-
-    @Override
     public List<UIAccount> getAccounts(Locale locale) {
         return list(locale, UIAccount.class, "/api/account");
     }
