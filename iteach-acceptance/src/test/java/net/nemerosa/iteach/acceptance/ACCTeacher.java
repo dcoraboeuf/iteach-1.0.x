@@ -2,7 +2,15 @@ package net.nemerosa.iteach.acceptance;
 
 import net.nemerosa.iteach.acceptance.support.AbstractACCSupport;
 import net.nemerosa.iteach.acceptance.support.TeacherContext;
+import net.nemerosa.iteach.ui.model.UIForm;
+import net.nemerosa.iteach.ui.model.UISchool;
 import org.junit.Test;
+
+import java.math.BigDecimal;
+import java.util.Locale;
+
+import static net.nemerosa.iteach.test.TestUtils.uid;
+import static org.junit.Assert.*;
 
 public class ACCTeacher extends AbstractACCSupport {
 
@@ -11,21 +19,18 @@ public class ACCTeacher extends AbstractACCSupport {
         // Prerequisites
         TeacherContext teacherContext = support.doCreateTeacher();
         // Data
-        // final String schoolName = uid("SCH");
+        final String schoolName = uid("SCH");
         // Creates a school for this teacher
-        /*
-        UISchool school = support.asTeacher(teacher, new TeacherCall<UISchool>() {
-            @Override
-            public UISchool call(UITeacherAPIClient client) {
-                return client.createSchool(
+        UISchool school = support.client().teacher().asTeacher(teacherContext).call(client ->
+                client.createSchool(
+                        Locale.ENGLISH,
                         UIForm.create()
                                 .withName(schoolName)
                                 .withColour("#FFFF00")
-                                .with("hourlyRate", Money.parse("EUR 45.00"))
+                                .with("hourlyRate", "EUR 45.00")
                                 .withPostalAddress("Rue des Professeurs 16\n1100 Brussels\nBelgique")
-                );
-            }
-        });
+                )
+        );
         // Checks the fields for the school
         assertNotNull(school);
         assertTrue(school.getId() > 0);
@@ -34,7 +39,6 @@ public class ACCTeacher extends AbstractACCSupport {
         assertEquals("EUR", school.getHourlyRate().getCurrencyUnit().getCode());
         assertEquals(new BigDecimal("45.00"), school.getHourlyRate().getAmount());
         assertEquals("Rue des Professeurs 16\n1100 Brussels\nBelgique", school.getPostalAddress());
-        */
     }
 
 }

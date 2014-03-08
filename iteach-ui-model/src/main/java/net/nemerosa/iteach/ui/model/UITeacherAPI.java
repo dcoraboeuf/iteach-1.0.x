@@ -10,6 +10,7 @@ public interface UITeacherAPI {
 
     /**
      * Gets the list of schools for a teacher
+     * TODO Uses a collection resource
      */
     List<UISchoolSummary> getSchools(Locale locale);
 

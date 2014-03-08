@@ -23,13 +23,11 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
 
     @Override
     public UISchool createSchool(Locale locale, UIForm form) {
-        // FIXME Method net.nemerosa.iteach.ui.client.support.UITeacherAPIClientImpl.createSchool
-        return null;
+        return post(locale, UISchool.class, form, "/api/teacher/school");
     }
 
     @Override
     public UISchool getSchool(Locale locale, int schoolId) {
-        // FIXME Method net.nemerosa.iteach.ui.client.support.UITeacherAPIClientImpl.getSchool
-        return null;
+        return get(locale, UISchool.class, "/api/teacher/school/%d", schoolId);
     }
 }

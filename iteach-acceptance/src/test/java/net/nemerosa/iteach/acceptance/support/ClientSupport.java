@@ -1,9 +1,6 @@
 package net.nemerosa.iteach.acceptance.support;
 
-import net.nemerosa.iteach.ui.client.UIAccountAPIClient;
-import net.nemerosa.iteach.ui.client.UIClient;
-import net.nemerosa.iteach.ui.client.UIClientFactory;
-import net.nemerosa.iteach.ui.client.UITestAPIClient;
+import net.nemerosa.iteach.ui.client.*;
 
 import java.net.MalformedURLException;
 import java.util.function.Function;
@@ -14,11 +11,13 @@ public class ClientSupport {
 
     private final UIAccountAPIClient accountClient;
     private final UITestAPIClient testClient;
+    private final UITeacherAPIClient teacherClient;
 
     public ClientSupport(String url) throws MalformedURLException {
         UIClientFactory clientFactory = UIClientFactory.create(url);
         accountClient = clientFactory.accountClient();
         testClient = clientFactory.testClient();
+        teacherClient = clientFactory.teacherClient();
     }
 
     /**
@@ -35,6 +34,10 @@ public class ClientSupport {
         return new ClientImpl<>(testClient);
     }
 
+    public ConfigurableClient<UITeacherAPIClient> teacher() {
+        return new ClientImpl<>(teacherClient);
+    }
+
     public static interface Client<C extends UIClient<C>> {
 
         <T> T call(Function<C, T> call);
@@ -49,6 +52,7 @@ public class ClientSupport {
 
         Client<C> anonymous();
 
+        Client<C> asTeacher(TeacherContext teacherContext);
     }
 
     private static class ClientImpl<C extends UIClient<C>> implements Client<C>, ConfigurableClient<C> {
@@ -68,6 +72,11 @@ public class ClientSupport {
         @Override
         public Client<C> asUser(String email, String password) {
             return new ClientImpl<>(internalClient.withBasicLogin(email, password));
+        }
+
+        @Override
+        public Client<C> asTeacher(TeacherContext teacherContext) {
+            return asUser(teacherContext.getTeacher().getEmail(), teacherContext.getPassword());
         }
 
         @Override
