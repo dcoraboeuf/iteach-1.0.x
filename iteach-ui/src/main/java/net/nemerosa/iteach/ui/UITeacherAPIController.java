@@ -61,7 +61,18 @@ public class UITeacherAPIController implements UITeacherAPI {
     @Override
     @RequestMapping(value = "/school/{schoolId}", method = RequestMethod.POST)
     public UISchool getSchool(Locale locale, @PathVariable int schoolId) {
-        // FIXME Method net.nemerosa.iteach.ui.UITeacherAPIController.getSchool
-        return null;
+        School o = teacherService.getSchool(schoolId);
+        return new UISchool(
+                o.getId(),
+                o.getName(),
+                o.getColour(),
+                o.getContact(),
+                o.getHourlyRate(),
+                o.getPostalAddress(),
+                o.getPhone(),
+                o.getMobilePhone(),
+                o.getEmail(),
+                o.getWebSite()
+        );
     }
 }

@@ -9,9 +9,15 @@ import org.joda.money.Money;
 public class UISchool extends UIResource<UISchool> {
 
     private final int id;
+    // TODO Teacher resource stub?
     private final String name;
     private final String colour;
+    private final String contact;
     private final Money hourlyRate;
     private final String postalAddress;
+    private final String phone;
+    private final String mobilePhone;
+    private final String email;
+    private final String webSite;
 
 }
