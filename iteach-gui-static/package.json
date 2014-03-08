@@ -1,0 +1,28 @@
+{
+    "author": "Damien Coraboeuf",
+    "name": "iteach",
+    "version": "1.0.0",
+    "homepage": "https://github.com/nemerosa/iteach",
+    "licenses": {
+        "type": "MIT",
+        "url": "https://raw.github.com/nemerosa/iteach/master/LICENSE"
+    },
+    "bugs": "https://github.com/nemerosa/iteach/issues",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:nemerosa/ontrack.git"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "grunt": "~0.4.3",
+        "grunt-contrib-less": "~0.10.0",
+        "grunt-contrib-clean": "~0.5.0",
+        "grunt-contrib-copy": "~0.5.0",
+        "grunt-contrib-jshint": "~0.8.0",
+        "grunt-contrib-concat": "~0.3.0",
+        "grunt-contrib-watch": "~0.5.3",
+        "grunt-contrib-uglify": "~0.4.0",
+        "grunt-ngmin": "~0.0.3",
+        "grunt-html2js": "~0.2.4"
+    }
+}
