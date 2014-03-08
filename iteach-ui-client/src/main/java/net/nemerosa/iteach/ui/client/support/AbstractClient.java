@@ -12,6 +12,7 @@ import org.apache.http.*;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.AuthCache;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
@@ -21,10 +22,7 @@ import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.auth.BasicScheme;
-import org.apache.http.impl.client.BasicAuthCache;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.*;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
@@ -40,6 +38,7 @@ import static java.lang.String.format;
 
 public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<C> {
 
+    private static final CookieStore cookieStore = new BasicCookieStore();
     private final Logger logger = LoggerFactory.getLogger(AbstractClient.class);
     private final ObjectMapper mapper = ObjectMapperFactory.create();
     private final String url;
@@ -79,6 +78,7 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
         httpContext = HttpClientContext.create();
         httpContext.setCredentialsProvider(credentialsProvider);
         httpContext.setAuthCache(authCache);
+        httpContext.setCookieStore(cookieStore);
 
         return (C) this;
     }
