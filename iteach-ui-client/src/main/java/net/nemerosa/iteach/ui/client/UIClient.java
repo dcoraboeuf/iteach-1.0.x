@@ -2,10 +2,13 @@ package net.nemerosa.iteach.ui.client;
 
 import net.nemerosa.iteach.ui.model.UITeacher;
 
-public interface UIClient {
+public interface UIClient<C extends UIClient<C>> {
 
-    UITeacher login(String email, String password);
+    UITeacher login();
 
     void logout();
 
+    C withBasicLogin(String email, String password);
+
+    C anonymous();
 }

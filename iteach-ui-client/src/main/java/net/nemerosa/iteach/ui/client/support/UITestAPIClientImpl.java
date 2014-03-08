@@ -5,7 +5,7 @@ import net.nemerosa.iteach.ui.client.UITestAPIClient;
 
 import java.util.Locale;
 
-public class UITestAPIClientImpl extends AbstractClient implements UITestAPIClient {
+public class UITestAPIClientImpl extends AbstractClient<UITestAPIClient> implements UITestAPIClient {
 
     public UITestAPIClientImpl(String url) {
         super(url);

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import net.nemerosa.iteach.ui.client.UIClient;
 import net.nemerosa.iteach.ui.model.UITeacher;
@@ -14,6 +15,7 @@ import org.apache.http.HttpStatus;
 import org.apache.http.ParseException;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -34,11 +36,12 @@ import java.util.Locale;
 
 import static java.lang.String.format;
 
-public abstract class AbstractClient implements UIClient {
+public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<C> {
 
     private final Logger logger = LoggerFactory.getLogger(AbstractClient.class);
     private final ObjectMapper mapper = ObjectMapperFactory.create();
     private final String url;
+    private CredentialsProvider credentialsProvider = null;
 
     public AbstractClient(String url) {
         this.url = url;
@@ -49,38 +52,45 @@ public abstract class AbstractClient implements UIClient {
     }
 
     private HttpClientBuilder httpBuilder() {
-        return HttpClientBuilder.create()
-                .setConnectionManager(new PoolingHttpClientConnectionManager());
+        HttpClientBuilder builder = HttpClientBuilder.create().setConnectionManager(new PoolingHttpClientConnectionManager());
+        if (credentialsProvider != null) {
+            builder.setDefaultCredentialsProvider(credentialsProvider);
+        }
+        return builder;
+
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public C withBasicLogin(String email, String password) {
+        credentialsProvider = new BasicCredentialsProvider();
+        credentialsProvider.setCredentials(
+                new AuthScope(null, -1),
+                new UsernamePasswordCredentials(email, password)
+        );
+        return (C) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public C anonymous() {
+        credentialsProvider = null;
+        return (C) this;
     }
 
     @Override
-    public UITeacher login(String user, String password) {
+    public UITeacher login() {
         // Forces the logout
         logout();
-        // Configures the client for the credentials
-        logger.debug("[client] Login {}", user);
-        BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-        credentialsProvider.setCredentials(
-                new AuthScope(null, -1),
-                new UsernamePasswordCredentials(user, password)
-        );
-        CloseableHttpClient http = httpBuilder().setDefaultCredentialsProvider(credentialsProvider).build();
-        try {
-            // Gets the server to send a challenge back
-            return get(Locale.ENGLISH, UITeacher.class, "/api/account/login");
-        } finally {
-            try {
-                http.close();
-            } catch (IOException ignored) {
-            }
-        }
+        // Gets the server to send a challenge back
+        return get(Locale.ENGLISH, UITeacher.class, "/api/account/login");
     }
 
     @Override
     public void logout() {
         logger.debug("[client] Logout");
         // Executes the call
-        request(Locale.ENGLISH, new HttpGet(getUrl("/api/logout")), new NOPResponseHandler());
+        post(Locale.ENGLISH, Ack.class, null, "/api/account/logout");
     }
 
     protected String getUrl(String path, Object... parameters) {
@@ -148,14 +158,16 @@ public abstract class AbstractClient implements UIClient {
         request.setHeader("Accept-Language", locale != null ? locale.toString() : "en");
         // Executes the call
         try {
-            HttpResponse response = http().execute(request);
-            logger.debug("[response] {}", response);
-            // Entity response
-            HttpEntity entity = response.getEntity();
-            try {
-                return responseHandler.handleResponse(request, response, entity);
-            } finally {
-                EntityUtils.consume(entity);
+            try (CloseableHttpClient http = http()) {
+                HttpResponse response = http.execute(request);
+                logger.debug("[response] {}", response);
+                // Entity response
+                HttpEntity entity = response.getEntity();
+                try {
+                    return responseHandler.handleResponse(request, response, entity);
+                } finally {
+                    EntityUtils.consume(entity);
+                }
             }
         } catch (IOException e) {
             throw new ClientGeneralException(request, e);
@@ -180,15 +192,6 @@ public abstract class AbstractClient implements UIClient {
                 return null;
             }
         }
-    }
-
-    protected static class NOPResponseHandler implements ResponseHandler<Void> {
-
-        @Override
-        public Void handleResponse(HttpRequestBase request, HttpResponse response, HttpEntity entity) throws ParseException, IOException {
-            return null;
-        }
-
     }
 
     protected static abstract class BaseResponseHandler<T> implements ResponseHandler<T> {

@@ -39,24 +39,26 @@ public class ClientSupport {
      * Connection as teacher
      */
     public UITeacher login(String email, String password) {
-        return account().anonymous().call(client -> client.login(email, password));
+        return account().asUser(email, password).call(UIAccountAPIClient::login);
     }
 
-    public static interface Client<C extends UIClient> {
+    public static interface Client<C extends UIClient<C>> {
 
         <T> T call(Function<C, T> call);
 
     }
 
-    public static interface ConfigurableClient<C extends UIClient> {
+    public static interface ConfigurableClient<C extends UIClient<C>> {
 
         Client<C> asAdmin();
+
+        Client<C> asUser(String email, String password);
 
         Client<C> anonymous();
 
     }
 
-    private static class ClientImpl<C extends UIClient> implements Client<C>, ConfigurableClient<C> {
+    private static class ClientImpl<C extends UIClient<C>> implements Client<C>, ConfigurableClient<C> {
 
         private final C internalClient;
 
@@ -67,72 +69,22 @@ public class ClientSupport {
         @Override
         public Client<C> asAdmin() {
             String adminPassword = getEnvIfPresent("iteach.admin.password", "ITEACH_ADMIN_PASSWORD", "admin");
-            return new AuthenticationClient<>(
-                    "admin",
-                    adminPassword,
-                    internalClient,
-                    this
-            );
+            return asUser("admin", adminPassword);
+        }
+
+        @Override
+        public Client<C> asUser(String email, String password) {
+            return new ClientImpl<>(internalClient.withBasicLogin(email, password));
         }
 
         @Override
         public Client<C> anonymous() {
-            return new AnonymousClient<>(
-                    internalClient,
-                    this
-            );
+            return new ClientImpl<>(internalClient.anonymous());
         }
 
         @Override
         public <T> T call(Function<C, T> call) {
             return call.apply(internalClient);
-        }
-    }
-
-    private static class AuthenticationClient<C extends UIClient> implements Client<C> {
-
-        private final String user;
-        private final String password;
-        private final C uiClient;
-        private final Client<C> client;
-
-        private AuthenticationClient(String user, String password, C uiClient, Client<C> client) {
-            this.user = user;
-            this.password = password;
-            this.uiClient = uiClient;
-            this.client = client;
-        }
-
-        @Override
-        public <T> T call(Function<C, T> call) {
-            // Login
-            uiClient.login(user, password);
-            try {
-                // Call
-                return client.call(call);
-            } finally {
-                // Logout
-                uiClient.logout();
-            }
-        }
-    }
-
-    private static class AnonymousClient<C extends UIClient> implements Client<C> {
-
-        private final C uiClient;
-        private final Client<C> client;
-
-        private AnonymousClient(C uiClient, Client<C> client) {
-            this.uiClient = uiClient;
-            this.client = client;
-        }
-
-        @Override
-        public <T> T call(Function<C, T> call) {
-            // Makes sure to logout first
-            uiClient.logout();
-            // Call
-            return client.call(call);
         }
     }
 

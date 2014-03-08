@@ -8,7 +8,7 @@ import net.nemerosa.iteach.ui.model.UISchoolSummary;
 import java.util.List;
 import java.util.Locale;
 
-public class UITeacherAPIClientImpl extends AbstractClient implements UITeacherAPIClient {
+public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> implements UITeacherAPIClient {
 
     public UITeacherAPIClientImpl(String url) {
         super(url);

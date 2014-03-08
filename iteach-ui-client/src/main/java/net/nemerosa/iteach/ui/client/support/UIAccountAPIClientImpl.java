@@ -9,7 +9,7 @@ import net.nemerosa.iteach.ui.model.UITeacherPasswordForm;
 import java.util.List;
 import java.util.Locale;
 
-public class UIAccountAPIClientImpl extends AbstractClient implements UIAccountAPIClient {
+public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> implements UIAccountAPIClient {
 
     public UIAccountAPIClientImpl(String url) {
         super(url);
