@@ -7,7 +7,6 @@ import com.google.common.collect.Lists;
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import net.nemerosa.iteach.ui.client.UIClient;
-import net.nemerosa.iteach.ui.model.UITeacher;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.*;
 import org.apache.http.auth.AuthScope;
@@ -89,14 +88,6 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
     public C anonymous() {
         httpContext = HttpClientContext.create();
         return (C) this;
-    }
-
-    @Override
-    public UITeacher login() {
-        // Forces the logout
-        logout();
-        // Gets the server to send a challenge back
-        return get(Locale.ENGLISH, UITeacher.class, "/api/account/login");
     }
 
     @Override

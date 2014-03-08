@@ -68,7 +68,7 @@ public class UISupport {
             throw new UICannotAccessLinkException(ex, link);
         }
         // Login
-        UITeacher teacher = client.login(email, password);
+        UITeacher teacher = client.account().asUser(email, password).call(client -> client.login(Locale.ENGLISH));
         // Gets the teacher
         return new TeacherContext(teacher, password);
     }

@@ -1,10 +1,6 @@
 package net.nemerosa.iteach.ui.client;
 
-import net.nemerosa.iteach.ui.model.UITeacher;
-
 public interface UIClient<C extends UIClient<C>> {
-
-    UITeacher login();
 
     void logout();
 
