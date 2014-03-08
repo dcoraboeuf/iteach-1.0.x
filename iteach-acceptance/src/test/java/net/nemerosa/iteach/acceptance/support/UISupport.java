@@ -1,18 +1,19 @@
 package net.nemerosa.iteach.acceptance.support;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.Message;
+import net.nemerosa.iteach.common.TokenType;
 import net.nemerosa.iteach.test.TestUtils;
 import net.nemerosa.iteach.ui.client.UIAccountAPIClient;
 import net.nemerosa.iteach.ui.client.UITestAPIClient;
 import net.nemerosa.iteach.ui.model.UITeacher;
 import net.nemerosa.iteach.ui.model.UITeacherPasswordForm;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Locale;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class UISupport {
 
@@ -61,12 +62,8 @@ public class UISupport {
         Message message = client.test().asAdmin().call(((UITestAPIClient client) -> client.getMessage(email)));
         assertNotNull(String.format("Cannot find any message for %s", email), message);
         // Validates the mail by "clicking" on the URL
-        String link = message.getContent().getLink();
-        try {
-            new URL(link).openConnection();
-        } catch (IOException ex) {
-            throw new UICannotAccessLinkException(ex, link);
-        }
+        Ack ack = client.account().anonymous().call(client -> client.validate(Locale.ENGLISH, TokenType.REGISTRATION, message.getContent().getToken()));
+        assertTrue("Validation of the registration must be OK", ack.isSuccess());
         // Login
         UITeacher teacher = client.account().asUser(email, password).call(client -> client.login(Locale.ENGLISH));
         // Gets the teacher

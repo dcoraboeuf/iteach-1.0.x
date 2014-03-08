@@ -3,6 +3,7 @@ package net.nemerosa.iteach.ui;
 import net.nemerosa.iteach.common.AccountAuthentication;
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.ID;
+import net.nemerosa.iteach.common.TokenType;
 import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
@@ -12,10 +13,7 @@ import net.nemerosa.iteach.ui.model.UITeacher;
 import net.nemerosa.iteach.ui.model.UITeacherPasswordForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Locale;
@@ -81,6 +79,17 @@ public class UIAccountAPIController implements UIAccountAPI {
                         form.getPassword()
                 )
         );
+    }
+
+    @Override
+    @RequestMapping(value = "/validate/{tokenType}/{token}", method = RequestMethod.GET)
+    public Ack validate(Locale locale, @PathVariable TokenType tokenType, @PathVariable String token) {
+        switch (tokenType) {
+            case REGISTRATION:
+                return accountService.completeRegistration(locale, token);
+            default:
+                throw new IllegalStateException("Token not handled: " + tokenType);
+        }
     }
 
 }
