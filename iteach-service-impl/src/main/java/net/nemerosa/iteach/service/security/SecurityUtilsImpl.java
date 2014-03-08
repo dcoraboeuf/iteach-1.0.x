@@ -40,6 +40,11 @@ public class SecurityUtilsImpl implements SecurityUtils {
         return withAccount(Function.identity());
     }
 
+    @Override
+    public boolean isLogged() {
+        return withAccount(account -> account != null);
+    }
+
     protected <T> T withAccount(Function<AccountAuthentication, T> fn) {
         // Gets the current authentication context if any
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -11,4 +11,6 @@ public interface SecurityUtils {
     String getCurrentAccountName();
 
     AccountAuthentication getCurrentAccount();
+
+    boolean isLogged();
 }

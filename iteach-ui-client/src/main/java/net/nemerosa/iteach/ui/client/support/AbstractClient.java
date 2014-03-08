@@ -90,7 +90,7 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
     public void logout() {
         logger.debug("[client] Logout");
         // Executes the call
-        post(Locale.ENGLISH, Ack.class, null, "/api/account/logout");
+        get(Locale.ENGLISH, Ack.class, "/api/account/logout");
     }
 
     protected String getUrl(String path, Object... parameters) {

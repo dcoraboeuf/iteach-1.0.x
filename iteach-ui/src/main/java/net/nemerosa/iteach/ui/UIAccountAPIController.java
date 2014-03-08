@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.ui;
 
 import net.nemerosa.iteach.common.AccountAuthentication;
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.SecurityUtils;
@@ -47,6 +48,15 @@ public class UIAccountAPIController implements UIAccountAPI {
                 authentication.isAdministrator(),
                 authentication.getAuthenticationMode()
         );
+    }
+
+    /**
+     * See {@link net.nemerosa.iteach.ui.config.WebSecurityConfig} for the actual logout.
+     */
+    @Override
+    @RequestMapping(value = "/logged-out", method = RequestMethod.GET)
+    public Ack logout(Locale locale) {
+        return Ack.validate(securityUtils.isLogged());
     }
 
     @Override

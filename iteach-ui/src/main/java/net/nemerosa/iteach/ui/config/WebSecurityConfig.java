@@ -21,11 +21,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/api/**").httpBasic().realmName("iteach").and()
+                .logout().logoutUrl("/api/account/logout").logoutSuccessUrl("/api/account/logged-out").and()
                 .csrf().requireCsrfProtectionMatcher(new CSRFRequestMatcher()).and()
                 .authorizeRequests()
                 .antMatchers("/api/**").permitAll()
                 .anyRequest().authenticated().and()
-        //.antMatcher("/api/account/register").csrf().disable()
         ;
     }
 

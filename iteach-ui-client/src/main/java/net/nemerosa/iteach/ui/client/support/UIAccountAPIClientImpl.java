@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.ui.client.support;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.ui.client.UIAccountAPIClient;
 import net.nemerosa.iteach.ui.model.UIAccount;
@@ -18,6 +19,11 @@ public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> i
     @Override
     public UITeacher login(Locale locale) {
         return get(locale, UITeacher.class, "/api/account/login");
+    }
+
+    @Override
+    public Ack logout(Locale locale) {
+        return post(locale, Ack.class, null, "/api/account/logout");
     }
 
     @Override
