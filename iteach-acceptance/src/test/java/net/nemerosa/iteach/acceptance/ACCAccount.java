@@ -19,7 +19,7 @@ public class ACCAccount extends AbstractACCSupport {
             // Checks
             assertNotNull(account);
             assertEquals(1, account.getId());
-            assertEquals("admin", account.getName());
+            assertEquals("Administrator", account.getName());
             assertEquals("", account.getEmail());
             assertEquals(AuthenticationMode.PASSWORD, account.getAuthenticationMode());
             // Logout
