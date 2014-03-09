@@ -2,7 +2,8 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html" ng-controller="AppCtrl">
 <head>
     <meta charset="utf-8">
-    <title ng-bind="title()">iTeach loading...</title>
+    <!-- TODO Dynamic title -->
+    <title>iTeach</title>
 
     <!-- font awesome from BootstrapCDN -->
     <!-- TODO Local file -->
@@ -21,14 +22,13 @@
 
 <!-- Loading section -->
 <div class="iteach-loading">
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="navbar-header">
-            <a class="navbar-brand">
-                <img class="it-logo" src="assets/logo.png"/>
-                iTeach
-            </a>
+    <div class="container">
+        <div id="iteach-loading-message" class="alert alert-info">
+            <img class="it-logo" src="assets/logo.png"/>
+            <img src="assets/loading.gif"/>
+            iTeach is loading now...
         </div>
-    </nav>
+    </div>
 </div>
 
 <!--
