@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>net.nemerosa.iteach</groupId>
+        <artifactId>iteach-parent</artifactId>
+        <version>0.6.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>iteach-gui</artifactId>
+    <packaging>war</packaging>
+
+    <name>iteach GUI</name>
+    <description>
+        Used for the packaging of the UI WebApp together with the GUI static resources.
+    </description>
+
+    <dependencies>
+        <!-- iTeach -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>iteach-ui</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <!-- Support for Servlet 3.0 -->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

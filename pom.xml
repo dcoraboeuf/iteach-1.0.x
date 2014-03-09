@@ -42,6 +42,7 @@
         <module>iteach-dao</module>
         <module>iteach-dao-jdbc</module>
         <module>iteach-it-utils</module>
+        <module>iteach-gui</module>
 	</modules>
 
 	<dependencyManagement>
