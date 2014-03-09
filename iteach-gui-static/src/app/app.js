@@ -61,8 +61,9 @@ angular.element(document).ready(function () {
         }
     });
     // Running the application after the bootstrap is complete
-    bootstrapModule.run(function (bootstrapper) {
+    bootstrapModule.run(function (bootstrapper, $log) {
         bootstrapper.bootstrap().then(function () {
+            $log.info('Bootstraping finished. Removing the loading page.');
             // Removing the container will destroy the bootstrap app
             angular.element(bootstrapElement).remove();
         });
