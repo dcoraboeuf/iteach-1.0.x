@@ -8,6 +8,7 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.List;
@@ -34,6 +35,15 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         converter.setObjectMapper(ObjectMapperFactory.create());
         converters.add(converter);
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // TODO Setup depends on the profile, dev or prod
+        registry.addResourceHandler("/app/**").addResourceLocations("/app/");
+        registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
+        registry.addResourceHandler("/vendor/**").addResourceLocations("/vendor/");
+        registry.addResourceHandler("index.html").addResourceLocations("index.html");
     }
 
 }
