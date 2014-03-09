@@ -87,27 +87,6 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <configuration>
-                    <path>/iteach</path>
-                    <contextFile>${project.basedir}/src/test/resources/tomcat/context-dev.xml</contextFile>
-                </configuration>
-                <dependencies>
-                    <!-- Database -->
-                    <dependency>
-                        <groupId>com.h2database</groupId>
-                        <artifactId>h2</artifactId>
-                        <version>1.3.166</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>commons-dbcp</groupId>
-                        <artifactId>commons-dbcp</artifactId>
-                        <version>1.4</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
         </plugins>
     </build>
 
@@ -115,13 +94,42 @@
 
         <profile>
             <id>dev</id>
+            <dependencies>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>iteach-gui-static</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+            </dependencies>
             <build>
                 <pluginManagement>
                     <plugins>
                         <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-resources-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>copy-gui-resources</id>
+                                    <phase>compile</phase>
+                                    <goals>
+                                        <goal>copy-resources</goal>
+                                    </goals>
+                                    <configuration>
+                                        <outputDirectory>${project.basedir}/src/main/webapp</outputDirectory>
+                                        <resources>
+                                            <resource>
+                                                <directory>../iteach-gui-static/target/dev</directory>
+                                            </resource>
+                                        </resources>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        <plugin>
                             <groupId>org.apache.tomcat.maven</groupId>
                             <artifactId>tomcat7-maven-plugin</artifactId>
                             <configuration>
+                                <path>/iteach</path>
                                 <contextFile>${project.basedir}/src/test/resources/tomcat/context-dev.xml</contextFile>
                                 <systemProperties>
                                     <!-- Spring profile -->
@@ -130,6 +138,19 @@
                                     <iteach.url>http://localhost:8080/iteach</iteach.url>
                                 </systemProperties>
                             </configuration>
+                            <dependencies>
+                                <!-- Database -->
+                                <dependency>
+                                    <groupId>com.h2database</groupId>
+                                    <artifactId>h2</artifactId>
+                                    <version>1.3.166</version>
+                                </dependency>
+                                <dependency>
+                                    <groupId>commons-dbcp</groupId>
+                                    <artifactId>commons-dbcp</artifactId>
+                                    <version>1.4</version>
+                                </dependency>
+                            </dependencies>
                         </plugin>
                     </plugins>
                 </pluginManagement>

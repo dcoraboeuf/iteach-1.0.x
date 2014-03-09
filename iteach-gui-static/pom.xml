@@ -10,7 +10,6 @@
     </parent>
 
     <artifactId>iteach-gui-static</artifactId>
-    <packaging>pom</packaging>
 
     <name>iteach GUI Static</name>
     <description>
@@ -64,7 +63,7 @@
                         <executions>
                             <execution>
                                 <id>prepare-prod</id>
-                                <phase>prepare-package</phase>
+                                <phase>compile</phase>
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
