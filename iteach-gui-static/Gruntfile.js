@@ -213,18 +213,18 @@ module.exports = function ( grunt ) {
             dev: {
                 options: {
                     base: '<%= src_dir %>',
-                    module: 'iteach-templates'
+                    module: 'iteach.templates'
                 },
                 src: [ '<%= src_dir %>/<%= app_files.tpl %>' ],
-                dest: '<%= dev_dir %>/app/iteach-templates.js'
+                dest: '<%= dev_dir %>/app/iteach.templates.js'
             },
             prod: {
                 options: {
                     base: '<%= src_dir %>',
-                    module: 'iteach-templates'
+                    module: 'iteach.templates'
                 },
                 src: [ '<%= src_dir %>/<%= app_files.tpl %>' ],
-                dest: '<%= temp_dir %>/iteach-templates.js'
+                dest: '<%= temp_dir %>/iteach.templates.js'
             }
         },
 
