@@ -32,4 +32,5 @@ grunt clean prod
 
 ## Remaining actions
 
-TODO Version in `bower.json` and `package.json`.
+* TODO Version in `bower.json` and `package.json`.
+* TODO iTeach logo
