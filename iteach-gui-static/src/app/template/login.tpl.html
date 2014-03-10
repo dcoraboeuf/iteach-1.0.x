@@ -1,9 +1,83 @@
 <div class="jumbotron">
     <div class="container">
-        <h1>iTeach</h1>
-        <p>
-            iTeach is the application that will help you organise your courses and your
-            planning.
-        </p>
+        <div class="row">
+            <div class="col-md-7">
+                <h1>iTeach</h1>
+
+                <p>
+                    iTeach is the application that will help you organise your courses and your
+                    planning.
+                </p>
+            </div>
+            <div class="col-md-5">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Sign in with Google</h3>
+
+                        <form action="j_spring_openid_security_check" method="post" class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-md-offset-1">
+                                    <input name="openid_identifier" size="50" maxlength="100" type="hidden"
+                                           value="https://www.google.com/accounts/o8/id"/>
+                                    <button type="submit" class="btn btn-default">
+                                        Sign in with
+                                        <img src="assets/google.png"/>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Sign in with OpenID</h3>
+
+                        <form name="oidf" action="j_spring_openid_security_check" method="POST" class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-md-offset-1 col-md-12">
+                                    <input id="openid_identifier" class="form-control" type="text" size="50" name="openid_identifier"
+                                           required="required" placeholder="Enter your OpenID"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-1">
+                                    <button type="submit" class="btn btn-default">
+                                        Sign in with
+                                        <img src="assets/openid.png"/>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Sign with your password</h3>
+                        <form name="password" action="j_spring_security_check" method="POST" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="j_username">Email</label>
+                                <div class="col-md-7">
+                                    <input id="j_username" class="form-control" type="text" size="50" name="j_username" required="required" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="j_password">Password</label>
+                                <div class="col-md-7">
+                                    <input id="j_password" class="form-control" type="password" size="50" name="j_password" required="required" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-1 col-md-11">
+                                    <button type="submit" class="btn btn-default">
+                                        Sig in
+                                    </button>
+                                    <a href="register" class="btn btn-link">Register</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
