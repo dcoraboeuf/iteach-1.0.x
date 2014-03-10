@@ -43,8 +43,22 @@ var iteach = angular.module('iteach', [
                 }
             );
         })
-        .controller('AppCtrl', function AppCtrl($scope, config) {
+        .controller('AppCtrl', function AppCtrl($scope, $translate, config) {
             $scope.version = config.version;
+            // Language management
+            $scope.language = function () {
+                return $translate.use();
+            };
+            $scope.languageList = [{
+                id: 'en',
+                name: 'language.en'
+            }, {
+                id: 'fr',
+                name: 'language.fr'
+            }];
+            $scope.changeLanguage = function (lang) {
+                $translate.use(lang);
+            };
         })
     ;
 
