@@ -6,12 +6,19 @@ var iteach = angular.module('iteach', [
             'ui.router',
             // TODO 'pascalprecht.translate',
             'iteach.templates',
-            'iteach.config'
+            'iteach.config',
+            // Services
+            'iteach.service.account',
+            // UI
+            'iteach.ui.account'
         ])
         // TODO HTTP configuration
         // TODO Translation configuration
         // TODO Translation URL configuration
         // TODO Runs the initial security service (in case of refresh)
+        .run(function AppRun (accountService) {
+            accountService.init()
+        })
         // TODO HTTP error interceptor
         .controller('AppCtrl', function AppCtrl($scope, config) {
             $scope.version = config.version;

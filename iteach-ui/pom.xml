@@ -105,32 +105,12 @@
                 <pluginManagement>
                     <plugins>
                         <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-resources-plugin</artifactId>
-                            <executions>
-                                <execution>
-                                    <id>copy-gui-resources</id>
-                                    <phase>compile</phase>
-                                    <goals>
-                                        <goal>copy-resources</goal>
-                                    </goals>
-                                    <configuration>
-                                        <outputDirectory>${project.basedir}/src/main/webapp</outputDirectory>
-                                        <resources>
-                                            <resource>
-                                                <directory>../iteach-gui-static/target/dev</directory>
-                                            </resource>
-                                        </resources>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-                        <plugin>
                             <groupId>org.apache.tomcat.maven</groupId>
                             <artifactId>tomcat7-maven-plugin</artifactId>
                             <configuration>
                                 <path>/iteach</path>
                                 <contextFile>${project.basedir}/src/test/resources/tomcat/context-dev.xml</contextFile>
+                                <warSourceDirectory>../iteach-gui-static/target/dev</warSourceDirectory>
                                 <systemProperties>
                                     <!-- Spring profile -->
                                     <spring.profiles.active>dev</spring.profiles.active>
