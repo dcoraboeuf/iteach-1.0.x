@@ -23,6 +23,10 @@ var iteach = angular.module('iteach', [
         // Routing configuration
         .config(function ($routeProvider) {
             $routeProvider
+                // Login page
+                .when('/login', {
+                    templateUrl: 'app/template/login.tpl.html'
+                })
                 // Teacher main page
                 .when('/teacher', {
                     templateUrl: 'app/template/teacher.tpl.html'

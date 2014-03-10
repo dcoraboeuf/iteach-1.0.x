@@ -22,8 +22,9 @@ angular.module('iteach.service.account', [
                     $location.path('/teacher');
                 }
             } else {
-                // TODO Login page
+                // Login page
                 $log.debug('Going to the login page');
+                $location.path('/login');
             }
         };
 
