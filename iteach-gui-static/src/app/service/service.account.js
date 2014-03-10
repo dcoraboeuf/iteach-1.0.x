@@ -7,10 +7,7 @@ angular.module('iteach.service.account', [
 
         };
 
-        self.init = function init() {
-            $log.debug('Initializing the account');
-            var account = uiAccount.current();
-            $log.debug('Current account', account);
+        self.onAccount = function onAccount(account) {
             // Home page
             if (account.authenticated) {
                 if (account.teacher.administrator) {
@@ -26,6 +23,19 @@ angular.module('iteach.service.account', [
                 $log.debug('Going to the login page');
                 $location.path('/login');
             }
+        }
+
+        self.init = function init() {
+            $log.debug('Initializing the account');
+            var account = uiAccount.current();
+            $log.debug('Current account', account);
+            self.onAccount(account);
+        };
+
+        self.iteachLogin = function iteachLogin(email, password) {
+            uiAccount.iteachLogin(email, password).then(function (account) {
+                self.onAccount(account)
+            })
         };
 
         return self;

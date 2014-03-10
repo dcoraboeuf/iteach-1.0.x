@@ -1,5 +1,7 @@
-angular.module('iteach.ui.account', [])
-    .service('uiAccount', function () {
+angular.module('iteach.ui.account', [
+        'iteach.config'
+    ])
+    .service('uiAccount', function ($q, $http, config) {
 
         var self = {};
 
@@ -19,7 +21,21 @@ angular.module('iteach.ui.account', [])
             return {
                 authenticated: false
             }
-        }
+        };
+
+        self.iteachLogin = function (email, password) {
+            var deferred = $q.defer();
+            $http.get(config.api('account/login'), {
+                'Authorization': window.btoa(email + ':' + password)
+            }).success(function (teacher) {
+                    deferred.resolve({
+                        authenticated: true,
+                        teacher: teacher
+                    })
+                }
+            );
+            return deferred.promise;
+        };
 
         return self;
 
