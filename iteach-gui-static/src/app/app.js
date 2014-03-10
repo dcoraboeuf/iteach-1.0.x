@@ -7,6 +7,8 @@ var iteach = angular.module('iteach', [
             // TODO 'pascalprecht.translate',
             'iteach.templates',
             'iteach.config',
+            // Directives
+            'iteach.directive.view',
             // Services
             'iteach.service.account',
             // UI
