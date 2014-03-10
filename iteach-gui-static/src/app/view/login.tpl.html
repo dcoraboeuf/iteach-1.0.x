@@ -52,15 +52,15 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h3>{{'login.signin.form' | translate}}</h3>
-                        <form name="password" action="j_spring_security_check" method="POST" class="form-horizontal">
+                        <form name="password" ng-submit="iteachLogin()" class="form-horizontal">
                             <div class="form-group">
                                 <div class="col-md-offset-1 col-md-11">
-                                    <input id="j_username" class="form-control" type="text" size="50" name="j_username" required="required" placeholder="{{'login.signin.form.email' | translate}}" />
+                                    <input ng-model="email" id="j_username" class="form-control" type="text" size="50" name="j_username" required="required" placeholder="{{'login.signin.form.email' | translate}}" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-offset-1 col-md-11">
-                                    <input id="j_password" class="form-control" type="password" size="50" name="j_password" required="required" placeholder="{{'login.signin.form.password' | translate}}" />
+                                    <input ng-model="password" id="j_password" class="form-control" type="password" size="50" name="j_password" required="required" placeholder="{{'login.signin.form.password' | translate}}" />
                                 </div>
                             </div>
                             <div class="form-group">

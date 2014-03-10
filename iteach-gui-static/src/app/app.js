@@ -12,6 +12,8 @@ var iteach = angular.module('iteach', [
             'iteach.config',
             // Directives
             'iteach.directive.view',
+            // Views
+            'iteach.view.login',
             // Services
             'iteach.service.account',
             // UI
@@ -35,11 +37,12 @@ var iteach = angular.module('iteach', [
             $routeProvider
                 // Login page
                 .when('/login', {
-                    templateUrl: 'app/template/login.tpl.html'
+                    templateUrl: 'app/view/login.tpl.html',
+                    controller: 'LoginCtrl'
                 })
                 // Teacher main page
                 .when('/teacher', {
-                    templateUrl: 'app/template/teacher.tpl.html'
+                    templateUrl: 'app/view/teacher.tpl.html'
                 }
             );
         })
