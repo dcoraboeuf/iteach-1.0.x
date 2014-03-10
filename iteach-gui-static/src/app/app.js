@@ -3,7 +3,7 @@
 // Declare app level module which depends on filters, and services
 var iteach = angular.module('iteach', [
             'ui.bootstrap',
-            'ui.router',
+            'ngRoute',
             // TODO 'pascalprecht.translate',
             'iteach.templates',
             'iteach.config',
