@@ -11,7 +11,7 @@
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-12">
-                        <h3>Sign in with Google</h3>
+                        <h3>{{'login.signin.google' | translate}}</h3>
 
                         <form action="j_spring_openid_security_check" method="post" class="form-horizontal">
                             <div class="form-group">
@@ -19,7 +19,7 @@
                                     <input name="openid_identifier" size="50" maxlength="100" type="hidden"
                                            value="https://www.google.com/accounts/o8/id"/>
                                     <button type="submit" class="btn btn-default">
-                                        Sign in with
+                                        {{'login.signin.with' | translate}}
                                         <img src="assets/google.png"/>
                                     </button>
                                 </div>
@@ -29,19 +29,19 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h3>Sign in with OpenID</h3>
+                        <h3>{{'login.signin.openid' | translate}}</h3>
 
                         <form name="oidf" action="j_spring_openid_security_check" method="POST" class="form-horizontal">
                             <div class="form-group">
                                 <div class="col-md-offset-1 col-md-11">
                                     <input id="openid_identifier" class="form-control" type="text" size="50" name="openid_identifier"
-                                           required="required" placeholder="Enter your OpenID"/>
+                                           required="required" placeholder="{{'login.signin.openid.field' | translate}}"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-offset-1 col-md-11">
                                     <button type="submit" class="btn btn-default">
-                                        Sign in with
+                                        {{'login.signin.with' | translate}}
                                         <img src="assets/openid.png"/>
                                     </button>
                                 </div>
@@ -51,24 +51,24 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h3>Sign with your password</h3>
+                        <h3>{{'login.signin.form' | translate}}</h3>
                         <form name="password" action="j_spring_security_check" method="POST" class="form-horizontal">
                             <div class="form-group">
                                 <div class="col-md-offset-1 col-md-11">
-                                    <input id="j_username" class="form-control" type="text" size="50" name="j_username" required="required" placeholder="Email" />
+                                    <input id="j_username" class="form-control" type="text" size="50" name="j_username" required="required" placeholder="{{'login.signin.form.email' | translate}}" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-offset-1 col-md-11">
-                                    <input id="j_password" class="form-control" type="password" size="50" name="j_password" required="required" placeholder="Password" />
+                                    <input id="j_password" class="form-control" type="password" size="50" name="j_password" required="required" placeholder="{{'login.signin.form.password' | translate}}" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-offset-1 col-md-11">
                                     <button type="submit" class="btn btn-default">
-                                        Sign in
+                                        {{'login.signin.form.submit' | translate}}
                                     </button>
-                                    <a href="register" class="btn btn-link">Register</a>
+                                    <a href="register" class="btn btn-link">{{'login.signin.form.register' | translate}}</a>
                                 </div>
                             </div>
                         </form>
