@@ -5,11 +5,14 @@ angular.module('iteach.ui.account', [])
 
         self.current = function () {
             return {
-                id: 2,
-                name: 'Damien',
-                email: 'damien@test.com',
-                administrator: false,
-                authenticationMode: 'PASSWORD'
+                authenticated: true,
+                teacher: {
+                    id: 2,
+                    name: 'Damien',
+                    email: 'damien@test.com',
+                    administrator: false,
+                    authenticationMode: 'PASSWORD'
+                }
             };
         }
 
