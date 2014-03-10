@@ -1,5 +1,8 @@
 'use strict';
 
+// Initial configuration
+var _translationMap;
+
 // Declare app level module which depends on filters, and services
 var iteach = angular.module('iteach', [
             'ui.bootstrap',
@@ -53,30 +56,26 @@ angular.element(document).ready(function () {
             bootstrap: function () {
                 $log.info('Initializing the application...');
                 var deferred = $q.defer();
-                // FIXME Loading the translations
-                /*
-                 $http.get(config.api('localization/en/' + config.version))
-                 .success(function (map) {
-                 $log.info('Default translation map loaded.');
-                 _translationMap = map;
-                 */
-                // Starting the application
-                $log.info('Starting the application...');
-                angular.bootstrap(document, ['iteach']);
-                // OK
-                $log.info('Bootstraping done.');
-                deferred.resolve();
-                /*
-                 })
-                 .error(function () {
-                 angular.element(document.getElementById('ontrack-loading-message'))
-                 .removeClass('alert-info')
-                 .addClass('alert-danger')
-                 .text('Could not initialize application, configuration could not be loaded.');
-                 deferred.reject();
-                 })
-                 ;
-                 */
+                // Loading the translations
+                $http.get(config.api('localization/en/' + config.version))
+                    .success(function (map) {
+                        $log.info('Default translation map loaded.');
+                        _translationMap = map;
+                        // Starting the application
+                        $log.info('Starting the application...');
+                        angular.bootstrap(document, ['iteach']);
+                        // OK
+                        $log.info('Bootstraping done.');
+                        deferred.resolve();
+                    })
+                    .error(function () {
+                        angular.element(document.getElementById('iteach-loading-message'))
+                            .removeClass('alert-info')
+                            .addClass('alert-danger')
+                            .text('Could not initialize application, configuration could not be loaded.');
+                        deferred.reject();
+                    })
+                ;
                 // OK
                 return deferred.promise;
             }
