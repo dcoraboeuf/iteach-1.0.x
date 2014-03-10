@@ -20,27 +20,9 @@ var iteach = angular.module('iteach', [
         // TODO HTTP configuration
         // Translation configuration
         .config(function ($translateProvider) {
-            if (console) console.log('Loading the translations');
-            $translateProvider.translations('en', _translationMap);
+            $translateProvider.translations('en', map_en);
+            $translateProvider.translations('fr', map_fr);
             $translateProvider.preferredLanguage('en');
-            $translateProvider.useLoader('$translateUrlLoader', {});
-        })
-        // Translation URL configuration
-        .factory('$translateUrlLoader', function ($q, $http, config) {
-            return function (options) {
-                var deferred = $q.defer();
-                $http({
-                    url: config.api('localization/' + options.key + '/' + config.version),
-                    method: 'GET'
-                })
-                    .success(function (data) {
-                        deferred.resolve(data);
-                    })
-                    .error(function (data) {
-                        deferred.reject(options.key);
-                    });
-                return deferred.promise;
-            }
         })
         // Runs the initial security service (in case of refresh)
         .run(function AppRun(accountService) {
@@ -67,6 +49,7 @@ var iteach = angular.module('iteach', [
     ;
 
 // BOOTSTRAPING SECTION
+// TODO Maybe not needed any longer
 
 angular.element(document).ready(function () {
     // Bootstrap element
@@ -79,26 +62,12 @@ angular.element(document).ready(function () {
             bootstrap: function () {
                 $log.info('Initializing the application...');
                 var deferred = $q.defer();
-                // Loading the translations
-                $http.get(config.api('localization/en/' + config.version))
-                    .success(function (map) {
-                        $log.info('Default translation map loaded.');
-                        _translationMap = map;
-                        // Starting the application
-                        $log.info('Starting the application...');
-                        angular.bootstrap(document, ['iteach']);
-                        // OK
-                        $log.info('Bootstraping done.');
-                        deferred.resolve();
-                    })
-                    .error(function () {
-                        angular.element(document.getElementById('iteach-loading-message'))
-                            .removeClass('alert-info')
-                            .addClass('alert-danger')
-                            .text('Could not initialize application, configuration could not be loaded.');
-                        deferred.reject();
-                    })
-                ;
+                // Starting the application
+                $log.info('Starting the application...');
+                angular.bootstrap(document, ['iteach']);
+                // OK
+                $log.info('Bootstraping done.');
+                deferred.resolve();
                 // OK
                 return deferred.promise;
             }

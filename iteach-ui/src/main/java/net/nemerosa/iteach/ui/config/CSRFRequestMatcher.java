@@ -16,7 +16,6 @@ public class CSRFRequestMatcher implements RequestMatcher {
     private final Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$");
     private final Collection<RegexRequestMatcher> excludedRequests =
             Arrays.asList(
-                    new RegexRequestMatcher("/api/localization/.*", null),
                     new RegexRequestMatcher("/api/account/register", null),
                     new RegexRequestMatcher("/api/account/validate", null)
             );
