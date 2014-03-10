@@ -1,7 +1,7 @@
 angular.module('iteach.service.account', [
         'iteach.ui.account'
     ])
-    .service('accountService', function ($log, uiAccount) {
+    .service('accountService', function ($log, $location, uiAccount) {
 
         var self = {
 
@@ -17,8 +17,9 @@ angular.module('iteach.service.account', [
                     // TODO Admin page
                     $log.debug('Going to the admin page');
                 } else {
-                    // TODO Teacher home page
+                    // Teacher home page
                     $log.debug('Going to the teacher page');
+                    $location.path('/teacher');
                 }
             } else {
                 // TODO Login page

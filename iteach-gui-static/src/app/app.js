@@ -16,10 +16,19 @@ var iteach = angular.module('iteach', [
         // TODO Translation configuration
         // TODO Translation URL configuration
         // TODO Runs the initial security service (in case of refresh)
-        .run(function AppRun (accountService) {
+        .run(function AppRun(accountService) {
             accountService.init()
         })
         // TODO HTTP error interceptor
+        // Routing configuration
+        .config(function ($routeProvider) {
+            $routeProvider
+                // Teacher main page
+                .when('/teacher', {
+                    templateUrl: 'app/template/teacher.tpl.html'
+                }
+            );
+        })
         .controller('AppCtrl', function AppCtrl($scope, config) {
             $scope.version = config.version;
         })
