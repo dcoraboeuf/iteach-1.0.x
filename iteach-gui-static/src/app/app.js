@@ -4,7 +4,7 @@
 var iteach = angular.module('iteach', [
             'ui.bootstrap',
             'ngRoute',
-            // TODO 'pascalprecht.translate',
+            'pascalprecht.translate',
             'iteach.templates',
             'iteach.config',
             // Directives
