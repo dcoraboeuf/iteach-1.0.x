@@ -18,10 +18,33 @@ var iteach = angular.module('iteach', [
             'iteach.ui.account'
         ])
         // TODO HTTP configuration
-        // TODO Translation configuration
-        // TODO Translation URL configuration
-        // TODO Runs the initial security service (in case of refresh)
+        // Translation configuration
+        .config(function ($translateProvider) {
+            if (console) console.log('Loading the translations');
+            $translateProvider.translations('en', _translationMap);
+            $translateProvider.preferredLanguage('en');
+            $translateProvider.useLoader('$translateUrlLoader', {});
+        })
+        // Translation URL configuration
+        .factory('$translateUrlLoader', function ($q, $http, config) {
+            return function (options) {
+                var deferred = $q.defer();
+                $http({
+                    url: config.api('localization/' + options.key + '/' + config.version),
+                    method: 'GET'
+                })
+                    .success(function (data) {
+                        deferred.resolve(data);
+                    })
+                    .error(function (data) {
+                        deferred.reject(options.key);
+                    });
+                return deferred.promise;
+            }
+        })
+        // Runs the initial security service (in case of refresh)
         .run(function AppRun(accountService) {
+            if (console) console.log('Loading the context')
             accountService.init()
         })
         // TODO HTTP error interceptor
