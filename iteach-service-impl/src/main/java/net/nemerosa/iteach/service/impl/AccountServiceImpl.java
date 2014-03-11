@@ -108,7 +108,7 @@ public class AccountServiceImpl implements AccountService {
         String token = tokenService.generateToken(tokenType, email);
         // Gets the return link
         String link = String.format(
-                "%s/api/account/token/%s/%s",
+                "%s/validate/%s/%s",
                 envService.getBaseURL(),
                 tokenType,
                 token
