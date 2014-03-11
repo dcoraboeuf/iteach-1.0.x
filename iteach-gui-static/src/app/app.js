@@ -21,7 +21,13 @@ var iteach = angular.module('iteach', [
             // UI
             'iteach.ui.account'
         ])
-        // TODO HTTP configuration
+        //HTTP configuration
+        .config(function ($httpProvider) {
+            // Default error management
+            $httpProvider.interceptors.push('httpErrorInterceptor');
+            // Authentication using cookies and CORS protection
+            $httpProvider.defaults.withCredentials = true;
+        })
         // Translation configuration
         .config(function ($translateProvider) {
             $translateProvider.translations('en', map_en);
@@ -33,7 +39,16 @@ var iteach = angular.module('iteach', [
             if (console) console.log('Loading the context')
             accountService.init()
         })
-        // TODO HTTP error interceptor
+        // HTTP error interceptor
+        .factory('httpErrorInterceptor', function ($q, $log, $interpolate, notificationService, errorService) {
+            return {
+                'responseError': function (rejection) {
+                    errorService.process(rejection);
+                    // Standard behaviour
+                    return $q.reject(rejection);
+                }
+            }
+        })
         // Routing configuration
         .config(function ($routeProvider) {
             // TODO Try to register routes in the modules themselves
@@ -60,13 +75,16 @@ var iteach = angular.module('iteach', [
             $scope.language = function () {
                 return $translate.use();
             };
-            $scope.languageList = [{
-                id: 'en',
-                name: 'language.en'
-            }, {
-                id: 'fr',
-                name: 'language.fr'
-            }];
+            $scope.languageList = [
+                {
+                    id: 'en',
+                    name: 'language.en'
+                },
+                {
+                    id: 'fr',
+                    name: 'language.fr'
+                }
+            ];
             $scope.changeLanguage = function (lang) {
                 $translate.use(lang);
             };
