@@ -14,6 +14,7 @@ var iteach = angular.module('iteach', [
             'iteach.directive.view',
             // Views
             'iteach.view.login',
+            'iteach.view.register',
             // Services
             'iteach.service.account',
             // UI
@@ -43,8 +44,8 @@ var iteach = angular.module('iteach', [
                 })
                 // Registration page
                 .when('/register', {
-                    templateUrl: 'app/view/register.tpl.html'
-                    // TODO Registration controller
+                    templateUrl: 'app/view/register.tpl.html',
+                    controller: 'RegisterCtrl'
                 })
                 // Teacher main page
                 .when('/teacher', {
