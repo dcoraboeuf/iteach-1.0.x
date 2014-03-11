@@ -17,8 +17,8 @@ angular.module('iteach.service.account', [
             if (logging) {
                 if (account.authenticated) {
                     if (account.teacher.administrator) {
-                        // TODO Admin page
                         $log.debug('Going to the admin page');
+                        $location.path('/admin');
                     } else {
                         $log.debug('Going to the teacher page');
                         $location.path('/teacher');
@@ -32,8 +32,8 @@ angular.module('iteach.service.account', [
                 if ($route.current) {
                     // Stays on the page if a route is already defined
                 } else if (account.teacher.administrator) {
-                    // TODO Admin page
                     $log.debug('Going to the admin page');
+                    $location.path('/admin');
                 } else {
                     // Teacher home page
                     $log.debug('Going to the teacher page');

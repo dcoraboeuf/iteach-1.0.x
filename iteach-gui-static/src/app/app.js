@@ -16,6 +16,7 @@ var iteach = angular.module('iteach', [
             'iteach.view.login',
             'iteach.view.register',
             'iteach.view.registrationResult',
+            'iteach.view.admin',
             // Services
             'iteach.service.core',
             'iteach.service.account',
@@ -68,6 +69,11 @@ var iteach = angular.module('iteach', [
                 .when('/registration/:result', {
                     templateUrl: 'app/view/registrationResult.tpl.html',
                     controller: 'RegistrationResultCtrl'
+                })
+                // Admin main page
+                .when('/admin', {
+                    templateUrl: 'app/view/admin.tpl.html',
+                    controller: 'AdminCtrl'
                 })
                 // Teacher main page
                 .when('/teacher', {
