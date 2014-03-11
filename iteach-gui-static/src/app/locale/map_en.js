@@ -1,6 +1,8 @@
 var map_en = {
+    // General
     'language.en': 'English',
     'language.fr': 'Français',
+    // Login page
     'login.iteach.message': 'iTeach is the application that will help you organise your courses and your planning.',
     'login.signin.google': 'Sign in with Google',
     'login.signin.openid': 'Sign in with OpenID',
@@ -10,5 +12,12 @@ var map_en = {
     'login.signin.form.email': 'Enter your email',
     'login.signin.form.password': 'Enter your password',
     'login.signin.form.submit': 'Sign in',
-    'login.signin.form.register': 'Register'
+    'login.signin.form.register': 'Register',
+    // Register page
+    'register.name': 'Your name',
+    'register.email': 'Your email',
+    'register.password': 'Create a password',
+    'register.password_confirm': 'Confirm the password',
+    'register.submit': 'Submit',
+    'register.cancel': 'Cancel'
 };

@@ -34,11 +34,17 @@ var iteach = angular.module('iteach', [
         // TODO HTTP error interceptor
         // Routing configuration
         .config(function ($routeProvider) {
+            // TODO Try to register routes in the modules themselves
             $routeProvider
                 // Login page
                 .when('/login', {
                     templateUrl: 'app/view/login.tpl.html',
                     controller: 'LoginCtrl'
+                })
+                // Registration page
+                .when('/register', {
+                    templateUrl: 'app/view/register.tpl.html'
+                    // TODO Registration controller
                 })
                 // Teacher main page
                 .when('/teacher', {
