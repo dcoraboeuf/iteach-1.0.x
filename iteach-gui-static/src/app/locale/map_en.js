@@ -13,6 +13,7 @@ var map_en = {
     'login.signin.form.password': 'Enter your password',
     'login.signin.form.submit': 'Sign in',
     'login.signin.form.register': 'Register',
+    'login.error': "Cannot connect to iTeach. Check your credentials.",
     // Register page
     'register.name': 'Your name',
     'register.email': 'Your email',

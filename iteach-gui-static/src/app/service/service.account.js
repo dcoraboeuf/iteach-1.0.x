@@ -8,12 +8,27 @@ angular.module('iteach.service.account', [
 
         };
 
-        self.onAccount = function onAccount(account) {
+        self.onAccount = function onAccount(account, logging) {
             $log.debug('onAccount', account);
+            $log.debug('onAccount. logging = ' + logging);
             $log.debug('onAccount. route = ' + $route.current);
             $log.debug('onAccount. path = ' + $location.path());
-            // Home page
-            if (account.authenticated) {
+            // Logging
+            if (logging) {
+                if (account.authenticated) {
+                    if (account.teacher.administrator) {
+                        // TODO Admin page
+                        $log.debug('Going to the admin page');
+                    } else {
+                        $log.debug('Going to the teacher page');
+                        $location.path('/teacher');
+                    }
+                } else {
+                    notificationService.error($translate.instant('login.error'))
+                }
+            }
+            // Refresh
+            else if (account.authenticated) {
                 if ($route.current) {
                     // Stays on the page if a route is already defined
                 } else if (account.teacher.administrator) {
@@ -45,7 +60,7 @@ angular.module('iteach.service.account', [
 
         self.iteachLogin = function iteachLogin(email, password) {
             uiAccount.iteachLogin(email, password).then(function (account) {
-                self.onAccount(account)
+                self.onAccount(account, true)
             })
         };
 
