@@ -9,6 +9,9 @@ angular.module('iteach.service.account', [
         };
 
         self.onAccount = function onAccount(account) {
+            $log.debug('onAccount', account);
+            $log.debug('onAccount. route = ' + $route.current);
+            $log.debug('onAccount. path = ' + $location.path());
             // Home page
             if (account.authenticated) {
                 if ($route.current) {
@@ -23,7 +26,7 @@ angular.module('iteach.service.account', [
                 }
             } else {
                 var current = $location.path();
-                if (current == '/register' || current == '/login') {
+                if (current == '/register' || current == '/login' || current.match(/\/registration\/.*/)) {
                     // Stays on the page
                 } else {
                     // Login page

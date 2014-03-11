@@ -20,5 +20,7 @@ var map_en = {
     'register.password_confirm': 'Confirm the password',
     'register.submit': 'Submit',
     'register.cancel': 'Cancel',
-    'register.incorrect_password_confirmation': 'The confirmation of the password is not correct'
+    'register.incorrect_password_confirmation': 'The confirmation of the password is not correct',
+    'register.success': "The registration has been accepted. You will now shortly receive a mail that will contain " +
+        "a link. Follow the instructions in this mail in order to complete your registration."
 };
