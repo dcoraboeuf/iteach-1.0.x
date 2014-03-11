@@ -26,7 +26,9 @@ angular.module('iteach.ui.account', [
         self.iteachLogin = function (email, password) {
             var deferred = $q.defer();
             $http.get(config.api('account/login'), {
-                'Authorization': window.btoa(email + ':' + password)
+                headers: {
+                    'Authorization': 'Basic ' + window.btoa(email + ':' + password)
+                }
             }).success(function (teacher) {
                     deferred.resolve({
                         authenticated: true,
