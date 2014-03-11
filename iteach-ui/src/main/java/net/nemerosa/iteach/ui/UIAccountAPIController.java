@@ -7,16 +7,14 @@ import net.nemerosa.iteach.common.TokenType;
 import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
-import net.nemerosa.iteach.ui.model.UIAccount;
-import net.nemerosa.iteach.ui.model.UIAccountAPI;
-import net.nemerosa.iteach.ui.model.UITeacher;
-import net.nemerosa.iteach.ui.model.UITeacherPasswordForm;
+import net.nemerosa.iteach.ui.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,11 +23,32 @@ public class UIAccountAPIController implements UIAccountAPI {
 
     private final AccountService accountService;
     private final SecurityUtils securityUtils;
+    private final Function<AccountAuthentication, UITeacher> teacherFromAuthentication = authentication ->
+            new UITeacher(
+                    authentication.getId(),
+                    authentication.getName(),
+                    authentication.getEmail(),
+                    authentication.isAdministrator(),
+                    authentication.getAuthenticationMode()
+            );
 
     @Autowired
     public UIAccountAPIController(AccountService accountService, SecurityUtils securityUtils) {
         this.accountService = accountService;
         this.securityUtils = securityUtils;
+    }
+
+    @Override
+    @RequestMapping(value = "/state", method = RequestMethod.GET)
+    public UIState state(Locale locale) {
+        AccountAuthentication authentication = securityUtils.getCurrentAccount();
+        if (authentication == null) {
+            return UIState.notAuthenticated();
+        } else {
+            return UIState.authenticated(
+                    teacherFromAuthentication.apply(authentication)
+            );
+        }
     }
 
     @Override
@@ -39,13 +58,7 @@ public class UIAccountAPIController implements UIAccountAPI {
         if (authentication == null) {
             throw new AccessDeniedException("No authentication");
         }
-        return new UITeacher(
-                authentication.getId(),
-                authentication.getName(),
-                authentication.getEmail(),
-                authentication.isAdministrator(),
-                authentication.getAuthenticationMode()
-        );
+        return teacherFromAuthentication.apply(authentication);
     }
 
     /**

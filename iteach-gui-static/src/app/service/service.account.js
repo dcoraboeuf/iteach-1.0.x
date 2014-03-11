@@ -2,7 +2,7 @@ angular.module('iteach.service.account', [
         'iteach.service.core',
         'iteach.ui.account'
     ])
-    .service('accountService', function ($log, $location, $route, $translate, notificationService, uiAccount) {
+    .service('accountService', function ($log, $location, $translate, notificationService, uiAccount) {
 
         var self = {
 
@@ -11,7 +11,6 @@ angular.module('iteach.service.account', [
         self.onAccount = function onAccount(account, logging) {
             $log.debug('onAccount', account);
             $log.debug('onAccount. logging = ' + logging);
-            $log.debug('onAccount. route = ' + $route.current);
             $log.debug('onAccount. path = ' + $location.path());
             // Logging
             if (logging) {
@@ -29,7 +28,7 @@ angular.module('iteach.service.account', [
             }
             // Refresh
             else if (account.authenticated) {
-                if ($route.current) {
+                if ($location.path != '') {
                     // Stays on the page if a route is already defined
                 } else if (account.teacher.administrator) {
                     $log.debug('Going to the admin page');
@@ -53,9 +52,9 @@ angular.module('iteach.service.account', [
 
         self.init = function init() {
             $log.debug('Initializing the account');
-            var account = uiAccount.current();
-            $log.debug('Current account', account);
-            self.onAccount(account);
+            uiAccount.current().then(function (account) {
+                self.onAccount(account, false);
+            });
         };
 
         self.iteachLogin = function iteachLogin(email, password) {

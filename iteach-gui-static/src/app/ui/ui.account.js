@@ -6,21 +6,11 @@ angular.module('iteach.ui.account', [
         var self = {};
 
         self.current = function () {
-            /*
-             return {
-             authenticated: true,
-             teacher: {
-             id: 2,
-             name: 'Damien',
-             email: 'damien@test.com',
-             administrator: false,
-             authenticationMode: 'PASSWORD'
-             }
-             };
-             */
-            return {
-                authenticated: false
-            }
+            var deferred = $q.defer();
+            $http.get(config.api('account/state')).success(function (state) {
+                deferred.resolve(state)
+            });
+            return deferred.promise;
         };
 
         self.iteachLogin = function (email, password) {

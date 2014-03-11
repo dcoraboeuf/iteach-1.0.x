@@ -5,6 +5,7 @@ import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.common.TokenType;
 import net.nemerosa.iteach.ui.client.UIAccountAPIClient;
 import net.nemerosa.iteach.ui.model.UIAccount;
+import net.nemerosa.iteach.ui.model.UIState;
 import net.nemerosa.iteach.ui.model.UITeacher;
 import net.nemerosa.iteach.ui.model.UITeacherPasswordForm;
 
@@ -16,6 +17,11 @@ public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> i
 
     public UIAccountAPIClientImpl(String url) throws MalformedURLException {
         super(url);
+    }
+
+    @Override
+    public UIState state(Locale locale) {
+        return get(locale, UIState.class, "/api/account/state");
     }
 
     @Override

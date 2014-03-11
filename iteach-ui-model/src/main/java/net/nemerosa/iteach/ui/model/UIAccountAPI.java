@@ -9,6 +9,8 @@ import java.util.Locale;
 
 public interface UIAccountAPI {
 
+    UIState state(Locale locale);
+
     UITeacher login(Locale locale);
 
     List<UIAccount> getAccounts(Locale locale);
