@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="row">
+        <div class="alert alert-danger" ng-hide="{{success}}">
+            {{'register.result.ko' | translate}}
+        </div>
+        <div ng-show="{{success}}">
+            <div class="alert alert-success">
+                {{'register.result.ok' | translate}}
+            </div>
+            <div>
+                <a href="#/login" class="btn btn-primary">&gt;&gt; {{'register.result.login' | translate}}</a>
+            </div>
+        </div>
+    </div>
+</div>

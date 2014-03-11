@@ -66,6 +66,7 @@ var iteach = angular.module('iteach', [
                 })
                 // Registration OK page
                 .when('/registration/:result', {
+                    templateUrl: 'app/view/registrationResult.tpl.html',
                     controller: 'RegistrationResultCtrl'
                 })
                 // Teacher main page

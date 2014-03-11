@@ -1,6 +1,7 @@
 angular.module('iteach.view.registrationResult', [])
-    .controller('RegistrationResultCtrl', function ($log, $routeParams) {
-        console.log('REGISTRATION');
-        $log.info('Registration result', $routeParams.result)
+    .controller('RegistrationResultCtrl', function ($log, $routeParams, $scope) {
+        var success = $routeParams.result;
+        $log.info('Registration result', success)
+        $scope.success = success;
     })
 ;

@@ -22,5 +22,10 @@ var map_fr = {
     'register.cancel': 'Annuler',
     'register.incorrect_password_confirmation': "La confirmation du mot de passe n'est pas correcte.",
     'register.success': "L'enregistrement a été acceptée. Vous allez bientôt recevoir un mail qui contiendra un" +
-        " lien. Suivez les instructions contenues dans le mail pour compléter votre enregistrement."
+        " lien. Suivez les instructions contenues dans le mail pour compléter votre enregistrement.",
+    'register.result.ko': "L'enregistrement n'a pas pu être complété. Veuillez contacter l'équipe d'iTeach pour plus" +
+        " d'information.",
+    'register.result.ok': "L'enregistrement est maintenant terminé. Veuillez vous connecter pour commencer à" +
+        " utiliser iTeach.",
+    'register.result.login': "Continuer avec la connexion"
 };
