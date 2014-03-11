@@ -54,7 +54,7 @@ var iteach = angular.module('iteach', [
                 }
             );
         })
-        .controller('AppCtrl', function AppCtrl($scope, $translate, config) {
+        .controller('AppCtrl', function AppCtrl($scope, $translate, config, notificationService) {
             $scope.version = config.version;
             // Language management
             $scope.language = function () {
@@ -69,6 +69,19 @@ var iteach = angular.module('iteach', [
             }];
             $scope.changeLanguage = function (lang) {
                 $translate.use(lang);
+            };
+            // Notifications
+            $scope.hasNotification = function () {
+                return angular.isDefined(notificationService.message);
+            };
+            $scope.notification = function () {
+                return notificationService.message;
+            };
+            $scope.notificationType = function () {
+                return notificationService.messageType;
+            };
+            $scope.closeNotification = function () {
+                notificationService.clear();
             };
         })
     ;
