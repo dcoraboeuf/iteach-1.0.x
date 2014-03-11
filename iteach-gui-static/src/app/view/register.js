@@ -1,6 +1,8 @@
 angular.module('iteach.view.register', [
-        'iteach.service.core'])
-    .controller('RegisterCtrl', function ($scope, $translate, notificationService) {
+        'iteach.service.core',
+        'iteach.service.account'
+    ])
+    .controller('RegisterCtrl', function ($scope, $translate, notificationService, accountService) {
         $scope.name = '';
         $scope.email = '';
         $scope.password = '';
@@ -10,7 +12,8 @@ angular.module('iteach.view.register', [
             if ($scope.password != $scope.password_confirm) {
                 notificationService.error($translate.instant('register.incorrect_password_confirmation'));
             }
-            // TODO Sends the form
+            // Sends the form
+            accountService.registerWithPassword($scope.name, $scope.email, $scope.password)
         }
     })
 ;

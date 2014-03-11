@@ -1,7 +1,8 @@
 angular.module('iteach.service.account', [
+        'iteach.service.core',
         'iteach.ui.account'
     ])
-    .service('accountService', function ($log, $location, uiAccount) {
+    .service('accountService', function ($log, $location, $translate, notificationService, uiAccount) {
 
         var self = {
 
@@ -37,6 +38,16 @@ angular.module('iteach.service.account', [
                 self.onAccount(account)
             })
         };
+
+        self.registerWithPassword = function (name, email, password) {
+            uiAccount.registerWithPassword(name, email, password).then(function (id) {
+                if (id.success) {
+                    notificationService.success($translate.instant('register.success'))
+                } else {
+                    notificationService.error($translate.instant('register.failure'))
+                }
+            })
+        }
 
         return self;
 

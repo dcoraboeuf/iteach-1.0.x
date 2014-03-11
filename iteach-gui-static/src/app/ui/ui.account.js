@@ -37,6 +37,18 @@ angular.module('iteach.ui.account', [
             return deferred.promise;
         };
 
+        self.registerWithPassword = function (name, email, password) {
+            var deferred = $q.defer();
+            $http.post(config.api('account/register'), {
+                name: name,
+                email: email,
+                password: password
+            }).success(function (id) {
+                    deferred.resolve(id)
+                });
+            return deferred.promise;
+        }
+
         return self;
 
     })
