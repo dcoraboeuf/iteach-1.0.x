@@ -83,6 +83,11 @@ var iteach = angular.module('iteach', [
             $scope.closeNotification = function () {
                 notificationService.clear();
             };
+            // On state change
+            $scope.$on('$routeChangeSuccess', function () {
+                // Clears any notification
+                notificationService.clear();
+            });
         })
     ;
 
