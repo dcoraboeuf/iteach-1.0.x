@@ -19,5 +19,6 @@ var map_fr = {
     'register.password': 'Votre mot de passe',
     'register.password_confirm': 'Confirmation du mot de passe',
     'register.submit': 'Envoyer',
-    'register.cancel': 'Annuler'
+    'register.cancel': 'Annuler',
+    'register.incorrect_password_confirmation': "La confirmation du mot de passe n'est pas correcte."
 };

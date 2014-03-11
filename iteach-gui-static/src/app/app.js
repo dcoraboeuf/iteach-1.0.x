@@ -16,6 +16,7 @@ var iteach = angular.module('iteach', [
             'iteach.view.login',
             'iteach.view.register',
             // Services
+            'iteach.service.core',
             'iteach.service.account',
             // UI
             'iteach.ui.account'

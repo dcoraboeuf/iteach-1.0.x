@@ -19,5 +19,6 @@ var map_en = {
     'register.password': 'Create a password',
     'register.password_confirm': 'Confirm the password',
     'register.submit': 'Submit',
-    'register.cancel': 'Cancel'
+    'register.cancel': 'Cancel',
+    'register.incorrect_password_confirmation': 'The confirmation of the password is not correct'
 };
