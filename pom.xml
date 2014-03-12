@@ -22,7 +22,7 @@
 	<properties>
 		<!-- Versions -->
 		<springVersion>4.0.2.RELEASE</springVersion>
-		<springSecurityVersion>3.2.1.RELEASE</springSecurityVersion>
+		<springSecurityVersion>3.2.2.RELEASE</springSecurityVersion>
 		<slf4jVersion>1.7.6</slf4jVersion>
 		<lombokVersion>1.12.4</lombokVersion>
 		<!-- General -->
