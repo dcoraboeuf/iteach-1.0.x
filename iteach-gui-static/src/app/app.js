@@ -12,6 +12,7 @@ var iteach = angular.module('iteach', [
             'iteach.config',
             // Directives
             'iteach.directive.view',
+            'iteach.directive.misc',
             // Views
             'iteach.view.login',
             'iteach.view.register',
