@@ -1,5 +1,12 @@
-angular.module('iteach.view.teacher', [])
-    .controller('TeacherCtrl', function ($scope) {
-
+angular.module('iteach.view.teacher', [
+        'iteach.service.teacher'
+    ])
+    .controller('TeacherCtrl', function ($scope, teacherService) {
+        // Loads the list of schools
+        teacherService.getSchools().then(function (schools) {
+            $scope.schools = schools;
+        });
+        // TODO Loads the list of students
+        // TODO Loads the planning
     })
 ;

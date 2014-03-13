@@ -22,8 +22,10 @@ var iteach = angular.module('iteach', [
             // Services
             'iteach.service.core',
             'iteach.service.account',
+            'iteach.service.teacher',
             // UI
-            'iteach.ui.account'
+            'iteach.ui.account',
+            'iteach.ui.teacher'
         ])
         //HTTP configuration
         .config(function ($httpProvider) {
