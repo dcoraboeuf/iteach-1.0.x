@@ -18,6 +18,7 @@ var iteach = angular.module('iteach', [
             'iteach.view.register',
             'iteach.view.registrationResult',
             'iteach.view.admin',
+            'iteach.view.teacher',
             // Services
             'iteach.service.core',
             'iteach.service.account',
@@ -78,7 +79,8 @@ var iteach = angular.module('iteach', [
                 })
                 // Teacher main page
                 .when('/teacher', {
-                    templateUrl: 'app/view/teacher.tpl.html'
+                    templateUrl: 'app/view/teacher.tpl.html',
+                    controller: 'TeacherCtrl'
                 }
             );
         })

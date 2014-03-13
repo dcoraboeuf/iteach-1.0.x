@@ -26,5 +26,7 @@ var map_en = {
         "a link. Follow the instructions in this mail in order to complete your registration.",
     'register.result.ko': "The registration could not be completed. Please contact the iTeach team for more information.",
     'register.result.ok': "The registration is now complete. Please proceed with the login to start using iTeach",
-    'register.result.login': "Go on with login"
+    'register.result.login': "Go on with login",
+    // Model
+    'teacher.schools': "Schools"
 };

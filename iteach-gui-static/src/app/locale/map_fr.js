@@ -28,5 +28,7 @@ var map_fr = {
         " d'information.",
     'register.result.ok': "L'enregistrement est maintenant terminé. Veuillez vous connecter pour commencer à" +
         " utiliser iTeach.",
-    'register.result.login': "Continuer avec la connexion"
+    'register.result.login': "Continuer avec la connexion",
+    // Model
+    'teacher.schools': "Ecoles"
 };
