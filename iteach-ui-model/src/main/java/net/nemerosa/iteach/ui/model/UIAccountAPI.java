@@ -13,6 +13,7 @@ public interface UIAccountAPI {
 
     UITeacher login(Locale locale);
 
+    // TODO Resource collection
     List<UIAccount> getAccounts(Locale locale);
 
     ID registerAsTeacherWithPassword(Locale locale, UITeacherPasswordForm form);
