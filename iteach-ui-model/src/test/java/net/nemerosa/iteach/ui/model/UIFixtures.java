@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.ui.model;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import net.nemerosa.iteach.common.AuthenticationMode;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
@@ -48,6 +49,29 @@ public final class UIFixtures {
                 "4567",
                 "school@test.com",
                 "http://school.my"
+        );
+    }
+
+    public static ObjectNode jsonTeacher() {
+        return object()
+                .with("id", 1)
+                .with("href", "api/account/state")
+                .with("name", "user")
+                .with("email", "user@test.com")
+                .with("administrator", false)
+                .with("authenticationMode", "PASSWORD")
+                .with("schools", object().with("title", "List of schools").with("href", "api/teacher/school").end())
+                .with("students", object().with("title", "List of students").with("href", "api/teacher/student").end())
+                .end();
+    }
+
+    public static UITeacher teacher() {
+        return new UITeacher(
+                1,
+                "user",
+                "user@test.com",
+                false,
+                AuthenticationMode.PASSWORD
         );
     }
 }

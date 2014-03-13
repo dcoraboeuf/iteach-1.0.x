@@ -9,9 +9,12 @@ import net.nemerosa.iteach.common.AuthenticationMode;
 public class UITeacher extends UIResource<UITeacher> {
 
     private final int id;
+    private final String href = "api/account/state";
     private final String name;
     private final String email;
     private final boolean administrator;
     private final AuthenticationMode authenticationMode;
+    private final UILink schools = UILink.of("List of schools", "api/teacher/school");
+    private final UILink students = UILink.of("List of students", "api/teacher/student");
 
 }
