@@ -6,4 +6,16 @@ angular.module('iteach.directive.form', [])
             transclude: true
         }
     })
+    .directive('itFormText', function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                name: '@name',
+                label: '@label',
+                size: '@size'
+            },
+            templateUrl: 'app/directive/directive.form.text.tpl.html'
+        }
+    })
 ;

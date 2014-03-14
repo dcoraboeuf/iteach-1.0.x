@@ -30,5 +30,9 @@ var map_en = {
     // Model
     'teacher.schools': "Schools",
     'teacher.newSchool': "New school",
-    'school': 'School'
+    'school': 'School',
+    'school.name': "Name",
+    'school.colour': "Colour",
+    'school.contact': "Contact",
+    'school.hourlyRate': "Hourly rate"
 };
