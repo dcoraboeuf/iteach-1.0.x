@@ -7,7 +7,6 @@ import net.nemerosa.iteach.ui.model.UIForm;
 import net.nemerosa.iteach.ui.model.UISchool;
 import net.nemerosa.iteach.ui.model.UISchoolCollection;
 import net.nemerosa.iteach.ui.model.UISchoolSummary;
-import net.nemerosa.iteach.ui.model.form.UIFormDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,23 +39,6 @@ public class UITeacherAPIController implements UITeacherAPI {
                         school.getColour()
                 )).collect(Collectors.toList())
         );
-    }
-
-    @Override
-    @RequestMapping(value = "/school/form", method = RequestMethod.GET)
-    public UIFormDefinition getSchoolForm(Locale locale) {
-        return UIFormDefinition.create()
-                .withText("name", "school.name", 80)
-                .withColour("colour", "school.colour")
-                .withText("contact", "school.contact", 80)
-                .with("hourlyRate", "school.hourlyRate", "money")
-                .withMemo("postalAddress", "school.postalAddress", 200)
-                .withText("phone", "school.phone", 40)
-                .withText("mobilePhone", "school.mobilePhone", 40)
-                .withEmail("email", "school.email")
-                .withText("webSite", "school.webSite", 200)
-                ;
-
     }
 
     @Override
