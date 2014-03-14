@@ -11,6 +11,7 @@ import java.util.List;
 public class UISchoolCollection extends UIResourceCollection<UISchoolSummary> {
 
     private final String href = "api/teacher/school";
+    private final UILink form = UILink.of("School form", "api/teacher/school/form");
 
     @ConstructorProperties({"resources"})
     public UISchoolCollection(List<UISchoolSummary> resources) {
