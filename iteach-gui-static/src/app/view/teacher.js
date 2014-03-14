@@ -6,6 +6,8 @@ angular.module('iteach.view.teacher', [
         teacherService.getSchools().then(function (schools) {
             $scope.schools = schools;
         });
+        // Creating a school
+        $scope.createSchool = teacherService.createSchool;
         // TODO Loads the list of students
         // TODO Loads the planning
     })

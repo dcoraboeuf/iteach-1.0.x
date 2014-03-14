@@ -28,5 +28,7 @@ var map_en = {
     'register.result.ok': "The registration is now complete. Please proceed with the login to start using iTeach",
     'register.result.login': "Go on with login",
     // Model
-    'teacher.schools': "Schools"
+    'teacher.schools': "Schools",
+    'teacher.newSchool': "New school",
+    'school': 'School'
 };

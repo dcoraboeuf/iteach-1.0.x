@@ -30,5 +30,7 @@ var map_fr = {
         " utiliser iTeach.",
     'register.result.login': "Continuer avec la connexion",
     // Model
-    'teacher.schools': "Ecoles"
+    'teacher.schools': "Ecoles",
+    'teacher.newSchool': "Nouvelle école",
+    'school': 'Ecole'
 };
