@@ -81,13 +81,13 @@ For a version 1.0, we want:
     * web site - optional
 
 ```
-OPTIONS /api/teacher/<teacherId>/school
+OPTIONS /api/teacher/school
 Input: -
 Output:
  * 200 UIFormDefinition - list of fields
  * 403 Not authorized
 
-POST /api/teacher/<teacherId>/school
+POST /api/teacher/school
 Input: UIForm
 Output:
  * 201 UISchool
@@ -107,7 +107,7 @@ Output:
     * the list of comments for this school
 
 ```
-GET /api/teacher/<teacherId>/school/<schoolId>
+GET /api/teacher/school/<schoolId>
 Input: -
 Output:
  * 201 UISchool - contains links to the other resources
@@ -140,13 +140,13 @@ Output:
     * web site
 
 ```
-OPTIONS /api/teacher/<teacherId>/student
+OPTIONS /api/teacher/student
 Input: -
 Output:
  * 200 UIFormDefinition - list of fields
  * 403 Not authorized
 
-POST /api/teacher/<teacherId>/student
+POST /api/teacher/student
 Input: UIForm
 Output:
  * 201 UIStudent
@@ -170,7 +170,7 @@ Output:
 * I remain on the student page, with him being now disabled
 
 ```
-PUT /api/teacher/<teacherId>/student/<studentId>
+PUT /api/teacher/student/<studentId>
 Input: UIForm
 Output:
  * 201 UIStudent
@@ -188,7 +188,7 @@ Output:
 * I remain on the student page, with him being now enabled
 
 ```
-PUT /api/teacher/<teacherId>/student/<studentId>
+PUT /api/teacher/student/<studentId>
 Input: UIForm
 Output:
  * 201 UIStudent
@@ -216,13 +216,13 @@ Output:
 * after validation, the lesson is displayed in the calendar
 
 ```
-OPTIONS /api/teacher/<teacherId>/lesson
+OPTIONS /api/teacher/lesson
 Input: -
 Output:
  * 200 UIFormDefinition - list of fields
  * 403 Not authorized
 
-POST /api/teacher/<teacherId>/lesson
+POST /api/teacher/lesson
 Input: UIForm
 Output:
  * 201 UILesson
@@ -246,7 +246,7 @@ Output:
 * After validation, I'm on the lesson page and the comment is displayed
 
 ```
-POST /api/teacher/<teacherId>/lesson/<lessonId>/comment
+POST /api/teacher/lesson/<lessonId>/comment
 Input: UICommentForm
 Output:
  * 201 UIComment
@@ -264,7 +264,7 @@ Output:
 * After validation, I'm on the lesson page and the comment is displayed with its new version
 
 ```
-PUT /api/teacher/<teacherId>/lesson/<lessonId>/comment/<commentId>
+PUT /api/teacher/lesson/<lessonId>/comment/<commentId>
 Input: UICommentForm
 Output:
  * 201 UIComment
@@ -283,7 +283,7 @@ Output:
 * After confirmation, I'm on the lesson page and the comment has been deleted
 
 ```
-DELETE /api/teacher/<teacherId>/lesson/<lessonId>/comment/<commentId>
+DELETE /api/teacher/lesson/<lessonId>/comment/<commentId>
 Input: UICommentForm
 Output:
  * 204 Deleted
@@ -297,7 +297,7 @@ Output:
 * I navigate to the period (month per month)
 
 ```
-GET /api/teacher/<teacherId>/lesson
+GET /api/teacher/lesson
 Input: UILessonFilter (student & period)
 Output:
  * 200 UILessons
@@ -313,7 +313,7 @@ Output:
 * I navigate to the period
 
 ```
-GET /api/teacher/<teacherId>/lesson
+GET /api/teacher/lesson
 Input: UILessonFilter (period)
 Output:
  * 200 UILessons
@@ -328,7 +328,7 @@ Output:
 * I see the income report for this month
 
 ```
-GET /api/teacher/<teacherId>/report
+GET /api/teacher/report
 Input: UIReportForm (month)
 Output:
  * 200 UIReport (tree per school, student, with a grand total)
