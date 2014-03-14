@@ -14,4 +14,5 @@ angular.module('iteach.dialog.form', [])
         return self;
 
     })
+
 ;
