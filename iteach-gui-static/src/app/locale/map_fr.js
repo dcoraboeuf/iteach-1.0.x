@@ -32,5 +32,14 @@ var map_fr = {
     // Model
     'teacher.schools': "Ecoles",
     'teacher.newSchool': "Nouvelle école",
-    'school': 'Ecole'
+    'school': 'Ecole',
+    'school.name': "Nom",
+    'school.colour': "Couleur",
+    'school.contact': "Contact",
+    'school.hourlyRate': "Taux horaire",
+    'school.phone': 'Téléphone',
+    'school.mobilePhone': 'Portable',
+    'school.postalAddress': 'Adresse postale',
+    'school.webSite': 'Site internet',
+    'school.email': 'Email'
 };

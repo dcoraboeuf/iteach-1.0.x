@@ -34,5 +34,10 @@ var map_en = {
     'school.name': "Name",
     'school.colour': "Colour",
     'school.contact': "Contact",
-    'school.hourlyRate': "Hourly rate"
+    'school.hourlyRate': "Hourly rate",
+    'school.phone': 'Phone',
+    'school.mobilePhone': 'Mobile phone',
+    'school.postalAddress': 'Postal address',
+    'school.webSite': 'Web site',
+    'school.email': 'Email'
 };
