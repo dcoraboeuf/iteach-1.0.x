@@ -5,9 +5,7 @@ angular.module('iteach.service.teacher', [
         var self = {};
 
         self.getSchools = function () {
-            var d = $q.defer();
-
-            return d.promise;
+            return uiTeacher.getSchools()
         }
 
         return self;
