@@ -6,10 +6,20 @@ angular.module('iteach.directive.form', [])
             transclude: true
         }
     })
+    .directive('itFormField', function () {
+        return {
+            restrict: 'E',
+            transclude: true,
+            scope: {
+                name: '@name',
+                label: '@label'
+            },
+            templateUrl: 'app/directive/directive.form.field.tpl.html'
+        }
+    })
     .directive('itFormText', function () {
         return {
             restrict: 'E',
-            replace: true,
             scope: {
                 name: '@name',
                 label: '@label',
@@ -21,7 +31,6 @@ angular.module('iteach.directive.form', [])
     .directive('itFormColour', function () {
         return {
             restrict: 'E',
-            replace: true,
             scope: {
                 name: '@name',
                 label: '@label'
