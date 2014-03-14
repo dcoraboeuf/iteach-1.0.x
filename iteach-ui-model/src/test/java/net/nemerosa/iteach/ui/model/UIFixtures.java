@@ -21,6 +21,7 @@ public final class UIFixtures {
     public static ObjectNode jsonSchool(String hourlyRate) {
         return object()
                 .with("id", 1)
+                .with("href", "api/teacher/school/1")
                 .with("name", "My school")
                 .with("colour", "#FFFF00")
                 .with("contact", "My contact")

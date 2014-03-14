@@ -1,11 +1,19 @@
 package net.nemerosa.iteach.test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
+
 public final class TestUtils {
+
+    private static final ObjectMapper mapper = ObjectMapperFactory.create();
 
     private TestUtils() {
     }
@@ -44,4 +52,19 @@ public final class TestUtils {
             return value;
         }
     }
+
+    public static void assertJsonWrite(JsonNode expectedJson, Object objectToWrite) throws JsonProcessingException {
+        assertEquals(
+                mapper.writeValueAsString(expectedJson),
+                mapper.writeValueAsString(objectToWrite)
+        );
+    }
+
+    public static <T> void assertJsonRead(T expectedResult, JsonNode jsonToRead, Class<T> type) throws JsonProcessingException {
+        assertEquals(
+                expectedResult,
+                mapper.treeToValue(jsonToRead, type)
+        );
+    }
+
 }

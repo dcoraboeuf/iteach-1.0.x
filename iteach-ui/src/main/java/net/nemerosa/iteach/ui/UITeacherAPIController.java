@@ -27,10 +27,9 @@ public class UITeacherAPIController implements UITeacherAPI {
 
     @Override
     @RequestMapping(value = "/school", method = RequestMethod.GET)
-    public UIResourceCollection<UISchoolSummary> getSchools(Locale locale) {
+    public UISchoolCollection getSchools(Locale locale) {
         List<School> schools = teacherService.getSchools();
-        return new UIResourceCollection<>(
-                "api/teacher/school",
+        return new UISchoolCollection(
                 schools.parallelStream().map(school -> new UISchoolSummary(
                         school.getId(),
                         school.getName(),

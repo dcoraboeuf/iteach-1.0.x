@@ -2,9 +2,8 @@ package net.nemerosa.iteach.ui.client.support;
 
 import net.nemerosa.iteach.ui.client.UITeacherAPIClient;
 import net.nemerosa.iteach.ui.model.UIForm;
-import net.nemerosa.iteach.ui.model.UIResourceCollection;
 import net.nemerosa.iteach.ui.model.UISchool;
-import net.nemerosa.iteach.ui.model.UISchoolSummary;
+import net.nemerosa.iteach.ui.model.UISchoolCollection;
 
 import java.net.MalformedURLException;
 import java.util.Locale;
@@ -16,9 +15,8 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     }
 
     @Override
-    public UIResourceCollection<UISchoolSummary> getSchools(Locale locale) {
-        // FIXME Method net.nemerosa.iteach.ui.client.support.UITeacherAPIClientImpl.getSchools
-        return null;
+    public UISchoolCollection getSchools(Locale locale) {
+        return get(locale, UISchoolCollection.class, "api/teacher/school");
     }
 
     @Override

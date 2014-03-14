@@ -10,7 +10,7 @@ public interface UITeacherAPI {
     /**
      * Gets the list of schools for a teacher
      */
-    UIResourceCollection<UISchoolSummary> getSchools(Locale locale);
+    UISchoolCollection getSchools(Locale locale);
 
     /**
      * Creates a school

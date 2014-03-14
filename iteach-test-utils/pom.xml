@@ -19,6 +19,23 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
+        <!-- Json -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <!-- Common iTeach -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>iteach-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- JUnit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>
