@@ -3,10 +3,7 @@ package net.nemerosa.iteach.ui;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.School;
 import net.nemerosa.iteach.service.model.SchoolForm;
-import net.nemerosa.iteach.ui.model.UIForm;
-import net.nemerosa.iteach.ui.model.UISchool;
-import net.nemerosa.iteach.ui.model.UISchoolSummary;
-import net.nemerosa.iteach.ui.model.UITeacherAPI;
+import net.nemerosa.iteach.ui.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,13 +27,16 @@ public class UITeacherAPIController implements UITeacherAPI {
 
     @Override
     @RequestMapping(value = "/school", method = RequestMethod.GET)
-    public List<UISchoolSummary> getSchools(Locale locale) {
+    public UIResourceCollection<UISchoolSummary> getSchools(Locale locale) {
         List<School> schools = teacherService.getSchools();
-        return schools.parallelStream().map(school -> new UISchoolSummary(
-                school.getId(),
-                school.getName(),
-                school.getColour()
-        )).collect(Collectors.toList());
+        return new UIResourceCollection<>(
+                "api/teacher/school",
+                schools.parallelStream().map(school -> new UISchoolSummary(
+                        school.getId(),
+                        school.getName(),
+                        school.getColour()
+                )).collect(Collectors.toList())
+        );
     }
 
     @Override

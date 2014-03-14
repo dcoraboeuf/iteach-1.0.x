@@ -20,4 +20,8 @@ public class UISchool extends UIResource<UISchool> {
     private final String email;
     private final String webSite;
 
+    @Override
+    public String getHref() {
+        return UILink.href("api/teacher/school/%d", id);
+    }
 }

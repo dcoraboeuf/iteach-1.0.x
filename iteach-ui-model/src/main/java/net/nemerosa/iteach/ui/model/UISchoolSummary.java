@@ -11,4 +11,9 @@ public class UISchoolSummary extends UIResource<UISchoolSummary> {
     private final String name;
     private final String colour;
 
+    @Override
+    public String getHref() {
+        return UILink.href("api/teacher/school/%d", id);
+    }
+
 }

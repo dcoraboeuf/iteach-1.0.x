@@ -7,4 +7,6 @@ public abstract class UIResource<R extends UIResource<R>> {
 
     public abstract int getId();
 
+    public abstract String getHref();
+
 }

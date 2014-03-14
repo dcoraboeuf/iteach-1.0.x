@@ -10,4 +10,9 @@ public class UIAccount extends UIResource<UIAccount> {
     private final int id;
     private final String email;
     private final boolean administrator;
+
+    @Override
+    public String getHref() {
+        return UILink.href("api/account/%d", id);
+    }
 }

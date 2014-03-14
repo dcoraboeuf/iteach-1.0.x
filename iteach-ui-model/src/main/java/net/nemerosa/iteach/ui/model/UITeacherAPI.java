@@ -1,6 +1,5 @@
 package net.nemerosa.iteach.ui.model;
 
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -10,9 +9,8 @@ public interface UITeacherAPI {
 
     /**
      * Gets the list of schools for a teacher
-     * TODO Uses a collection resource
      */
-    List<UISchoolSummary> getSchools(Locale locale);
+    UIResourceCollection<UISchoolSummary> getSchools(Locale locale);
 
     /**
      * Creates a school
