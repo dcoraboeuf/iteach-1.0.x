@@ -25,7 +25,8 @@ angular.module('iteach.directive.form', [])
                 name: '@name',
                 label: '@label',
                 size: '@size',
-                help: '@help'
+                help: '@help',
+                required: '@required'
             },
             templateUrl: 'app/directive/directive.form.text.tpl.html'
         }

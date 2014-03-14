@@ -3,7 +3,7 @@
 </div>
 <form class="form-horizontal" ng-submit="submit()">
     <div class="modal-body">
-        <it-form-text name="name" label="{{'school.name' | translate}}" size="80"></it-form-text>
+        <it-form-text name="name" label="{{'school.name' | translate}}" size="80" required="true"></it-form-text>
         <it-form-colour name="colour" label="{{'school.colour' | translate}}"></it-form-colour>
         <it-form-text name="contact" label="{{'school.contact' | translate}}" size="80"></it-form-text>
         <it-form-text name="hourlyRate" label="{{'school.hourlyRate' | translate}}"
@@ -14,9 +14,6 @@
         <it-form-text name="mobilePhone" label="{{'school.mobilePhone' | translate}}" size="40"></it-form-text>
         <it-form-email name="email" label="{{'school.email' | translate}}"></it-form-email>
         <it-form-text name="webSite" label="{{'school.webSite' | translate}}" size="200"></it-form-text>
-        <!--
-            TODO Required name
-        -->
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="submit">OK</button>
