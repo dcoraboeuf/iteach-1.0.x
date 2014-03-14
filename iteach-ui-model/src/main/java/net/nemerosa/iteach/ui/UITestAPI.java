@@ -1,4 +1,4 @@
-package net.nemerosa.iteach.ui.model;
+package net.nemerosa.iteach.ui;
 
 import net.nemerosa.iteach.common.Message;
 

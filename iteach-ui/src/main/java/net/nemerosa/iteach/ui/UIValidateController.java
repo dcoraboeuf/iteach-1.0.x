@@ -1,7 +1,6 @@
 package net.nemerosa.iteach.ui;
 
 import net.nemerosa.iteach.common.TokenType;
-import net.nemerosa.iteach.ui.model.UIAccountAPI;
 import net.nemerosa.iteach.ui.support.ErrorHandler;
 import net.nemerosa.iteach.ui.support.ValidationTokenTypeNotManagedException;
 import org.springframework.beans.factory.annotation.Autowired;

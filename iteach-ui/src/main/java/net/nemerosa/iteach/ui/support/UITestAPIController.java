@@ -3,7 +3,7 @@ package net.nemerosa.iteach.ui.support;
 import net.nemerosa.iteach.common.Message;
 import net.nemerosa.iteach.common.RunProfile;
 import net.nemerosa.iteach.service.AccessibleMessagePost;
-import net.nemerosa.iteach.ui.model.UITestAPI;
+import net.nemerosa.iteach.ui.UITestAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.PathVariable;
