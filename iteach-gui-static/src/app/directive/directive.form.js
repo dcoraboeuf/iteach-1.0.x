@@ -28,6 +28,16 @@ angular.module('iteach.directive.form', [])
             templateUrl: 'app/directive/directive.form.text.tpl.html'
         }
     })
+    .directive('itFormEmail', function () {
+        return {
+            restrict: 'E',
+            scope: {
+                name: '@name',
+                label: '@label'
+            },
+            templateUrl: 'app/directive/directive.form.email.tpl.html'
+        }
+    })
     .directive('itFormColour', function () {
         return {
             restrict: 'E',
