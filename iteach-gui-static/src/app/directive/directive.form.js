@@ -37,7 +37,8 @@ angular.module('iteach.directive.form', [])
             scope: {
                 name: '@name',
                 label: '@label',
-                help: '@help'
+                help: '@help',
+                required: '@required'
             },
             templateUrl: 'app/directive/directive.form.email.tpl.html'
         }
@@ -48,7 +49,8 @@ angular.module('iteach.directive.form', [])
             scope: {
                 name: '@name',
                 label: '@label',
-                help: '@help'
+                help: '@help',
+                required: '@required'
             },
             templateUrl: 'app/directive/directive.form.colour.tpl.html'
         }
