@@ -38,4 +38,16 @@ angular.module('iteach.directive.form', [])
             templateUrl: 'app/directive/directive.form.colour.tpl.html'
         }
     })
+    .directive('itFormMemo', function () {
+        return {
+            restrict: 'E',
+            scope: {
+                name: '@name',
+                label: '@label',
+                size: '@size',
+                rows: '@rows'
+            },
+            templateUrl: 'app/directive/directive.form.memo.tpl.html'
+        }
+    })
 ;
