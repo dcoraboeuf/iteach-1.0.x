@@ -18,4 +18,15 @@ angular.module('iteach.directive.form', [])
             templateUrl: 'app/directive/directive.form.text.tpl.html'
         }
     })
+    .directive('itFormColour', function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                name: '@name',
+                label: '@label'
+            },
+            templateUrl: 'app/directive/directive.form.colour.tpl.html'
+        }
+    })
 ;
