@@ -12,7 +12,8 @@ angular.module('iteach.directive.form', [])
             transclude: true,
             scope: {
                 name: '@name',
-                label: '@label'
+                label: '@label',
+                help: '@help'
             },
             templateUrl: 'app/directive/directive.form.field.tpl.html'
         }
@@ -23,7 +24,8 @@ angular.module('iteach.directive.form', [])
             scope: {
                 name: '@name',
                 label: '@label',
-                size: '@size'
+                size: '@size',
+                help: '@help'
             },
             templateUrl: 'app/directive/directive.form.text.tpl.html'
         }
@@ -33,7 +35,8 @@ angular.module('iteach.directive.form', [])
             restrict: 'E',
             scope: {
                 name: '@name',
-                label: '@label'
+                label: '@label',
+                help: '@help'
             },
             templateUrl: 'app/directive/directive.form.email.tpl.html'
         }
@@ -43,7 +46,8 @@ angular.module('iteach.directive.form', [])
             restrict: 'E',
             scope: {
                 name: '@name',
-                label: '@label'
+                label: '@label',
+                help: '@help'
             },
             templateUrl: 'app/directive/directive.form.colour.tpl.html'
         }
@@ -55,7 +59,8 @@ angular.module('iteach.directive.form', [])
                 name: '@name',
                 label: '@label',
                 size: '@size',
-                rows: '@rows'
+                rows: '@rows',
+                help: '@help'
             },
             templateUrl: 'app/directive/directive.form.memo.tpl.html'
         }

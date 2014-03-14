@@ -37,6 +37,7 @@ var map_fr = {
     'school.colour': "Couleur",
     'school.contact': "Contact",
     'school.hourlyRate': "Taux horaire",
+    'school.hourlyRate.help': 'Taux horaire (HTVA). Par exemple, EUR 45.00',
     'school.phone': 'Téléphone',
     'school.mobilePhone': 'Portable',
     'school.postalAddress': 'Adresse postale',

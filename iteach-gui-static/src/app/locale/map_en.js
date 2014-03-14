@@ -35,6 +35,7 @@ var map_en = {
     'school.colour': "Colour",
     'school.contact': "Contact",
     'school.hourlyRate': "Hourly rate",
+    'school.hourlyRate.help': 'Invoicing amount per hour (VAT excl.). For example, EUR 45.00',
     'school.phone': 'Phone',
     'school.mobilePhone': 'Mobile phone',
     'school.postalAddress': 'Postal address',
