@@ -6,7 +6,7 @@ import net.nemerosa.iteach.common.AuthenticationMode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class UITeacher extends UIResource<UITeacher> {
+public class UITeacher extends UIResource {
 
     private final int id;
     private final String href = "api/account/state";

@@ -8,7 +8,7 @@ import java.beans.ConstructorProperties;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class UISchool extends UIResource<UISchool> {
+public class UISchool extends UIResource {
 
     private final int id;
     private final String href;

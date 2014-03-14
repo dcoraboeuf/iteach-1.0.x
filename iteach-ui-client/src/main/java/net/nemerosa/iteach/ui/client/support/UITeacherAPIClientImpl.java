@@ -4,6 +4,7 @@ import net.nemerosa.iteach.ui.client.UITeacherAPIClient;
 import net.nemerosa.iteach.ui.model.UIForm;
 import net.nemerosa.iteach.ui.model.UISchool;
 import net.nemerosa.iteach.ui.model.UISchoolCollection;
+import net.nemerosa.iteach.ui.model.form.UIFormDefinition;
 
 import java.net.MalformedURLException;
 import java.util.Locale;
@@ -17,6 +18,11 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     @Override
     public UISchoolCollection getSchools(Locale locale) {
         return get(locale, UISchoolCollection.class, "api/teacher/school");
+    }
+
+    @Override
+    public UIFormDefinition getSchoolForm(Locale locale) {
+        return get(locale, UIFormDefinition.class, "api/teacher/school/form");
     }
 
     @Override

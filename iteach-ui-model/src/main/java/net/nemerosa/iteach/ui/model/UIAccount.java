@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class UIAccount extends UIResource<UIAccount> {
+public class UIAccount extends UIResource {
 
     private final int id;
     private final String email;

@@ -4,6 +4,7 @@ import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.School;
 import net.nemerosa.iteach.service.model.SchoolForm;
 import net.nemerosa.iteach.ui.model.*;
+import net.nemerosa.iteach.ui.model.form.UIFormDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,13 @@ public class UITeacherAPIController implements UITeacherAPI {
                         school.getColour()
                 )).collect(Collectors.toList())
         );
+    }
+
+    @Override
+    @RequestMapping(value = "/school/form", method = RequestMethod.GET)
+    public UIFormDefinition getSchoolForm(Locale locale) {
+        // FIXME Method net.nemerosa.iteach.ui.UITeacherAPIController.getSchoolForm
+        return null;
     }
 
     @Override
