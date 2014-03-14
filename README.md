@@ -81,7 +81,7 @@ For a version 1.0, we want:
     * web site - optional
 
 ```
-OPTIONS /api/teacher/school
+GET /api/teacher/school/form
 Input: -
 Output:
  * 200 UIFormDefinition - list of fields
@@ -140,7 +140,7 @@ Output:
     * web site
 
 ```
-OPTIONS /api/teacher/student
+GET /api/teacher/student/form
 Input: -
 Output:
  * 200 UIFormDefinition - list of fields
@@ -216,7 +216,7 @@ Output:
 * after validation, the lesson is displayed in the calendar
 
 ```
-OPTIONS /api/teacher/lesson
+GET /api/teacher/lesson/form
 Input: -
 Output:
  * 200 UIFormDefinition - list of fields
