@@ -5,5 +5,10 @@ angular.module('iteach.dialog.school', [])
             $modalInstance.dismiss('cancel')
         }
 
+        $scope.submit = function () {
+            alert("Submit")
+            // $modalInstance.close('ok')
+        }
+
     })
 ;
