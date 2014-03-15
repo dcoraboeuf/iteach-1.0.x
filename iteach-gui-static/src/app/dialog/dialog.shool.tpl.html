@@ -4,16 +4,16 @@
 <form class="form-horizontal" ng-submit="submit()">
     <div class="modal-body">
         <it-form-text ref-form="school" ref-field="name" name="name" label="{{'school.name' | translate}}" size="80" required="true"></it-form-text>
-        <it-form-colour name="colour" label="{{'school.colour' | translate}}"></it-form-colour>
-        <it-form-text name="contact" label="{{'school.contact' | translate}}" size="80"></it-form-text>
-        <it-form-text name="hourlyRate" label="{{'school.hourlyRate' | translate}}"
+        <it-form-colour ref-form="school" ref-field="colour" name="colour" label="{{'school.colour' | translate}}"></it-form-colour>
+        <it-form-text ref-form="school" ref-field="contact" name="contact" label="{{'school.contact' | translate}}" size="80"></it-form-text>
+        <it-form-text ref-form="school" ref-field="hourlyRate" name="hourlyRate" label="{{'school.hourlyRate' | translate}}"
                       help="{{'school.hourlyRate.help' | translate}}"></it-form-text>
-        <it-form-memo name="postalAddress" label="{{'school.postalAddress' | translate}}"
+        <it-form-memo ref-form="school" ref-field="postalAddress" name="postalAddress" label="{{'school.postalAddress' | translate}}"
                       size="200" rows="2"></it-form-memo>
-        <it-form-text name="phone" label="{{'school.phone' | translate}}" size="40"></it-form-text>
-        <it-form-text name="mobilePhone" label="{{'school.mobilePhone' | translate}}" size="40"></it-form-text>
-        <it-form-email name="email" label="{{'school.email' | translate}}"></it-form-email>
-        <it-form-text name="webSite" label="{{'school.webSite' | translate}}" size="200"></it-form-text>
+        <it-form-text ref-form="school" ref-field="phone" name="phone" label="{{'school.phone' | translate}}" size="40"></it-form-text>
+        <it-form-text ref-form="school" ref-field="mobilePhone" name="mobilePhone" label="{{'school.mobilePhone' | translate}}" size="40"></it-form-text>
+        <it-form-email ref-form="school" ref-field="email" name="email" label="{{'school.email' | translate}}"></it-form-email>
+        <it-form-text ref-form="school" ref-field="webSite" name="webSite" label="{{'school.webSite' | translate}}" size="200"></it-form-text>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="submit">OK</button>
