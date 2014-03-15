@@ -43,8 +43,20 @@
             </div>
         </div>
 
-        <it-form-text ref-form="schoolForm" ref-object="school" ref-field="phone" label="{{'school.phone' | translate}}" size="40"></it-form-text>
-        <it-form-text ref-form="schoolForm" ref-object="school" ref-field="mobilePhone" label="{{'school.mobilePhone' | translate}}" size="40"></it-form-text>
+        <div class="form-group">
+            <label class="control-label col-md-3">{{'school.phone' | translate}}</label>
+            <div class="col-md-9">
+                <input ng-model="school.phone" name="phone" maxlength="40" type="text" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">{{'school.mobilePhone' | translate}}</label>
+            <div class="col-md-9">
+                <input ng-model="school.mobilePhone" name="mobilePhone" maxlength="40" type="text" class="form-control" />
+            </div>
+        </div>
+
         <it-form-email ref-form="schoolForm" ref-object="school" ref-field="email" label="{{'school.email' | translate}}"></it-form-email>
         <it-form-text ref-form="schoolForm" ref-object="school" ref-field="webSite" label="{{'school.webSite' | translate}}" size="200"></it-form-text>
     </div>
