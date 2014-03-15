@@ -3,7 +3,7 @@
 </div>
 <form class="form-horizontal" ng-submit="submit()">
     <div class="modal-body">
-        <it-form-text ng-model="school.name" name="name" label="{{'school.name' | translate}}" size="80" required="true"></it-form-text>
+        <it-form-text ref-form="school" ref-field="name" name="name" label="{{'school.name' | translate}}" size="80" required="true"></it-form-text>
         <it-form-colour name="colour" label="{{'school.colour' | translate}}"></it-form-colour>
         <it-form-text name="contact" label="{{'school.contact' | translate}}" size="80"></it-form-text>
         <it-form-text name="hourlyRate" label="{{'school.hourlyRate' | translate}}"
