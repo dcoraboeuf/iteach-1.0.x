@@ -34,6 +34,7 @@ var map_fr = {
     'teacher.newSchool': "Nouvelle école",
     'school': 'Ecole',
     'school.name': "Nom",
+    'school.name.error': "Le nom de l'école est obligatoire",
     'school.colour': "Couleur",
     'school.contact': "Contact",
     'school.hourlyRate': "Taux horaire",

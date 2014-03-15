@@ -32,6 +32,7 @@ var map_en = {
     'teacher.newSchool': "New school",
     'school': 'School',
     'school.name': "Name",
+    'school.name.error': "Name is required",
     'school.colour': "Colour",
     'school.contact': "Contact",
     'school.hourlyRate': "Hourly rate",
