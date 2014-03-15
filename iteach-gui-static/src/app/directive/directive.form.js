@@ -22,6 +22,7 @@ angular.module('iteach.directive.form', [])
         return {
             restrict: 'E',
             scope: {
+                field: '=field',
                 name: '@name',
                 label: '@label',
                 size: '@size',
