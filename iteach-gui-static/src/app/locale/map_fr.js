@@ -45,6 +45,7 @@ var map_fr = {
     'school.mobilePhone': 'Portable',
     'school.postalAddress': 'Adresse postale',
     'school.webSite': 'Site internet',
+    'school.webSite.error': "L'adresse du site Web n'est pas valide.",
     'school.email': 'Email',
     'school.email.error': "L'adresse email n'est pas valide."
 };

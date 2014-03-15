@@ -65,7 +65,14 @@
             </div>
         </div>
 
-        <it-form-text ref-form="schoolForm" ref-object="school" ref-field="webSite" label="{{'school.webSite' | translate}}" size="200"></it-form-text>
+        <div class="form-group" ng-class="{ 'has-error' : schoolForm.webSite.$invalid && !schoolForm.webSite.$pristine }">
+            <label class="control-label col-md-3">{{'school.webSite' | translate}}</label>
+            <div class="col-md-9">
+                <input ng-model="school.webSite" name="webSite" maxlength="200" type="url" class="form-control" />
+                <p ng-show="schoolForm.webSite.$invalid && !schoolForm.webSite.$pristine" class="help-block">{{'school.webSite.error' | translate}}</p>
+            </div>
+        </div>
+
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="submit" ng-disabled="schoolForm.$invalid">OK</button>

@@ -43,6 +43,7 @@ var map_en = {
     'school.mobilePhone': 'Mobile phone',
     'school.postalAddress': 'Postal address',
     'school.webSite': 'Web site',
+    'school.webSite.error': "The web site URL is not valid.",
     'school.email': 'Email',
     'school.email.error': "Email is not valid."
 };
