@@ -20,7 +20,12 @@
             </div>
         </div>
 
-        <it-form-text ref-form="schoolForm" ref-object="school" ref-field="contact" label="{{'school.contact' | translate}}" size="80"></it-form-text>
+        <div class="form-group">
+            <label class="control-label col-md-3">{{'school.contact' | translate}}</label>
+            <div class="col-md-9">
+                <input ng-model="school.contact" name="contact" maxlength="80" type="text" class="form-control" />
+            </div>
+        </div>
 
         <div class="form-group" ng-class="{ 'has-error' : schoolForm.hourlyRate.$invalid && !schoolForm.hourlyRate.$pristine }">
             <label class="control-label col-md-3">{{'school.hourlyRate' | translate}}</label>
