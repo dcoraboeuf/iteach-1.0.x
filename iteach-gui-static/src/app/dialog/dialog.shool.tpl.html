@@ -1,7 +1,7 @@
 <div class="modal-header">
     <h3>{{'school' | translate}}</h3>
 </div>
-<form class="form-horizontal" ng-submit="submit()">
+<form name="schoolForm" class="form-horizontal" ng-submit="submit(schoolForm.$valid)" novalidate="novalidate">
     <div class="modal-body">
         <it-form-text ref-form="school" ref-field="name" label="{{'school.name' | translate}}" size="80" required="true"></it-form-text>
         <it-form-colour ref-form="school" ref-field="colour" label="{{'school.colour' | translate}}"></it-form-colour>
@@ -16,7 +16,7 @@
         <it-form-text ref-form="school" ref-field="webSite" label="{{'school.webSite' | translate}}" size="200"></it-form-text>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="submit">OK</button>
+        <button class="btn btn-primary" type="submit" ng-disabled="schoolForm.$invalid">OK</button>
         <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
     </div>
 </form>

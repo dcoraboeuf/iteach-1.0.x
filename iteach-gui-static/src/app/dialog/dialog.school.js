@@ -7,8 +7,10 @@ angular.module('iteach.dialog.school', [])
             $modalInstance.dismiss('cancel')
         }
 
-        $scope.submit = function () {
-            $log.debug('name=', $scope.school.name);
+        $scope.submit = function (isValid) {
+            if (isValid) {
+                $log.debug('name=', $scope.school.name);
+            }
             // $modalInstance.close('ok')
         }
 
