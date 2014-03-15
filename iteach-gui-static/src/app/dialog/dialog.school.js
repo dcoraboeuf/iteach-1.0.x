@@ -1,6 +1,7 @@
 angular.module('iteach.dialog.school', [])
     .controller('dialogSchool', function ($log, $scope, $modalInstance) {
 
+        $scope.hourlyRatePattern = /\d+/;
         $scope.school = {};
 
         $scope.cancel = function () {

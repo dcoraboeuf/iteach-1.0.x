@@ -6,8 +6,16 @@
         <it-form-text ref-form="school" ref-field="name" label="{{'school.name' | translate}}" size="80" required="true"></it-form-text>
         <it-form-colour ref-form="school" ref-field="colour" label="{{'school.colour' | translate}}"></it-form-colour>
         <it-form-text ref-form="school" ref-field="contact" label="{{'school.contact' | translate}}" size="80"></it-form-text>
-        <it-form-text ref-form="school" ref-field="hourlyRate" label="{{'school.hourlyRate' | translate}}"
-                      help="{{'school.hourlyRate.help' | translate}}"></it-form-text>
+
+        <div class="form-group" ng-class="{ 'has-error' : schoolForm.hourlyRate.$invalid && !schoolForm.hourlyRate.$pristine }">
+            <label class="control-label col-md-3">{{'school.hourlyRate' | translate}}</label>
+            <div class="col-md-9">
+                <input ng-model="school.hourlyRate" name="hourlyRate" maxlength="8" type="text" class="form-control" ng-pattern="hourlyRatePattern" />
+                <p ng-hide="schoolForm.hourlyRate.$invalid && !schoolForm.hourlyRate.$pristine" class="help-block">{{'school.hourlyRate.help' | translate}}</p>
+                <p ng-show="schoolForm.hourlyRate.$invalid && !schoolForm.hourlyRate.$pristine" class="help-block">The hourly rate must look like EUR 45.00.</p>
+            </div>
+        </div>
+
         <it-form-memo ref-form="school" ref-field="postalAddress" label="{{'school.postalAddress' | translate}}"
                       size="200" rows="2"></it-form-memo>
         <it-form-text ref-form="school" ref-field="phone" label="{{'school.phone' | translate}}" size="40"></it-form-text>
