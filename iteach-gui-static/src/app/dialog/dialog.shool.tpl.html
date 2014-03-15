@@ -57,7 +57,14 @@
             </div>
         </div>
 
-        <it-form-email ref-form="schoolForm" ref-object="school" ref-field="email" label="{{'school.email' | translate}}"></it-form-email>
+        <div class="form-group" ng-class="{ 'has-error' : schoolForm.email.$invalid && !schoolForm.email.$pristine }">
+            <label class="control-label col-md-3">{{'school.email' | translate}}</label>
+            <div class="col-md-9">
+                <input ng-model="school.email" name="email" maxlength="120" type="email" class="form-control" />
+                <p ng-show="schoolForm.email.$invalid && !schoolForm.email.$pristine" class="help-block">{{'school.email.error' | translate}}</p>
+            </div>
+        </div>
+
         <it-form-text ref-form="schoolForm" ref-object="school" ref-field="webSite" label="{{'school.webSite' | translate}}" size="200"></it-form-text>
     </div>
     <div class="modal-footer">

@@ -43,5 +43,6 @@ var map_en = {
     'school.mobilePhone': 'Mobile phone',
     'school.postalAddress': 'Postal address',
     'school.webSite': 'Web site',
-    'school.email': 'Email'
+    'school.email': 'Email',
+    'school.email.error': "Email is not valid."
 };
