@@ -17,7 +17,7 @@ angular.module('iteach.service.teacher', [
                     modalController: function () {
                         return {
                             onSubmit: function (school) {
-                                console.log('school', school)
+                                return uiTeacher.createSchool(school)
                             }
                         }
                     }

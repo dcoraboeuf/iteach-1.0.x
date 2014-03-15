@@ -13,6 +13,15 @@ angular.module('iteach.ui.teacher', [
             return d.promise;
         }
 
+        self.createSchool = function (school) {
+            var d = $q.defer();
+            $http.post(config.api('teacher/school'), school)
+                .success(function (school) {
+                    d.resolve(school);
+                })
+            return d.promise;
+        }
+
         return self;
     })
 ;
