@@ -19,6 +19,9 @@ angular.module('iteach.ui.teacher', [
                 .success(function (school) {
                     d.resolve(school);
                 })
+                .error(function (message) {
+                    d.reject(message);
+                })
             return d.promise;
         }
 

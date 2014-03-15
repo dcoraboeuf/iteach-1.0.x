@@ -15,8 +15,8 @@ angular.module('iteach.dialog.school', [])
                     function () {
                         $modalInstance.close('ok')
                     },
-                    function () {
-                        alert('error')
+                    function (message) {
+                        $scope.error = message
                     }
                 )
             }

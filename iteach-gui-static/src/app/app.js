@@ -29,8 +29,8 @@ var iteach = angular.module('iteach', [
         ])
         //HTTP configuration
         .config(function ($httpProvider) {
-            // Default error management
-            $httpProvider.interceptors.push('httpErrorInterceptor');
+            // FIXME Default error management
+            // $httpProvider.interceptors.push('httpErrorInterceptor');
             // Authentication using cookies and CORS protection
             $httpProvider.defaults.withCredentials = true;
         })
