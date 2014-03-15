@@ -12,7 +12,16 @@ angular.module('iteach.service.teacher', [
         self.createSchool = function () {
             $modal.open({
                 templateUrl: 'app/dialog/dialog.shool.tpl.html',
-                controller: 'dialogSchool'
+                controller: 'dialogSchool',
+                resolve: {
+                    modalController: function () {
+                        return {
+                            onSubmit: function (school) {
+                                console.log('school', school)
+                            }
+                        }
+                    }
+                }
             })
         }
 
