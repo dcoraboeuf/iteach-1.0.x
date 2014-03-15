@@ -11,7 +11,7 @@ angular.module('iteach.directive.form', [])
             restrict: 'E',
             transclude: true,
             scope: {
-                name: '@name',
+                refField: '@',
                 label: '@label',
                 help: '@help'
             },
@@ -24,7 +24,6 @@ angular.module('iteach.directive.form', [])
             scope: {
                 refForm: '=',
                 refField: '@',
-                name: '@name',
                 label: '@label',
                 size: '@size',
                 help: '@help',
@@ -39,7 +38,6 @@ angular.module('iteach.directive.form', [])
             scope: {
                 refForm: '=',
                 refField: '@',
-                name: '@name',
                 label: '@label',
                 help: '@help',
                 required: '@required'
@@ -53,7 +51,6 @@ angular.module('iteach.directive.form', [])
             scope: {
                 refForm: '=',
                 refField: '@',
-                name: '@name',
                 label: '@label',
                 help: '@help',
                 required: '@required'
@@ -67,7 +64,6 @@ angular.module('iteach.directive.form', [])
             scope: {
                 refForm: '=',
                 refField: '@',
-                name: '@name',
                 label: '@label',
                 size: '@size',
                 rows: '@rows',
