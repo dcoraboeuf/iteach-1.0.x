@@ -36,8 +36,13 @@
             </div>
         </div>
 
-        <it-form-memo ref-form="schoolForm" ref-object="school" ref-field="postalAddress" label="{{'school.postalAddress' | translate}}"
-                      size="200" rows="2"></it-form-memo>
+        <div class="form-group">
+            <label class="control-label col-md-3">{{'school.postalAddress' | translate}}</label>
+            <div class="col-md-9">
+                <textarea ng-model="school.postalAddress" name="postalAddress" maxlength="200" class="form-control" rows="2"></textarea>
+            </div>
+        </div>
+
         <it-form-text ref-form="schoolForm" ref-object="school" ref-field="phone" label="{{'school.phone' | translate}}" size="40"></it-form-text>
         <it-form-text ref-form="schoolForm" ref-object="school" ref-field="mobilePhone" label="{{'school.mobilePhone' | translate}}" size="40"></it-form-text>
         <it-form-email ref-form="schoolForm" ref-object="school" ref-field="email" label="{{'school.email' | translate}}"></it-form-email>
