@@ -12,8 +12,14 @@
             </div>
         </div>
 
-        <it-form-text ref-form="schoolForm" ref-object="school" ref-field="name" label="{{'school.name' | translate}}" size="80" required="true"></it-form-text>
-        <it-form-colour ref-form="schoolForm" ref-object="school" ref-field="colour" label="{{'school.colour' | translate}}"></it-form-colour>
+        <div class="form-group" ng-class="{ 'has-error' : schoolForm.colour.$invalid && !schoolForm.colour.$pristine }">
+            <label class="control-label col-md-3">{{'school.colour' | translate}}</label>
+            <div class="col-md-9">
+                <input ng-model="school.colour" name="colour" maxlength="7" type="color" class="form-control" ng-pattern="colourPattern" />
+                <p ng-show="schoolForm.colour.$invalid && !schoolForm.colour.$pristine" class="help-block">{{'school.colour.error' | translate}}</p>
+            </div>
+        </div>
+
         <it-form-text ref-form="schoolForm" ref-object="school" ref-field="contact" label="{{'school.contact' | translate}}" size="80"></it-form-text>
 
         <div class="form-group" ng-class="{ 'has-error' : schoolForm.hourlyRate.$invalid && !schoolForm.hourlyRate.$pristine }">
