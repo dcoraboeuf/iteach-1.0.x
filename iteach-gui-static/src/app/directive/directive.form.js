@@ -22,7 +22,7 @@ angular.module('iteach.directive.form', [])
         return {
             restrict: 'E',
             scope: {
-                refForm: '=',
+                refObject: '=',
                 refField: '@',
                 label: '@label',
                 size: '@size',
@@ -36,7 +36,7 @@ angular.module('iteach.directive.form', [])
         return {
             restrict: 'E',
             scope: {
-                refForm: '=',
+                refObject: '=',
                 refField: '@',
                 label: '@label',
                 help: '@help',
@@ -49,7 +49,7 @@ angular.module('iteach.directive.form', [])
         return {
             restrict: 'E',
             scope: {
-                refForm: '=',
+                refObject: '=',
                 refField: '@',
                 label: '@label',
                 help: '@help',
@@ -62,7 +62,7 @@ angular.module('iteach.directive.form', [])
         return {
             restrict: 'E',
             scope: {
-                refForm: '=',
+                refObject: '=',
                 refField: '@',
                 label: '@label',
                 size: '@size',

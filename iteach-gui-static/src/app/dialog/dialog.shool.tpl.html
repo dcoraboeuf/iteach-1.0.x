@@ -3,9 +3,9 @@
 </div>
 <form name="schoolForm" class="form-horizontal" ng-submit="submit(schoolForm.$valid)" novalidate="novalidate">
     <div class="modal-body">
-        <it-form-text ref-form="school" ref-field="name" label="{{'school.name' | translate}}" size="80" required="true"></it-form-text>
-        <it-form-colour ref-form="school" ref-field="colour" label="{{'school.colour' | translate}}"></it-form-colour>
-        <it-form-text ref-form="school" ref-field="contact" label="{{'school.contact' | translate}}" size="80"></it-form-text>
+        <it-form-text ref-object="school" ref-field="name" label="{{'school.name' | translate}}" size="80" required="true"></it-form-text>
+        <it-form-colour ref-object="school" ref-field="colour" label="{{'school.colour' | translate}}"></it-form-colour>
+        <it-form-text ref-object="school" ref-field="contact" label="{{'school.contact' | translate}}" size="80"></it-form-text>
 
         <div class="form-group" ng-class="{ 'has-error' : schoolForm.hourlyRate.$invalid && !schoolForm.hourlyRate.$pristine }">
             <label class="control-label col-md-3">{{'school.hourlyRate' | translate}}</label>
@@ -16,12 +16,12 @@
             </div>
         </div>
 
-        <it-form-memo ref-form="school" ref-field="postalAddress" label="{{'school.postalAddress' | translate}}"
+        <it-form-memo ref-object="school" ref-field="postalAddress" label="{{'school.postalAddress' | translate}}"
                       size="200" rows="2"></it-form-memo>
-        <it-form-text ref-form="school" ref-field="phone" label="{{'school.phone' | translate}}" size="40"></it-form-text>
-        <it-form-text ref-form="school" ref-field="mobilePhone" label="{{'school.mobilePhone' | translate}}" size="40"></it-form-text>
-        <it-form-email ref-form="school" ref-field="email" label="{{'school.email' | translate}}"></it-form-email>
-        <it-form-text ref-form="school" ref-field="webSite" label="{{'school.webSite' | translate}}" size="200"></it-form-text>
+        <it-form-text ref-object="school" ref-field="phone" label="{{'school.phone' | translate}}" size="40"></it-form-text>
+        <it-form-text ref-object="school" ref-field="mobilePhone" label="{{'school.mobilePhone' | translate}}" size="40"></it-form-text>
+        <it-form-email ref-object="school" ref-field="email" label="{{'school.email' | translate}}"></it-form-email>
+        <it-form-text ref-object="school" ref-field="webSite" label="{{'school.webSite' | translate}}" size="200"></it-form-text>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="submit" ng-disabled="schoolForm.$invalid">OK</button>
