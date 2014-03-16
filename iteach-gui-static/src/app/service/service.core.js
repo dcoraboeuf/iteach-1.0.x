@@ -1,29 +1,33 @@
 angular.module('iteach.service.core', [])
-    .service('notificationService', function ($log) {
+    .service('notificationService', function ($log, $rootScope) {
         var self = {
-            message: undefined,
-            messageType: 'default'
+            scopes: [ $rootScope ]
         };
         self.clear = function () {
             $log.debug('Notification', 'clear');
-            self.message = undefined;
-            self.messageType = 'success';
+            self.getScope().message = undefined;
+            self.getScope().messageType = 'success';
         };
         self.success = function (message) {
             $log.debug('Notification', 'success', message);
-            self.message = message;
-            self.messageType = 'success';
+            self.message('success', message);
         };
         self.warning = function (message) {
             $log.debug('Notification', 'warning', message);
-            self.message = message;
-            self.messageType = 'warning';
+            self.message('warning', message);
         };
         self.error = function (message) {
             $log.debug('Notification', 'error', message);
-            self.message = message;
-            self.messageType = 'danger';
+            self.message('danger', message);
         };
+        self.message = function (messageType, message) {
+            var scope = self.getScope();
+            scope.message = message;
+            scope.messageType = messageType;
+        }
+        self.getScope = function () {
+            return self.scopes[self.scopes.length - 1]
+        }
         return self;
     })
     .service('errorService', function ($interpolate, $log, notificationService) {

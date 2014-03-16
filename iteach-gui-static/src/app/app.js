@@ -86,7 +86,7 @@ var iteach = angular.module('iteach', [
                 }
             );
         })
-        .controller('AppCtrl', function AppCtrl($scope, $translate, config, notificationService) {
+        .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, config, notificationService) {
             $scope.version = config.version;
             // Language management
             $scope.language = function () {
@@ -107,21 +107,20 @@ var iteach = angular.module('iteach', [
             };
             // Notifications
             $scope.hasNotification = function () {
-                return angular.isDefined(notificationService.message);
+                return angular.isDefined($rootScope.message);
             };
             $scope.notification = function () {
-                return notificationService.message;
+                return $rootScope.message;
             };
             $scope.notificationType = function () {
-                return notificationService.messageType;
+                return $rootScope.messageType;
             };
             $scope.closeNotification = function () {
-                notificationService.clear();
+                $rootScope.message = undefined;
             };
             // On state change
             $scope.$on('$routeChangeSuccess', function () {
-                // Clears any notification
-                notificationService.clear();
+                $rootScope.message = undefined;
             });
         })
     ;
