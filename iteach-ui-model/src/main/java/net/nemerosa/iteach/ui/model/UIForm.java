@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Data
+@Deprecated
 public class UIForm {
 
     public static UIForm create() {

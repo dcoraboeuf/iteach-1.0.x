@@ -2,8 +2,8 @@ package net.nemerosa.iteach.acceptance;
 
 import net.nemerosa.iteach.acceptance.support.AbstractACCSupport;
 import net.nemerosa.iteach.acceptance.support.TeacherContext;
-import net.nemerosa.iteach.ui.model.UIForm;
 import net.nemerosa.iteach.ui.model.UISchool;
+import net.nemerosa.iteach.ui.model.UISchoolForm;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -24,11 +24,17 @@ public class ACCTeacher extends AbstractACCSupport {
         UISchool school = support.client().teacher().asTeacher(teacherContext).call(client ->
                 client.createSchool(
                         Locale.ENGLISH,
-                        UIForm.create()
-                                .withName(schoolName)
-                                .withColour("#FFFF00")
-                                .with("hourlyRate", "EUR 45.00")
-                                .withPostalAddress("Rue des Professeurs 16\n1100 Brussels\nBelgique")
+                        new UISchoolForm(
+                                schoolName,
+                                "#FFFF00",
+                                "",
+                                "EUR 45.00",
+                                "Rue des Professeurs 16\n1100 Brussels\nBelgique",
+                                "",
+                                "",
+                                "",
+                                ""
+                        )
                 )
         );
         // Checks the fields for the school

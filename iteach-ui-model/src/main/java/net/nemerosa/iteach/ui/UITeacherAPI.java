@@ -3,6 +3,7 @@ package net.nemerosa.iteach.ui;
 import net.nemerosa.iteach.ui.model.UIForm;
 import net.nemerosa.iteach.ui.model.UISchool;
 import net.nemerosa.iteach.ui.model.UISchoolCollection;
+import net.nemerosa.iteach.ui.model.UISchoolForm;
 
 import java.util.Locale;
 
@@ -19,7 +20,7 @@ public interface UITeacherAPI {
     /**
      * Creates a school
      */
-    UISchool createSchool(Locale locale, UIForm form);
+    UISchool createSchool(Locale locale, UISchoolForm form);
 
     /**
      * Gets a school

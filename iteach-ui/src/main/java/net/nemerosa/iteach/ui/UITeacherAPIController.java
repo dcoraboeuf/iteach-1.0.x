@@ -3,9 +3,9 @@ package net.nemerosa.iteach.ui;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.School;
 import net.nemerosa.iteach.service.model.SchoolForm;
-import net.nemerosa.iteach.ui.model.UIForm;
 import net.nemerosa.iteach.ui.model.UISchool;
 import net.nemerosa.iteach.ui.model.UISchoolCollection;
+import net.nemerosa.iteach.ui.model.UISchoolForm;
 import net.nemerosa.iteach.ui.model.UISchoolSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,19 +41,20 @@ public class UITeacherAPIController implements UITeacherAPI {
         );
     }
 
+    // FIXME Form validation
     @Override
     @RequestMapping(value = "/school", method = RequestMethod.POST)
-    public UISchool createSchool(Locale locale, @RequestBody UIForm form) {
+    public UISchool createSchool(Locale locale, @RequestBody UISchoolForm form) {
         int schoolId = teacherService.createSchool(
                 new SchoolForm(
                         form.getName(),
                         form.getColour(),
                         form.getContact(),
-                        form.getHourlyRate(),
+                        form.toHourlyRate(),
                         form.getPostalAddress(),
                         form.getPhone(),
                         form.getMobilePhone(),
-                        form.getEmail(false),
+                        form.getEmail(),
                         form.getWebSite()
                 )
         );
