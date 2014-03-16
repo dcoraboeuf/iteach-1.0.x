@@ -5,6 +5,7 @@ import net.nemerosa.iteach.acceptance.support.TeacherContext;
 import net.nemerosa.iteach.ui.client.support.ClientValidationException;
 import net.nemerosa.iteach.ui.model.UISchool;
 import net.nemerosa.iteach.ui.model.UISchoolForm;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -99,6 +100,24 @@ public class ACCTeacher extends AbstractACCSupport {
                         ""
                 ),
                 "School hourly rate must be like EUR 45.00 or 45.00 (defaults to EUR)"
+        );
+    }
+
+    @Test
+    public void create_a_school_validation_name_too_long() {
+        validate_school(Locale.ENGLISH,
+                new UISchoolForm(
+                        StringUtils.repeat("x", 81),
+                        "#FFFFFF",
+                        "",
+                        "",
+                        "Rue des Professeurs 16\n1100 Brussels\nBelgique",
+                        "",
+                        "",
+                        "",
+                        ""
+                ),
+                "School name size must be between 1 and 80"
         );
     }
 

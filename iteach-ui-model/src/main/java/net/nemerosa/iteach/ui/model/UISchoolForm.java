@@ -19,7 +19,7 @@ public class UISchoolForm {
     @Size(min=0, max = 80)
     private final String contact;
     @Size(min=0, max = 20)
-    @Pattern(regexp = "^([A-Z]{3} )?\\d+(\\.\\d+)?$")
+    @Pattern(regexp = "^(([A-Z]{3} )?\\d+(\\.\\d+)?)?$")
     private final String hourlyRate;
     @Size(min=0, max = 200)
     private final String postalAddress;
