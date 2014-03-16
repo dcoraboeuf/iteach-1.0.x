@@ -206,12 +206,14 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode == HttpStatus.SC_OK) {
                 return handleEntity(entity);
+            } else if (statusCode == HttpStatus.SC_BAD_REQUEST) {
+                throw new ClientValidationException(EntityUtils.toString(response.getEntity()));
             } else if (statusCode == HttpStatus.SC_UNAUTHORIZED) {
                 throw new ClientCannotLoginException(request);
             } else if (statusCode == HttpStatus.SC_FORBIDDEN) {
                 throw new ClientForbiddenException(request);
             } else if (statusCode == HttpStatus.SC_NOT_FOUND) {
-                throw new ClientNotFoundException(response.getStatusLine().getReasonPhrase());
+                throw new ClientNotFoundException(EntityUtils.toString(response.getEntity()));
             } else if (statusCode == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
                 String content = EntityUtils.toString(response.getEntity(), "UTF-8");
                 if (StringUtils.isNotBlank(content)) {

@@ -10,6 +10,7 @@ import net.nemerosa.iteach.ui.model.UISchoolSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -44,7 +45,7 @@ public class UITeacherAPIController implements UITeacherAPI {
     // FIXME Form validation
     @Override
     @RequestMapping(value = "/school", method = RequestMethod.POST)
-    public UISchool createSchool(Locale locale, @RequestBody UISchoolForm form) {
+    public UISchool createSchool(Locale locale, @RequestBody @Valid UISchoolForm form) {
         int schoolId = teacherService.createSchool(
                 new SchoolForm(
                         form.getName(),

@@ -3,16 +3,22 @@ package net.nemerosa.iteach.ui.support;
 import net.nemerosa.iteach.common.InputException;
 import net.nemerosa.iteach.common.NotFoundException;
 import net.sf.jstring.Strings;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 @ControllerAdvice(annotations = RestController.class)
@@ -20,11 +26,13 @@ public class UIErrorHandler {
 
     private final ErrorHandler errorHandler;
     private final Strings strings;
+    private final MessageSource messageSource;
 
     @Autowired
-    public UIErrorHandler(ErrorHandler errorHandler, Strings strings) {
+    public UIErrorHandler(ErrorHandler errorHandler, Strings strings, MessageSource messageSource) {
         this.errorHandler = errorHandler;
         this.strings = strings;
+        this.messageSource = messageSource;
     }
 
     @ExceptionHandler(NotFoundException.class)
@@ -32,7 +40,7 @@ public class UIErrorHandler {
         // Returns a message to display to the user
         String message = ex.getLocalizedMessage(strings, locale);
         // OK
-        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        return getMessageResponse(HttpStatus.NOT_FOUND, message);
     }
 
     @ExceptionHandler(InputException.class)
@@ -40,7 +48,32 @@ public class UIErrorHandler {
         // Returns a message to display to the user
         String message = ex.getLocalizedMessage(strings, locale);
         // OK
-        return getMessageResponse(message);
+        return getMessageResponse(HttpStatus.BAD_REQUEST, message);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> onValidationException(Locale locale, MethodArgumentNotValidException ex) {
+        List<String> messages = new ArrayList<>();
+        // Field errors
+        List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
+        for (FieldError fieldError : fieldErrors) {
+            messages.add(messageSource.getMessage(fieldError, locale));
+        }
+        // TODO Global errors?
+        // Returned message
+        String message;
+        if (messages.size() > 1) {
+            message = StringUtils.join(
+                    messages.stream().map(s -> "* " + s + "\n")
+            );
+        } else {
+            message = messages.get(0);
+        }
+        // OK
+        return getMessageResponse(
+                HttpStatus.BAD_REQUEST,
+                message
+        );
     }
 
     @ExceptionHandler(Exception.class)
@@ -54,15 +87,15 @@ public class UIErrorHandler {
         // Returns a message to display to the user
         String message = strings.get(locale, "general.error.full", error.getMessage(), error.getUuid());
         // Ok
-        return getMessageResponse(message);
+        return getMessageResponse(HttpStatus.INTERNAL_SERVER_ERROR, message);
     }
 
-    protected ResponseEntity<String> getMessageResponse(String message) {
+    protected ResponseEntity<String> getMessageResponse(HttpStatus status, String message) {
         // Header
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add("Content-Type", "text/plain; charset=utf-8");
         // OK
-        return new ResponseEntity<>(message, responseHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(message, responseHeaders, status);
     }
 
 }

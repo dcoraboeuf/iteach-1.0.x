@@ -1,8 +1,11 @@
 package net.nemerosa.iteach.ui.config;
 
 import net.nemerosa.iteach.common.json.ObjectMapperFactory;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -44,6 +47,14 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
         registry.addResourceHandler("/vendor/**").addResourceLocations("/vendor/");
         registry.addResourceHandler("index.html").addResourceLocations("index.html");
+    }
+
+    // Message source
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasenames("META-INF.messages.validation");
+        return messageSource;
     }
 
 }
