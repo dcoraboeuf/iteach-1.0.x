@@ -1,5 +1,5 @@
 angular.module('iteach.dialog.school', [])
-    .controller('dialogSchool', function ($log, $scope, $modalInstance, modalController) {
+    .controller('dialogSchool', function ($log, $scope, $modalInstance, modalController, notificationService) {
 
         $scope.colourPattern = /#[0-9A-Fa-f]{6}/;
         $scope.hourlyRatePattern = /^([A-Z]{3} )?\d+(\.\d+)?$/;
@@ -21,6 +21,14 @@ angular.module('iteach.dialog.school', [])
                 )
             }
         }
+
+        $modalInstance.opened.finally(function () {
+            // TODO notificationService.pushScope($scope)
+        });
+
+        $modalInstance.result.finally(function () {
+            // TODO notificationService.popScope()
+        });
 
     })
 ;
