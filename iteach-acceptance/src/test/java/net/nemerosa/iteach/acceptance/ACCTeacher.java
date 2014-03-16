@@ -50,29 +50,54 @@ public class ACCTeacher extends AbstractACCSupport {
 
     @Test
     public void create_a_school_validation_name_null() {
+        validate_school(Locale.ENGLISH,
+                new UISchoolForm(
+                        null,
+                        "#FFFF00",
+                        "",
+                        "EUR 45.00",
+                        "Rue des Professeurs 16\n1100 Brussels\nBelgique",
+                        "",
+                        "",
+                        "",
+                        ""
+                ),
+                "School name may not be null"
+        );
+    }
+
+    @Test
+    public void create_a_school_validation_colour() {
+        validate_school(Locale.ENGLISH,
+                new UISchoolForm(
+                        "Some name",
+                        "#FFF",
+                        "",
+                        "EUR 45.00",
+                        "Rue des Professeurs 16\n1100 Brussels\nBelgique",
+                        "",
+                        "",
+                        "",
+                        ""
+                ),
+                "School colour must be a hexadecimal colour code like #AA66CC"
+        );
+    }
+
+    private void validate_school(Locale locale, UISchoolForm form, String expectedValidationMessage) {
         // Prerequisites
         TeacherContext teacherContext = support.doCreateTeacher();
         // Creates a school for this teacher
         try {
             support.client().teacher().asTeacher(teacherContext).call(client ->
                     client.createSchool(
-                            Locale.ENGLISH,
-                            new UISchoolForm(
-                                    null,
-                                    "#FFFF00",
-                                    "",
-                                    "EUR 45.00",
-                                    "Rue des Professeurs 16\n1100 Brussels\nBelgique",
-                                    "",
-                                    "",
-                                    "",
-                                    ""
-                            )
+                            locale,
+                            form
                     )
             );
             fail("Validation error expected");
         } catch (ClientValidationException ex) {
-            assertEquals("School name may not be null", ex.getMessage());
+            assertEquals(expectedValidationMessage, ex.getMessage());
         }
     }
 
