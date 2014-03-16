@@ -76,8 +76,8 @@
     </div>
     <div class="modal-footer">
 
-        <div class="alert alert-danger" ng-show="error">
-            {{error}}
+        <div class="alert alert-{{messageType}} alert-dismissable" ng-show="message">
+            <span>{{message}}</span>
         </div>
 
         <button class="btn btn-primary" type="submit" ng-disabled="schoolForm.$invalid">{{'dialog.ok' | translate}}</button>

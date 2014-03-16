@@ -23,11 +23,11 @@ angular.module('iteach.dialog.school', [])
         }
 
         $modalInstance.opened.finally(function () {
-            // TODO notificationService.pushScope($scope)
+            notificationService.pushScope($scope)
         });
 
         $modalInstance.result.finally(function () {
-            // TODO notificationService.popScope()
+            notificationService.popScope()
         });
 
     })

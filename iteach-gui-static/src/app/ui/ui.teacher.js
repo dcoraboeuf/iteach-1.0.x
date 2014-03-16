@@ -6,7 +6,7 @@ angular.module('iteach.ui.teacher', [
 
         self.getSchools = function () {
             var d = $q.defer();
-            $http.get(config.api('teacher/school'))
+            $http.get(config.api('teacher/schol'))
                 .success(function (schools) {
                     d.resolve(schools);
                 })
@@ -18,9 +18,6 @@ angular.module('iteach.ui.teacher', [
             $http.post(config.api('teacher/school'), school)
                 .success(function (school) {
                     d.resolve(school);
-                })
-                .error(function (message) {
-                    d.reject(message);
                 })
             return d.promise;
         }

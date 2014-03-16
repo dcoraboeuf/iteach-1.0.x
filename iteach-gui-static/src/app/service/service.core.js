@@ -28,6 +28,15 @@ angular.module('iteach.service.core', [])
         self.getScope = function () {
             return self.scopes[self.scopes.length - 1]
         }
+        self.pushScope = function (scope) {
+            // Clears the previous scope
+            self.clear();
+            // Adds the new scope
+            self.scopes.push(scope)
+        }
+        self.popScope = function () {
+            self.scopes.pop()
+        }
         return self;
     })
     .service('errorService', function ($interpolate, $log, notificationService) {
