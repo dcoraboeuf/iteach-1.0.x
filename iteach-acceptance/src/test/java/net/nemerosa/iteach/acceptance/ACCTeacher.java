@@ -84,6 +84,24 @@ public class ACCTeacher extends AbstractACCSupport {
         );
     }
 
+    @Test
+    public void create_a_school_validation_hourly_rate() {
+        validate_school(Locale.ENGLISH,
+                new UISchoolForm(
+                        "Some name",
+                        "#FFFFFF",
+                        "",
+                        "EUR",
+                        "Rue des Professeurs 16\n1100 Brussels\nBelgique",
+                        "",
+                        "",
+                        "",
+                        ""
+                ),
+                "School hourly rate must be like EUR 45.00 or 45.00 (defaults to EUR)"
+        );
+    }
+
     private void validate_school(Locale locale, UISchoolForm form, String expectedValidationMessage) {
         // Prerequisites
         TeacherContext teacherContext = support.doCreateTeacher();

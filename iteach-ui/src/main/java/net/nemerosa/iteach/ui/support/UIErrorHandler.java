@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 @ControllerAdvice(annotations = RestController.class)
 public class UIErrorHandler {
@@ -64,7 +65,7 @@ public class UIErrorHandler {
         String message;
         if (messages.size() > 1) {
             message = StringUtils.join(
-                    messages.stream().map(s -> "* " + s + "\n")
+                    messages.stream().map(s -> "* " + s + "\n").collect(Collectors.toList())
             );
         } else {
             message = messages.get(0);
