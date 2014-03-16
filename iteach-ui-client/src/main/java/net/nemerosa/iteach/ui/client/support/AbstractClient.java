@@ -207,15 +207,15 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
             if (statusCode == HttpStatus.SC_OK) {
                 return handleEntity(entity);
             } else if (statusCode == HttpStatus.SC_BAD_REQUEST) {
-                throw new ClientValidationException(EntityUtils.toString(response.getEntity()));
+                throw new ClientValidationException(getMessage(response));
             } else if (statusCode == HttpStatus.SC_UNAUTHORIZED) {
                 throw new ClientCannotLoginException(request);
             } else if (statusCode == HttpStatus.SC_FORBIDDEN) {
                 throw new ClientForbiddenException(request);
             } else if (statusCode == HttpStatus.SC_NOT_FOUND) {
-                throw new ClientNotFoundException(EntityUtils.toString(response.getEntity()));
+                throw new ClientNotFoundException(getMessage(response));
             } else if (statusCode == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
-                String content = EntityUtils.toString(response.getEntity(), "UTF-8");
+                String content = getMessage(response);
                 if (StringUtils.isNotBlank(content)) {
                     throw new ClientMessageException(content);
                 } else {
@@ -236,6 +236,10 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
 
         protected abstract T handleEntity(HttpEntity entity) throws ParseException, IOException;
 
+    }
+
+    private static String getMessage(HttpResponse response) throws IOException {
+        return EntityUtils.toString(response.getEntity(), "UTF-8");
     }
 
     @FunctionalInterface
