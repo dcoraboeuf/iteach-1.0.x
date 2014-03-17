@@ -9,3 +9,7 @@ net.nemerosa.iteach.dao.jdbc.AccountIdentifierAlreadyExistsException
 net.nemerosa.iteach.dao.TokenNotFoundException
     en -> Could not find token: {1}:{0}
     fr -> Impossible de trouver le token : {1}:{0}
+
+net.nemerosa.iteach.dao.StudentNameAlreadyDefinedException
+    en -> Student with name "{1}" is already defined.
+    fr -> L'étudiant de nom "{1}" est déjà défini.

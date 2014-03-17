@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.service.impl;
 
 import net.nemerosa.iteach.dao.SchoolRepository;
+import net.nemerosa.iteach.dao.StudentRepository;
 import net.nemerosa.iteach.dao.model.TSchool;
 import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.TeacherService;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 public class TeacherServiceImpl implements TeacherService {
 
     private final SchoolRepository schoolRepository;
+    private final StudentRepository studentRepository;
     private final SecurityUtils securityUtils;
     private final Function<? super TSchool, ? extends School> schoolFn = t -> new School(
             t.getId(),
@@ -36,8 +38,9 @@ public class TeacherServiceImpl implements TeacherService {
     );
 
     @Autowired
-    public TeacherServiceImpl(SchoolRepository schoolRepository, SecurityUtils securityUtils) {
+    public TeacherServiceImpl(SchoolRepository schoolRepository, StudentRepository studentRepository, SecurityUtils securityUtils) {
         this.schoolRepository = schoolRepository;
+        this.studentRepository = studentRepository;
         this.securityUtils = securityUtils;
     }
 
@@ -78,8 +81,19 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public int createStudent(StudentForm form) {
-        // FIXME Method net.nemerosa.iteach.service.impl.TeacherServiceImpl.createStudent
-        return 0;
+        // Checks the teacher access to the school
+        School school = getSchool(form.getSchoolId());
+        // Creation
+        return studentRepository.create(
+                school.getTeacherId(),
+                form.getSchoolId(),
+                form.getName(),
+                form.getSubject(),
+                form.getPostalAddress(),
+                form.getPhone(),
+                form.getMobilePhone(),
+                form.getEmail()
+        );
     }
 
 }
