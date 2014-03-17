@@ -15,7 +15,10 @@
         <div class="form-group" ng-class="{ 'has-error' : studentForm.name.$invalid && !studentForm.name.$pristine }">
             <label class="control-label col-md-3">{{'student.school' | translate}}</label>
             <div class="col-md-9">
-                <it-todo>School selection</it-todo>
+                <select ng-model="student.schoolId" name="schoolId" required="required" class="form-control">
+                    <option value="">&nbsp;</option>
+                    <option ng-repeat="school in schools.resources" value="{{school.id}}">{{school.name}}</option>
+                </select>
             </div>
         </div>
 
