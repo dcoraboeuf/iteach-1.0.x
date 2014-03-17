@@ -6,7 +6,7 @@ angular.module('iteach.ui.teacher', [
 
         self.getSchools = function () {
             var d = $q.defer();
-            $http.get(config.api('teacher/schol'))
+            $http.get(config.api('teacher/school'))
                 .success(function (schools) {
                     d.resolve(schools);
                 })
