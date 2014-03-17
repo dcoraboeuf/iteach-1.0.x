@@ -1,6 +1,5 @@
 package net.nemerosa.iteach.ui;
 
-import net.nemerosa.iteach.ui.model.UIForm;
 import net.nemerosa.iteach.ui.model.UISchool;
 import net.nemerosa.iteach.ui.model.UISchoolCollection;
 import net.nemerosa.iteach.ui.model.UISchoolForm;
