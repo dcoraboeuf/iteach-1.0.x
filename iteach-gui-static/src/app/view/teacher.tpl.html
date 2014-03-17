@@ -9,7 +9,20 @@
             </div>
             <div class="row">
                 <h3>{{'teacher.schools' | translate}}</h3>
-                <it-todo>List of schools</it-todo>
+                <table class="table">
+                    <tbody>
+                        <tr ng-repeat="school in schools.resources">
+                            <td class="it-colour">
+                                <div class="it-colour" style="background-color: {{school.colour}}">
+                                    &nbsp;
+                                </div>
+                            </td>
+                            <td>
+                                <a href="#/school/{{school.id}}">{{school.name}}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 <button id="school-create" class="btn" ng-click="createSchool()">{{'teacher.newSchool' | translate}}</button>
             </div>
         </div>
