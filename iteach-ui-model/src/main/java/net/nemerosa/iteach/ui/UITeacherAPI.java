@@ -1,8 +1,6 @@
 package net.nemerosa.iteach.ui;
 
-import net.nemerosa.iteach.ui.model.UISchool;
-import net.nemerosa.iteach.ui.model.UISchoolCollection;
-import net.nemerosa.iteach.ui.model.UISchoolForm;
+import net.nemerosa.iteach.ui.model.*;
 
 import java.util.Locale;
 
@@ -27,7 +25,13 @@ public interface UITeacherAPI {
     UISchool getSchool(Locale locale, int schoolId);
 
     /**
-     * FIXME Creates a student
+     * Creates a student
      */
+    UIStudent createStudent(Locale locale, UIStudentForm form);
+
+    /**
+     * Gets a student
+     */
+    UIStudent getStudent(Locale locale, int studentId);
 
 }

@@ -3,10 +3,7 @@ package net.nemerosa.iteach.ui;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.School;
 import net.nemerosa.iteach.service.model.SchoolForm;
-import net.nemerosa.iteach.ui.model.UISchool;
-import net.nemerosa.iteach.ui.model.UISchoolCollection;
-import net.nemerosa.iteach.ui.model.UISchoolForm;
-import net.nemerosa.iteach.ui.model.UISchoolSummary;
+import net.nemerosa.iteach.ui.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +39,6 @@ public class UITeacherAPIController implements UITeacherAPI {
         );
     }
 
-    // FIXME Form validation
     @Override
     @RequestMapping(value = "/school", method = RequestMethod.POST)
     public UISchool createSchool(Locale locale, @RequestBody @Valid UISchoolForm form) {
@@ -63,7 +59,7 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     @Override
-    @RequestMapping(value = "/school/{schoolId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/school/{schoolId}", method = RequestMethod.GET)
     public UISchool getSchool(Locale locale, @PathVariable int schoolId) {
         School o = teacherService.getSchool(schoolId);
         return new UISchool(
@@ -78,5 +74,19 @@ public class UITeacherAPIController implements UITeacherAPI {
                 o.getEmail(),
                 o.getWebSite()
         );
+    }
+
+    @Override
+    @RequestMapping(value = "/student", method = RequestMethod.POST)
+    public UIStudent createStudent(Locale locale, @RequestBody @Valid UIStudentForm form) {
+        // FIXME Method net.nemerosa.iteach.ui.UITeacherAPIController.createStudent
+        return null;
+    }
+
+    @Override
+    @RequestMapping(value = "/student/{studentId}", method = RequestMethod.GET)
+    public UIStudent getStudent(Locale locale, @PathVariable int studentId) {
+        // FIXME Method net.nemerosa.iteach.ui.UITeacherAPIController.getStudent
+        return null;
     }
 }
