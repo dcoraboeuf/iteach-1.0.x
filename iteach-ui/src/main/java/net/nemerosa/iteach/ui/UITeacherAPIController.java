@@ -3,6 +3,7 @@ package net.nemerosa.iteach.ui;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.School;
 import net.nemerosa.iteach.service.model.SchoolForm;
+import net.nemerosa.iteach.service.model.StudentForm;
 import net.nemerosa.iteach.ui.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -79,8 +80,18 @@ public class UITeacherAPIController implements UITeacherAPI {
     @Override
     @RequestMapping(value = "/student", method = RequestMethod.POST)
     public UIStudent createStudent(Locale locale, @RequestBody @Valid UIStudentForm form) {
-        // FIXME Method net.nemerosa.iteach.ui.UITeacherAPIController.createStudent
-        return null;
+        int studentId = teacherService.createStudent(
+                new StudentForm(
+                        form.getSchoolId(),
+                        form.getName(),
+                        form.getSubject(),
+                        form.getPostalAddress(),
+                        form.getPhone(),
+                        form.getMobilePhone(),
+                        form.getEmail()
+                )
+        );
+        return getStudent(locale, studentId);
     }
 
     @Override

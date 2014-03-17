@@ -6,6 +6,7 @@ import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.School;
 import net.nemerosa.iteach.service.model.SchoolForm;
+import net.nemerosa.iteach.service.model.StudentForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,6 +74,12 @@ public class TeacherServiceImpl implements TeacherService {
         int teacherId = securityUtils.checkTeacher();
         // Access
         return schoolFn.apply(schoolRepository.getById(teacherId, schoolId));
+    }
+
+    @Override
+    public int createStudent(StudentForm form) {
+        // FIXME Method net.nemerosa.iteach.service.impl.TeacherServiceImpl.createStudent
+        return 0;
     }
 
 }
