@@ -26,4 +26,8 @@ public interface UITeacherAPI {
      */
     UISchool getSchool(Locale locale, int schoolId);
 
+    /**
+     * FIXME Creates a student
+     */
+
 }
