@@ -32,6 +32,8 @@ var map_en = {
     // Model
     'teacher.schools': "Schools",
     'teacher.newSchool': "New school",
+    'teacher.students': "Students",
+    'teacher.newStudent': "New student",
     'school': 'School',
     'school.name': "Name",
     'school.name.error': "Name is required.",

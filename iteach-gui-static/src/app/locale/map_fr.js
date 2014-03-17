@@ -34,6 +34,8 @@ var map_fr = {
     // Model
     'teacher.schools': "Ecoles",
     'teacher.newSchool': "Nouvelle école",
+    'teacher.students': "Etudiants",
+    'teacher.newStudent': "Nouvel étudiant",
     'school': 'Ecole',
     'school.name': "Nom",
     'school.name.error': "Le nom de l'école est obligatoire.",
