@@ -42,7 +42,7 @@ public final class SQLUtils {
 
     public static Money toMoney(ResultSet rs, String column) throws SQLException {
         String value = rs.getString(column);
-        if (column == null) {
+        if (value == null) {
             return null;
         } else {
             return Money.parse(value);
