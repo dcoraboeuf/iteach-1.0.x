@@ -2,7 +2,7 @@ angular.module('iteach.service.teacher', [
         'iteach.ui.teacher',
         'iteach.dialog.school'
     ])
-    .service('teacherService', function ($q, $modal, uiTeacher) {
+    .service('teacherService', function ($modal, uiTeacher) {
         var self = {};
 
         self.getSchools = function () {
@@ -10,7 +10,7 @@ angular.module('iteach.service.teacher', [
         }
 
         self.createSchool = function () {
-            $modal.open({
+            return $modal.open({
                 templateUrl: 'app/dialog/dialog.shool.tpl.html',
                 controller: 'dialogSchool',
                 resolve: {
@@ -22,7 +22,7 @@ angular.module('iteach.service.teacher', [
                         }
                     }
                 }
-            })
+            }).result;
         }
 
         return self;
