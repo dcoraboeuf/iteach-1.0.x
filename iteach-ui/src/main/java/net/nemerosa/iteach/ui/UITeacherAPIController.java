@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -22,6 +23,11 @@ import java.util.stream.Collectors;
 public class UITeacherAPIController implements UITeacherAPI {
 
     private final TeacherService teacherService;
+    private final Function<? super School, ? extends UISchoolSummary> schoolSummaryFn = school -> new UISchoolSummary(
+            school.getId(),
+            school.getName(),
+            school.getColour()
+    );
 
     @Autowired
     public UITeacherAPIController(TeacherService teacherService) {
@@ -33,11 +39,7 @@ public class UITeacherAPIController implements UITeacherAPI {
     public UISchoolCollection getSchools(Locale locale) {
         List<School> schools = teacherService.getSchools();
         return new UISchoolCollection(
-                schools.parallelStream().map(school -> new UISchoolSummary(
-                        school.getId(),
-                        school.getName(),
-                        school.getColour()
-                )).collect(Collectors.toList())
+                schools.parallelStream().map(schoolSummaryFn).collect(Collectors.toList())
         );
     }
 
@@ -101,7 +103,7 @@ public class UITeacherAPIController implements UITeacherAPI {
         Student o = teacherService.getStudent(studentId);
         return new UIStudent(
                 o.getId(),
-                null, // FIXME School summary
+                schoolSummaryFn.apply(teacherService.getSchool(o.getSchoolId())),
                 o.getName(),
                 o.getSubject(),
                 o.getPostalAddress(),
