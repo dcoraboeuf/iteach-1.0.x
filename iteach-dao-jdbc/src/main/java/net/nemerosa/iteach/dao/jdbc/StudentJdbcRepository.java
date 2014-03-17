@@ -2,14 +2,28 @@ package net.nemerosa.iteach.dao.jdbc;
 
 import net.nemerosa.iteach.dao.StudentNameAlreadyDefinedException;
 import net.nemerosa.iteach.dao.StudentRepository;
+import net.nemerosa.iteach.dao.model.TStudent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 
 @Component
 public class StudentJdbcRepository extends AbstractJdbcRepository implements StudentRepository {
+
+    private RowMapper<TStudent> studentRowMapper = (rs, rowNum) -> new TStudent(
+            rs.getInt("id"),
+            rs.getInt("teacherId"),
+            rs.getInt("schoolId"),
+            rs.getString("name"),
+            rs.getString("subject"),
+            rs.getString("postalAddress"),
+            rs.getString("phone"),
+            rs.getString("mobilePhone"),
+            rs.getString("email")
+    );
 
     @Autowired
     public StudentJdbcRepository(DataSource dataSource) {
@@ -33,5 +47,14 @@ public class StudentJdbcRepository extends AbstractJdbcRepository implements Stu
         } catch (DuplicateKeyException ex) {
             throw new StudentNameAlreadyDefinedException(teacherId, name);
         }
+    }
+
+    @Override
+    public TStudent getById(int teacherId, int studentId) {
+        return getNamedParameterJdbcTemplate().queryForObject(
+                SQL.STUDENT_BY_ID,
+                params("teacherId", teacherId).addValue("studentId", studentId),
+                studentRowMapper
+        );
     }
 }

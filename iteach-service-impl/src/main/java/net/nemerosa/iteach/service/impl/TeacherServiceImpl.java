@@ -3,10 +3,12 @@ package net.nemerosa.iteach.service.impl;
 import net.nemerosa.iteach.dao.SchoolRepository;
 import net.nemerosa.iteach.dao.StudentRepository;
 import net.nemerosa.iteach.dao.model.TSchool;
+import net.nemerosa.iteach.dao.model.TStudent;
 import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.School;
 import net.nemerosa.iteach.service.model.SchoolForm;
+import net.nemerosa.iteach.service.model.Student;
 import net.nemerosa.iteach.service.model.StudentForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,17 @@ public class TeacherServiceImpl implements TeacherService {
             t.getMobilePhone(),
             t.getEmail(),
             t.getWebSite()
+    );
+    private final Function<? super TStudent, ? extends Student> studentFn = t -> new Student(
+            t.getId(),
+            t.getTeacherId(),
+            t.getSchoolId(),
+            t.getName(),
+            t.getSubject(),
+            t.getPostalAddress(),
+            t.getPhone(),
+            t.getMobilePhone(),
+            t.getEmail()
     );
 
     @Autowired
@@ -94,6 +107,14 @@ public class TeacherServiceImpl implements TeacherService {
                 form.getMobilePhone(),
                 form.getEmail()
         );
+    }
+
+    @Override
+    public Student getStudent(int studentId) {
+        // Checks the teacher access
+        int teacherId = securityUtils.checkTeacher();
+        // Access
+        return studentFn.apply(studentRepository.getById(teacherId, studentId));
     }
 
 }

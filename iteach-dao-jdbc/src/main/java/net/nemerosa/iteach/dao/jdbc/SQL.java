@@ -21,4 +21,5 @@ public interface SQL {
     String SCHOOL_CREATE = "INSERT INTO SCHOOL (TEACHERID, NAME, CONTACT, COLOUR, EMAIL, HOURLYRATE, POSTALADDRESS, PHONE, MOBILEPHONE, WEBSITE) VALUES (:teacherId, :name, :contact, :colour, :email, :hourlyRate, :postalAddress, :phone, :mobilePhone, :webSite)";
 
     String STUDENT_CREATE = "INSERT INTO STUDENT (TEACHERID, SCHOOLID, NAME, SUBJECT, EMAIL, POSTALADDRESS, PHONE, MOBILEPHONE) VALUES (:teacherId, :schoolId, :name, :subject, :email, :postalAddress, :phone, :mobilePhone)";
+    String STUDENT_BY_ID = "SELECT * FROM STUDENT WHERE TEACHERID = :teacherId AND SCHOOLID = :schoolId";
 }
