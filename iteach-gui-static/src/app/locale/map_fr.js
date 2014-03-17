@@ -51,5 +51,16 @@ var map_fr = {
     'school.webSite': 'Site internet',
     'school.webSite.error': "L'adresse du site Web n'est pas valide.",
     'school.email': 'Email',
-    'school.email.error': "L'adresse email n'est pas valide."
+    'school.email.error': "L'adresse email n'est pas valide.",
+    // Student
+    'student': "Etudiant",
+    'student.school': "Ecole",
+    'student.name': "Nom",
+    'student.name.error': "Le nom de l'étudiant est obligatoire.",
+    'student.subject': "Sujet / Matière",
+    'student.phone': 'Téléphone',
+    'student.mobilePhone': 'Téléphone mobile',
+    'student.postalAddress': 'Adresse postale',
+    'student.email': 'Email',
+    'student.email.error': "L'adresse email n'est pas valide."
 };

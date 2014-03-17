@@ -1,6 +1,7 @@
 angular.module('iteach.service.teacher', [
         'iteach.ui.teacher',
-        'iteach.dialog.school'
+        'iteach.dialog.school',
+        'iteach.dialog.student'
     ])
     .service('teacherService', function ($modal, uiTeacher) {
         var self = {};
@@ -22,7 +23,23 @@ angular.module('iteach.service.teacher', [
                         }
                     }
                 }
-            }).result;
+            }).result
+        }
+
+        self.createStudent = function () {
+            return $modal.open({
+                templateUrl: 'app/dialog/dialog.student.tpl.html',
+                controller: 'dialogStudent',
+                resolve: {
+                    modalController: function () {
+                        return {
+                            onSubmit: function (student) {
+                                return uiTeacher.createStudent(student)
+                            }
+                        }
+                    }
+                }
+            }).result
         }
 
         return self;

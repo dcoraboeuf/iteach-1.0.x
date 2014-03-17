@@ -1,0 +1,68 @@
+<div class="modal-header">
+    <h3>{{'student' | translate}}</h3>
+</div>
+<form name="studentForm" class="form-horizontal" ng-submit="submit(studentForm.$valid)" novalidate="novalidate">
+    <div class="modal-body">
+
+        <div class="form-group" ng-class="{ 'has-error' : studentForm.name.$invalid && !studentForm.name.$pristine }">
+            <label class="control-label col-md-3">{{'student.name' | translate}}</label>
+            <div class="col-md-9">
+                <input ng-model="student.name" name="name" maxlength="80" type="text" class="form-control" required="required" />
+                <p ng-show="studentForm.name.$invalid && !studentForm.name.$pristine" class="help-block">{{'student.name.error' | translate}}</p>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : studentForm.name.$invalid && !studentForm.name.$pristine }">
+            <label class="control-label col-md-3">{{'student.school' | translate}}</label>
+            <div class="col-md-9">
+                <it-todo>School selection</it-todo>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : studentForm.subject.$invalid && !studentForm.subject.$pristine }">
+            <label class="control-label col-md-3">{{'student.subject' | translate}}</label>
+            <div class="col-md-9">
+                <input ng-model="student.subject" name="subject" maxlength="120" type="text" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">{{'student.postalAddress' | translate}}</label>
+            <div class="col-md-9">
+                <textarea ng-model="student.postalAddress" name="postalAddress" maxlength="200" class="form-control" rows="2"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">{{'student.phone' | translate}}</label>
+            <div class="col-md-9">
+                <input ng-model="student.phone" name="phone" maxlength="40" type="text" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">{{'student.mobilePhone' | translate}}</label>
+            <div class="col-md-9">
+                <input ng-model="student.mobilePhone" name="mobilePhone" maxlength="40" type="text" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : studentForm.email.$invalid && !studentForm.email.$pristine }">
+            <label class="control-label col-md-3">{{'student.email' | translate}}</label>
+            <div class="col-md-9">
+                <input ng-model="student.email" name="email" maxlength="120" type="email" class="form-control" />
+                <p ng-show="studentForm.email.$invalid && !studentForm.email.$pristine" class="help-block">{{'student.email.error' | translate}}</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+
+        <div class="alert alert-{{messageType}} alert-dismissable" ng-show="message">
+            <span>{{message}}</span>
+        </div>
+
+        <button class="btn btn-primary" type="submit" ng-disabled="studentForm.$invalid">{{'dialog.ok' | translate}}</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">{{'dialog.cancel' | translate}}</button>
+    </div>
+</form>

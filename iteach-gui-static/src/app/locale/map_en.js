@@ -29,11 +29,12 @@ var map_en = {
     'register.result.ko': "The registration could not be completed. Please contact the iTeach team for more information.",
     'register.result.ok': "The registration is now complete. Please proceed with the login to start using iTeach",
     'register.result.login': "Go on with login",
-    // Model
+    // Teacher
     'teacher.schools': "Schools",
     'teacher.newSchool': "New school",
     'teacher.students': "Students",
     'teacher.newStudent': "New student",
+    // School
     'school': 'School',
     'school.name': "Name",
     'school.name.error': "Name is required.",
@@ -49,5 +50,16 @@ var map_en = {
     'school.webSite': 'Web site',
     'school.webSite.error': "The web site URL is not valid.",
     'school.email': 'Email',
-    'school.email.error': "Email is not valid."
+    'school.email.error': "Email is not valid.",
+    // Student
+    'student': "Student",
+    'student.school': "School",
+    'student.name': "Name",
+    'student.name.error': "Name is required",
+    'student.subject': "Subject",
+    'student.phone': 'Phone',
+    'student.mobilePhone': 'Mobile phone',
+    'student.postalAddress': 'Postal address',
+    'student.email': 'Email',
+    'student.email.error': "Email is not valid."
 };
