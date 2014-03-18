@@ -62,7 +62,11 @@ module.exports = {
             'vendor/angular-route/angular-route.js',
             'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
             'vendor/angular-translate/angular-translate.js',
-            'vendor/angular-translate-loader-static-files/angular-translate-loader-static-files.js'
+            'vendor/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
+            'vendor/jquery/jquery.js',
+            'vendor/jquery-ui/ui/jquery-ui.js',
+            'vendor/angular-ui-calendar/src/calendar.js',
+            'vendor/fullcalendar/fullcalendar.js'
         ],
         css: [
         ],
