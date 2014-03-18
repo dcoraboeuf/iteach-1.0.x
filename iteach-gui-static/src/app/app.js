@@ -19,6 +19,7 @@ var iteach = angular.module('iteach', [
             'iteach.view.registrationResult',
             'iteach.view.admin',
             'iteach.view.teacher',
+            'iteach.view.school',
             // Services
             'iteach.service.core',
             'iteach.service.account',
@@ -83,8 +84,12 @@ var iteach = angular.module('iteach', [
                 .when('/teacher', {
                     templateUrl: 'app/view/teacher.tpl.html',
                     controller: 'TeacherCtrl'
-                }
-            );
+                })
+                // School page
+                .when('/school/:schoolId', {
+                    templateUrl: 'app/view/school.tpl.html',
+                    controller: 'SchoolCtrl'
+                });
         })
         .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, config, notificationService) {
             $scope.version = config.version;
