@@ -5,7 +5,7 @@ var map_fr = {
     'dialog.ok': 'OK',
     'dialog.cancel': 'Annuler',
     // Home page
-    'home.back': "Retour à l'acceuil",
+    'home.back': "Retour",
     // Login page
     'login.iteach.message': "iTeach est l'application qui va vous aider à organiser vos lessons et votre planning.",
     'login.signin.google': 'Se connecter avec Google',
