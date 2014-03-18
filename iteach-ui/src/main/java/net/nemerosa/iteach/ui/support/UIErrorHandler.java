@@ -86,7 +86,7 @@ public class UIErrorHandler {
         // Error message
         ErrorMessage error = errorHandler.handleError(locale, request, ex);
         // Returns a message to display to the user
-        String message = strings.get(locale, "general.error.full", error.getMessage(), error.getUuid());
+        String message = String.format("[%s] %s", error.getUuid(), error.getMessage());
         // Ok
         return getMessageResponse(HttpStatus.INTERNAL_SERVER_ERROR, message);
     }

@@ -46,7 +46,7 @@ public class DefaultErrorHandler implements ErrorHandler {
             if (strings.isDefined(locale, messageKey)) {
                 displayMessage = strings.get(locale, messageKey, false);
             } else {
-                displayMessage = strings.get(locale, "general.error.technical");
+                displayMessage = strings.get(locale, "ui.error");
             }
         }
         // Traces the error
