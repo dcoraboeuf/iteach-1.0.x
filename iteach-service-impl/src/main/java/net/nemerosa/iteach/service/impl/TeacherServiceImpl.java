@@ -62,7 +62,7 @@ public class TeacherServiceImpl implements TeacherService {
         // Checks the teacher access
         int teacherId = securityUtils.checkTeacher();
         // Lists
-        return schoolRepository.findAll(teacherId).parallelStream().map(schoolFn).collect(Collectors.toList());
+        return schoolRepository.findAll(teacherId).stream().map(schoolFn).collect(Collectors.toList());
     }
 
     @Override
@@ -122,7 +122,7 @@ public class TeacherServiceImpl implements TeacherService {
         // Checks the teacher access
         int teacherId = securityUtils.checkTeacher();
         // Lists
-        return studentRepository.findAll(teacherId).parallelStream().map(studentFn).collect(Collectors.toList());
+        return studentRepository.findAll(teacherId).stream().map(studentFn).collect(Collectors.toList());
     }
 
 }

@@ -48,7 +48,7 @@ public class UITeacherAPIController implements UITeacherAPI {
     public UISchoolCollection getSchools(Locale locale) {
         List<School> schools = teacherService.getSchools();
         return new UISchoolCollection(
-                schools.parallelStream().map(schoolSummaryFn).collect(Collectors.toList())
+                schools.stream().map(schoolSummaryFn).collect(Collectors.toList())
         );
     }
 
@@ -94,7 +94,7 @@ public class UITeacherAPIController implements UITeacherAPI {
     public UIStudentCollection getStudents(Locale locale) {
         List<Student> schools = teacherService.getStudents();
         return new UIStudentCollection(
-                schools.parallelStream().map(studentSummaryFn).collect(Collectors.toList())
+                schools.stream().map(studentSummaryFn).collect(Collectors.toList())
         );
     }
 
