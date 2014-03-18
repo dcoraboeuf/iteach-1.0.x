@@ -26,6 +26,8 @@ angular.module('iteach.service.teacher', [
             }).result
         }
 
+        self.getSchool = uiTeacher.getSchool
+
         self.getStudents = function () {
             return uiTeacher.getStudents()
         }
