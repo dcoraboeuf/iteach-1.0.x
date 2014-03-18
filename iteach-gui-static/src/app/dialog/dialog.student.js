@@ -14,7 +14,7 @@ angular.module('iteach.dialog.student', [
 
         $scope.submit = function (isValid) {
             if (isValid) {
-                modalController.onSubmit($scope.school).then(
+                modalController.onSubmit($scope.student).then(
                     function () {
                         $modalInstance.close('ok')
                     },
