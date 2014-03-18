@@ -41,7 +41,7 @@ angular.module('iteach.service.core', [])
     })
     .service('errorService', function ($interpolate, $log, notificationService) {
         var self = {};
-        self.errorMsg = function (text, status) {
+        self.errorMsg = function (text, status, method, url) {
             // TODO Uses translations
             if (status == 401) {
                 return 'Not authenticated';
@@ -49,6 +49,11 @@ angular.module('iteach.service.core', [])
                 return 'Forbidden access';
             } else if (status == 404) {
                 return 'Resource not found';
+            } else if (status == 405) {
+                return $interpolate('Method {{method}} not allowed for {{url}}')({
+                    method: method,
+                    url: url
+                })
             } else {
                 return text;
             }
@@ -59,18 +64,15 @@ angular.module('iteach.service.core', [])
             var url = response.config.url;
             // Logging
             // TODO Uses translations
-            var log = $interpolate('[app] HTTP error {{status}} for {{method}} {{url}}')({
+            var log = $interpolate('HTTP error {{status}} for {{method}} {{url}}')({
                 status: status,
                 method: method,
                 url: url
             });
-            $log.error(log);
+            $log.error('[app] ' + log);
             // Displays a notification
             notificationService.error(
-                self.errorMsg(
-                    response.data,
-                    status
-                )
+                self.errorMsg(log, status, method, url)
             );
         };
         return self;
