@@ -77,7 +77,28 @@ angular.module('iteach.view.teacher', [
                 timeFormat: $scope.calendarI18n().timeFormat,
                 columnFormat: $scope.calendarI18n().columnFormat,
                 titleFormat: $scope.calendarI18n().titleFormat,
-                axisFormat: $scope.calendarI18n().axisFormat
+                axisFormat: $scope.calendarI18n().axisFormat,
+                // General appearance
+                allDaySlot: false,
+                // TODO Configurable min/max time
+                minTime: '07:00',
+                maxTime: '21:00',
+                // TODO Configurable week-ends
+                weekends: false,
+                // Default view
+                defaultView: 'agendaWeek',
+                // Allowing selection (-> creation)
+                selectable: true,
+                selectHelper: true,
+                // TODO select: onSelect,
+                // Loading of events
+                // TODO events: fetchEvents,
+                // Resizing of an event
+                editable: true
+                // TODO eventResize: onEventChange,
+                // eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc) {
+                // TODO    onEventMoved(event, dayDelta, minuteDelta, revertFunc);
+                //}
             }
         };
         $scope.lessons = [];
