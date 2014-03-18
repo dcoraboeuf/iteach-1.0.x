@@ -6,7 +6,20 @@
         <div class="col-md-4">
             <div class="row">
                 <h3>{{'teacher.students' | translate}}</h3>
-                <it-todo>List of students</it-todo>
+                <table class="table">
+                    <tbody>
+                        <tr ng-repeat="student in students.resources">
+                            <td class="it-colour">
+                                <div class="it-colour" style="background-color: {{student.school.colour}}">
+                                    &nbsp;
+                                </div>
+                            </td>
+                            <td>
+                                <a href="#/student/{{student.id}}">{{student.name}}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 <button id="student-create" class="btn" ng-click="createStudent()">{{'teacher.newStudent' | translate}}</button>
             </div>
             <div class="row">
