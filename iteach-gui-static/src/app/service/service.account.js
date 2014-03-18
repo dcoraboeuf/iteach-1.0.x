@@ -28,7 +28,7 @@ angular.module('iteach.service.account', [
             }
             // Refresh
             else if (account.authenticated) {
-                if ($location.path != '') {
+                if ($location.path() != '') {
                     // Stays on the page if a route is already defined
                 } else if (account.teacher.administrator) {
                     $log.debug('Going to the admin page');
