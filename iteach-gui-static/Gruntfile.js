@@ -117,6 +117,16 @@ module.exports = function ( grunt ) {
                     }
                 ]
             },
+            dev_vendorcss: {
+                files: [
+                    {
+                        src: [ '<%= vendor_files.css %>' ],
+                        dest: '<%= dev_dir %>/',
+                        cwd: '.',
+                        expand: true
+                    }
+                ]
+            },
             prod_assets: {
                 files: [
                     {
@@ -409,6 +419,7 @@ module.exports = function ( grunt ) {
         'copy:dev_appjs',
         'copy:dev_apptpl',
         'copy:dev_vendorjs',
+        'copy:dev_vendorcss',
         'html2js:dev',
         'index:dev'
     ]);

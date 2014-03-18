@@ -69,6 +69,7 @@ module.exports = {
             'vendor/fullcalendar/fullcalendar.js'
         ],
         css: [
+            'vendor/fullcalendar/fullcalendar.css'
         ],
         assets: [
         ]
