@@ -25,6 +25,11 @@ public interface UITeacherAPI {
     UISchool getSchool(Locale locale, int schoolId);
 
     /**
+     * Updates a school
+     */
+    UISchool updateSchool(Locale locale, int schoolId, UISchoolForm form);
+
+    /**
      * Gets the list of students for a teacher
      */
     UIStudentCollection getStudents(Locale locale);

@@ -30,7 +30,7 @@
         <div class="form-group" ng-class="{ 'has-error' : schoolForm.hourlyRate.$invalid && !schoolForm.hourlyRate.$pristine }">
             <label class="control-label col-md-3">{{'school.hourlyRate' | translate}}</label>
             <div class="col-md-9">
-                <input ng-model="school.hourlyRate" name="hourlyRate" maxlength="8" type="text" class="form-control" ng-pattern="hourlyRatePattern" />
+                <input ng-model="school.hourlyRate" name="hourlyRate" maxlength="16" type="text" class="form-control" ng-pattern="hourlyRatePattern" />
                 <p ng-hide="schoolForm.hourlyRate.$invalid && !schoolForm.hourlyRate.$pristine" class="help-block">{{'school.hourlyRate.help' | translate}}</p>
                 <p ng-show="schoolForm.hourlyRate.$invalid && !schoolForm.hourlyRate.$pristine" class="help-block">{{'school.hourlyRate.error.format' | translate}}</p>
             </div>

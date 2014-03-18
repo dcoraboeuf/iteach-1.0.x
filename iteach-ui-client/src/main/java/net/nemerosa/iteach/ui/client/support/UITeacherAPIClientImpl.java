@@ -28,6 +28,11 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     }
 
     @Override
+    public UISchool updateSchool(Locale locale, int schoolId, UISchoolForm form) {
+        return put(locale, UISchool.class, form, "/api/teacher/school/%d", schoolId);
+    }
+
+    @Override
     public UIStudentCollection getStudents(Locale locale) {
         return get(locale, UIStudentCollection.class, "/api/teacher/student");
     }

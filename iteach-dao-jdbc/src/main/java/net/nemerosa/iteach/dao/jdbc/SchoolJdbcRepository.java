@@ -72,4 +72,26 @@ public class SchoolJdbcRepository extends AbstractJdbcRepository implements Scho
                 schoolRowMapper
         );
     }
+
+    @Override
+    public void update(int teacherId, int schoolId, String name, String colour, String contact, String email, Money hourlyRate, String postalAddress, String phone, String mobilePhone, String webSite) {
+        try {
+            getNamedParameterJdbcTemplate().update(
+                    SQL.SCHOOL_UPDATE,
+                    params("teacherId", teacherId)
+                            .addValue("schoolId", schoolId)
+                            .addValue("name", name)
+                            .addValue("contact", contact)
+                            .addValue("colour", colour)
+                            .addValue("email", email)
+                            .addValue("hourlyRate", hourlyRate != null ? hourlyRate.toString() : null)
+                            .addValue("postalAddress", postalAddress)
+                            .addValue("phone", phone)
+                            .addValue("mobilePhone", mobilePhone)
+                            .addValue("webSite", webSite)
+            );
+        } catch (DuplicateKeyException ex) {
+            throw new SchoolNameAlreadyDefinedException(teacherId, name);
+        }
+    }
 }

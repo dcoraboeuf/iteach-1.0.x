@@ -35,7 +35,10 @@ angular.module('iteach.service.teacher', [
                 controller: 'dialogSchool',
                 resolve: {
                     initialSchool: function () {
-                        return school
+                        var form = angular.copy(school)
+                        delete form.id
+                        delete form.href
+                        return form
                     },
                     modalController: function () {
                         return {

@@ -14,10 +14,7 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.AuthCache;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.methods.*;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -130,6 +127,14 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
             setBody(body, post);
         }
         return request(locale, post, returnType);
+    }
+
+    protected <T> T put(Locale locale, Class<T> returnType, Object body, String path, Object... parameters) {
+        HttpPut put = new HttpPut(getUrl(path, parameters));
+        if (body != null) {
+            setBody(body, put);
+        }
+        return request(locale, put, returnType);
     }
 
     private void setBody(Object payload, HttpEntityEnclosingRequestBase put) {

@@ -55,20 +55,22 @@ public class UITeacherAPIController implements UITeacherAPI {
     @Override
     @RequestMapping(value = "/school", method = RequestMethod.POST)
     public UISchool createSchool(Locale locale, @RequestBody @Valid UISchoolForm form) {
-        int schoolId = teacherService.createSchool(
-                new SchoolForm(
-                        form.getName(),
-                        form.getColour(),
-                        form.getContact(),
-                        form.toHourlyRate(),
-                        form.getPostalAddress(),
-                        form.getPhone(),
-                        form.getMobilePhone(),
-                        form.getEmail(),
-                        form.getWebSite()
-                )
-        );
+        int schoolId = teacherService.createSchool(toSchoolForm(form));
         return getSchool(locale, schoolId);
+    }
+
+    private SchoolForm toSchoolForm(UISchoolForm form) {
+        return new SchoolForm(
+                form.getName(),
+                form.getColour(),
+                form.getContact(),
+                form.toHourlyRate(),
+                form.getPostalAddress(),
+                form.getPhone(),
+                form.getMobilePhone(),
+                form.getEmail(),
+                form.getWebSite()
+        );
     }
 
     @Override
@@ -87,6 +89,13 @@ public class UITeacherAPIController implements UITeacherAPI {
                 o.getEmail(),
                 o.getWebSite()
         );
+    }
+
+    @Override
+    @RequestMapping(value = "/school/{schoolId}", method = RequestMethod.PUT)
+    public UISchool updateSchool(Locale locale, @PathVariable int schoolId, @RequestBody UISchoolForm form) {
+        teacherService.updateSchool(schoolId, toSchoolForm(form));
+        return getSchool(locale, schoolId);
     }
 
     @Override

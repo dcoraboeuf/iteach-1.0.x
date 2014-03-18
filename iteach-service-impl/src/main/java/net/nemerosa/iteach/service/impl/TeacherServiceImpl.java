@@ -85,6 +85,26 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public void updateSchool(int schoolId, SchoolForm form) {
+        // Checks the teacher access
+        School school = getSchool(schoolId);
+        // Updates
+        schoolRepository.update(
+                school.getTeacherId(),
+                schoolId,
+                form.getName(),
+                form.getColour(),
+                form.getContact(),
+                form.getEmail(),
+                form.getHourlyRate(),
+                form.getPostalAddress(),
+                form.getPhone(),
+                form.getMobilePhone(),
+                form.getWebSite()
+        );
+    }
+
+    @Override
     public School getSchool(int schoolId) {
         // Checks the teacher access
         int teacherId = securityUtils.checkTeacher();

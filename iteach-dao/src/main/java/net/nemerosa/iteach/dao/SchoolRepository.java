@@ -12,4 +12,6 @@ public interface SchoolRepository {
     TSchool getById(int teacherId, int schoolId);
 
     List<TSchool> findAll(int teacherId);
+
+    void update(int teacherId, int schoolId, String name, String colour, String contact, String email, Money hourlyRate, String postalAddress, String phone, String mobilePhone, String webSite);
 }
