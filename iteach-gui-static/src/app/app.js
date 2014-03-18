@@ -2,6 +2,7 @@
 
 // Initial configuration
 var _translationMap;
+var _calendar_i18n = [];
 
 // Declare app level module which depends on filters, and services
 var iteach = angular.module('iteach', [

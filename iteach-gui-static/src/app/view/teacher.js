@@ -1,7 +1,7 @@
 angular.module('iteach.view.teacher', [
         'iteach.service.teacher'
     ])
-    .controller('TeacherCtrl', function ($scope, teacherService) {
+    .controller('TeacherCtrl', function ($scope, $translate, teacherService) {
 
         /**
          * Schools
@@ -42,18 +42,42 @@ angular.module('iteach.view.teacher', [
         /**
          * Planning
          */
+
+        // Intl
+        $scope.calendarI18n = function () {
+            return _calendar_i18n[$translate.use()]
+        }
+
+        // TODO Current date from the session
+        $scope.currentDate = new Date();
+
         $scope.calendarConfig = {
             calendar:{
                 height: 450,
                 editable: true,
                 header:{
-                    left: 'month basicWeek basicDay agendaWeek agendaDay',
+                    left: 'prev,next today',
                     center: 'title',
-                    right: 'today prev,next'
+                    right: 'month,agendaWeek,agendaDay'
                 },
-                dayClick: $scope.alertEventOnClick,
-                eventDrop: $scope.alertOnDrop,
-                eventResize: $scope.alertOnResize
+                // Dimensions
+                aspectRatio: 0.5,
+                // TODO viewDisplay: onViewDisplay,
+                // Current date
+                year: $scope.currentDate.getFullYear(),
+                month: $scope.currentDate.getMonth(),
+                date: $scope.currentDate.getDate(),
+                // i18n
+                firstDay: $scope.calendarI18n().firstDay,
+                dayNames: $scope.calendarI18n().dayNames,
+                dayNamesShort: $scope.calendarI18n().dayNamesShort,
+                monthNames: $scope.calendarI18n().monthNames,
+                monthNamesShort: $scope.calendarI18n().monthNamesShort,
+                buttonText: $scope.calendarI18n().buttonText,
+                timeFormat: $scope.calendarI18n().timeFormat,
+                columnFormat: $scope.calendarI18n().columnFormat,
+                titleFormat: $scope.calendarI18n().titleFormat,
+                axisFormat: $scope.calendarI18n().axisFormat
             }
         };
         $scope.lessons = [];
