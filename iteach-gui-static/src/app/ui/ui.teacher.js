@@ -31,6 +31,15 @@ angular.module('iteach.ui.teacher', [
             return d.promise;
         }
 
+        self.updateSchool = function (schoolId, schoolForm) {
+            var d = $q.defer();
+            $http.put(config.api('teacher/school/' + schoolId), schoolForm)
+                .success(function (school) {
+                    d.resolve(school);
+                })
+            return d.promise;
+        }
+
         self.getStudents = function () {
             var d = $q.defer();
             $http.get(config.api('teacher/student'))

@@ -40,7 +40,7 @@ angular.module('iteach.service.teacher', [
                     modalController: function () {
                         return {
                             onSubmit: function (schoolForm) {
-                                return uiTeacher.updateSchool(schoolForm)
+                                return uiTeacher.updateSchool(school.id, schoolForm)
                             }
                         }
                     }
