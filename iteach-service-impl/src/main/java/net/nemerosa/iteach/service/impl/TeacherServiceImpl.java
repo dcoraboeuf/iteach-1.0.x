@@ -117,4 +117,12 @@ public class TeacherServiceImpl implements TeacherService {
         return studentFn.apply(studentRepository.getById(teacherId, studentId));
     }
 
+    @Override
+    public List<Student> getStudents() {
+        // Checks the teacher access
+        int teacherId = securityUtils.checkTeacher();
+        // Lists
+        return studentRepository.findAll(teacherId).parallelStream().map(studentFn).collect(Collectors.toList());
+    }
+
 }

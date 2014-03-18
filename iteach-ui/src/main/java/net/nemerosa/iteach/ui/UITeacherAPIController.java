@@ -28,6 +28,15 @@ public class UITeacherAPIController implements UITeacherAPI {
             school.getName(),
             school.getColour()
     );
+    private final Function<? super Student, ? extends UIStudentSummary> studentSummaryFn = student -> new UIStudentSummary(
+            student.getId(),
+            getSchoolSummary(student),
+            student.getName()
+    );
+
+    private UISchoolSummary getSchoolSummary(Student student) {
+        return schoolSummaryFn.apply(teacherService.getSchool(student.getSchoolId()));
+    }
 
     @Autowired
     public UITeacherAPIController(TeacherService teacherService) {
@@ -81,6 +90,15 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     @Override
+    @RequestMapping(value = "/student", method = RequestMethod.GET)
+    public UIStudentCollection getStudents(Locale locale) {
+        List<Student> schools = teacherService.getStudents();
+        return new UIStudentCollection(
+                schools.parallelStream().map(studentSummaryFn).collect(Collectors.toList())
+        );
+    }
+
+    @Override
     @RequestMapping(value = "/student", method = RequestMethod.POST)
     public UIStudent createStudent(Locale locale, @RequestBody @Valid UIStudentForm form) {
         int studentId = teacherService.createStudent(
@@ -103,7 +121,7 @@ public class UITeacherAPIController implements UITeacherAPI {
         Student o = teacherService.getStudent(studentId);
         return new UIStudent(
                 o.getId(),
-                schoolSummaryFn.apply(teacherService.getSchool(o.getSchoolId())),
+                getSchoolSummary(o),
                 o.getName(),
                 o.getSubject(),
                 o.getPostalAddress(),

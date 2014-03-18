@@ -25,12 +25,18 @@ angular.module('iteach.view.teacher', [
          * Students
          */
 
-        // TODO Loads the list of students
+        function loadStudents() {
+            teacherService.getStudents().then(function (students) {
+                $scope.students = students
+            })
+        }
+
+        // Loads the list of students
+        loadStudents();
 
         // Creating a student
         $scope.createStudent = function() {
-            teacherService.createStudent()
-            // TODO Reloads list after creation
+            teacherService.createStudent().then(loadStudents)
         }
 
 

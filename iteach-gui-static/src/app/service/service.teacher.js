@@ -26,6 +26,10 @@ angular.module('iteach.service.teacher', [
             }).result
         }
 
+        self.getStudents = function () {
+            return uiTeacher.getStudents()
+        }
+
         self.createStudent = function () {
             return $modal.open({
                 templateUrl: 'app/dialog/dialog.student.tpl.html',

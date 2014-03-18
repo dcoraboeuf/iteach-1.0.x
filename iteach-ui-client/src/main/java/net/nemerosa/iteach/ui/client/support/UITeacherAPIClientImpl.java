@@ -14,7 +14,7 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
 
     @Override
     public UISchoolCollection getSchools(Locale locale) {
-        return get(locale, UISchoolCollection.class, "api/teacher/school");
+        return get(locale, UISchoolCollection.class, "/api/teacher/school");
     }
 
     @Override
@@ -25,6 +25,11 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     @Override
     public UISchool getSchool(Locale locale, int schoolId) {
         return get(locale, UISchool.class, "/api/teacher/school/%d", schoolId);
+    }
+
+    @Override
+    public UIStudentCollection getStudents(Locale locale) {
+        return get(locale, UIStudentCollection.class, "/api/teacher/student");
     }
 
     @Override

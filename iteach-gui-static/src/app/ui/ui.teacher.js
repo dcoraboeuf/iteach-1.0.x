@@ -22,6 +22,15 @@ angular.module('iteach.ui.teacher', [
             return d.promise;
         }
 
+        self.getStudents = function () {
+            var d = $q.defer();
+            $http.get(config.api('teacher/student'))
+                .success(function (students) {
+                    d.resolve(students);
+                })
+            return d.promise;
+        }
+
         self.createStudent = function (student) {
             var d = $q.defer();
             $http.post(config.api('teacher/student'), student)

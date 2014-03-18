@@ -19,4 +19,5 @@ public interface TeacherService {
 
     Student getStudent(int studentId);
 
+    List<Student> getStudents();
 }

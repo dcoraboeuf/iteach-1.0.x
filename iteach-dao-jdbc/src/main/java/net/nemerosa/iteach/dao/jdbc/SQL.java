@@ -22,4 +22,6 @@ public interface SQL {
 
     String STUDENT_CREATE = "INSERT INTO STUDENT (TEACHERID, SCHOOLID, NAME, SUBJECT, EMAIL, POSTALADDRESS, PHONE, MOBILEPHONE) VALUES (:teacherId, :schoolId, :name, :subject, :email, :postalAddress, :phone, :mobilePhone)";
     String STUDENT_BY_ID = "SELECT * FROM STUDENT WHERE TEACHERID = :teacherId AND ID = :studentId";
+    String STUDENT_ALL = "SELECT * FROM STUDENT WHERE TEACHERID = :teacherId ORDER BY NAME ASC";
+
 }

@@ -14,8 +14,8 @@ public class UIStudentSummary extends UIResource {
     private final String name;
     private final UISchoolSummary school;
 
-    @ConstructorProperties({"id", "school", "name", "colour"})
-    public UIStudentSummary(int id, UISchoolSummary school, String name, String colour) {
+    @ConstructorProperties({"id", "school", "name"})
+    public UIStudentSummary(int id, UISchoolSummary school, String name) {
         this.id = id;
         this.school = school;
         this.href = UILink.href("api/teacher/student/%d", id);

@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @Component
 public class StudentJdbcRepository extends AbstractJdbcRepository implements StudentRepository {
@@ -54,6 +55,15 @@ public class StudentJdbcRepository extends AbstractJdbcRepository implements Stu
         return getNamedParameterJdbcTemplate().queryForObject(
                 SQL.STUDENT_BY_ID,
                 params("teacherId", teacherId).addValue("studentId", studentId),
+                studentRowMapper
+        );
+    }
+
+    @Override
+    public List<TStudent> findAll(int teacherId) {
+        return getNamedParameterJdbcTemplate().query(
+                SQL.STUDENT_ALL,
+                params("teacherId", teacherId),
                 studentRowMapper
         );
     }
