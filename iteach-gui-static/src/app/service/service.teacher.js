@@ -15,10 +15,32 @@ angular.module('iteach.service.teacher', [
                 templateUrl: 'app/dialog/dialog.shool.tpl.html',
                 controller: 'dialogSchool',
                 resolve: {
+                    initialSchool: function () {
+                        return {}
+                    },
                     modalController: function () {
                         return {
                             onSubmit: function (school) {
                                 return uiTeacher.createSchool(school)
+                            }
+                        }
+                    }
+                }
+            }).result
+        }
+
+        self.updateSchool = function (school) {
+            return $modal.open({
+                templateUrl: 'app/dialog/dialog.shool.tpl.html',
+                controller: 'dialogSchool',
+                resolve: {
+                    initialSchool: function () {
+                        return school
+                    },
+                    modalController: function () {
+                        return {
+                            onSubmit: function (schoolForm) {
+                                return uiTeacher.updateSchool(schoolForm)
                             }
                         }
                     }

@@ -14,5 +14,12 @@ angular.module('iteach.view.school', [
         // Loads the school
         loadSchool()
 
+        // Updating the school
+        $scope.update = function () {
+            teacherService.updateSchool($scope.school).then(loadSchool)
+        }
+
+        // TODO Deleting the school
+
     })
 ;
