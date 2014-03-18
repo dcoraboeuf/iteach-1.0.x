@@ -4,6 +4,8 @@ var map_en = {
     'language.fr': 'Français',
     'dialog.ok': 'OK',
     'dialog.cancel': 'Cancel',
+    // Home page
+    'home.back': "Back to home page",
     // Login page
     'login.iteach.message': 'iTeach is the application that will help you organise your courses and your planning.',
     'login.signin.google': 'Sign in with Google',
