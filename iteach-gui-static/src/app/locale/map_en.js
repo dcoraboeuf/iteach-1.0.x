@@ -4,6 +4,8 @@ var map_en = {
     'language.fr': 'Français',
     'dialog.ok': 'OK',
     'dialog.cancel': 'Cancel',
+    'dialog.update': "Modify",
+    'dialog.delete': "Delete",
     // Home page
     'home.back': "Back",
     // Login page
