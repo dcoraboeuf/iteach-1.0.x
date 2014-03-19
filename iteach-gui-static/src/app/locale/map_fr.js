@@ -69,5 +69,11 @@ var map_fr = {
     'student.email': 'Email',
     'student.email.error': "L'adresse email n'est pas valide.",
     // Lesson
-    'lesson': "Leçon"
+    'lesson': "Leçon",
+    'lesson.tip': "Créez une nouvelle leçon en fournissant une date, une période, un étudiant et éventuellement un emplacement.",
+    'lesson.student': "Etudiant",
+    'lesson.date': "Date",
+    'lesson.from': "De",
+    'lesson.to': "à",
+    'lesson.location': "Emplacement"
 };
