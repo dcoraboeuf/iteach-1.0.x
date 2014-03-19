@@ -35,7 +35,7 @@ angular.module('iteach.view.teacher', [
         loadStudents();
 
         // Creating a student
-        $scope.createStudent = function() {
+        $scope.createStudent = function () {
             teacherService.createStudent().then(loadStudents)
         }
 
@@ -43,19 +43,43 @@ angular.module('iteach.view.teacher', [
          * Planning
          */
 
-        // Intl
+            // Intl
         $scope.calendarI18n = function () {
             return _calendar_i18n[$translate.use()]
+        }
+
+        // Calendar - selection
+        $scope.onCalendarSelect = function (start, end, allDay) {
+            if (allDay) {
+                $scope.mainCalendar.fullCalendar('unselect');
+            } else {
+                console.log("onCalendarSelect", start, end, allDay);
+                // TODO var date = application.formatDate(start);
+                // TODO var startTime = application.formatTime(start);
+                // TODO var endTime = application.formatTime(end);
+                // TODO Creates the lesson
+                /**
+                Lessons.createLesson(
+                    date,
+                    startTime, endTime,
+                    function () {
+                        $("#planning-calendar").fullCalendar('unselect');
+                    },
+                    function () {
+                        $("#planning-calendar").fullCalendar('refetchEvents');
+                    });
+                */
+            }
         }
 
         // TODO Current date from the session
         $scope.currentDate = new Date();
 
         $scope.calendarConfig = {
-            calendar:{
+            calendar: {
                 height: 450,
                 editable: true,
-                header:{
+                header: {
                     left: 'prev,next today',
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay'
@@ -90,7 +114,7 @@ angular.module('iteach.view.teacher', [
                 // Allowing selection (-> creation)
                 selectable: true,
                 selectHelper: true,
-                // TODO select: onSelect,
+                select: $scope.onCalendarSelect,
                 // Loading of events
                 // TODO events: fetchEvents,
                 // Resizing of an event
