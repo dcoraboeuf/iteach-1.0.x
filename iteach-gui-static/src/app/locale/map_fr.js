@@ -2,6 +2,7 @@ var map_fr = {
     // General
     'language.en': 'English',
     'language.fr': 'Français',
+    'calendar.dateFormat': 'EEE d MMMM yyyy',
     'dialog.ok': 'OK',
     'dialog.cancel': 'Annuler',
     'dialog.update': "Modifier",

@@ -1,12 +1,20 @@
 angular.module('iteach.dialog.lesson', [
         'iteach.ui.teacher'
     ])
-    .controller('dialogLesson', function ($log, $scope, $modalInstance, modalController, input, notificationService, uiTeacher) {
+    .controller('dialogLesson', function ($log, $scope, $translate, $modalInstance, modalController, input, notificationService, uiTeacher) {
 
         $scope.lesson = {};
         uiTeacher.getStudents().then(function (students) {
             $scope.students = students
         })
+
+        // Calendar mngt
+        $scope.dateFormat = $translate.instant('calendar.dateFormat');
+        $scope.open = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.opened = true;
+        };
 
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel')
