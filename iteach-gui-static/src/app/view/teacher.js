@@ -54,21 +54,13 @@ angular.module('iteach.view.teacher', [
                 $scope.mainCalendar.fullCalendar('unselect');
             } else {
                 console.log("onCalendarSelect", start, end, allDay);
-                // TODO var date = application.formatDate(start);
-                // TODO var startTime = application.formatTime(start);
-                // TODO var endTime = application.formatTime(end);
-                // TODO Creates the lesson
-                /**
-                Lessons.createLesson(
-                    date,
-                    startTime, endTime,
+                // Creates the lesson
+                teacherService.createLesson(start, end).then(
                     function () {
-                        $("#planning-calendar").fullCalendar('unselect');
-                    },
-                    function () {
-                        $("#planning-calendar").fullCalendar('refetchEvents');
+                        $scope.mainCalendar.fullCalendar('unselect')
+                    }, function () {
+                        $scope.mainCalendar.fullCalendar('refetchEvents')
                     });
-                */
             }
         }
 

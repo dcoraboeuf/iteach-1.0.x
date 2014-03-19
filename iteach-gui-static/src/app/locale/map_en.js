@@ -66,5 +66,7 @@ var map_en = {
     'student.mobilePhone': 'Mobile phone',
     'student.postalAddress': 'Postal address',
     'student.email': 'Email',
-    'student.email.error': "Email is not valid."
+    'student.email.error': "Email is not valid.",
+    // Lesson
+    'lesson': "Lesson"
 };
