@@ -4,6 +4,9 @@ angular.module('iteach.dialog.lesson', [
     .controller('dialogLesson', function ($log, $scope, $modalInstance, modalController, input, notificationService, uiTeacher) {
 
         $scope.lesson = {};
+        uiTeacher.getStudents().then(function (students) {
+            $scope.students = students
+        })
 
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel')

@@ -72,6 +72,7 @@ var map_fr = {
     'lesson': "Leçon",
     'lesson.tip': "Créez une nouvelle leçon en fournissant une date, une période, un étudiant et éventuellement un emplacement.",
     'lesson.student': "Etudiant",
+    'lesson.student.error': "Un étudiant doit être sélectionné.",
     'lesson.date': "Date",
     'lesson.from': "De",
     'lesson.to': "à",
