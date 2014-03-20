@@ -25,4 +25,5 @@ public interface SQL {
     String STUDENT_BY_ID = "SELECT * FROM STUDENT WHERE TEACHERID = :teacherId AND ID = :studentId";
     String STUDENT_ALL = "SELECT * FROM STUDENT WHERE TEACHERID = :teacherId ORDER BY NAME ASC";
 
+    String LESSON_CREATE = "INSERT INTO LESSON (TEACHERID, STUDENTID, LOCATION, PLANNINGFROM, PLANNINGTO) VALUES (:teacherId, :studentId, :location, :planningForm, :planningTo)";
 }
