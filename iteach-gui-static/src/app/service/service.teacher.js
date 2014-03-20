@@ -88,6 +88,7 @@ angular.module('iteach.service.teacher', [
                     modalController: function () {
                         return {
                             onSubmit: function (lessonForm) {
+                                delete lessonForm.date;
                                 return uiTeacher.createLesson(lessonForm)
                             }
                         }

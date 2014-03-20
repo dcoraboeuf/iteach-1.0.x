@@ -2,10 +2,12 @@ package net.nemerosa.iteach.dao.jdbc;
 
 import org.joda.money.Money;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
@@ -47,5 +49,18 @@ public final class SQLUtils {
         } else {
             return Money.parse(value);
         }
+    }
+
+    public static LocalDateTime getLocalDateTimeFromDB(ResultSet rs, String column) throws SQLException {
+        Date date = rs.getDate(column);
+        if (date != null) {
+            return LocalDateTime.ofInstant(Instant.ofEpochMilli(date.getTime()), ZoneOffset.UTC);
+        } else {
+            return null;
+        }
+    }
+
+    public static Date getDBValueFromLocalDateTime(LocalDateTime start) {
+        return new Date(start.toInstant(ZoneOffset.UTC).toEpochMilli());
     }
 }

@@ -7,8 +7,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.Date;
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Component
@@ -18,8 +16,8 @@ public class LessonJdbcRepository extends AbstractJdbcRepository implements Less
             rs.getInt("id"),
             rs.getInt("teacherId"),
             rs.getInt("studentId"),
-            LocalDateTime.from(Instant.ofEpochMilli(rs.getDate("planningFrom").getTime())),
-            LocalDateTime.from(Instant.ofEpochMilli(rs.getDate("planningTo").getTime())),
+            SQLUtils.getLocalDateTimeFromDB(rs, "planningFrom"),
+            SQLUtils.getLocalDateTimeFromDB(rs, "planningTo"),
             rs.getString("location")
     );
 
@@ -35,8 +33,8 @@ public class LessonJdbcRepository extends AbstractJdbcRepository implements Less
                 params("teacherId", teacherId)
                         .addValue("studentId", studentId)
                         .addValue("location", location)
-                        .addValue("planningFrom", new Date(Instant.from(start).toEpochMilli()))
-                        .addValue("planningTo", new Date(Instant.from(end).toEpochMilli()))
+                        .addValue("planningFrom", SQLUtils.getDBValueFromLocalDateTime(start))
+                        .addValue("planningTo", SQLUtils.getDBValueFromLocalDateTime(end))
         );
     }
 
