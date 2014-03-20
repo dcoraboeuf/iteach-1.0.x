@@ -4,7 +4,9 @@ angular.module('iteach.dialog.lesson', [
     .controller('dialogLesson', function ($log, $scope, $translate, $modalInstance, modalController, input, notificationService, uiTeacher) {
 
         $scope.lesson = {
-            date: input.start
+            date: input.start,
+            from: input.start,
+            to: input.end
         };
         uiTeacher.getStudents().then(function (students) {
             $scope.students = students
