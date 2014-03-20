@@ -72,6 +72,9 @@ module.exports = {
             'vendor/fullcalendar/fullcalendar.css'
         ],
         assets: [
+        ],
+        fonts: [
+            'vendor/bootstrap/fonts/glyphicons-halflings-regular.*'
         ]
     }
 
