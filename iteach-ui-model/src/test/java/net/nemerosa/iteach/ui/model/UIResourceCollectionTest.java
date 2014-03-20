@@ -30,7 +30,6 @@ public class UIResourceCollectionTest {
                         .with(object().with("id", 2).with("href", "api/teacher/school/2").with("name", "School2").with("colour", "#222222").end())
                         .end())
                 .with("href", "api/teacher/school")
-                .with("form", object().with("title", "School form").with("href", "api/teacher/school/form").end())
                 .end();
     }
 
