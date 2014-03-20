@@ -7,7 +7,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.joda.money.Money;
 
+import java.time.LocalDateTime;
+
 public final class ObjectMapperFactory {
+
+    public static final Version JSON_MODULE_VERSION = new Version(1, 0, 0, null, "net.nemerosa.iteach", "iteach-common");
 
     public static ObjectMapper create() {
         ObjectMapper mapper = new ObjectMapper();
@@ -16,14 +20,28 @@ public final class ObjectMapperFactory {
         AnnotationIntrospector pair = AnnotationIntrospector.pair(config.getAnnotationIntrospector(), new ConstructorPropertiesAnnotationIntrospector());
         // Support for Joda Money
         jodaMoney(mapper);
+        // Support for JDK 8 times
+        jdkTime(mapper);
         // OK
         return mapper.setAnnotationIntrospector(pair);
+    }
+
+    private static void jdkTime(ObjectMapper mapper) {
+        SimpleModule jdkTimeModule = new SimpleModule(
+                "JDKTimeModule",
+                JSON_MODULE_VERSION
+        );
+        // LocalDateTime
+        jdkTimeModule.addSerializer(LocalDateTime.class, new JDKLocalDateTimeSerializer());
+        jdkTimeModule.addDeserializer(LocalDateTime.class, new JDKLocalDateTimeDeserializer());
+        // OK
+        mapper.registerModule(jdkTimeModule);
     }
 
     private static void jodaMoney(ObjectMapper mapper) {
         SimpleModule jodaModule = new SimpleModule(
                 "JodaMoneyModule",
-                new Version(1, 0, 0, null, "net.nemerosa.iteach", "iteach-common")
+                JSON_MODULE_VERSION
         );
         money(jodaModule);
         mapper.registerModule(jodaModule);
