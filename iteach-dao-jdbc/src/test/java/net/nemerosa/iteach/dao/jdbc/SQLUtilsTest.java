@@ -38,7 +38,7 @@ public class SQLUtilsTest {
     @Test
     public void getDBValueFromLocalDateTime() {
         assertEquals(
-                "2014-03-20T21:39",
+                "2014-03-20T21:39:00",
                 SQLUtils.getDBValueFromLocalDateTime(LocalDateTime.of(2014, 3, 20, 21, 39))
         );
     }
