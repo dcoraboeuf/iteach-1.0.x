@@ -4,6 +4,10 @@ angular.module('iteach.ui.teacher', [
     .service('uiTeacher', function ($q, $http, config) {
         var self = {};
 
+        /**
+         * Schools
+         */
+
         self.getSchools = function () {
             var d = $q.defer();
             $http.get(config.api('teacher/school'))
@@ -40,6 +44,10 @@ angular.module('iteach.ui.teacher', [
             return d.promise;
         }
 
+        /**
+         * Students
+         */
+
         self.getStudents = function () {
             var d = $q.defer();
             $http.get(config.api('teacher/student'))
@@ -54,6 +62,18 @@ angular.module('iteach.ui.teacher', [
             $http.post(config.api('teacher/student'), student)
                 .success(function (student) {
                     d.resolve(student);
+                })
+            return d.promise;
+        }
+
+        /**
+         * Lessons
+         */
+        self.createLesson = function (lessonForm) {
+            var d = $q.defer();
+            $http.post(config.api('teacher/lesson'), lessonForm)
+                .success(function (lesson) {
+                    d.resolve(lesson);
                 })
             return d.promise;
         }
