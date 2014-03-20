@@ -19,7 +19,7 @@ public class ITConfiguration {
 
     @Bean
     public DataSource dataSource() throws IOException {
-        String dbURL = "jdbc:h2:target/db";
+        String dbURL = "jdbc:h2:mem:iteach";
         log.info("Using database at {}", dbURL);
         BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName("org.h2.Driver");
