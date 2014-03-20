@@ -1,10 +1,7 @@
 package net.nemerosa.iteach.ui;
 
 import net.nemerosa.iteach.service.TeacherService;
-import net.nemerosa.iteach.service.model.School;
-import net.nemerosa.iteach.service.model.SchoolForm;
-import net.nemerosa.iteach.service.model.Student;
-import net.nemerosa.iteach.service.model.StudentForm;
+import net.nemerosa.iteach.service.model.*;
 import net.nemerosa.iteach.ui.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -138,5 +135,21 @@ public class UITeacherAPIController implements UITeacherAPI {
                 o.getMobilePhone(),
                 o.getEmail()
         );
+    }
+
+    @Override
+    @RequestMapping(value = "/lesson", method = RequestMethod.POST)
+    public UILesson createLesson(Locale locale, @RequestBody @Valid UILessonForm form) {
+        // Creation
+        int lessonId = teacherService.createLesson(
+                new LessonForm(
+                        form.getStudentId(),
+                        form.getLocation(),
+                        form.getFrom(),
+                        form.getTo()
+                )
+        );
+        // FIXME Returns the lesson
+        return null;
     }
 }

@@ -44,4 +44,9 @@ public interface UITeacherAPI {
      */
     UIStudent getStudent(Locale locale, int studentId);
 
+    /**
+     * Creates a lesson
+     */
+    UILesson createLesson(Locale locale, UILessonForm form);
+
 }

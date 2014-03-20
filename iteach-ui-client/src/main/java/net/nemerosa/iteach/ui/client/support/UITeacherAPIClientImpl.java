@@ -46,4 +46,9 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     public UIStudent getStudent(Locale locale, int studentId) {
         return get(locale, UIStudent.class, "/api/teacher/student/%d", studentId);
     }
+
+    @Override
+    public UILesson createLesson(Locale locale, UILessonForm form) {
+        return post(locale, UILesson.class, form, "/api/teacher/lesson");
+    }
 }

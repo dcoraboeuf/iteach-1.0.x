@@ -20,7 +20,7 @@ public class UIStudentForm {
     @NotNull
     @Size(min = 1, max = 80)
     private final String name;
-    @Size(min = 1, max = 120)
+    @Size(min = 0, max = 120)
     private final String subject;
     @Size(min = 0, max = 200)
     private final String postalAddress;
