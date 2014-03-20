@@ -61,6 +61,10 @@ public final class SQLUtils {
     }
 
     public static Date getDBValueFromLocalDateTime(LocalDateTime start) {
-        return new Date(start.toInstant(ZoneOffset.UTC).toEpochMilli());
+        if (start != null) {
+            return new Date(start.toInstant(ZoneOffset.UTC).toEpochMilli());
+        } else {
+            return null;
+        }
     }
 }
