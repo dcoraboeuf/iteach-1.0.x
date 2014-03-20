@@ -28,4 +28,5 @@ public interface TeacherService {
 
     int createLesson(LessonForm form);
 
+    Lesson getLesson(int lessonId);
 }

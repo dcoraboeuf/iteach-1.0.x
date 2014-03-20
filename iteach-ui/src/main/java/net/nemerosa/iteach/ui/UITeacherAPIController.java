@@ -35,6 +35,10 @@ public class UITeacherAPIController implements UITeacherAPI {
         return schoolSummaryFn.apply(teacherService.getSchool(student.getSchoolId()));
     }
 
+    private UIStudentSummary getStudentSummary(int studentId) {
+        return studentSummaryFn.apply(teacherService.getStudent(studentId));
+    }
+
     @Autowired
     public UITeacherAPIController(TeacherService teacherService) {
         this.teacherService = teacherService;
@@ -149,7 +153,20 @@ public class UITeacherAPIController implements UITeacherAPI {
                         form.getTo()
                 )
         );
-        // FIXME Returns the lesson
-        return null;
+        // Returns the lesson
+        return getLesson(locale, lessonId);
+    }
+
+    @Override
+    @RequestMapping(value = "/lesson/{lessonId}", method = RequestMethod.GET)
+    public UILesson getLesson(Locale locale, @PathVariable int lessonId) {
+        Lesson lesson = teacherService.getLesson(lessonId);
+        return new UILesson(
+                lesson.getId(),
+                getStudentSummary(lesson.getStudentId()),
+                lesson.getLocation(),
+                lesson.getFrom(),
+                lesson.getTo()
+        );
     }
 }

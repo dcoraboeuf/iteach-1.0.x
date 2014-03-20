@@ -3,6 +3,7 @@ package net.nemerosa.iteach.service.impl;
 import net.nemerosa.iteach.dao.LessonRepository;
 import net.nemerosa.iteach.dao.SchoolRepository;
 import net.nemerosa.iteach.dao.StudentRepository;
+import net.nemerosa.iteach.dao.model.TLesson;
 import net.nemerosa.iteach.dao.model.TSchool;
 import net.nemerosa.iteach.dao.model.TStudent;
 import net.nemerosa.iteach.service.SecurityUtils;
@@ -47,6 +48,13 @@ public class TeacherServiceImpl implements TeacherService {
             t.getPhone(),
             t.getMobilePhone(),
             t.getEmail()
+    );
+    private final Function<? super TLesson, ? extends Lesson> lessonFn = t -> new Lesson(
+            t.getId(),
+            t.getStudentId(),
+            t.getLocation(),
+            t.getFrom(),
+            t.getTo()
     );
 
     @Autowired
@@ -157,6 +165,14 @@ public class TeacherServiceImpl implements TeacherService {
                 form.getFrom(),
                 form.getTo()
         );
+    }
+
+    @Override
+    public Lesson getLesson(int lessonId) {
+        // Checks the teacher access
+        int teacherId = securityUtils.checkTeacher();
+        // Gets the lesson
+        return lessonFn.apply(lessonRepository.getById(teacherId, lessonId));
     }
 
 }
