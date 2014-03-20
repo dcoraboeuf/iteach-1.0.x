@@ -2,11 +2,12 @@ package net.nemerosa.iteach.service.impl;
 
 import net.nemerosa.iteach.it.AbstractITTestSupport;
 import net.nemerosa.iteach.service.TeacherService;
-import net.nemerosa.iteach.service.model.School;
-import net.nemerosa.iteach.service.model.SchoolForm;
+import net.nemerosa.iteach.service.model.*;
 import org.joda.money.Money;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.time.LocalDateTime;
 
 import static net.nemerosa.iteach.test.TestUtils.uid;
 import static org.junit.Assert.*;
@@ -54,6 +55,28 @@ public class TeacherServiceIT extends AbstractITTestSupport {
         assertEquals("4567", school.getMobilePhone());
         assertEquals("school@test.com", school.getEmail());
         assertEquals("http://school.test.com", school.getWebSite());
+    }
+
+    @Test
+    public void create_lesson() throws Exception {
+        // Creates a student
+        Student student = serviceITSupport.createStudent();
+        // Creates a lesson for this student
+        int lessonId = serviceITSupport.asTeacher(student.getTeacherId(), () ->
+                teacherService.createLesson(new LessonForm(
+                        student.getId(),
+                        "The location",
+                        LocalDateTime.of(2014, 3, 20, 11, 0),
+                        LocalDateTime.of(2014, 3, 20, 13, 30)
+                )));
+        // Gets the lesson back
+        Lesson lesson = serviceITSupport.asTeacher(student.getTeacherId(), () -> teacherService.getLesson(lessonId));
+        // Checks
+        assertNotNull(lesson);
+        assertEquals(student.getId(), lesson.getStudentId());
+        assertEquals("The location", lesson.getLocation());
+        assertEquals(LocalDateTime.of(2014, 3, 20, 11, 0), lesson.getFrom());
+        assertEquals(LocalDateTime.of(2014, 3, 20, 13, 30), lesson.getTo());
     }
 
 }

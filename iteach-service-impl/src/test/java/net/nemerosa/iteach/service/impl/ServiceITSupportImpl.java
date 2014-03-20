@@ -4,10 +4,11 @@ import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.common.Message;
 import net.nemerosa.iteach.service.AccountService;
-import net.nemerosa.iteach.service.model.Account;
-import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
+import net.nemerosa.iteach.service.TeacherService;
+import net.nemerosa.iteach.service.model.*;
 import net.nemerosa.iteach.service.security.AccountAuthenticationDetails;
 import net.nemerosa.iteach.service.support.InMemoryPost;
+import org.joda.money.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -18,17 +19,21 @@ import org.springframework.stereotype.Component;
 import java.util.Locale;
 import java.util.concurrent.Callable;
 
+import static java.lang.String.format;
+import static net.nemerosa.iteach.test.TestUtils.uid;
 import static org.junit.Assert.assertNotNull;
 
 @Component
 public class ServiceITSupportImpl implements ServiceITSupport {
 
     private final AccountService accountService;
+    private final TeacherService teacherService;
     private final InMemoryPost inMemoryPost;
 
     @Autowired
-    public ServiceITSupportImpl(AccountService accountService, InMemoryPost inMemoryPost) {
+    public ServiceITSupportImpl(AccountService accountService, TeacherService teacherService, InMemoryPost inMemoryPost) {
         this.accountService = accountService;
+        this.teacherService = teacherService;
         this.inMemoryPost = inMemoryPost;
     }
 
@@ -70,6 +75,60 @@ public class ServiceITSupportImpl implements ServiceITSupport {
     public <T> T asTeacher(int teacherId, Callable<T> call) throws Exception {
         Account account = accountService.getAccount(teacherId);
         return asAccount(account, call);
+    }
+
+    @Override
+    public int createTeacherAndCompleteRegistration() {
+        String name = uid("T");
+        return createTeacherAndCompleteRegistration(
+                name,
+                format("%s@test.com", name)
+        ).getValue();
+    }
+
+    @Override
+    public int createSchool() throws Exception {
+        return createSchool(createTeacherAndCompleteRegistration());
+    }
+
+    @Override
+    public int createSchool(int teacherId) throws Exception {
+        String name = uid("S");
+        return asTeacher(teacherId,
+                () -> teacherService.createSchool(
+                        new SchoolForm(
+                                name,
+                                "#FFFF00",
+                                "A contact",
+                                Money.parse("EUR 56"),
+                                "",
+                                "",
+                                "",
+                                "",
+                                ""
+                        )
+                )
+        );
+    }
+
+
+    @Override
+    public Student createStudent() throws Exception {
+        int teacherId = createTeacherAndCompleteRegistration();
+        int school = createSchool(teacherId);
+        return asTeacher(teacherId,
+                () -> teacherService.getStudent(teacherService.createStudent(
+                        new StudentForm(
+                                school,
+                                uid("ST"),
+                                "Any subject",
+                                "",
+                                "",
+                                "",
+                                ""
+                        )
+                ))
+        );
     }
 
     private <T> T asAccount(Account account, Callable<T> call) throws Exception {
