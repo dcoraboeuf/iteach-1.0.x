@@ -9,7 +9,7 @@ angular.module('iteach.service.teacher', [
 
         self.getSchools = function () {
             return uiTeacher.getSchools()
-        }
+        };
 
         self.createSchool = function () {
             return $modal.open({
@@ -28,7 +28,7 @@ angular.module('iteach.service.teacher', [
                     }
                 }
             }).result
-        }
+        };
 
         self.updateSchool = function (school) {
             return $modal.open({
@@ -36,9 +36,9 @@ angular.module('iteach.service.teacher', [
                 controller: 'dialogSchool',
                 resolve: {
                     initialSchool: function () {
-                        var form = angular.copy(school)
-                        delete form.id
-                        delete form.href
+                        var form = angular.copy(school);
+                        delete form.id;
+                        delete form.href;
                         return form
                     },
                     modalController: function () {
@@ -50,13 +50,13 @@ angular.module('iteach.service.teacher', [
                     }
                 }
             }).result
-        }
+        };
 
-        self.getSchool = uiTeacher.getSchool
+        self.getSchool = uiTeacher.getSchool;
 
         self.getStudents = function () {
             return uiTeacher.getStudents()
-        }
+        };
 
         self.createStudent = function () {
             return $modal.open({
@@ -72,7 +72,7 @@ angular.module('iteach.service.teacher', [
                     }
                 }
             }).result
-        }
+        };
 
         self.createLesson = function (start, end) {
             return $modal.open({
@@ -95,7 +95,9 @@ angular.module('iteach.service.teacher', [
                     }
                 }
             }).result
-        }
+        };
+
+        self.getLessons = uiTeacher.getLessons;
 
         return self;
     })

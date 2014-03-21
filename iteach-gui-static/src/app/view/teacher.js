@@ -74,6 +74,15 @@ angular.module('iteach.view.teacher', [
             }
         };
 
+        // Planning: collection of lessons
+        $scope.fetchEvents = function fetchEvents(start, end, callback) {
+            teacherService.getLessons({from: start, to: end}).then(
+                function (collection) {
+                    callback(collection.resources)
+                }
+            )
+        }
+
         // TODO Current date from the session
         $scope.currentDate = new Date();
 
@@ -118,7 +127,7 @@ angular.module('iteach.view.teacher', [
                 selectHelper: true,
                 select: $scope.onCalendarSelect,
                 // Loading of events
-                // TODO events: fetchEvents,
+                events: $scope.fetchEvents,
                 // Resizing of an event
                 editable: true
                 // TODO eventResize: onEventChange,
