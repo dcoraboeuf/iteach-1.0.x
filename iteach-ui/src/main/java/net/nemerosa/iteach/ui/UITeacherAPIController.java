@@ -176,7 +176,7 @@ public class UITeacherAPIController implements UITeacherAPI {
 
     @Override
     @RequestMapping(value = "/lesson/filter", method = RequestMethod.POST)
-    public UILessonCollection filterLessons(Locale locale, UILessonFilter filter) {
+    public UILessonCollection filterLessons(Locale locale, @RequestBody UILessonFilter filter) {
         return new UILessonCollection(
                 filter,
                 teacherService
