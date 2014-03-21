@@ -2,6 +2,7 @@ package net.nemerosa.iteach.ui.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.commons.lang3.StringUtils;
 
 import java.beans.ConstructorProperties;
 import java.time.LocalDateTime;
@@ -26,4 +27,15 @@ public class UILesson extends UIResource {
         this.from = from;
         this.to = to;
     }
+
+    public String getTitle() {
+        String location = getLocation();
+        String studentName = getStudent().getName();
+        if (StringUtils.isBlank(location)) {
+            return studentName;
+        } else {
+            return String.format("%s @ %s", studentName, location);
+        }
+    }
+
 }
