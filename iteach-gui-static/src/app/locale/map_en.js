@@ -7,6 +7,7 @@ var map_en = {
     'dialog.cancel': 'Cancel',
     'dialog.update': "Modify",
     'dialog.delete': "Delete",
+    'logout': "Sign out",
     // Home page
     'home.back': "Back",
     // Login page

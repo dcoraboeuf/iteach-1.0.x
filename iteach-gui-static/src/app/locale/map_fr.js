@@ -7,6 +7,7 @@ var map_fr = {
     'dialog.cancel': 'Annuler',
     'dialog.update': "Modifier",
     'dialog.delete': "Supprimer",
+    'logout': "Se déconnecter",
     // Home page
     'home.back': "Retour",
     // Login page

@@ -2,7 +2,7 @@ angular.module('iteach.service.account', [
         'iteach.service.core',
         'iteach.ui.account'
     ])
-    .service('accountService', function ($log, $location, $translate, notificationService, uiAccount) {
+    .service('accountService', function ($rootScope, $log, $location, $translate, notificationService, uiAccount) {
 
         var self = {
 
@@ -48,11 +48,12 @@ angular.module('iteach.service.account', [
                     $location.path('/login');
                 }
             }
-        }
+        };
 
         self.init = function init() {
             $log.debug('Initializing the account');
             uiAccount.current().then(function (account) {
+                $rootScope.account = account;
                 self.onAccount(account, false);
             });
         };
@@ -71,7 +72,7 @@ angular.module('iteach.service.account', [
                     notificationService.error($translate.instant('register.failure'))
                 }
             })
-        }
+        };
 
         return self;
 
