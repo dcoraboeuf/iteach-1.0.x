@@ -1,7 +1,7 @@
 angular.module('iteach.view.teacher', [
         'iteach.service.teacher'
     ])
-    .controller('TeacherCtrl', function ($scope, $translate, teacherService) {
+    .controller('TeacherCtrl', function ($log, $scope, $translate, teacherService) {
 
         /**
          * Schools
@@ -62,7 +62,17 @@ angular.module('iteach.view.teacher', [
                         $scope.mainCalendar.fullCalendar('refetchEvents')
                     });
             }
-        }
+        };
+
+        // Planning: ratio according to the view mode
+        $scope.onViewDisplay = function onViewDisplay(view) {
+            $log.debug('View display', view.name);
+            if ('month' == view.name) {
+                $scope.mainCalendar.fullCalendar('option', 'aspectRatio', 1.25);
+            } else {
+                $scope.mainCalendar.fullCalendar('option', 'aspectRatio', 0.5);
+            }
+        };
 
         // TODO Current date from the session
         $scope.currentDate = new Date();
@@ -78,7 +88,7 @@ angular.module('iteach.view.teacher', [
                 },
                 // Dimensions
                 aspectRatio: 0.5,
-                // TODO viewDisplay: onViewDisplay,
+                viewDisplay: $scope.onViewDisplay,
                 // Current date
                 year: $scope.currentDate.getFullYear(),
                 month: $scope.currentDate.getMonth(),
