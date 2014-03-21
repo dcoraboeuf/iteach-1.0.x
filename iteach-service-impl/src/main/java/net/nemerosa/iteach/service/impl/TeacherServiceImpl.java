@@ -185,12 +185,12 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<Lesson> getLessonsForPeriod(LocalDateTime from, LocalDateTime to) {
+    public List<Lesson> getLessons(Integer studentId, LocalDateTime from, LocalDateTime to) {
         // Checks the teacher access
         int teacherId = securityUtils.checkTeacher();
         // Uses the repository
         return lessonRepository
-                .findByPeriod(teacherId, from, to)
+                .filter(teacherId, studentId, from, to)
                 .stream()
                 .map(lessonFn)
                 .collect(Collectors.toList());

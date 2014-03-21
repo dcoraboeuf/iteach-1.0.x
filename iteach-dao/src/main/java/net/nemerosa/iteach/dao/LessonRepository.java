@@ -3,7 +3,6 @@ package net.nemerosa.iteach.dao;
 import net.nemerosa.iteach.dao.model.TLesson;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 public interface LessonRepository {
@@ -12,5 +11,5 @@ public interface LessonRepository {
 
     TLesson getById(int teacherId, int lessonId);
 
-    List<TLesson> findByPeriod(int teacherId, LocalDateTime from, LocalDateTime to);
+    List<TLesson> filter(int teacherId, Integer studentId, LocalDateTime from, LocalDateTime to);
 }

@@ -4,6 +4,7 @@ import net.nemerosa.iteach.dao.LessonRepository;
 import net.nemerosa.iteach.dao.model.TLesson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -53,13 +54,27 @@ public class LessonJdbcRepository extends AbstractJdbcRepository implements Less
     }
 
     @Override
-    public List<TLesson> findByPeriod(int teacherId, LocalDateTime from, LocalDateTime to) {
+    public List<TLesson> filter(int teacherId, Integer studentId, LocalDateTime from, LocalDateTime to) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM LESSON WHERE TEACHERID = :teacherId");
+        MapSqlParameterSource params = params("teacherId", teacherId);
+        if (studentId != null) {
+            sql.append(" AND STUDENTID = :studentId");
+            params.addValue("studentId", studentId);
+        }
+        if (from != null) {
+            sql.append(" AND PLANNINGFROM >= :from");
+            params.addValue("from", getDBValueFromLocalDateTime(from));
+        }
+        if (to != null) {
+            sql.append(" AND PLANNINGTO <= :to");
+            params.addValue("to", getDBValueFromLocalDateTime(to));
+        }
+        sql.append(" ORDER BY PLANNINGFROM");
         return getNamedParameterJdbcTemplate().query(
-                SQL.LESSON_BY_PERIOD,
-                params("teacherId", teacherId)
-                        .addValue("from", getDBValueFromLocalDateTime(from))
-                        .addValue("to", getDBValueFromLocalDateTime(to)),
+                sql.toString(),
+                params,
                 lessonRowMapper
         );
     }
+
 }

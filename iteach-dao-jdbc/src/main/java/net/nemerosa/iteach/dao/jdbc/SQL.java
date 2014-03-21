@@ -27,6 +27,5 @@ public interface SQL {
 
     String LESSON_CREATE = "INSERT INTO LESSON (TEACHERID, STUDENTID, LOCATION, PLANNINGFROM, PLANNINGTO) VALUES (:teacherId, :studentId, :location, :planningFrom, :planningTo)";
     String LESSON_BY_ID = "SELECT * FROM LESSON WHERE TEACHERID = :teacherId AND ID = :lessonId";
-    String LESSON_BY_PERIOD = "SELECT * FROM LESSON WHERE TEACHERID = :teacherId AND PLANNINGFROM >= :from AND PLANNINGTO >= :to ORDER BY PLANNINGFROM";
 
 }

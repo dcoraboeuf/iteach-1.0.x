@@ -161,12 +161,29 @@ public class UITeacherAPIController implements UITeacherAPI {
     @RequestMapping(value = "/lesson/{lessonId}", method = RequestMethod.GET)
     public UILesson getLesson(Locale locale, @PathVariable int lessonId) {
         Lesson lesson = teacherService.getLesson(lessonId);
+        return toUILesson(lesson);
+    }
+
+    private UILesson toUILesson(Lesson lesson) {
         return new UILesson(
                 lesson.getId(),
                 getStudentSummary(lesson.getStudentId()),
                 lesson.getLocation(),
                 lesson.getFrom(),
                 lesson.getTo()
+        );
+    }
+
+    @Override
+    @RequestMapping(value = "/lesson/filter", method = RequestMethod.POST)
+    public UILessonCollection filterLessons(Locale locale, UILessonFilter filter) {
+        return new UILessonCollection(
+                filter,
+                teacherService
+                        .getLessons(filter.getStudentId(), filter.getFrom(), filter.getTo())
+                        .stream()
+                        .map(this::toUILesson)
+                        .collect(Collectors.toList())
         );
     }
 }

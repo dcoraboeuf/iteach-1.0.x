@@ -31,5 +31,5 @@ public interface TeacherService {
 
     Lesson getLesson(int lessonId);
 
-    List<Lesson> getLessonsForPeriod(LocalDateTime from, LocalDateTime to);
+    List<Lesson> getLessons(Integer studentId, LocalDateTime from, LocalDateTime to);
 }

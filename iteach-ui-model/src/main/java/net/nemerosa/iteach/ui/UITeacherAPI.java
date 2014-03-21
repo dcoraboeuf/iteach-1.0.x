@@ -2,6 +2,7 @@ package net.nemerosa.iteach.ui;
 
 import net.nemerosa.iteach.ui.model.*;
 
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -53,5 +54,10 @@ public interface UITeacherAPI {
      * Gets a lesson
      */
     UILesson getLesson(Locale locale, int lessonId);
+
+    /**
+     * Filtered list of resources
+     */
+    UILessonCollection filterLessons(Locale locale, UILessonFilter filter);
 
 }
