@@ -19,7 +19,7 @@ angular.module('iteach.view.teacher', [
         // Creating a school
         $scope.createSchool = function () {
             teacherService.createSchool().then(loadSchools)
-        }
+        };
 
         /**
          * Students
@@ -37,7 +37,7 @@ angular.module('iteach.view.teacher', [
         // Creating a student
         $scope.createStudent = function () {
             teacherService.createStudent().then(loadStudents)
-        }
+        };
 
         /**
          * Planning
@@ -46,7 +46,7 @@ angular.module('iteach.view.teacher', [
             // Intl
         $scope.calendarI18n = function () {
             return _calendar_i18n[$translate.use()]
-        }
+        };
 
         // Calendar - selection
         $scope.onCalendarSelect = function (start, end, allDay) {
@@ -78,10 +78,16 @@ angular.module('iteach.view.teacher', [
         $scope.fetchEvents = function fetchEvents(start, end, callback) {
             teacherService.getLessons({from: start, to: end}).then(
                 function (collection) {
-                    callback(collection.resources)
+                    var lessons = collection.resources;
+                    for (var i = 0; i < lessons.length; i++) {
+                        var lesson = lessons[i];
+                        lesson.start = lesson.from;
+                        lesson.end = lesson.to;
+                    }
+                    callback(lessons);
                 }
             )
-        }
+        };
 
         // TODO Current date from the session
         $scope.currentDate = new Date();
@@ -89,7 +95,6 @@ angular.module('iteach.view.teacher', [
         $scope.calendarConfig = {
             calendar: {
                 height: 450,
-                editable: true,
                 header: {
                     left: 'prev,next today',
                     center: 'title',
@@ -115,6 +120,7 @@ angular.module('iteach.view.teacher', [
                 axisFormat: $scope.calendarI18n().axisFormat,
                 // General appearance
                 allDaySlot: false,
+                allDayDefault: false,
                 // TODO Configurable min/max time
                 minTime: '07:00',
                 maxTime: '21:00',
