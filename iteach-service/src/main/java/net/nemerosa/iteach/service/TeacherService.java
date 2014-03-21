@@ -2,6 +2,7 @@ package net.nemerosa.iteach.service;
 
 import net.nemerosa.iteach.service.model.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TeacherService {
@@ -29,4 +30,6 @@ public interface TeacherService {
     int createLesson(LessonForm form);
 
     Lesson getLesson(int lessonId);
+
+    List<Lesson> getLessonsForPeriod(LocalDateTime from, LocalDateTime to);
 }

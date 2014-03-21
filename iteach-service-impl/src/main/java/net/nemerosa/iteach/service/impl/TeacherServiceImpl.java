@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -181,6 +182,18 @@ public class TeacherServiceImpl implements TeacherService {
         int teacherId = securityUtils.checkTeacher();
         // Gets the lesson
         return lessonFn.apply(lessonRepository.getById(teacherId, lessonId));
+    }
+
+    @Override
+    public List<Lesson> getLessonsForPeriod(LocalDateTime from, LocalDateTime to) {
+        // Checks the teacher access
+        int teacherId = securityUtils.checkTeacher();
+        // Uses the repository
+        return lessonRepository
+                .findByPeriod(teacherId, from, to)
+                .stream()
+                .map(lessonFn)
+                .collect(Collectors.toList());
     }
 
 }
