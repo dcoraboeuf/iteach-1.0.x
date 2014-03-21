@@ -8,6 +8,10 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.time.LocalDateTime;
+import java.util.List;
+
+import static net.nemerosa.iteach.dao.jdbc.SQLUtils.getDBValueFromLocalDateTime;
+import static net.nemerosa.iteach.dao.jdbc.SQLUtils.getLocalDateTimeFromDB;
 
 @Component
 public class LessonJdbcRepository extends AbstractJdbcRepository implements LessonRepository {
@@ -16,8 +20,8 @@ public class LessonJdbcRepository extends AbstractJdbcRepository implements Less
             rs.getInt("id"),
             rs.getInt("teacherId"),
             rs.getInt("studentId"),
-            SQLUtils.getLocalDateTimeFromDB(rs, "planningFrom"),
-            SQLUtils.getLocalDateTimeFromDB(rs, "planningTo"),
+            getLocalDateTimeFromDB(rs, "planningFrom"),
+            getLocalDateTimeFromDB(rs, "planningTo"),
             rs.getString("location")
     );
 
@@ -33,8 +37,8 @@ public class LessonJdbcRepository extends AbstractJdbcRepository implements Less
                 params("teacherId", teacherId)
                         .addValue("studentId", studentId)
                         .addValue("location", location)
-                        .addValue("planningFrom", SQLUtils.getDBValueFromLocalDateTime(start))
-                        .addValue("planningTo", SQLUtils.getDBValueFromLocalDateTime(end))
+                        .addValue("planningFrom", getDBValueFromLocalDateTime(start))
+                        .addValue("planningTo", getDBValueFromLocalDateTime(end))
         );
     }
 
@@ -44,6 +48,17 @@ public class LessonJdbcRepository extends AbstractJdbcRepository implements Less
                 SQL.LESSON_BY_ID,
                 params("teacherId", teacherId)
                         .addValue("lessonId", lessonId),
+                lessonRowMapper
+        );
+    }
+
+    @Override
+    public List<TLesson> findByPeriod(int teacherId, LocalDateTime from, LocalDateTime to) {
+        return getNamedParameterJdbcTemplate().query(
+                SQL.LESSON_BY_PERIOD,
+                params("teacherId", teacherId)
+                        .addValue("from", getDBValueFromLocalDateTime(from))
+                        .addValue("to", getDBValueFromLocalDateTime(to)),
                 lessonRowMapper
         );
     }
