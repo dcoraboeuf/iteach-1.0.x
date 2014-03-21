@@ -58,6 +58,14 @@ angular.module('iteach.service.account', [
             });
         };
 
+        self.logout = function () {
+            uiAccount.logout().then(function () {
+                $log.debug('User disconnected. Going back to the login page.');
+                $rootScope.account = undefined;
+                $location.path('/login');
+            });
+        };
+
         self.iteachLogin = function iteachLogin(email, password) {
             uiAccount.iteachLogin(email, password).then(function (account) {
                 self.onAccount(account, true)

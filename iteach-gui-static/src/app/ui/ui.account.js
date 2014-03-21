@@ -13,6 +13,14 @@ angular.module('iteach.ui.account', [
             return deferred.promise;
         };
 
+        self.logout = function () {
+            var deferred = $q.defer();
+            $http.get(config.api('account/logout')).success(function () {
+                deferred.resolve();
+            });
+            return deferred.promise;
+        };
+
         self.iteachLogin = function (email, password) {
             var deferred = $q.defer();
             $http.get(config.api('account/login'), {
@@ -39,7 +47,7 @@ angular.module('iteach.ui.account', [
                     deferred.resolve(id)
                 });
             return deferred.promise;
-        }
+        };
 
         return self;
 

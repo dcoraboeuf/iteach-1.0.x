@@ -1,7 +1,6 @@
 'use strict';
 
 // Initial configuration
-var _translationMap;
 var _calendar_i18n = [];
 
 // Declare app level module which depends on filters, and services
@@ -45,11 +44,11 @@ var iteach = angular.module('iteach', [
         })
         // Runs the initial security service (in case of refresh)
         .run(function AppRun(accountService) {
-            if (console) console.log('Loading the context')
+            if (console) console.log('Loading the context');
             accountService.init()
         })
         // HTTP error interceptor
-        .factory('httpErrorInterceptor', function ($q, $log, $interpolate, notificationService, errorService) {
+        .factory('httpErrorInterceptor', function ($q, $log, $interpolate, errorService) {
             return {
                 'responseError': function (rejection) {
                     errorService.process(rejection);
@@ -93,7 +92,7 @@ var iteach = angular.module('iteach', [
                     controller: 'SchoolCtrl'
                 });
         })
-        .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, config, notificationService) {
+        .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, config, accountService) {
             $scope.version = config.version;
             // Language management
             $scope.language = function () {
@@ -125,6 +124,10 @@ var iteach = angular.module('iteach', [
             $scope.closeNotification = function () {
                 $rootScope.message = undefined;
             };
+            // Logout
+            $scope.accountLogout = function () {
+                accountService.logout()
+            };
             // On state change
             $scope.$on('$routeChangeSuccess', function () {
                 $rootScope.message = undefined;
@@ -141,7 +144,7 @@ angular.element(document).ready(function () {
     // Bootstrap module
     var bootstrapModule = angular.module('iteach.bootstrap', ['iteach.config']);
     // Loading the default language localization map
-    bootstrapModule.factory('bootstrapper', function ($http, $q, $log, config) {
+    bootstrapModule.factory('bootstrapper', function ($http, $q, $log) {
         return {
             bootstrap: function () {
                 $log.info('Initializing the application...');
