@@ -15,12 +15,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private APIBasicAuthenticationEntryPoint apiBasicAuthenticationEntryPoint;
+
     /**
      * By default, all queries are accessible anonymously. Security is enforced at service level.
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/api/**").httpBasic().realmName("iteach").and()
+        http.antMatcher("/api/**").httpBasic().authenticationEntryPoint(apiBasicAuthenticationEntryPoint).realmName("iteach").and()
                 .logout().logoutUrl("/api/account/logout").logoutSuccessUrl("/api/account/logged-out").and()
                 //.csrf().requireCsrfProtectionMatcher(new CSRFRequestMatcher()).and()
                 // FIXME CSRF protection for a stateless API?

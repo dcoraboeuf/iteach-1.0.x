@@ -24,38 +24,29 @@ angular.module('iteach.service.core', [])
             var scope = self.getScope();
             scope.message = message;
             scope.messageType = messageType;
-        }
+        };
         self.getScope = function () {
             return self.scopes[self.scopes.length - 1]
-        }
+        };
         self.pushScope = function (scope) {
             // Clears the previous scope
             self.clear();
             // Adds the new scope
             self.scopes.push(scope)
-        }
+        };
         self.popScope = function () {
             self.scopes.pop()
-        }
+        };
         return self;
     })
     .service('errorService', function ($interpolate, $log, notificationService) {
         var self = {};
-        self.errorMsg = function (text, status, method, url) {
+        self.errorMsg = function (status) {
             // TODO Uses translations
-            if (status == 401) {
-                return 'Not authenticated';
-            } else if (status == 403) {
-                return 'Forbidden access';
-            } else if (status == 404) {
-                return 'Resource not found';
-            } else if (status == 405) {
-                return $interpolate('Method {{method}} not allowed for {{url}}')({
-                    method: method,
-                    url: url
-                })
+            if (status == 401 || status == 403 || status == 404) {
+                return '';
             } else {
-                return text;
+                return 'Connection problem';
             }
         };
         self.process = function (response) {
@@ -72,9 +63,10 @@ angular.module('iteach.service.core', [])
             });
             $log.error('[app] ' + log);
             // Displays a notification
-            notificationService.error(
-                self.errorMsg(log, status, method, url)
-            );
+            var errorMessage = self.errorMsg(status);
+            if (errorMessage) {
+                notificationService.error(errorMessage);
+            }
         };
         return self;
     })
