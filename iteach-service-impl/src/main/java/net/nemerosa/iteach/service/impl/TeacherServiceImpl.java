@@ -155,6 +155,14 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public int createLesson(LessonForm form) {
+        // Same day rule
+        if (!form.getFrom().toLocalDate().equals(form.getTo().toLocalDate())) {
+            throw new LessonNotSameDayException();
+        }
+        // Order rule
+        if (!form.getTo().isAfter(form.getFrom())) {
+            throw new LessonTimeOrderException();
+        }
         // Checks the teacher access to the student
         Student student = getStudent(form.getStudentId());
         // Creation
