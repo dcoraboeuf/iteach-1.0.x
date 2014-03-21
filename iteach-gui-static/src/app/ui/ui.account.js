@@ -7,7 +7,9 @@ angular.module('iteach.ui.account', [
 
         self.current = function () {
             var deferred = $q.defer();
-            $http.get(config.api('account/state')).success(function (state) {
+            $http.get(config.api('account/state'), {
+                httpIgnoreError: true
+            }).success(function (state) {
                 deferred.resolve(state)
             });
             return deferred.promise;
@@ -24,6 +26,7 @@ angular.module('iteach.ui.account', [
         self.iteachLogin = function (email, password) {
             var deferred = $q.defer();
             $http.get(config.api('account/login'), {
+                httpIgnoreError: true,
                 headers: {
                     'Authorization': 'Basic ' + window.btoa(email + ':' + password)
                 }

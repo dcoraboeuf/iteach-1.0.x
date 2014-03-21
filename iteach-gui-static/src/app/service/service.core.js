@@ -59,6 +59,7 @@ angular.module('iteach.service.core', [])
             }
         };
         self.process = function (response) {
+            if (response.config.httpIgnoreError) return;
             var status = response.status;
             var method = response.config.method;
             var url = response.config.url;
