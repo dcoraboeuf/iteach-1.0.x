@@ -124,7 +124,10 @@ var iteach = angular.module('iteach', [
             $scope.closeNotification = function () {
                 $rootScope.message = undefined;
             };
-            // Logout
+            // Connection
+            $scope.logged = function () {
+                return angular.isDefined($rootScope.account) && $rootScope.account.authenticated;
+            };
             $scope.accountLogout = function () {
                 accountService.logout()
             };

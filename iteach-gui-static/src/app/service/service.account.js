@@ -12,6 +12,7 @@ angular.module('iteach.service.account', [
             $log.debug('onAccount', account);
             $log.debug('onAccount. logging = ' + logging);
             $log.debug('onAccount. path = ' + $location.path());
+            $rootScope.account = account;
             // Logging
             if (logging) {
                 if (account.authenticated) {
@@ -53,7 +54,6 @@ angular.module('iteach.service.account', [
         self.init = function init() {
             $log.debug('Initializing the account');
             uiAccount.current().then(function (account) {
-                $rootScope.account = account;
                 self.onAccount(account, false);
             });
         };
