@@ -10,19 +10,14 @@ angular.module('iteach.dialog.lesson', [
         };
         uiTeacher.getStudents().then(function (students) {
             $scope.students = students
-        })
+        });
 
         // Calendar mngt
         $scope.dateFormat = $translate.instant('calendar.dateFormat');
-        $scope.open = function ($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            $scope.opened = true;
-        };
 
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel')
-        }
+        };
 
         $scope.submit = function (isValid) {
             if (isValid) {
@@ -35,7 +30,7 @@ angular.module('iteach.dialog.lesson', [
                     }
                 )
             }
-        }
+        };
 
         $modalInstance.opened.finally(function () {
             notificationService.pushScope($scope)

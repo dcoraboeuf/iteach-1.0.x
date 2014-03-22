@@ -25,15 +25,9 @@
         <div class="form-group" ng-class="{ 'has-error' : lessonForm.date.$invalid && !lessonForm.date.$pristine }">
             <label class="control-label col-md-3">{{'lesson.date' | translate}}</label>
             <div class="col-md-9">
-                <p class="input-group">
-                    <input ng-model="lesson.date" name="date" type="text" class="form-control"
-                           datepicker-popup="{{dateFormat}}"
-                           is-open="opened"
-                            />
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar  "></i></button>
-                    </span>
-                </p>
+                <input ng-model="lesson.date" name="date" type="text" class="form-control"
+                       datepicker-popup="{{dateFormat}}"
+                       is-open="opened" />
             </div>
         </div>
 
