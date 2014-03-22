@@ -23,4 +23,5 @@ public interface AccountRepository {
 
     boolean checkPassword(int id, Predicate<String> check);
 
+    TAccount findUserByUsernameForOpenIDMode(String identifier);
 }

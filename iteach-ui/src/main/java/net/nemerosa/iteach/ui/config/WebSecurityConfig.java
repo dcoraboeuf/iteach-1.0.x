@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
+import org.springframework.security.openid.OpenIDAuthenticationToken;
 
 @Configuration
 @EnableWebSecurity
@@ -18,12 +20,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private APIBasicAuthenticationEntryPoint apiBasicAuthenticationEntryPoint;
 
+    @Autowired
+    private AuthenticationUserDetailsService<OpenIDAuthenticationToken> openIdAuthenticationUserDetailsService;
+
     /**
      * By default, all queries are accessible anonymously. Security is enforced at service level.
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/api/**").httpBasic().authenticationEntryPoint(apiBasicAuthenticationEntryPoint).realmName("iteach").and()
+        http.antMatcher("/api/**")
+                .openidLogin().loginProcessingUrl("/api/login/openid").authenticationUserDetailsService(openIdAuthenticationUserDetailsService).and()
+                .httpBasic().authenticationEntryPoint(apiBasicAuthenticationEntryPoint).realmName("iteach").and()
                 .logout().logoutUrl("/api/account/logout").logoutSuccessUrl("/api/account/logged-out").and()
                 //.csrf().requireCsrfProtectionMatcher(new CSRFRequestMatcher()).and()
                 // FIXME CSRF protection for a stateless API?

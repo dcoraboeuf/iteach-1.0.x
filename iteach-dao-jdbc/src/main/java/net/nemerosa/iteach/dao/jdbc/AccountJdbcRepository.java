@@ -22,7 +22,9 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
             rs.getString("name"),
             rs.getString("email"),
             rs.getBoolean("administrator"),
-            SQLUtils.getEnum(AuthenticationMode.class, rs, "mode")
+            SQLUtils.getEnum(AuthenticationMode.class, rs, "mode"),
+            rs.getBoolean("verified"),
+            rs.getBoolean("disabled")
     );
 
     @Autowired
@@ -106,5 +108,17 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
                 String.class
         );
         return encodedPassword != null && check.test(encodedPassword);
+    }
+
+    @Override
+    public TAccount findUserByUsernameForOpenIDMode(String identifier) {
+        try {
+            return getNamedParameterJdbcTemplate().queryForObject(
+                    SQL.ACCOUNT_BY_OPENID,
+                    params("identifier", identifier),
+                    accountRowMapper);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 }
