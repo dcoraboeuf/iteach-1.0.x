@@ -25,10 +25,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationUserDetailsService<OpenIDAuthenticationToken> openIdAuthenticationUserDetailsService;
 
-    @Autowired
-    @Qualifier("openid")
-    private AuthenticationFailureHandler openIdAuthenticationFailureHandler;
-
     /**
      * By default, all queries are accessible anonymously. Security is enforced at service level.
      */
@@ -62,7 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             .required(true)
                             .and()
                         .and()
-                    .failureHandler(openIdAuthenticationFailureHandler)
                     .and()
                 .httpBasic()
                     .authenticationEntryPoint(apiBasicAuthenticationEntryPoint)
