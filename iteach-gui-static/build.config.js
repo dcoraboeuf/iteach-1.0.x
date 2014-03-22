@@ -69,12 +69,14 @@ module.exports = {
             'vendor/fullcalendar/fullcalendar.js'
         ],
         css: [
-            'vendor/fullcalendar/fullcalendar.css'
+            'vendor/fullcalendar/fullcalendar.css',
+            'vendor/font-awesome/css/font-awesome.css'
         ],
         assets: [
         ],
         fonts: [
-            'vendor/bootstrap/fonts/glyphicons-halflings-regular.*'
+            'vendor/bootstrap/fonts/glyphicons-halflings-regular.*',
+            'vendor/font-awesome/fonts/fontawesome-webfont.*'
         ]
     }
 
