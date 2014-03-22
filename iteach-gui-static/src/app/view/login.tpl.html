@@ -55,12 +55,12 @@
                         <form name="password" ng-submit="iteachLogin()" class="form-horizontal">
                             <div class="form-group">
                                 <div class="col-md-offset-1 col-md-11">
-                                    <input ng-model="email" id="j_username" class="form-control" type="text" size="50" name="j_username" required="required" placeholder="{{'login.signin.form.email' | translate}}" />
+                                    <input ng-model="email" id="email" class="form-control" type="text" size="50" name="email" required="required" placeholder="{{'login.signin.form.email' | translate}}" autocomplete="on" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-offset-1 col-md-11">
-                                    <input ng-model="password" id="j_password" class="form-control" type="password" size="50" name="j_password" required="required" placeholder="{{'login.signin.form.password' | translate}}" />
+                                    <input ng-model="password" id="password" class="form-control" type="password" size="50" name="password" required="required" placeholder="{{'login.signin.form.password' | translate}}" />
                                 </div>
                             </div>
                             <div class="form-group">
