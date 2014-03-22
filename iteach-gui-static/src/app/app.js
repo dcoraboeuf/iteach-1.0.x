@@ -90,7 +90,16 @@ var iteach = angular.module('iteach', [
                 .when('/school/:schoolId', {
                     templateUrl: 'app/view/school.tpl.html',
                     controller: 'SchoolCtrl'
-                });
+                })
+                // Default
+                .otherwise({
+                    template: '<div></div>',
+                    controller: 'HomeCtrl'
+                })
+            ;
+        })
+        .controller('HomeCtrl', function (accountService) {
+            accountService.init();
         })
         .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, config, accountService) {
             $scope.version = config.version;

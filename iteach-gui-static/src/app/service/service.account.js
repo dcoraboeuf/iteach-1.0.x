@@ -11,7 +11,8 @@ angular.module('iteach.service.account', [
         self.onAccount = function onAccount(account, logging) {
             $log.debug('onAccount', account);
             $log.debug('onAccount. logging = ' + logging);
-            $log.debug('onAccount. path = ' + $location.path());
+            var currentPath = $location.path();
+            $log.debug('onAccount. path = ' + currentPath);
             $rootScope.account = account;
             // Logging
             if (logging) {
@@ -29,7 +30,7 @@ angular.module('iteach.service.account', [
             }
             // Refresh
             else if (account.authenticated) {
-                if ($location.path() != '') {
+                if (currentPath != '' && currentPath != '/') {
                     // Stays on the page if a route is already defined
                 } else if (account.teacher.administrator) {
                     $log.debug('Going to the admin page');
