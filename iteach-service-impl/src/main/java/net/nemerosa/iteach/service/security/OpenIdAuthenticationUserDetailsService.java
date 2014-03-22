@@ -35,7 +35,7 @@ public class OpenIdAuthenticationUserDetailsService implements AuthenticationUse
                 throw new AccountNonVerifiedOrDisabledException();
             }
         } else {
-            return null;
+           throw new AccountOpenIDNotFoundException(token.getIdentityUrl());
         }
     }
 
