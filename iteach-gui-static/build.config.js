@@ -75,8 +75,7 @@ module.exports = {
         assets: [
         ],
         fonts: [
-            'vendor/bootstrap/fonts/glyphicons-halflings-regular.*',
-            'vendor/font-awesome/fonts/fontawesome-webfont.*'
+            'vendor/bootstrap/fonts/glyphicons-halflings-regular.*'
         ]
     }
 
