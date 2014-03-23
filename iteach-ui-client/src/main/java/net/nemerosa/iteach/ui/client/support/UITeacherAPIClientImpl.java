@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.ui.client.support;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.ui.client.UITeacherAPIClient;
 import net.nemerosa.iteach.ui.model.*;
 
@@ -60,5 +61,10 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     @Override
     public UILessonCollection filterLessons(Locale locale, UILessonFilter filter) {
         return post(locale, UILessonCollection.class, filter, "/api/teacher/lesson/filter");
+    }
+
+    @Override
+    public Ack deleteLesson(Locale locale, int lessonId) {
+        return delete(locale, Ack.class, "/api/teacher/lesson/%d", lessonId);
     }
 }

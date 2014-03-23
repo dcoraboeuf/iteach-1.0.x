@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.service.impl;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.dao.LessonRepository;
 import net.nemerosa.iteach.dao.SchoolRepository;
 import net.nemerosa.iteach.dao.StudentRepository;
@@ -194,6 +195,14 @@ public class TeacherServiceImpl implements TeacherService {
                 .stream()
                 .map(lessonFn)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Ack deleteLesson(int lessonId) {
+        // Checks the teacher access
+        int teacherId = securityUtils.checkTeacher();
+        // Uses the repository
+        return lessonRepository.delete(teacherId, lessonId);
     }
 
 }

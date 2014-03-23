@@ -102,6 +102,10 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
         return request(locale, new HttpGet(getUrl(path, parameters)), returnType);
     }
 
+    protected <T> T delete(Locale locale, Class<T> returnType, String path, Object... parameters) {
+        return request(locale, new HttpDelete(getUrl(path, parameters)), returnType);
+    }
+
     protected <T> List<T> list(Locale locale, final Class<T> elementType, String path, Object... parameters) {
         return request(locale, new HttpGet(getUrl(path, parameters)), content -> {
             JsonNode node = mapper.readTree(content);

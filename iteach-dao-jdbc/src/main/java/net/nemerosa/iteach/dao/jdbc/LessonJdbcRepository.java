@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.dao.jdbc;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.dao.LessonRepository;
 import net.nemerosa.iteach.dao.model.TLesson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,14 @@ public class LessonJdbcRepository extends AbstractJdbcRepository implements Less
                 params,
                 lessonRowMapper
         );
+    }
+
+    @Override
+    public Ack delete(int teacherId, int lessonId) {
+        return Ack.one(getNamedParameterJdbcTemplate().update(
+                SQL.LESSON_DELETE,
+                params("teacherId", teacherId).addValue("lessonId", lessonId)
+        ));
     }
 
 }

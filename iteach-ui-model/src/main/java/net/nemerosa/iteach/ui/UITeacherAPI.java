@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.ui;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.ui.model.*;
 
 import java.util.List;
@@ -59,5 +60,10 @@ public interface UITeacherAPI {
      * Filtered list of resources
      */
     UILessonCollection filterLessons(Locale locale, UILessonFilter filter);
+
+    /**
+     * Deleting a lesson
+     */
+    Ack deleteLesson(Locale locale, int lessonId);
 
 }

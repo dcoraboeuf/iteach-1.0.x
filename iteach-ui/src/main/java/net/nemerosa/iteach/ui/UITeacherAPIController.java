@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.ui;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.*;
 import net.nemerosa.iteach.ui.model.*;
@@ -185,5 +186,11 @@ public class UITeacherAPIController implements UITeacherAPI {
                         .map(this::toUILesson)
                         .collect(Collectors.toList())
         );
+    }
+
+    @Override
+    @RequestMapping(value = "/lesson/{lessonId}", method = RequestMethod.DELETE)
+    public Ack deleteLesson(Locale locale, @PathVariable int lessonId) {
+        return teacherService.deleteLesson(lessonId);
     }
 }
