@@ -20,6 +20,8 @@ var map_en = {
     'login.signin.form.submit': 'Sign in',
     'login.signin.form.register': 'Register',
     'login.error': "Cannot connect to iTeach. Check your credentials.",
+    'login.error.openid_registration_non_valid': "Cannot connect to iTeach. Your account has not been verified yet or has been disabled.",
+    'login.error.openid_failed': "Cannot connect to iTeach. Your OpenID cannot be verified or accessed.",
     // Register page
     'register.name': 'Your name',
     'register.email': 'Your email',

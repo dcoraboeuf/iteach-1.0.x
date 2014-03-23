@@ -1,4 +1,4 @@
-package net.nemerosa.iteach.service.security;
+package net.nemerosa.iteach.service;
 
 import org.springframework.security.authentication.AccountStatusException;
 

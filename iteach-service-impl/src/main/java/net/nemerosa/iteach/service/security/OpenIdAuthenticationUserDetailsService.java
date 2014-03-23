@@ -3,6 +3,8 @@ package net.nemerosa.iteach.service.security;
 import net.nemerosa.iteach.common.AuthenticationMode;
 import net.nemerosa.iteach.dao.AccountRepository;
 import net.nemerosa.iteach.dao.model.TAccount;
+import net.nemerosa.iteach.service.AccountNonVerifiedOrDisabledException;
+import net.nemerosa.iteach.service.AccountOpenIDNotFoundException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
@@ -38,7 +40,7 @@ public class OpenIdAuthenticationUserDetailsService implements AuthenticationUse
                         t.getAuthenticationMode()
                 );
             } else {
-                throw new AccountNonVerifiedOrDisabledException();
+                throw new AccountNonVerifiedOrDisabledException(identityUrl);
             }
         } else {
             // Needs to create a new account

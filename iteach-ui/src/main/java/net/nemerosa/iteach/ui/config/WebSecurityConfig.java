@@ -25,14 +25,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationUserDetailsService<OpenIDAuthenticationToken> openIdAuthenticationUserDetailsService;
 
+    @Autowired
+    @Qualifier("openid")
+    private AuthenticationFailureHandler openIdAuthenticationFailureHandler;
+
     /**
      * By default, all queries are accessible anonymously. Security is enforced at service level.
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/api/**")
+                // FIXME Moves OpenID to the GUI layer
                 .openidLogin()
                     .loginProcessingUrl("/api/login/openid")
+                    .failureHandler(openIdAuthenticationFailureHandler)
                     .authenticationUserDetailsService(openIdAuthenticationUserDetailsService)
                     .attributeExchange("https://www.google.com/.*")
                         .attribute("email")

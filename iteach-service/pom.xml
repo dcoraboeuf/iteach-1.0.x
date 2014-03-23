@@ -31,6 +31,11 @@
             <groupId>org.joda</groupId>
             <artifactId>joda-money</artifactId>
         </dependency>
+        <!-- Spring security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

@@ -3,6 +3,8 @@ package net.nemerosa.iteach.service.security;
 import net.nemerosa.iteach.common.AuthenticationMode;
 import net.nemerosa.iteach.dao.AccountRepository;
 import net.nemerosa.iteach.dao.model.TAccount;
+import net.nemerosa.iteach.service.AccountNonVerifiedOrDisabledException;
+import net.nemerosa.iteach.service.AccountOpenIDNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.core.userdetails.UserDetails;
