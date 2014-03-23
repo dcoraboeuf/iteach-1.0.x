@@ -79,5 +79,6 @@ var map_en = {
     'lesson.from': "From",
     'lesson.to': "to",
     'lesson.location': "Location",
-    'lesson.schedule': "Schedule"
+    'lesson.schedule': "Schedule",
+    'lesson.delete.prompt': "Do you want really to delete this lesson? The associated comments will be lost."
 };

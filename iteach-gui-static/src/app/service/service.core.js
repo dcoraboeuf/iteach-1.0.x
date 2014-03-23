@@ -1,4 +1,6 @@
-angular.module('iteach.service.core', [])
+angular.module('iteach.service.core', [
+        'iteach.alert.confirm'
+    ])
     .service('notificationService', function ($log, $rootScope) {
         var self = {
             scopes: [ $rootScope ]
@@ -67,6 +69,21 @@ angular.module('iteach.service.core', [])
             if (errorMessage) {
                 notificationService.error(errorMessage);
             }
+        };
+        return self;
+    })
+    .service('alertService', function ($modal) {
+        var self = {};
+        self.confirm = function (config) {
+            return $modal.open({
+                templateUrl: 'app/dialog/alert.confirm.tpl.html',
+                controller: 'alertConfirm',
+                resolve: {
+                    alertConfig: function () {
+                        return config;
+                    }
+                }
+            }).result;
         };
         return self;
     })

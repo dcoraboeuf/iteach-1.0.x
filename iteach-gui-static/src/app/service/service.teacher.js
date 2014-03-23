@@ -1,10 +1,11 @@
 angular.module('iteach.service.teacher', [
+        'iteach.service.core',
         'iteach.ui.teacher',
         'iteach.dialog.school',
         'iteach.dialog.student',
         'iteach.dialog.lesson'
     ])
-    .service('teacherService', function ($modal, uiTeacher) {
+    .service('teacherService', function ($modal, $translate, $location, alertService, uiTeacher) {
         var self = {};
 
         self.getSchools = function () {
@@ -102,6 +103,19 @@ angular.module('iteach.service.teacher', [
         self.getLessons = uiTeacher.getLessons;
 
         self.getLesson = uiTeacher.getLesson;
+
+        self.deleteLesson = function (lessonId) {
+            self.getLesson(lessonId).success(function (lesson) {
+                alertService.confirm({
+                    title: lesson.title,
+                    message: $translate.instant('lesson.delete.prompt')
+                }).then(function () {
+                        uiTeacher.deleteLesson(lessonId).success(function () {
+                            $location.path('/');
+                        })
+                    })
+            })
+        };
 
         return self;
     })

@@ -29,7 +29,10 @@ angular.module('iteach.view.lesson', [
 
         // TODO Updating the lesson
 
-        // TODO Deleting the school
+        // Deleting the lesson
+        $scope.deleteLesson = function () {
+            teacherService.deleteLesson(lessonId);
+        };
 
     })
 ;

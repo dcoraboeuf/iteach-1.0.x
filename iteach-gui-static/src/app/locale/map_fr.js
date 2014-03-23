@@ -80,5 +80,6 @@ var map_fr = {
     'lesson.from': "De",
     'lesson.to': "à",
     'lesson.location': "Emplacement",
-    'lesson.schedule': "Planning"
+    'lesson.schedule': "Planning",
+    'lesson.delete.prompt': "Voulez-vous vraiment supprimer cette leçon ? Les commentaires associés seront également supprimés."
 };
