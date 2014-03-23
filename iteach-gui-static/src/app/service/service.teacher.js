@@ -133,7 +133,12 @@ angular.module('iteach.service.teacher', [
                     modalController: function () {
                         return {
                             onSubmit: function (lessonForm) {
-                                return uiTeacher.updateLesson(lesson.id, lessonForm)
+                                return uiTeacher.updateLesson(lesson.id, {
+                                    studentId: lessonForm.studentId,
+                                    location: lessonForm.location,
+                                    from: lessonForm.from,
+                                    to: lessonForm.to
+                                })
                             }
                         }
                     }

@@ -29,7 +29,7 @@ angular.module('iteach.view.lesson', [
 
         // Updating the lesson
         $scope.updateLesson = function () {
-            teacherService.updateLesson($scope.lesson);
+            teacherService.updateLesson($scope.lesson).then(loadLesson);
         };
 
         // Deleting the lesson
