@@ -28,6 +28,7 @@ public class UITeacherAPIController implements UITeacherAPI {
     );
     private final Function<? super Student, ? extends UIStudentSummary> studentSummaryFn = student -> new UIStudentSummary(
             student.getId(),
+            student.isDisabled(),
             getSchoolSummary(student),
             student.getName()
     );
@@ -132,6 +133,7 @@ public class UITeacherAPIController implements UITeacherAPI {
         Student o = teacherService.getStudent(studentId);
         return new UIStudent(
                 o.getId(),
+                o.isDisabled(),
                 getSchoolSummary(o),
                 o.getName(),
                 o.getSubject(),

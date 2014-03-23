@@ -44,6 +44,7 @@ public class TeacherServiceImpl implements TeacherService {
             t.getId(),
             t.getTeacherId(),
             t.getSchoolId(),
+            t.isDisabled(),
             t.getName(),
             t.getSubject(),
             t.getPostalAddress(),
@@ -152,7 +153,12 @@ public class TeacherServiceImpl implements TeacherService {
         // Checks the teacher access
         int teacherId = securityUtils.checkTeacher();
         // Lists
-        return studentRepository.findAll(teacherId).stream().map(studentFn).collect(Collectors.toList());
+        return studentRepository
+                .findAll(teacherId)
+                .stream()
+                .filter(student -> !student.isDisabled())
+                .map(studentFn)
+                .collect(Collectors.toList());
     }
 
     @Override

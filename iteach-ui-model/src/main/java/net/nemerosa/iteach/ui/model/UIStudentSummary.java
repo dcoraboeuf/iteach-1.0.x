@@ -11,12 +11,14 @@ public class UIStudentSummary extends UIResource {
 
     private final int id;
     private final String href;
+    private final boolean disabled;
     private final String name;
     private final UISchoolSummary school;
 
-    @ConstructorProperties({"id", "school", "name"})
-    public UIStudentSummary(int id, UISchoolSummary school, String name) {
+    @ConstructorProperties({"id", "disabled", "school", "name"})
+    public UIStudentSummary(int id, boolean disabled, UISchoolSummary school, String name) {
         this.id = id;
+        this.disabled = disabled;
         this.school = school;
         this.href = UILink.href("api/teacher/student/%d", id);
         this.name = name;

@@ -23,6 +23,7 @@ public class UILessonTest {
                 1,
                 new UIStudentSummary(
                         1,
+                        false,
                         new UISchoolSummary(
                                 1,
                                 "The school",

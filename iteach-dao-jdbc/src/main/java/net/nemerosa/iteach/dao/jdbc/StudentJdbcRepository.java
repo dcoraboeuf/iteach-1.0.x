@@ -18,6 +18,7 @@ public class StudentJdbcRepository extends AbstractJdbcRepository implements Stu
             rs.getInt("id"),
             rs.getInt("teacherId"),
             rs.getInt("schoolId"),
+            rs.getBoolean("disabled"),
             rs.getString("name"),
             rs.getString("subject"),
             rs.getString("postalAddress"),
