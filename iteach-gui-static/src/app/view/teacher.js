@@ -74,15 +74,23 @@ angular.module('iteach.view.teacher', [
         };
 
         // Planning: collection of lessons
+        function adaptLesson(lesson) {
+            // Dates
+            lesson.start = new Date(lesson.from);
+            lesson.end = new Date(lesson.to);
+            // Colour
+            lesson.backgroundColor = lesson.student.school.colour;
+            // Link
+            lesson.url = "#/lesson/" + lesson.id;
+        }
+
         $scope.fetchEvents = function fetchEvents(start, end, callback) {
             teacherService.getLessons({from: start, to: end}).then(
                 function (collection) {
                     var lessons = collection.resources;
                     for (var i = 0; i < lessons.length; i++) {
                         var lesson = lessons[i];
-                        lesson.start = new Date(lesson.from);
-                        lesson.end = new Date(lesson.to);
-                        lesson.backgroundColor = lesson.student.school.colour;
+                        adaptLesson(lesson);
                     }
                     callback(lessons);
                 }
