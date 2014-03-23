@@ -1,13 +1,17 @@
 angular.module('iteach.view.lesson', [
         'iteach.service.teacher'
     ])
-    .controller('LessonCtrl', function ($scope, $routeParams, teacherService) {
+    .controller('LessonCtrl', function ($scope, $filter, $routeParams, teacherService) {
 
         var lessonId = $routeParams.lessonId;
 
         function loadLesson() {
             teacherService.getLesson(lessonId).success(function (lesson) {
-                console.log('lesson', lesson);
+                lesson.formatted = {
+                    date: $filter('date')(new Date(lesson.from), 'fullDate'),
+                    from: $filter('date')(new Date(lesson.from), 'HH:mm'),
+                    to: $filter('date')(new Date(lesson.to), 'HH:mm')
+                };
                 $scope.lesson = lesson;
             })
         }

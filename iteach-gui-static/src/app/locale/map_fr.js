@@ -78,5 +78,6 @@ var map_fr = {
     'lesson.date': "Date",
     'lesson.from': "De",
     'lesson.to': "à",
-    'lesson.location': "Emplacement"
+    'lesson.location': "Emplacement",
+    'lesson.schedule': "Planning"
 };

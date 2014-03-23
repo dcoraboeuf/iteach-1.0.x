@@ -77,5 +77,6 @@ var map_en = {
     'lesson.date': "Date",
     'lesson.from': "From",
     'lesson.to': "to",
-    'lesson.location': "Location"
+    'lesson.location': "Location",
+    'lesson.schedule': "Schedule"
 };

@@ -1,8 +1,29 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <it-todo>Lesson schedule</it-todo>
+            <h3>{{'lesson.schedule' | translate}}</h3>
             <table class="it-form">
+                <tbody>
+                <tr>
+                    <td colspan="2">
+                        {{lesson.formatted.date}}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {{'lesson.from' | translate}}
+                        {{lesson.formatted.from}}
+                        {{'lesson.to' | translate}}
+                        {{lesson.formatted.to}}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {{'lesson.location' | translate}}:
+                        {{lesson.location}}
+                    </td>
+                </tr>
+                </tbody>
                 <tfoot>
                 <tr>
                     <td colspan="2">
