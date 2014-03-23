@@ -62,6 +62,11 @@ public interface UITeacherAPI {
     UILessonCollection filterLessons(Locale locale, UILessonFilter filter);
 
     /**
+     * Updating a lesson
+     */
+    UILesson updateLesson(Locale locale, int lessonId, UILessonForm form);
+
+    /**
      * Deleting a lesson
      */
     Ack deleteLesson(Locale locale, int lessonId);

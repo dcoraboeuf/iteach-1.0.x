@@ -54,6 +54,7 @@ public class TeacherServiceImpl implements TeacherService {
     );
     private final Function<? super TLesson, ? extends Lesson> lessonFn = t -> new Lesson(
             t.getId(),
+            t.getTeacherId(),
             t.getStudentId(),
             t.getLocation(),
             t.getFrom(),
@@ -163,14 +164,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public int createLesson(LessonForm form) {
-        // Same day rule
-        if (!form.getFrom().toLocalDate().equals(form.getTo().toLocalDate())) {
-            throw new LessonNotSameDayException();
-        }
-        // Order rule
-        if (!form.getTo().isAfter(form.getFrom())) {
-            throw new LessonTimeOrderException();
-        }
+        checkLessonForm(form);
         // Checks the teacher access to the student
         Student student = getStudent(form.getStudentId());
         // Creation
@@ -181,6 +175,17 @@ public class TeacherServiceImpl implements TeacherService {
                 form.getFrom(),
                 form.getTo()
         );
+    }
+
+    private void checkLessonForm(LessonForm form) {
+        // Same day rule
+        if (!form.getFrom().toLocalDate().equals(form.getTo().toLocalDate())) {
+            throw new LessonNotSameDayException();
+        }
+        // Order rule
+        if (!form.getTo().isAfter(form.getFrom())) {
+            throw new LessonTimeOrderException();
+        }
     }
 
     @Override
@@ -209,6 +214,25 @@ public class TeacherServiceImpl implements TeacherService {
         int teacherId = securityUtils.checkTeacher();
         // Uses the repository
         return lessonRepository.delete(teacherId, lessonId);
+    }
+
+    @Override
+    public void updateLesson(int lessonId, LessonForm form) {
+        checkLessonForm(form);
+        // Gets the previous lesson
+        Lesson lesson = getLesson(lessonId);
+        // Checks the student
+        if (form.getStudentId() != lesson.getStudentId()) {
+            throw new LessonCannotUpdateStudentException();
+        }
+        // Update
+        lessonRepository.updateLesson(
+                lessonId,
+                lesson.getTeacherId(),
+                form.getLocation(),
+                form.getFrom(),
+                form.getTo()
+        );
     }
 
 }

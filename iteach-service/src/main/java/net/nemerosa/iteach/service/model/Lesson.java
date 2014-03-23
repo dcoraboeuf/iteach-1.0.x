@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public class Lesson {
 
     private final int id;
+    private final int teacherId;
     private final int studentId;
     private final String location;
     private final LocalDateTime from;

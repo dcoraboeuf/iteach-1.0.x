@@ -64,6 +64,11 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     }
 
     @Override
+    public UILesson updateLesson(Locale locale, int lessonId, UILessonForm form) {
+        return put(locale, UILesson.class, form, "/api/teacher/lesson/%s", lessonId);
+    }
+
+    @Override
     public Ack deleteLesson(Locale locale, int lessonId) {
         return delete(locale, Ack.class, "/api/teacher/lesson/%d", lessonId);
     }

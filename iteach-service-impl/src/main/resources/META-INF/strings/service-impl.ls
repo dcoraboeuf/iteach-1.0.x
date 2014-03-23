@@ -9,3 +9,7 @@ net.nemerosa.iteach.service.impl.LessonNotSameDayException
 net.nemerosa.iteach.service.impl.LessonTimeOrderException
     en -> The end time cannot be before the start time.
     fr -> L'heure de fin ne peut pas être avant l'heure de début
+
+net.nemerosa.iteach.service.impl.LessonCannotUpdateStudentException
+    en -> Cannot update the student for a lesson.
+    fr -> Impossible de mettre à jour l'étudiant pour une leçon.

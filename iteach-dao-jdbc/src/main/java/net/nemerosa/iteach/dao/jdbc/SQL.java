@@ -27,6 +27,7 @@ public interface SQL {
     String STUDENT_ALL = "SELECT * FROM STUDENT WHERE TEACHERID = :teacherId ORDER BY NAME ASC";
 
     String LESSON_CREATE = "INSERT INTO LESSON (TEACHERID, STUDENTID, LOCATION, PLANNINGFROM, PLANNINGTO) VALUES (:teacherId, :studentId, :location, :planningFrom, :planningTo)";
+    String LESSON_UPDATE = "UPDATE LESSON SET LOCATION = :location, PLANNINGFROM = :planningFrom, PLANNINGTO = :planningTo WHERE TEACHERID = :teacherId AND ID = :lessonId";
     String LESSON_BY_ID = "SELECT * FROM LESSON WHERE TEACHERID = :teacherId AND ID = :lessonId";
     String LESSON_DELETE = "DELETE FROM LESSON WHERE TEACHERID = :teacherId AND ID = :lessonId";
 

@@ -86,4 +86,16 @@ public class LessonJdbcRepository extends AbstractJdbcRepository implements Less
         ));
     }
 
+    @Override
+    public void updateLesson(int lessonId, int teacherId, String location, LocalDateTime from, LocalDateTime to) {
+        getNamedParameterJdbcTemplate().update(
+                SQL.LESSON_UPDATE,
+                params("teacherId", teacherId)
+                        .addValue("lessonId", lessonId)
+                        .addValue("location", location)
+                        .addValue("planningFrom", getDBValueFromLocalDateTime(from))
+                        .addValue("planningTo", getDBValueFromLocalDateTime(to))
+        );
+    }
+
 }

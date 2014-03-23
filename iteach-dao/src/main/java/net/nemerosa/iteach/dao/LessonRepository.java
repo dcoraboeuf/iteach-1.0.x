@@ -15,4 +15,6 @@ public interface LessonRepository {
     List<TLesson> filter(int teacherId, Integer studentId, LocalDateTime from, LocalDateTime to);
 
     Ack delete(int teacherId, int lessonId);
+
+    void updateLesson(int lessonId, int teacherId, String location, LocalDateTime from, LocalDateTime to);
 }

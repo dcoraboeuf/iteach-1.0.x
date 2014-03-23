@@ -35,4 +35,6 @@ public interface TeacherService {
     List<Lesson> getLessons(Integer studentId, LocalDateTime from, LocalDateTime to);
 
     Ack deleteLesson(int lessonId);
+
+    void updateLesson(int lessonId, LessonForm form);
 }

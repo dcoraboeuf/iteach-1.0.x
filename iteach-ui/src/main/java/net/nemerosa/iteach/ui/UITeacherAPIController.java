@@ -191,6 +191,21 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     @Override
+    @RequestMapping(value = "/lesson/{lessonId}", method = RequestMethod.PUT)
+    public UILesson updateLesson(Locale locale, @PathVariable int lessonId, @RequestBody @Valid UILessonForm form) {
+        teacherService.updateLesson(
+                lessonId,
+                new LessonForm(
+                        form.getStudentId(),
+                        form.getLocation(),
+                        form.getFrom(),
+                        form.getTo()
+                )
+        );
+        return getLesson(locale, lessonId);
+    }
+
+    @Override
     @RequestMapping(value = "/lesson/{lessonId}", method = RequestMethod.DELETE)
     public Ack deleteLesson(Locale locale, @PathVariable int lessonId) {
         return teacherService.deleteLesson(lessonId);
