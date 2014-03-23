@@ -29,28 +29,6 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h3>{{'login.signin.openid' | translate}}</h3>
-
-                        <form name="oidf" action="j_spring_openid_security_check" method="POST" class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-md-offset-1 col-md-11">
-                                    <input id="openid_identifier" class="form-control" type="text" size="50" name="openid_identifier"
-                                           required="required" placeholder="{{'login.signin.openid.field' | translate}}"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-offset-1 col-md-11">
-                                    <button type="submit" class="btn btn-default">
-                                        {{'login.signin.with' | translate}}
-                                        <img src="assets/openid.png"/>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
                         <h3>{{'login.signin.form' | translate}}</h3>
                         <form name="password" ng-submit="iteachLogin()" class="form-horizontal">
                             <div class="form-group">

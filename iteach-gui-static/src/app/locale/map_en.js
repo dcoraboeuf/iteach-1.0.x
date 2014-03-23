@@ -13,8 +13,6 @@ var map_en = {
     // Login page
     'login.iteach.message': 'iTeach is the application that will help you organise your courses and your planning.',
     'login.signin.google': 'Sign in with Google',
-    'login.signin.openid': 'Sign in with OpenID',
-    'login.signin.openid.field': 'Enter your OpenID',
     'login.signin.with': 'Sign in with',
     'login.signin.form': 'Sign in with iTeach',
     'login.signin.form.email': 'Enter your email',
