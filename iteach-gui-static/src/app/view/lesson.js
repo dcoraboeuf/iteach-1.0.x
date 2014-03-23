@@ -6,13 +6,14 @@ angular.module('iteach.view.lesson', [
         var lessonId = $routeParams.lessonId;
 
         function loadLesson() {
-            teacherService.getLesson(lessonId).then(function (lesson) {
+            teacherService.getLesson(lessonId).success(function (lesson) {
+                console.log('lesson', lesson);
                 $scope.lesson = lesson;
             })
         }
 
-        // TODO Loads the lesson
-        // loadLesson();
+        // Loads the lesson
+        loadLesson();
 
         // TODO Updating the lesson
 

@@ -99,6 +99,8 @@ angular.module('iteach.service.teacher', [
 
         self.getLessons = uiTeacher.getLessons;
 
+        self.getLesson = uiTeacher.getLesson;
+
         return self;
     })
 ;
