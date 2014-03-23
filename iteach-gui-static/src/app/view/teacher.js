@@ -83,6 +83,7 @@ angular.module('iteach.view.teacher', [
                         var lesson = lessons[i];
                         lesson.start = lesson.from;
                         lesson.end = lesson.to;
+                        lesson.backgroundColor = lesson.student.school.colour;
                     }
                     callback(lessons);
                 }
