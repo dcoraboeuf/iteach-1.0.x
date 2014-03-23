@@ -4,10 +4,14 @@ angular.module('iteach.dialog.lesson', [
     .controller('dialogLesson', function ($log, $scope, $translate, $modalInstance, modalController, input, notificationService, uiTeacher) {
 
         $scope.lesson = {
+            // FIXME Student is not selected on update
+            studentId: input.studentId,
+            location: input.location,
             date: input.start,
             from: input.start,
             to: input.end
         };
+
         uiTeacher.getStudents().then(function (students) {
             $scope.students = students
         });

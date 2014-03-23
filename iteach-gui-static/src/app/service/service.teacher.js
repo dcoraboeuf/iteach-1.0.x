@@ -117,6 +117,30 @@ angular.module('iteach.service.teacher', [
             })
         };
 
+        self.updateLesson = function (lesson) {
+            return $modal.open({
+                templateUrl: 'app/dialog/dialog.lesson.tpl.html',
+                controller: 'dialogLesson',
+                resolve: {
+                    input: function () {
+                        return {
+                            start: lesson.from,
+                            end: lesson.to,
+                            location: lesson.location,
+                            studentId: lesson.student.id
+                        };
+                    },
+                    modalController: function () {
+                        return {
+                            onSubmit: function (lessonForm) {
+                                return uiTeacher.updateLesson(lesson.id, lessonForm)
+                            }
+                        }
+                    }
+                }
+            }).result
+        };
+
         return self;
     })
 ;

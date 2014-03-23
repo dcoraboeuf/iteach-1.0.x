@@ -27,7 +27,10 @@ angular.module('iteach.view.lesson', [
         // Loads the lesson
         loadLesson();
 
-        // TODO Updating the lesson
+        // Updating the lesson
+        $scope.updateLesson = function () {
+            teacherService.updateLesson($scope.lesson);
+        };
 
         // Deleting the lesson
         $scope.deleteLesson = function () {
