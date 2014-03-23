@@ -17,6 +17,10 @@ angular.module('iteach.view.lesson', [
                 teacherService.getStudent(lesson.student.id).success(function (student) {
                     $scope.student = student;
                 });
+                // Loads the school
+                teacherService.getSchool(lesson.student.school.id).success(function (school) {
+                    $scope.school = school;
+                });
             })
         }
 

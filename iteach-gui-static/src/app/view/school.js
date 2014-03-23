@@ -6,18 +6,18 @@ angular.module('iteach.view.school', [
         var schoolId = $routeParams.schoolId;
 
         function loadSchool() {
-            teacherService.getSchool(schoolId).then(function (school) {
-                $scope.school = school
+            teacherService.getSchool(schoolId).success(function (school) {
+                $scope.school = school;
             })
         }
 
         // Loads the school
-        loadSchool()
+        loadSchool();
 
         // Updating the school
         $scope.update = function () {
             teacherService.updateSchool($scope.school).then(loadSchool)
-        }
+        };
 
         // TODO Deleting the school
 

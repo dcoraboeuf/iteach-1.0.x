@@ -65,7 +65,36 @@
                 </table>
             </div>
             <div class="row">
-                <it-todo>The school</it-todo>
+                <h3>{{'lesson.school' | translate}}</h3>
+                <table class="it-form">
+                    <tbody>
+                    <tr>
+                        <td class="it-form-label">
+                            {{'school.name' | translate}}
+                        </td>
+                        <td class="it-form-value">
+                            <a href="#/school/{{school.id}}">{{school.name}}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td class="it-form-label">
+                            {{'school.colour' | translate}}
+                        </td>
+                        <td class="it-form-value" style="background-color: {{school.colour}}">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="it-form-label">
+                            {{'school.hourlyRate' | translate}}
+                        </td>
+                        <td class="it-form-value">
+                            {{school.hourlyRate}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="col-md-4">

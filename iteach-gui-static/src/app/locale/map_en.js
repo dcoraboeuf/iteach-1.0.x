@@ -73,6 +73,7 @@ var map_en = {
     'lesson': "Lesson",
     'lesson.tip': "Create a new lesson by selection a date, a period of time, a student and an optional location.",
     'lesson.student': "Student",
+    'lesson.school': "School",
     'lesson.student.error': "A student must be selected.",
     'lesson.date': "Date",
     'lesson.from': "From",

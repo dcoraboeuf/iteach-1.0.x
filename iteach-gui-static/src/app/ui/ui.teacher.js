@@ -27,12 +27,7 @@ angular.module('iteach.ui.teacher', [
         };
 
         self.getSchool = function (schoolId) {
-            var d = $q.defer();
-            $http.get(config.api('teacher/school/' + schoolId))
-                .success(function (school) {
-                    d.resolve(school);
-                });
-            return d.promise;
+            return $http.get(config.api('teacher/school/' + schoolId));
         };
 
         self.updateSchool = function (schoolId, schoolForm) {
