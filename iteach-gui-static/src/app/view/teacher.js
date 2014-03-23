@@ -53,13 +53,12 @@ angular.module('iteach.view.teacher', [
             if (allDay) {
                 $scope.mainCalendar.fullCalendar('unselect');
             } else {
-                console.log("onCalendarSelect", start, end, allDay);
                 // Creates the lesson
                 teacherService.createLesson(start, end).then(
                     function () {
-                        $scope.mainCalendar.fullCalendar('unselect')
+                        $scope.mainCalendar.fullCalendar('fetchEvents')
                     }, function () {
-                        $scope.mainCalendar.fullCalendar('refetchEvents')
+                        $scope.mainCalendar.fullCalendar('unselect')
                     });
             }
         };
