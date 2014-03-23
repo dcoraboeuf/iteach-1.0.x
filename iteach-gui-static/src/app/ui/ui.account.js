@@ -10,8 +10,8 @@ angular.module('iteach.ui.account', [
             $http.get(config.api('account/state'), {
                 httpIgnoreError: true
             }).success(function (state) {
-                deferred.resolve(state)
-            });
+                    deferred.resolve(state)
+                });
             return deferred.promise;
         };
 
@@ -36,7 +36,9 @@ angular.module('iteach.ui.account', [
                         teacher: teacher
                     })
                 }
-            );
+            ).error(function () {
+                    deferred.reject();
+                });
             return deferred.promise;
         };
 

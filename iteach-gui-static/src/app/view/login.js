@@ -8,7 +8,9 @@ angular.module('iteach.view.login', [
             $scope.loginError = $translate.instant('login.error.' + $routeParams.error);
         }
         $scope.iteachLogin = function () {
-            accountService.iteachLogin($scope.email, $scope.password)
+            accountService.iteachLogin($scope.email, $scope.password).then(angular.noop, function () {
+                $scope.loginError = $translate.instant('login.error');
+            });
         }
     })
 ;

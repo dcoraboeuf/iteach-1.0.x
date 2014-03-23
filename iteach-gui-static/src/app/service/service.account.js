@@ -2,7 +2,7 @@ angular.module('iteach.service.account', [
         'iteach.service.core',
         'iteach.ui.account'
     ])
-    .service('accountService', function ($rootScope, $log, $location, $translate, notificationService, uiAccount) {
+    .service('accountService', function ($q, $rootScope, $log, $location, $translate, notificationService, uiAccount) {
 
         var self = {
 
@@ -68,9 +68,14 @@ angular.module('iteach.service.account', [
         };
 
         self.iteachLogin = function iteachLogin(email, password) {
+            var d = $q.defer();
             uiAccount.iteachLogin(email, password).then(function (account) {
-                self.onAccount(account, true)
-            })
+                self.onAccount(account, true);
+                d.resolve();
+            }, function () {
+                d.reject();
+            });
+            return d.promise;
         };
 
         self.registerWithPassword = function (name, email, password) {
