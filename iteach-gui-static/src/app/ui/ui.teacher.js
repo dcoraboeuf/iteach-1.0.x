@@ -66,6 +66,10 @@ angular.module('iteach.ui.teacher', [
             return d.promise;
         };
 
+        self.getStudent = function (studentId) {
+            return $http.get(config.api('teacher/student/' + studentId));
+        };
+
         /**
          * Lessons
          */

@@ -41,7 +41,28 @@
         </div>
         <div class="col-md-4">
             <div class="row">
-                <it-todo>The student</it-todo>
+                <h3>{{'lesson.student' | translate}}</h3>
+                <table class="it-form">
+                    <tbody>
+                    <tr>
+                        <td class="it-form-label">
+                            {{'student.name' | translate}}
+                        </td>
+                        <td class="it-form-value">
+                            <a href="#/student/{{student.id}}">{{student.name}}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td class="it-form-label">
+                            {{'student.subject' | translate}}
+                        </td>
+                        <td class="it-form-value">
+                            {{student.subject}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="row">
                 <it-todo>The school</it-todo>

@@ -74,6 +74,8 @@ angular.module('iteach.service.teacher', [
             }).result
         };
 
+        self.getStudent = uiTeacher.getStudent;
+
         self.createLesson = function (start, end) {
             return $modal.open({
                 templateUrl: 'app/dialog/dialog.lesson.tpl.html',

@@ -13,6 +13,10 @@ angular.module('iteach.view.lesson', [
                     to: $filter('date')(new Date(lesson.to), 'HH:mm')
                 };
                 $scope.lesson = lesson;
+                // Loads the student
+                teacherService.getStudent(lesson.student.id).success(function (student) {
+                    $scope.student = student;
+                });
             })
         }
 
