@@ -81,8 +81,8 @@ angular.module('iteach.view.teacher', [
                     var lessons = collection.resources;
                     for (var i = 0; i < lessons.length; i++) {
                         var lesson = lessons[i];
-                        lesson.start = lesson.from;
-                        lesson.end = lesson.to;
+                        lesson.start = new Date(lesson.from);
+                        lesson.end = new Date(lesson.to);
                         lesson.backgroundColor = lesson.student.school.colour;
                     }
                     callback(lessons);

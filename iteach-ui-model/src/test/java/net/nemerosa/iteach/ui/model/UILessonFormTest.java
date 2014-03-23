@@ -33,8 +33,8 @@ public class UILessonFormTest {
         return object()
                 .with("studentId", 12)
                 .with("location", "Somewhere")
-                .with("from", "2014-03-20T11:30:00")
-                .with("to", "2014-03-20T14:00:00")
+                .with("from", "2014-03-20T11:30:00Z")
+                .with("to", "2014-03-20T14:00:00Z")
                 .end();
     }
 

@@ -12,7 +12,7 @@ public class JDKLocalDateTimeSerializerTest {
     @Test
     public void toJson() throws JsonProcessingException {
         Assert.assertEquals(
-                "\"2014-03-20T20:44:00\"",
+                "\"2014-03-20T20:44:00Z\"",
                 ObjectMapperFactory.create().writeValueAsString(LocalDateTime.of(2014, 3, 20, 20, 44))
         );
     }
