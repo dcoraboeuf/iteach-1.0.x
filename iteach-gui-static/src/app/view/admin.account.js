@@ -1,7 +1,7 @@
 angular.module('iteach.view.admin.account', [
         'iteach.service.account'
     ])
-    .controller('AdminAccountCtrl', function ($scope, $routeParams, accountService) {
+    .controller('AdminAccountCtrl', function ($location, $scope, $routeParams, accountService) {
 
         var accountId = $routeParams.accountId;
 
@@ -9,10 +9,17 @@ angular.module('iteach.view.admin.account', [
             // TODO Loads details (number of schools, students & lessons)
             accountService.getAccount(accountId).success(function (account) {
                 $scope.account = account;
+                $scope.deleteAllowed = !account.administrator;
             })
         }
 
         loadAccount();
+
+        $scope.deleteAccount = function () {
+            accountService.deleteAccount(accountId).then(function () {
+                $location.path('/admin/accounts')
+            })
+        };
 
     })
 ;

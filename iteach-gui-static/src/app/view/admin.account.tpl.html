@@ -37,6 +37,7 @@
             <tfoot>
             <tr>
                 <td colspan="2">
+                    <button type="button" class="btn btn-danger" ng-if="deleteAllowed" ng-click="deleteAccount()">{{'dialog.delete' | translate}}</button>
                     <a href="#/admin/accounts" class="btn btn-default">{{'home.back' | translate}}</a>
                 </td>
             </tr>
