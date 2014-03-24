@@ -18,4 +18,6 @@ public interface AccountService {
     Account getAccount(int id);
 
     Stream<Account> getAccounts();
+
+    Ack deleteAccount(int accountId);
 }

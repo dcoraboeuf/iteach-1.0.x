@@ -94,9 +94,17 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Stream<Account> getAccounts() {
         securityUtils.checkAdmin();
-        return accountRepository.findAll().parallel().map(
-                accountMapper
-        );
+        return accountRepository.findAll().parallel().map(accountMapper);
+    }
+
+    @Override
+    public Ack deleteAccount(int accountId) {
+        int adminId = securityUtils.checkAdmin();
+        if (adminId == accountId) {
+            throw new AccountCannotDeleteHimselfException();
+        } else {
+            return accountRepository.delete(accountId);
+        }
     }
 
     private Message createNewUserMessage(Locale locale, String name, String email) {

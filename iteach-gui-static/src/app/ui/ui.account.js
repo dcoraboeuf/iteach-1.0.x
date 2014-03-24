@@ -62,6 +62,10 @@ angular.module('iteach.ui.account', [
             return $http.get(config.api('account/' + accountId))
         };
 
+        self.deleteAccount = function (accountId) {
+            return $http.delete(config.api('account/' + accountId))
+        };
+
         return self;
 
     })

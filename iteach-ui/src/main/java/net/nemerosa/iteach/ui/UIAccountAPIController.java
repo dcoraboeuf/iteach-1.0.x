@@ -6,6 +6,7 @@ import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.common.TokenType;
 import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.SecurityUtils;
+import net.nemerosa.iteach.service.model.Account;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
 import net.nemerosa.iteach.ui.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,18 +75,33 @@ public class UIAccountAPIController implements UIAccountAPI {
         return new UIAccountCollection(
                 accountService
                         .getAccounts()
-                        .map(
-                                o -> new UIAccount(
-                                        o.getId(),
-                                        o.getName(),
-                                        o.getEmail(),
-                                        o.getAuthenticationMode(),
-                                        o.isAdministrator(),
-                                        o.isVerified(),
-                                        o.isDisabled()
-                                )
-                        ).collect(Collectors.toList())
+                        .map(this::toUIAccount)
+                        .collect(Collectors.toList())
         );
+    }
+
+    private UIAccount toUIAccount(Account o) {
+        return new UIAccount(
+                o.getId(),
+                o.getName(),
+                o.getEmail(),
+                o.getAuthenticationMode(),
+                o.isAdministrator(),
+                o.isVerified(),
+                o.isDisabled()
+        );
+    }
+
+    @Override
+    @RequestMapping(value = "/{accountId}", method = RequestMethod.GET)
+    public UIAccount getAccount(Locale locale, @PathVariable int accountId) {
+        return toUIAccount(accountService.getAccount(accountId));
+    }
+
+    @Override
+    @RequestMapping(value = "/{accountId}", method = RequestMethod.DELETE)
+    public Ack deleteAccount(Locale locale, @PathVariable int accountId) {
+        return accountService.deleteAccount(accountId);
     }
 
     @Override

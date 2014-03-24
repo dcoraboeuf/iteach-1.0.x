@@ -3,10 +3,7 @@ package net.nemerosa.iteach.ui;
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.common.TokenType;
-import net.nemerosa.iteach.ui.model.UIAccountCollection;
-import net.nemerosa.iteach.ui.model.UIState;
-import net.nemerosa.iteach.ui.model.UITeacher;
-import net.nemerosa.iteach.ui.model.UITeacherPasswordForm;
+import net.nemerosa.iteach.ui.model.*;
 
 import java.util.Locale;
 
@@ -17,6 +14,10 @@ public interface UIAccountAPI {
     UITeacher login(Locale locale);
 
     UIAccountCollection getAccounts(Locale locale);
+
+    UIAccount getAccount(Locale locale, int accountId);
+
+    Ack deleteAccount(Locale locale, int accountId);
 
     ID registerAsTeacherWithPassword(Locale locale, UITeacherPasswordForm form);
 

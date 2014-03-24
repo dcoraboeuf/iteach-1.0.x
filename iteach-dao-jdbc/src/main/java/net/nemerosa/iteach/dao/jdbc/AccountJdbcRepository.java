@@ -121,4 +121,12 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
             return null;
         }
     }
+
+    @Override
+    public Ack delete(int accountId) {
+        return Ack.one(getNamedParameterJdbcTemplate().update(
+                SQL.ACCOUNT_DELETE,
+                params("id", accountId)
+        ));
+    }
 }

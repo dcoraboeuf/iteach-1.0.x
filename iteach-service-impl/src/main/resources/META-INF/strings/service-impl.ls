@@ -25,3 +25,7 @@ net.nemerosa.iteach.service.impl.ImportVersionNotRecognizedException
 net.nemerosa.iteach.service.io.ImportMissingFieldException
     en -> Field {0} is missing.
     fr -> Le champ {0} n'a pas pu être trouvé.
+
+net.nemerosa.iteach.service.impl.AccountCannotDeleteHimselfException
+    en -> An account cannot delete himself.
+    fr -> Un utilisateur ne peut pas supprimer son propre compte.

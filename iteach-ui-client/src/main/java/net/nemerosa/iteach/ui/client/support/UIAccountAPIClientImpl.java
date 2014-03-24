@@ -4,10 +4,7 @@ import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.common.TokenType;
 import net.nemerosa.iteach.ui.client.UIAccountAPIClient;
-import net.nemerosa.iteach.ui.model.UIAccountCollection;
-import net.nemerosa.iteach.ui.model.UIState;
-import net.nemerosa.iteach.ui.model.UITeacher;
-import net.nemerosa.iteach.ui.model.UITeacherPasswordForm;
+import net.nemerosa.iteach.ui.model.*;
 
 import java.net.MalformedURLException;
 import java.util.Locale;
@@ -31,6 +28,16 @@ public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> i
     @Override
     public UIAccountCollection getAccounts(Locale locale) {
         return get(locale, UIAccountCollection.class, "/api/account");
+    }
+
+    @Override
+    public UIAccount getAccount(Locale locale, int accountId) {
+        return get(locale, UIAccount.class, "/api/account/%d", accountId);
+    }
+
+    @Override
+    public Ack deleteAccount(Locale locale, int accountId) {
+        return delete(locale, Ack.class, "/api/account/%d", accountId);
     }
 
     @Override
