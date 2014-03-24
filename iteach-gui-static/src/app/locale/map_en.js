@@ -94,5 +94,6 @@ var map_en = {
     'admin.account.authenticationMode.OPEN_ID': "Open ID",
     'admin.account.verified': "Verified",
     'admin.account.disabled': "Disabled",
-    'admin.account.delete.prompt': "Do you want really to delete this account? All associated data will be lost."
+    'admin.account.delete.prompt': "Do you want really to delete this account? All associated data will be lost.",
+    'admin.account.import': "Import"
 };

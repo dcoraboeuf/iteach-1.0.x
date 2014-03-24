@@ -24,6 +24,7 @@
                     <td><it-yes-no value="{{account.disabled}}"></it-yes-no></td>
                     <td>
                         <button type="button" class="btn btn-danger" ng-if="!account.administrator" ng-click="deleteAccount(account.id)">{{'dialog.delete' | translate}}</button>
+                        <button type="button" class="btn btn-warning" ng-if="!account.administrator" ng-click="importAccount(account.id)">{{'admin.account.import' | translate}}</button>
                     </td>
                 </tr>
                 </tbody>

@@ -95,5 +95,6 @@ var map_fr = {
     'admin.account.authenticationMode.OPEN_ID': "Open ID",
     'admin.account.verified': "Vérifié",
     'admin.account.disabled': "Désactivé",
-    'admin.account.delete.prompt': "Voulez-vous vraiment supprimer cet utilisateur ? Les données associées seront également supprimées."
+    'admin.account.delete.prompt': "Voulez-vous vraiment supprimer cet utilisateur ? Les données associées seront également supprimées.",
+    'admin.account.import': "Importer"
 };
