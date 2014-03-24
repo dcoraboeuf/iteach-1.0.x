@@ -1,7 +1,10 @@
 <div class="container">
     <div class="row">
-        <h3>{{'admin.account.import' | translate}}</h3>
-        <it-todo>Account information</it-todo>
+        <h3>{{'admin.account.import.title' | translate:account}}</h3>
+        <p>{{'admin.account.import.message' | translate}}</p>
         <it-todo>Upload selection (see with <a href="https://github.com/flowjs/ng-flow">ng-flow</a>)</it-todo>
+        <div class="alert alert-danger">
+            {{'admin.account.import.warning' | translate:account}}
+        </div>
     </div>
 </div>

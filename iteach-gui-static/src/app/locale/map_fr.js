@@ -96,5 +96,8 @@ var map_fr = {
     'admin.account.verified': "Vérifié",
     'admin.account.disabled': "Désactivé",
     'admin.account.delete.prompt': "Voulez-vous vraiment supprimer cet utilisateur ? Les données associées seront également supprimées.",
-    'admin.account.import': "Importer"
+    'admin.account.import': "Importer",
+    'admin.account.import.title': "Importer des données pour {{name}}",
+    'admin.account.import.message': "Sélectionnez un fichier JSON préalablement exporté depuis iTeach.",
+    'admin.account.import.warning': "Attention ! L'import des données va écraser toutes les données précédentes de {{name}}."
 };
