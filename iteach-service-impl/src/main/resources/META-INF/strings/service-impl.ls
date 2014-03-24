@@ -13,3 +13,15 @@ net.nemerosa.iteach.service.impl.LessonTimeOrderException
 net.nemerosa.iteach.service.impl.LessonCannotUpdateStudentException
     en -> Cannot update the student for a lesson.
     fr -> Impossible de mettre à jour l'étudiant pour une leçon.
+
+net.nemerosa.iteach.service.impl.ImportNotObjectException
+    en -> The data must be a JSON object.
+    fr -> Les données à importer doivent être un objet JSON.
+
+net.nemerosa.iteach.service.impl.ImportVersionNotRecognizedException
+    en -> Data version {0} cannot be imported.
+    fr -> La version {0} ne peut pas être importée.
+
+net.nemerosa.iteach.service.io.ImportMissingFieldException
+    en -> Field {0} is missing.
+    fr -> Le champ {0} n'a pas pu être trouvé.
