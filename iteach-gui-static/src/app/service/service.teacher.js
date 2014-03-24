@@ -146,12 +146,28 @@ angular.module('iteach.service.teacher', [
             }).result
         };
 
-        self.updateLessonWithDelta = function (lesson, dayDelta, minuteDelta) {
+        function adjustTime(date, dayDelta, minuteDelta) {
+            var time = new Date(date).getTime();
+            time += 24 * 60 * 60000 * dayDelta;
+            time += 60000 * minuteDelta;
+            return new Date(time);
+        }
+
+        self.updateLessonWithDelta = function (lesson, resize, dayDelta, minuteDelta) {
+            var from;
+            var to;
+            if (resize) {
+                from = lesson.from;
+                to = adjustTime(lesson.to, dayDelta, minuteDelta)
+            } else {
+                from = adjustTime(lesson.from, dayDelta, minuteDelta);
+                to = adjustTime(lesson.to, dayDelta, minuteDelta);
+            }
             return uiTeacher.updateLesson(lesson.id, {
                 studentId: lesson.student.id,
                 location: lesson.location,
-                from: lesson.from,
-                to: new Date(new Date(lesson.to).getTime() + 60000 * minuteDelta)
+                from: from,
+                to: to
             })
         };
 
