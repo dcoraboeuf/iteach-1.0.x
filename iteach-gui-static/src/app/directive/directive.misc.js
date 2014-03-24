@@ -6,4 +6,13 @@ angular.module('iteach.directive.misc', [])
             transclude: true
         }
     })
+    .directive('itYesNo', function ($translate) {
+        return {
+            restrict: 'E',
+            scope: {
+                value: '@'
+            },
+            templateUrl: 'app/directive/directive.yesno.tpl.html'
+        }
+    })
 ;

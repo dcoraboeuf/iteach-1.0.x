@@ -2,6 +2,8 @@ var map_fr = {
     // General
     'language.en': 'English',
     'language.fr': 'Français',
+    'yes': "Oui",
+    'no': "Non",
     'calendar.dateFormat': 'EEE d MMMM yyyy',
     'dialog.ok': 'OK',
     'dialog.cancel': 'Annuler',
@@ -84,5 +86,13 @@ var map_fr = {
     'lesson.delete.prompt': "Voulez-vous vraiment supprimer cette leçon ? Les commentaires associés seront également supprimés.",
     // Admin
     'admin.page': "Administration",
-    'admin.accounts': "Gestion des comptes utilisateurs"
+    'admin.accounts': "Gestion des comptes utilisateurs",
+    'admin.account.name': "Nom",
+    'admin.account.email': "Email",
+    'admin.account.administrator': "Administrateur",
+    'admin.account.authenticationMode': "Mode d'authetification",
+    'admin.account.authenticationMode.PASSWORD': "Mot de passe",
+    'admin.account.authenticationMode.OPEN_ID': "Open ID",
+    'admin.account.verified': "Vérifié",
+    'admin.account.disabled': "Désactivé"
 };

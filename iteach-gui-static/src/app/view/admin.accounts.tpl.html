@@ -2,7 +2,27 @@
     <div class="row">
         <h3>{{'admin.accounts' | translate}}</h3>
         <div class="col-md-12">
-            <table>
+            <table class="table table-condensed table-hover">
+                <thead>
+                <tr>
+                    <th>{{'admin.account.name' | translate}}</th>
+                    <th>{{'admin.account.email' | translate}}</th>
+                    <th>{{'admin.account.administrator' | translate}}</th>
+                    <th>{{'admin.account.authenticationMode' | translate}}</th>
+                    <th>{{'admin.account.verified' | translate}}</th>
+                    <th>{{'admin.account.disabled' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="account in accounts.resources">
+                    <td>{{account.name}}</td>
+                    <td><a href="mailto:{{account.email}}">{{account.email}}</a></td>
+                    <td><it-yes-no value="{{account.administrator}}"></it-yes-no></td>
+                    <td>{{'admin.account.authenticationMode.' + account.authenticationMode | translate}}</td>
+                    <td><it-yes-no value="{{account.verified}}"></it-yes-no></td>
+                    <td><it-yes-no value="{{account.disabled}}"></it-yes-no></td>
+                </tr>
+                </tbody>
                 <tfoot>
                 <tr>
                     <td>

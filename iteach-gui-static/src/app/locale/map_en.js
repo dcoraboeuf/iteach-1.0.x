@@ -2,6 +2,8 @@ var map_en = {
     // General
     'language.en': 'English',
     'language.fr': 'Français',
+    'yes': "Yes",
+    'no': "No",
     'calendar.dateFormat': 'EEE MMMM dd yyyy',
     'dialog.ok': 'OK',
     'dialog.cancel': 'Cancel',
@@ -83,5 +85,13 @@ var map_en = {
     'lesson.delete.prompt': "Do you want really to delete this lesson? The associated comments will be lost.",
     // Admin
     'admin.page': "Administration page",
-    'admin.accounts': "Management of accounts"
+    'admin.accounts': "Management of accounts",
+    'admin.account.name': "Name",
+    'admin.account.email': "Email",
+    'admin.account.administrator': "Administrator",
+    'admin.account.authenticationMode': "Authentication mode",
+    'admin.account.authenticationMode.PASSWORD': "Password",
+    'admin.account.authenticationMode.OPEN_ID': "Open ID",
+    'admin.account.verified': "Verified",
+    'admin.account.disabled': "Disabled"
 };
