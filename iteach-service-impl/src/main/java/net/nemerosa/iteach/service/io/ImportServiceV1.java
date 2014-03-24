@@ -3,6 +3,7 @@ package net.nemerosa.iteach.service.io;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import net.nemerosa.iteach.service.TeacherService;
+import net.nemerosa.iteach.service.model.LessonForm;
 import net.nemerosa.iteach.service.model.SchoolForm;
 import net.nemerosa.iteach.service.model.StudentForm;
 import org.joda.money.CurrencyUnit;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Component
 @Qualifier("v1")
@@ -27,12 +29,12 @@ public class ImportServiceV1 implements ImportService {
     @Override
     public void importData(int accountId, ObjectNode root) {
         for (JsonNode school : root.path("schools")) {
-            importSchool(accountId, school);
+            importSchool(school);
 
         }
     }
 
-    private void importSchool(int accountId, JsonNode school) {
+    private void importSchool(JsonNode school) {
         // Creates the school
         int schoolId = teacherService.createSchool(
                 new SchoolForm(
@@ -50,11 +52,11 @@ public class ImportServiceV1 implements ImportService {
         // TODO School comments
         // School students
         for (JsonNode student : school.path("students")) {
-            importStudent(accountId, schoolId, student);
+            importStudent(schoolId, student);
         }
     }
 
-    private void importStudent(int accountId, int schoolId, JsonNode node) {
+    private void importStudent(int schoolId, JsonNode node) {
         // Creates the student
         int studentId = teacherService.createStudent(
                 new StudentForm(
@@ -67,8 +69,34 @@ public class ImportServiceV1 implements ImportService {
                         getEmail(node)
                 )
         );
-        // TODO Lessons
+        // Lessons
+        for (JsonNode lesson : node.path("lessons")) {
+            importLesson(studentId, lesson);
+        }
         // TODO Student comments
+    }
+
+    private void importLesson(int studentId, JsonNode node) {
+        // Creates the lesson
+        int lessonId = teacherService.createLesson(
+                new LessonForm(
+                        studentId,
+                        getString(node, "location", false, ""),
+                        getTime(node, "date", "from"),
+                        getTime(node, "date", "to")
+                )
+        );
+        // TODO Lesson comments
+    }
+
+    private LocalDateTime getTime(JsonNode node, String fieldDate, String fieldTime) {
+        String dateValue = getString(node, fieldDate, true, null);
+        String timeValue = getString(node, fieldTime, true, null);
+        return getTime(dateValue, timeValue);
+    }
+
+    private LocalDateTime getTime(String date, String time) {
+        return LocalDateTime.parse(date + "T" + time);
     }
 
     private String getWebSite(JsonNode node) {
