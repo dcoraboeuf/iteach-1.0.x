@@ -11,26 +11,21 @@
                     <th>{{'admin.account.authenticationMode' | translate}}</th>
                     <th>{{'admin.account.verified' | translate}}</th>
                     <th>{{'admin.account.disabled' | translate}}</th>
-                    <th>&nbsp;</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="account in accounts.resources">
-                    <td>{{account.name}}</td>
+                    <td><a href="#/admin/account/{{account.id}}">{{account.name}}</a></td>
                     <td><a href="mailto:{{account.email}}">{{account.email}}</a></td>
                     <td><it-yes-no value="{{account.administrator}}"></it-yes-no></td>
                     <td>{{'admin.account.authenticationMode.' + account.authenticationMode | translate}}</td>
                     <td><it-yes-no value="{{account.verified}}"></it-yes-no></td>
                     <td><it-yes-no value="{{account.disabled}}"></it-yes-no></td>
-                    <td>
-                        <button type="button" class="btn btn-danger" ng-if="!account.administrator" ng-click="deleteAccount(account.id)">{{'dialog.delete' | translate}}</button>
-                        <button type="button" class="btn btn-warning" ng-if="!account.administrator" ng-click="importAccount(account.id)">{{'admin.account.import' | translate}}</button>
-                    </td>
                 </tr>
                 </tbody>
                 <tfoot>
                 <tr>
-                    <td>
+                    <td colspan="6">
                         <a href="#/" class="btn btn-default">{{'home.back' | translate}}</a>
                     </td>
                 </tr>
