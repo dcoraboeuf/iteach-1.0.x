@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.SchoolForm;
+import net.nemerosa.iteach.service.model.StudentForm;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +42,28 @@ public class ImportServiceV1 implements ImportService {
                     )
             );
             // TODO School comments
-            // TODO School students
+            // School students
+            for (JsonNode student : school.path("students")) {
+                importStudent(accountId, schoolId, student);
+            }
         }
+    }
+
+    private void importStudent(int accountId, int schoolId, JsonNode node) {
+        // Creates the student
+        int studentId = teacherService.createStudent(
+                new StudentForm(
+                        schoolId,
+                        getName(node),
+                        getString(node, "subject", false, ""),
+                        getPostalAddress(node),
+                        getPhone(node),
+                        getMobilePhone(node),
+                        getEmail(node)
+                )
+        );
+        // TODO Lessons
+        // TODO Student comments
     }
 
     private String getWebSite(JsonNode node) {
