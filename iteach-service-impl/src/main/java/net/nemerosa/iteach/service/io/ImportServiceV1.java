@@ -27,25 +27,30 @@ public class ImportServiceV1 implements ImportService {
     @Override
     public void importData(int accountId, ObjectNode root) {
         for (JsonNode school : root.path("schools")) {
-            // Creates the school
-            int schoolId = teacherService.createSchool(
-                    new SchoolForm(
-                            getName(school),
-                            getColour(school),
-                            "",
-                            getHourlyRate(school),
-                            getPostalAddress(school),
-                            getPhone(school),
-                            getMobilePhone(school),
-                            getEmail(school),
-                            getWebSite(school)
-                    )
-            );
-            // TODO School comments
-            // School students
-            for (JsonNode student : school.path("students")) {
-                importStudent(accountId, schoolId, student);
-            }
+            importSchool(accountId, school);
+
+        }
+    }
+
+    private void importSchool(int accountId, JsonNode school) {
+        // Creates the school
+        int schoolId = teacherService.createSchool(
+                new SchoolForm(
+                        getName(school),
+                        getColour(school),
+                        "",
+                        getHourlyRate(school),
+                        getPostalAddress(school),
+                        getPhone(school),
+                        getMobilePhone(school),
+                        getEmail(school),
+                        getWebSite(school)
+                )
+        );
+        // TODO School comments
+        // School students
+        for (JsonNode student : school.path("students")) {
+            importStudent(accountId, schoolId, student);
         }
     }
 
