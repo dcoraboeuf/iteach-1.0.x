@@ -2,7 +2,7 @@ angular.module('iteach.service.account', [
         'iteach.service.core',
         'iteach.ui.account'
     ])
-    .service('accountService', function ($q, $rootScope, $log, $location, $translate, notificationService, uiAccount) {
+    .service('accountService', function ($q, $rootScope, $log, $location, $translate, notificationService, alertService, uiAccount) {
 
         var self = {
 
@@ -89,6 +89,19 @@ angular.module('iteach.service.account', [
         };
 
         self.getAccounts = uiAccount.getAccounts;
+
+        self.getAccount = uiAccount.getAccount;
+
+        self.deleteAccount = function (accountId) {
+            return self.getAccount(accountId).success(function (account) {
+                alertService.confirm({
+                    title: account.name,
+                    message: $translate.instant('admin.account.delete.prompt')
+                }).then(function () {
+                        return uiAccount.deleteAccount(accountId)
+                    })
+            })
+        };
 
         return self;
 

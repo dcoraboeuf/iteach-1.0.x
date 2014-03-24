@@ -12,5 +12,10 @@ angular.module('iteach.view.admin.accounts', [
 
         loadAccounts();
 
+        // Deleting an account
+        $scope.deleteAccount = function (accountId) {
+            accountService.deleteAccount(accountId).success(loadAccounts);
+        };
+
     })
 ;

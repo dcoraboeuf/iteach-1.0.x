@@ -58,6 +58,10 @@ angular.module('iteach.ui.account', [
             return $http.get(config.api('account'));
         };
 
+        self.getAccount = function (accountId) {
+            return $http.get(config.api('account/' + accountId))
+        };
+
         return self;
 
     })
