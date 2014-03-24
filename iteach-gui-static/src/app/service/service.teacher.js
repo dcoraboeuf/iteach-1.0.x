@@ -5,7 +5,7 @@ angular.module('iteach.service.teacher', [
         'iteach.dialog.student',
         'iteach.dialog.lesson'
     ])
-    .service('teacherService', function ($modal, $translate, $location, alertService, uiTeacher) {
+    .service('teacherService', function ($log, $modal, $translate, $location, alertService, uiTeacher) {
         var self = {};
 
         self.getSchools = function () {
@@ -144,6 +144,15 @@ angular.module('iteach.service.teacher', [
                     }
                 }
             }).result
+        };
+
+        self.updateLessonWithDelta = function (lesson, dayDelta, minuteDelta) {
+            return uiTeacher.updateLesson(lesson.id, {
+                studentId: lesson.student.id,
+                location: lesson.location,
+                from: lesson.from,
+                to: new Date(new Date(lesson.to).getTime() + 60000 * minuteDelta)
+            })
         };
 
         return self;

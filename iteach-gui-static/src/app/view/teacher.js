@@ -97,6 +97,10 @@ angular.module('iteach.view.teacher', [
             )
         };
 
+        $scope.onEventChange = function (lesson, dayDelta, minuteDelta, revertFunc) {
+            teacherService.updateLessonWithDelta(lesson, dayDelta, minuteDelta).error(revertFunc);
+        };
+
         // TODO Current date from the session
         $scope.currentDate = new Date();
 
@@ -143,8 +147,8 @@ angular.module('iteach.view.teacher', [
                 // Loading of events
                 events: $scope.fetchEvents,
                 // Resizing of an event
-                editable: true
-                // TODO eventResize: onEventChange,
+                editable: true,
+                eventResize: $scope.onEventChange,
                 // eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc) {
                 // TODO    onEventMoved(event, dayDelta, minuteDelta, revertFunc);
                 //}
