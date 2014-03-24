@@ -1,9 +1,6 @@
 package net.nemerosa.iteach.ui.client.support;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import net.nemerosa.iteach.ui.client.UIClient;
@@ -28,7 +25,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 import java.util.Locale;
 
 import static java.lang.String.format;
@@ -104,25 +100,6 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
 
     protected <T> T delete(Locale locale, Class<T> returnType, String path, Object... parameters) {
         return request(locale, new HttpDelete(getUrl(path, parameters)), returnType);
-    }
-
-    protected <T> List<T> list(Locale locale, final Class<T> elementType, String path, Object... parameters) {
-        return request(locale, new HttpGet(getUrl(path, parameters)), content -> {
-            JsonNode node = mapper.readTree(content);
-            if (node.isArray()) {
-                return Lists.newArrayList(
-                        Iterables.transform(node, input -> {
-                            try {
-                                return mapper.treeToValue(input, elementType);
-                            } catch (IOException e) {
-                                throw new ClientGeneralException(path, e);
-                            }
-                        })
-                );
-            } else {
-                throw new IOException("Did not receive a JSON array");
-            }
-        });
     }
 
     protected <T> T post(Locale locale, Class<T> returnType, Object body, String path, Object... parameters) {

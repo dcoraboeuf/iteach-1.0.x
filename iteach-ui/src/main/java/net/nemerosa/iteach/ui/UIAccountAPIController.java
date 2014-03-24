@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -71,14 +70,18 @@ public class UIAccountAPIController implements UIAccountAPI {
 
     @Override
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<UIAccount> getAccounts(Locale locale) {
-        return accountService.getAccounts().map(
-                o -> new UIAccount(
-                        o.getId(),
-                        o.getEmail(),
-                        o.isAdministrator()
-                )
-        ).collect(Collectors.toList());
+    public UIAccountCollection getAccounts(Locale locale) {
+        return new UIAccountCollection(
+                accountService
+                        .getAccounts()
+                        .map(
+                                o -> new UIAccount(
+                                        o.getId(),
+                                        o.getEmail(),
+                                        o.isAdministrator()
+                                )
+                        ).collect(Collectors.toList())
+        );
     }
 
     @Override
