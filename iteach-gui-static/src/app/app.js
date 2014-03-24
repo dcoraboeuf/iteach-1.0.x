@@ -23,6 +23,7 @@ var iteach = angular.module('iteach', [
             'iteach.view.school',
             'iteach.view.lesson',
             'iteach.view.admin.accounts',
+            'iteach.view.admin.account',
             // Services
             'iteach.service.core',
             'iteach.service.account',
@@ -102,6 +103,11 @@ var iteach = angular.module('iteach', [
                 .when('/admin/accounts', {
                     templateUrl: 'app/view/admin.accounts.tpl.html',
                     controller: 'AdminAccountsCtrl'
+                })
+                // Admin account
+                .when('/admin/account/:accountId', {
+                    templateUrl: 'app/view/admin.account.tpl.html',
+                    controller: 'AdminAccountCtrl'
                 })
                 // Default
                 .otherwise({

@@ -10,7 +10,7 @@ angular.module('iteach.directive.misc', [])
         return {
             restrict: 'E',
             scope: {
-                value: '@'
+                value: '='
             },
             templateUrl: 'app/directive/directive.yesno.tpl.html'
         }

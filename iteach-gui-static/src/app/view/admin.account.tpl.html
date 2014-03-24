@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row">
+        <h3>{{account.name}}</h3>
+        <table class="it-form">
+            <tbody>
+            <tr>
+                <td class="it-form-label">{{'admin.account.email' | translate}}</td>
+                <td class="it-form-value">
+                    <a href="mailto:{{account.email}}">{{account.email}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="it-form-label">{{'admin.account.administrator' | translate}}</td>
+                <td class="it-form-value">
+                    <it-yes-no value="account.administrator"></it-yes-no>
+                </td>
+            </tr>
+            <tr>
+                <td class="it-form-label">{{'admin.account.authenticationMode' | translate}}</td>
+                <td class="it-form-value">
+                    {{'admin.account.authenticationMode.' + account.authenticationMode | translate}}
+                </td>
+            </tr>
+            <tr>
+                <td class="it-form-label">{{'admin.account.verified' | translate}}</td>
+                <td class="it-form-value">
+                    <it-yes-no value="account.verified"></it-yes-no>
+                </td>
+            </tr>
+            <tr>
+                <td class="it-form-label">{{'admin.account.disabled' | translate}}</td>
+                <td class="it-form-value">
+                    <it-yes-no value="account.disabled"></it-yes-no>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="2">
+                    <a href="#/admin/accounts" class="btn btn-default">{{'home.back' | translate}}</a>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

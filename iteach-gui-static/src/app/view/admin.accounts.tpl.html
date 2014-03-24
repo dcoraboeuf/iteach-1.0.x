@@ -17,10 +17,10 @@
                 <tr ng-repeat="account in accounts.resources">
                     <td><a href="#/admin/account/{{account.id}}">{{account.name}}</a></td>
                     <td><a href="mailto:{{account.email}}">{{account.email}}</a></td>
-                    <td><it-yes-no value="{{account.administrator}}"></it-yes-no></td>
+                    <td><it-yes-no value="account.administrator"></it-yes-no></td>
                     <td>{{'admin.account.authenticationMode.' + account.authenticationMode | translate}}</td>
-                    <td><it-yes-no value="{{account.verified}}"></it-yes-no></td>
-                    <td><it-yes-no value="{{account.disabled}}"></it-yes-no></td>
+                    <td><it-yes-no value="account.verified"></it-yes-no></td>
+                    <td><it-yes-no value="account.disabled"></it-yes-no></td>
                 </tr>
                 </tbody>
                 <tfoot>
