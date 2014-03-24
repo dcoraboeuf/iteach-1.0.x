@@ -54,6 +54,10 @@ angular.module('iteach.ui.account', [
             return deferred.promise;
         };
 
+        self.getAccounts = function () {
+            return $http.get(config.api('account'));
+        };
+
         return self;
 
     })

@@ -88,6 +88,8 @@ angular.module('iteach.service.account', [
             })
         };
 
+        self.getAccounts = uiAccount.getAccounts;
+
         return self;
 
     })
