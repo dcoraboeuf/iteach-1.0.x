@@ -77,8 +77,12 @@ public class UIAccountAPIController implements UIAccountAPI {
                         .map(
                                 o -> new UIAccount(
                                         o.getId(),
+                                        o.getName(),
                                         o.getEmail(),
-                                        o.isAdministrator()
+                                        o.getAuthenticationMode(),
+                                        o.isAdministrator(),
+                                        o.isVerified(),
+                                        o.isDisabled()
                                 )
                         ).collect(Collectors.toList())
         );

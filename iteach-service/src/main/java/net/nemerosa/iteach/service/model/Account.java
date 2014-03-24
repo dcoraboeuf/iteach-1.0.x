@@ -11,5 +11,7 @@ public class Account {
     private final String email;
     private final boolean administrator;
     private final AuthenticationMode authenticationMode;
+    private final boolean verified;
+    private final boolean disabled;
 
 }
