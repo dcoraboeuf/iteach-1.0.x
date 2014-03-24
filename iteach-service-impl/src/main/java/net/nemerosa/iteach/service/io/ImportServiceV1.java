@@ -89,13 +89,13 @@ public class ImportServiceV1 implements ImportService {
         // TODO Lesson comments
     }
 
-    private LocalDateTime getTime(JsonNode node, String fieldDate, String fieldTime) {
+    protected LocalDateTime getTime(JsonNode node, String fieldDate, String fieldTime) {
         String dateValue = getString(node, fieldDate, true, null);
         String timeValue = getString(node, fieldTime, true, null);
         return getTime(dateValue, timeValue);
     }
 
-    private LocalDateTime getTime(String date, String time) {
+    protected LocalDateTime getTime(String date, String time) {
         return LocalDateTime.parse(date + "T" + time);
     }
 
