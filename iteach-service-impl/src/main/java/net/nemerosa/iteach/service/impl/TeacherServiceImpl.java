@@ -203,6 +203,24 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public void updateStudent(int studentId, StudentForm form) {
+        // Checks the teacher access
+        Student student = getStudent(studentId);
+        // Updates
+        studentRepository.update(
+                student.getTeacherId(),
+                studentId,
+                form.getSchoolId(),
+                form.getName(),
+                form.getSubject(),
+                form.getPostalAddress(),
+                form.getPhone(),
+                form.getMobilePhone(),
+                form.getEmail()
+        );
+    }
+
+    @Override
     public int createLesson(LessonForm form) {
         checkLessonForm(form);
         // Checks the teacher access to the student

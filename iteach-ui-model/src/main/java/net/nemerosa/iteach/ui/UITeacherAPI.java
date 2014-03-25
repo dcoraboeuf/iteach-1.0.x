@@ -53,6 +53,11 @@ public interface UITeacherAPI {
     UIStudent getStudent(Locale locale, int studentId);
 
     /**
+     * Updates a student
+     */
+    UIStudent updateStudent(Locale locale, int studentId, UIStudentForm form);
+
+    /**
      * Disables a student
      */
     Ack disableStudent(Locale locale, int studentId);

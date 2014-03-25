@@ -125,17 +125,21 @@ public class UITeacherAPIController implements UITeacherAPI {
     @RequestMapping(value = "/student", method = RequestMethod.POST)
     public UIStudent createStudent(Locale locale, @RequestBody @Valid UIStudentForm form) {
         int studentId = teacherService.createStudent(
-                new StudentForm(
-                        form.getSchoolId(),
-                        form.getName(),
-                        form.getSubject(),
-                        form.getPostalAddress(),
-                        form.getPhone(),
-                        form.getMobilePhone(),
-                        form.getEmail()
-                )
+                toStudentForm(form)
         );
         return getStudent(locale, studentId);
+    }
+
+    private StudentForm toStudentForm(UIStudentForm form) {
+        return new StudentForm(
+                form.getSchoolId(),
+                form.getName(),
+                form.getSubject(),
+                form.getPostalAddress(),
+                form.getPhone(),
+                form.getMobilePhone(),
+                form.getEmail()
+        );
     }
 
     @Override
@@ -153,6 +157,13 @@ public class UITeacherAPIController implements UITeacherAPI {
                 o.getMobilePhone(),
                 o.getEmail()
         );
+    }
+
+    @Override
+    @RequestMapping(value = "/student/{studentId}", method = RequestMethod.PUT)
+    public UIStudent updateStudent(Locale locale, @PathVariable int studentId, @RequestBody @Valid UIStudentForm form) {
+        teacherService.updateStudent(studentId, toStudentForm(form));
+        return getStudent(locale, studentId);
     }
 
     @Override
