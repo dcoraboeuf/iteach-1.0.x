@@ -107,12 +107,17 @@ public class UITeacherAPIController implements UITeacherAPI {
         return teacherService.deleteSchool(schoolId);
     }
 
+
     @Override
     @RequestMapping(value = "/student", method = RequestMethod.GET)
-    public UIStudentCollection getStudents(Locale locale) {
+    public UIStudentCollection getStudents(Locale locale, @RequestParam(required = false, defaultValue = "false") boolean filtered) {
         List<Student> schools = teacherService.getStudents();
         return new UIStudentCollection(
-                schools.stream().map(studentSummaryFn).collect(Collectors.toList())
+                schools
+                        .stream()
+                        .filter(o -> !filtered || !o.isDisabled())
+                        .map(studentSummaryFn)
+                        .collect(Collectors.toList())
         );
     }
 

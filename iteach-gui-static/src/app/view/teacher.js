@@ -26,7 +26,7 @@ angular.module('iteach.view.teacher', [
          */
 
         function loadStudents() {
-            teacherService.getStudents().then(function (students) {
+            teacherService.getStudents(true).success(function (students) {
                 $scope.students = students
             })
         }

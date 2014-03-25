@@ -3,7 +3,6 @@ package net.nemerosa.iteach.ui;
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.ui.model.*;
 
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -38,8 +37,10 @@ public interface UITeacherAPI {
 
     /**
      * Gets the list of students for a teacher
+     *
+     * @param filtered <code>true</code> if only the non-disabled students must be retained
      */
-    UIStudentCollection getStudents(Locale locale);
+    UIStudentCollection getStudents(Locale locale, boolean filtered);
 
     /**
      * Creates a student

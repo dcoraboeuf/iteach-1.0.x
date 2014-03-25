@@ -43,13 +43,12 @@ angular.module('iteach.ui.teacher', [
          * Students
          */
 
-        self.getStudents = function () {
-            var d = $q.defer();
-            $http.get(config.api('teacher/student'))
-                .success(function (students) {
-                    d.resolve(students);
-                });
-            return d.promise;
+        self.getStudents = function (filtered) {
+            return $http.get(config.api('teacher/student'), {
+                params: {
+                    filtered: filtered
+                }
+            });
         };
 
         self.createStudent = function (student) {

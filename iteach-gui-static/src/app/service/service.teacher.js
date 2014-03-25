@@ -55,9 +55,7 @@ angular.module('iteach.service.teacher', [
 
         self.getSchool = uiTeacher.getSchool;
 
-        self.getStudents = function () {
-            return uiTeacher.getStudents()
-        };
+        self.getStudents = uiTeacher.getStudents;
 
         self.createStudent = function () {
             return $modal.open({
