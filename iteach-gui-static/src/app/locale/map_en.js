@@ -73,6 +73,8 @@ var map_en = {
     'student.email': 'Email',
     'student.email.error': "Email is not valid.",
     'student.disable': "Disable",
+    'student.disable.message': "This student is currently disabled. You can re-enable it by clicking on the " +
+        "'Enable' button below.",
     'student.enable': "Enable",
     'student.disable.prompt': "Disabling this student will hide him from the list of students and from the monthly " +
         "report, but he will remain visible in the list of students for the school and in the list of lessons. The " +
