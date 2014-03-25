@@ -19,7 +19,10 @@ angular.module('iteach.view.school', [
             teacherService.updateSchool($scope.school).then(loadSchool)
         };
 
-        // TODO Deleting the school
+        // Deleting the school
+        $scope.delete = function () {
+            teacherService.deleteSchool(schoolId)
+        };
 
     })
 ;

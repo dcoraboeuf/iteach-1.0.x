@@ -60,6 +60,7 @@ var map_en = {
     'school.webSite.error': "The web site URL is not valid.",
     'school.email': 'Email',
     'school.email.error': "Email is not valid.",
+    'school.delete.prompt': "Do you want really to delete this school? The associated students and lessons will be lost.",
     // Student
     'student': "Student",
     'student.school': "School",

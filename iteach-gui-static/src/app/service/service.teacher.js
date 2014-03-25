@@ -53,6 +53,19 @@ angular.module('iteach.service.teacher', [
             }).result
         };
 
+        self.deleteSchool = function (schoolId) {
+            return self.getSchool(schoolId).success(function (school) {
+                alertService.confirm({
+                    title: school.name,
+                    message: $translate.instant('school.delete.prompt')
+                }).then(function () {
+                        return uiTeacher.deleteSchool(schoolId).success(function () {
+                            $location.path('/');
+                        });
+                    });
+            });
+        };
+
         self.getSchool = uiTeacher.getSchool;
 
         self.getStudents = uiTeacher.getStudents;

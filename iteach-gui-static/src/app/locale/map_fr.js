@@ -61,6 +61,7 @@ var map_fr = {
     'school.webSite.error': "L'adresse du site Web n'est pas valide.",
     'school.email': 'Email',
     'school.email.error': "L'adresse email n'est pas valide.",
+    'school.delete.prompt': "Voulez-vous vraiment supprimer cette école ? Les étudiants et leçons associés seront également effacés.",
     // Student
     'student': "Etudiant",
     'student.school': "Ecole",

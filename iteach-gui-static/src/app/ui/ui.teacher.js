@@ -39,6 +39,10 @@ angular.module('iteach.ui.teacher', [
             return d.promise;
         };
 
+        self.deleteSchool = function (schoolId) {
+            return $http.delete(config.api('teacher/school/' + schoolId));
+        };
+
         /**
          * Students
          */
