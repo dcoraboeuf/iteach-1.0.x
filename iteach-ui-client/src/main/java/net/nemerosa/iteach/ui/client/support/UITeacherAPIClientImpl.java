@@ -54,6 +54,16 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     }
 
     @Override
+    public Ack disableStudent(Locale locale, int studentId) {
+        return put(locale, Ack.class, null, "/api/teacher/student/%d/disable", studentId);
+    }
+
+    @Override
+    public Ack enableStudent(Locale locale, int studentId) {
+        return put(locale, Ack.class, null, "/api/teacher/student/%d/enable", studentId);
+    }
+
+    @Override
     public Ack deleteStudent(Locale locale, int studentId) {
         return delete(locale, Ack.class, "/api/teacher/student/%d", studentId);
     }

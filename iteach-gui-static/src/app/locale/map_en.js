@@ -74,6 +74,9 @@ var map_en = {
     'student.email.error': "Email is not valid.",
     'student.disable': "Disable",
     'student.enable': "Enable",
+    'student.disable.prompt': "Disabling this student will hide him from the list of students and from the monthly " +
+        "report, but he will remain visible in the list of students for the school and in the list of lessons. The " +
+        "student can also be enabled again later.",
     'student.delete.prompt': "Do you want really to delete this student? The associated lessons will be lost.",
     // Lesson
     'lesson': "Lesson",

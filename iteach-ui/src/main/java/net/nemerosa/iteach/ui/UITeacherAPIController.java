@@ -162,6 +162,18 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     @Override
+    @RequestMapping(value = "/student/{studentId}/disable", method = RequestMethod.PUT)
+    public Ack disableStudent(Locale locale, @PathVariable int studentId) {
+        return teacherService.disableStudent(studentId);
+    }
+
+    @Override
+    @RequestMapping(value = "/student/{studentId}/enable", method = RequestMethod.PUT)
+    public Ack enableStudent(Locale locale, @PathVariable int studentId) {
+        return teacherService.enableStudent(studentId);
+    }
+
+    @Override
     @RequestMapping(value = "/lesson", method = RequestMethod.POST)
     public UILesson createLesson(Locale locale, @RequestBody @Valid UILessonForm form) {
         // Creation

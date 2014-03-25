@@ -171,11 +171,27 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void disableStudent(int studentId) {
+    public Ack disableStudent(int studentId) {
         // Checks the teacher access
         int teacherId = securityUtils.checkTeacher();
+        // Gets previous version
+        TStudent t = studentRepository.getById(teacherId, studentId);
         // Change
         studentRepository.disable(teacherId, studentId, true);
+        // OK
+        return Ack.validate(!t.isDisabled());
+    }
+
+    @Override
+    public Ack enableStudent(int studentId) {
+        // Checks the teacher access
+        int teacherId = securityUtils.checkTeacher();
+        // Gets previous version
+        TStudent t = studentRepository.getById(teacherId, studentId);
+        // Change
+        studentRepository.disable(teacherId, studentId, false);
+        // OK
+        return Ack.validate(t.isDisabled());
     }
 
     @Override

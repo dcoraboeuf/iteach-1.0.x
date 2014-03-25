@@ -28,7 +28,9 @@ public interface TeacherService {
 
     List<Student> getStudents();
 
-    void disableStudent(int studentId);
+    Ack disableStudent(int studentId);
+
+    Ack enableStudent(int studentId);
 
     Ack deleteStudent(int studentId);
 

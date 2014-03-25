@@ -72,6 +72,10 @@ angular.module('iteach.ui.teacher', [
             return $http.delete(config.api('teacher/student/' + studentId));
         };
 
+        self.disableStudent = function (studentId) {
+            return $http.put(config.api('teacher/student/{{id}}/disable', {id: studentId}));
+        };
+
         /**
          * Lessons
          */

@@ -5,7 +5,7 @@ angular.module('iteach.service.teacher', [
         'iteach.dialog.student',
         'iteach.dialog.lesson'
     ])
-    .service('teacherService', function ($log, $modal, $translate, $location, alertService, uiTeacher) {
+    .service('teacherService', function ($q, $log, $modal, $translate, $location, alertService, uiTeacher) {
         var self = {};
 
         self.getSchools = function () {
@@ -122,6 +122,25 @@ angular.module('iteach.service.teacher', [
                         });
                     });
             });
+        };
+
+        self.disableStudent = function (studentId) {
+            var d = $q.defer();
+            self.getStudent(studentId).success(function (student) {
+                if (student.disabled) {
+                    d.reject();
+                } else {
+                    alertService.confirm({
+                        title: student.name,
+                        message: $translate.instant('student.disable.prompt')
+                    }).then(function () {
+                            uiTeacher.disableStudent(studentId).success(function () {
+                                d.resolve()
+                            })
+                        })
+                }
+            });
+            return d.promise;
         };
 
         self.getLessons = uiTeacher.getLessons;

@@ -24,5 +24,15 @@ angular.module('iteach.view.student', [
             teacherService.deleteStudent(studentId);
         };
 
+        // Disabling the student
+        $scope.disable = function () {
+            teacherService.disableStudent(studentId).then(loadStudent);
+        };
+
+        // Enabling the student
+        $scope.enable = function () {
+            teacherService.enableStudent(studentId).then(loadStudent);
+        };
+
     })
 ;

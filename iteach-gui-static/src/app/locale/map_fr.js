@@ -75,6 +75,9 @@ var map_fr = {
     'student.email.error': "L'adresse email n'est pas valide.",
     'student.disable': "Désactiver",
     'student.enable': "Activer",
+    'student.disable.prompt': "Désactiver cet étudiant va l'enlever de la liste des étudiants et du rapport " +
+        "mensuel, mais il restera visible dans la liste des étudiants de l'école et dans la liste des lessons. " +
+        "L'étudiant pourra être réactivé plus tard.",
     'student.delete.prompt': "Voulez-vous vraiment supprimer cet étudiant ? Les leçons associées seront également effacées.",
     // Lesson
     'lesson': "Leçon",
