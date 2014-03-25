@@ -29,3 +29,7 @@ net.nemerosa.iteach.service.io.ImportMissingFieldException
 net.nemerosa.iteach.service.impl.AccountCannotDeleteHimselfException
     en -> An account cannot delete himself.
     fr -> Un utilisateur ne peut pas supprimer son propre compte.
+
+net.nemerosa.iteach.service.impl.ImportException
+    en -> Error during the the import: {0}
+    fr -> Erreur durant l'importation : {0}

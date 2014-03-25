@@ -2,6 +2,7 @@ package net.nemerosa.iteach.service.io;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.LessonForm;
 import net.nemerosa.iteach.service.model.SchoolForm;
@@ -27,11 +28,11 @@ public class ImportServiceV1 implements ImportService {
     }
 
     @Override
-    public void importData(int accountId, ObjectNode root) {
+    public Ack importData(int accountId, ObjectNode root) {
         for (JsonNode school : root.path("schools")) {
             importSchool(school);
-
         }
+        return Ack.OK;
     }
 
     private void importSchool(JsonNode school) {

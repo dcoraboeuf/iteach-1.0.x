@@ -1,4 +1,4 @@
-package net.nemerosa.iteach.service.impl;
+package net.nemerosa.iteach.service.security;
 
 import net.nemerosa.iteach.common.AccountAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,6 +7,7 @@ import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.*;
 import net.nemerosa.iteach.service.security.AccountAuthenticationDetails;
+import net.nemerosa.iteach.service.security.AccountAuthenticationToken;
 import net.nemerosa.iteach.service.support.InMemoryPost;
 import org.joda.money.Money;
 import org.springframework.beans.factory.annotation.Autowired;

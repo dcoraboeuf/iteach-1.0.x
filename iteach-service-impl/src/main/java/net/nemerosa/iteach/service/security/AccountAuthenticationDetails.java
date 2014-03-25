@@ -2,6 +2,7 @@ package net.nemerosa.iteach.service.security;
 
 import net.nemerosa.iteach.common.AccountAuthentication;
 import net.nemerosa.iteach.common.AuthenticationMode;
+import net.nemerosa.iteach.service.model.Account;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,6 +16,16 @@ public class AccountAuthenticationDetails implements UserDetails, AccountAuthent
     private final String email;
     private final boolean administrator;
     private final AuthenticationMode authenticationMode;
+
+    public AccountAuthenticationDetails(Account account) {
+        this(
+                account.getId(),
+                account.getName(),
+                account.getEmail(),
+                account.isAdministrator(),
+                account.getAuthenticationMode()
+        );
+    }
 
     public AccountAuthenticationDetails(int id, String name, String email, boolean administrator, AuthenticationMode authenticationMode) {
         this.id = id;
