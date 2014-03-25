@@ -21,5 +21,9 @@ angular.module('iteach.view.admin.account', [
             })
         };
 
+        $scope.importAccount = function () {
+            accountService.importAccount($scope.account).then(loadAccount);
+        };
+
     })
 ;

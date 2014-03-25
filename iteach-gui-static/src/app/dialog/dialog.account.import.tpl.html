@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h3>{{'admin.account.import.title' | translate:account}}</h3>
+</div>
+<form name="accountImportForm" class="form-horizontal" ng-submit="submit(inputFile)">
+    <div class="modal-body">
+        <p>{{'admin.account.import.message' | translate}}</p>
+
+        <input type="file" accept=".json" file-model="inputFile" />
+
+        <div>&nbsp;</div>
+        <div class="alert alert-danger" ng-show="inputFile">
+            {{'admin.account.import.warning' | translate:account}}
+        </div>
+
+    </div>
+    <div class="modal-footer">
+
+        <div class="alert alert-{{messageType}} alert-dismissable" ng-show="message">
+            <span>{{message}}</span>
+        </div>
+
+        <button class="btn btn-primary" type="submit" ng-disabled="!inputFile">{{'dialog.ok' | translate}}</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">{{'dialog.cancel' | translate}}</button>
+    </div>
+</form>

@@ -66,6 +66,18 @@ angular.module('iteach.ui.account', [
             return $http.delete(config.api('account/' + accountId))
         };
 
+        self.importAccount = function (accountId, file) {
+            var fd = new FormData();
+            fd.append('file', file);
+            return $http.post(
+                config.api('account/{{id}}/import', {id: accountId}),
+                fd, {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                }
+            );
+        };
+
         return self;
 
     })

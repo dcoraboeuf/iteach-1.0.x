@@ -37,7 +37,7 @@
             <tfoot>
             <tr>
                 <td colspan="2">
-                    <a href="#/admin/account/{{account.id}}/import" class="btn btn-warning" ng-if="deleteAllowed">{{'admin.account.import' | translate}}</a>
+                    <button class="btn btn-warning" ng-if="deleteAllowed" ng-click="importAccount()">{{'admin.account.import' | translate}}</button>
                     <button type="button" class="btn btn-danger" ng-if="deleteAllowed" ng-click="deleteAccount()">{{'dialog.delete' | translate}}</button>
                     <a href="#/admin/accounts" class="btn btn-link">{{'home.back' | translate}}</a>
                 </td>

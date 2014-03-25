@@ -98,6 +98,5 @@ var map_en = {
     'admin.account.import': "Import",
     'admin.account.import.title': "Import of data for {{name}}",
     'admin.account.import.message': "Select a JSON file previously exported from iTeach.",
-    'admin.account.import.warning': "Warning! Importing data will erase any previous data for {{name}}.",
-    'admin.account.import.error': "Problem while uploading the data."
+    'admin.account.import.warning': "Warning! Importing data will erase any previous data for {{name}}."
 };

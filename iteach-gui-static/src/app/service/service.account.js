@@ -1,8 +1,9 @@
 angular.module('iteach.service.account', [
         'iteach.service.core',
-        'iteach.ui.account'
+        'iteach.ui.account',
+        'iteach.dialog.account.import'
     ])
-    .service('accountService', function ($q, $rootScope, $log, $location, $translate, notificationService, alertService, uiAccount) {
+    .service('accountService', function ($q, $modal, $rootScope, $log, $location, $translate, notificationService, alertService, uiAccount) {
 
         var self = {
 
@@ -101,6 +102,25 @@ angular.module('iteach.service.account', [
                         return uiAccount.deleteAccount(accountId)
                     })
             })
+        };
+
+        self.importAccount = function (account) {
+            return $modal.open({
+                templateUrl: 'app/dialog/dialog.account.import.tpl.html',
+                controller: 'dialogAccountImport',
+                resolve: {
+                    account: function () {
+                        return account;
+                    },
+                    modalController: function () {
+                        return {
+                            onSubmit: function (file) {
+                                return uiAccount.importAccount(account.id, file);
+                            }
+                        }
+                    }
+                }
+            }).result;
         };
 
         return self;
