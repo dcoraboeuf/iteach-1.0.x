@@ -76,6 +76,10 @@ angular.module('iteach.ui.teacher', [
             return $http.put(config.api('teacher/student/{{id}}/disable', {id: studentId}));
         };
 
+        self.enableStudent = function (studentId) {
+            return $http.put(config.api('teacher/student/{{id}}/enable', {id: studentId}));
+        };
+
         /**
          * Lessons
          */

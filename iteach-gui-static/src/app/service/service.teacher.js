@@ -143,6 +143,8 @@ angular.module('iteach.service.teacher', [
             return d.promise;
         };
 
+        self.enableStudent = uiTeacher.enableStudent;
+
         self.getLessons = uiTeacher.getLessons;
 
         self.getLesson = uiTeacher.getLesson;
