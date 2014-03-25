@@ -13,6 +13,7 @@ angular.module('iteach.view.admin.account.import', [
 
         loadAccount();
 
+        $scope.error = false;
         $scope.import = function () {
             if (!$scope.inputFile) return;
             var file = $scope.inputFile;
@@ -30,7 +31,7 @@ angular.module('iteach.view.admin.account.import', [
 
                 })
                 .error(function () {
-
+                    $scope.error = true;
                 })
         };
 

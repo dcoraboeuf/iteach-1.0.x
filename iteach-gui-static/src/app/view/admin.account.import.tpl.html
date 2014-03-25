@@ -6,7 +6,7 @@
         <input type="file" accept=".json" file-model="inputFile" />
 
         <div>&nbsp;</div>
-        <div class="alert alert-danger" ng-show="inputFile">
+        <div class="alert alert-warning" ng-show="inputFile">
             {{'admin.account.import.warning' | translate:account}}
         </div>
         <div>&nbsp;</div>
@@ -14,6 +14,11 @@
         <div>
             <button type="button" class="btn btn-danger" ng-disabled="!inputFile" ng-click="import()">{{'admin.account.import' | translate}}</button>
             <a href="#/admin/account/{{account.id}}">{{'dialog.cancel' | translate}}</a>
+        </div>
+
+        <div>&nbsp;</div>
+        <div class="alert alert-danger" ng-show="error">
+            {{'admin.account.import.error' | translate}}
         </div>
     </div>
 </div>
