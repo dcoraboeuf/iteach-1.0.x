@@ -63,6 +63,8 @@
                 <tr>
                     <td colspan="2">
                         <button type="button" class="btn btn-warning" ng-click="update()">{{'dialog.update' | translate}}</button>
+                        <button type="button" class="btn btn-danger" ng-click="disable()" ng-show="!student.disabled">{{'student.disable' | translate}}</button>
+                        <button type="button" class="btn btn-warning" ng-click="enable()" ng-show="student.disabled">{{'student.enable' | translate}}</button>
                         <button type="button" class="btn btn-danger" ng-click="delete()">{{'dialog.delete' | translate}}</button>
                         <a href="#/" class="btn btn-link">{{'home.back' | translate}}</a>
                     </td>

@@ -73,6 +73,8 @@ var map_fr = {
     'student.postalAddress': 'Adresse postale',
     'student.email': 'Email',
     'student.email.error': "L'adresse email n'est pas valide.",
+    'student.disable': "Désactiver",
+    'student.enable': "Activer",
     // Lesson
     'lesson': "Leçon",
     'lesson.tip': "Créez une nouvelle leçon en fournissant une date, une période, un étudiant et éventuellement un emplacement.",

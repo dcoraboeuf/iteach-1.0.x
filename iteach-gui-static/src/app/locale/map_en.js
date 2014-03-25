@@ -72,6 +72,8 @@ var map_en = {
     'student.postalAddress': 'Postal address',
     'student.email': 'Email',
     'student.email.error': "Email is not valid.",
+    'student.disable': "Disable",
+    'student.enable': "Enable",
     // Lesson
     'lesson': "Lesson",
     'lesson.tip': "Create a new lesson by selection a date, a period of time, a student and an optional location.",
