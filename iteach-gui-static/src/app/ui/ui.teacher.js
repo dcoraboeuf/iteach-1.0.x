@@ -80,6 +80,10 @@ angular.module('iteach.ui.teacher', [
             return $http.put(config.api('teacher/student/{{id}}/enable', {id: studentId}));
         };
 
+        self.updateStudent = function (studentId, studentForm) {
+            return $http.put(config.api('teacher/student/{{id}}', {id: studentId}), studentForm)
+        };
+
         /**
          * Lessons
          */
