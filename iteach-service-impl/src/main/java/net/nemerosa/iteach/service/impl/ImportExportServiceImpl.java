@@ -2,29 +2,36 @@ package net.nemerosa.iteach.service.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.ImportExportService;
 import net.nemerosa.iteach.service.SecurityUtils;
+import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.io.ImportService;
 import net.nemerosa.iteach.service.model.Account;
+import net.nemerosa.iteach.service.model.School;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class ImportExportServiceImpl implements ImportExportService {
 
     private final ImportService importServiceV1;
     private final AccountService accountService;
+    private final TeacherService teacherService;
     private final SecurityUtils securityUtils;
 
     @Autowired
     public ImportExportServiceImpl(
             @Qualifier("v1")
             ImportService importServiceV1,
-            AccountService accountService, SecurityUtils securityUtils) {
+            AccountService accountService, TeacherService teacherService, SecurityUtils securityUtils) {
         this.importServiceV1 = importServiceV1;
         this.accountService = accountService;
+        this.teacherService = teacherService;
         this.securityUtils = securityUtils;
     }
 
@@ -51,12 +58,22 @@ public class ImportExportServiceImpl implements ImportExportService {
         // Importing
         Account account = accountService.getAccount(accountId);
         try {
-            securityUtils.asAccount(account, () -> importService.importData(accountId, root));
+            securityUtils.asAccount(account, () -> doImport(importService, accountId, root));
         } catch (RuntimeException ex) {
             throw ex;
         } catch (Exception ex) {
             throw new ImportException(ex);
         }
+    }
+
+    private Ack doImport(ImportService importService, int accountId, ObjectNode root) {
+        // Deletes all previous schools
+        List<School> schools = teacherService.getSchools();
+        for (School school : schools) {
+            teacherService.deleteSchool(school.getId());
+        }
+        // OK
+        return importService.importData(accountId, root);
     }
 
 }

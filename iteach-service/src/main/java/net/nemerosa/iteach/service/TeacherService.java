@@ -18,6 +18,8 @@ public interface TeacherService {
 
     void updateSchool(int schoolId, SchoolForm form);
 
+    Ack deleteSchool(int schoolId);
+
     // Students
 
     int createStudent(StudentForm form);

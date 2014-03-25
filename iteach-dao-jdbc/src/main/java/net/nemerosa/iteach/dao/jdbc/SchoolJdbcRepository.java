@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.dao.jdbc;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.dao.SchoolNameAlreadyDefinedException;
 import net.nemerosa.iteach.dao.SchoolRepository;
 import net.nemerosa.iteach.dao.model.TSchool;
@@ -93,5 +94,15 @@ public class SchoolJdbcRepository extends AbstractJdbcRepository implements Scho
         } catch (DuplicateKeyException ex) {
             throw new SchoolNameAlreadyDefinedException(teacherId, name);
         }
+    }
+
+    @Override
+    public Ack delete(int teacherId, int schoolId) {
+        return Ack.one(
+                getNamedParameterJdbcTemplate().update(
+                        SQL.SCHOOL_DELETE,
+                        params("teacherId", teacherId).addValue("id", schoolId)
+                )
+        );
     }
 }

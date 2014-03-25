@@ -117,6 +117,14 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public Ack deleteSchool(int schoolId) {
+        // Checks the teacher access
+        int teacherId = securityUtils.checkTeacher();
+        // Deletion
+        return schoolRepository.delete(teacherId, schoolId);
+    }
+
+    @Override
     public School getSchool(int schoolId) {
         // Checks the teacher access
         int teacherId = securityUtils.checkTeacher();

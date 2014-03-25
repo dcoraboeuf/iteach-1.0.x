@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.dao;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.dao.model.TSchool;
 import org.joda.money.Money;
 
@@ -14,4 +15,6 @@ public interface SchoolRepository {
     List<TSchool> findAll(int teacherId);
 
     void update(int teacherId, int schoolId, String name, String colour, String contact, String email, Money hourlyRate, String postalAddress, String phone, String mobilePhone, String webSite);
+
+    Ack delete(int teacherId, int schoolId);
 }

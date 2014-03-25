@@ -21,6 +21,7 @@ public interface SQL {
     String SCHOOL_ALL = "SELECT * FROM SCHOOL WHERE TEACHERID = :teacherId ORDER BY NAME";
     String SCHOOL_BY_ID = "SELECT * FROM SCHOOL WHERE TEACHERID = :teacherId AND ID = :schoolId";
     String SCHOOL_CREATE = "INSERT INTO SCHOOL (TEACHERID, NAME, CONTACT, COLOUR, EMAIL, HOURLYRATE, POSTALADDRESS, PHONE, MOBILEPHONE, WEBSITE) VALUES (:teacherId, :name, :contact, :colour, :email, :hourlyRate, :postalAddress, :phone, :mobilePhone, :webSite)";
+    String SCHOOL_DELETE = "DELETE FROM SCHOOL WHERE TEACHERID = :teacherId AND ID = :id";
     String SCHOOL_UPDATE = "UPDATE SCHOOL SET NAME = :name, CONTACT = :contact, COLOUR = :colour, EMAIL = :email, HOURLYRATE = :hourlyRate, POSTALADDRESS = :postalAddress, PHONE = :phone, MOBILEPHONE = :mobilePhone, WEBSITE = :webSite WHERE TEACHERID = :teacherId AND ID = :schoolId";
 
     String STUDENT_CREATE = "INSERT INTO STUDENT (TEACHERID, SCHOOLID, DISABLED, NAME, SUBJECT, EMAIL, POSTALADDRESS, PHONE, MOBILEPHONE) VALUES (:teacherId, :schoolId, FALSE, :name, :subject, :email, :postalAddress, :phone, :mobilePhone)";
