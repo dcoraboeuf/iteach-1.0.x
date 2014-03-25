@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <table class="it-form">
+                <tbody>
+                <tr>
+                    <td colspan="2" class="it-form-title">
+                        {{student.name}}
+                    </td>
+                </tr>
+                <tr ng-if="student.subject">
+                    <td class="it-form-label">
+                        {{'student.subject' | translate}}
+                    </td>
+                    <td class="it-form-value">
+                        {{student.subject}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="it-form-label">
+                        {{'student.school' | translate}}
+                    </td>
+                    <td class="it-form-value">
+                        <span style="background-color: {{student.school.colour}};" class="label label-info">&nbsp;</span>
+                        <a href="#/school/{{student.school.id}}">{{student.school.name}}</a>
+                    </td>
+                </tr>
+                <tr ng-if="student.phone">
+                    <td class="it-form-label">
+                        {{'student.phone' | translate}}
+                    </td>
+                    <td class="it-form-value">
+                        {{student.phone}}
+                    </td>
+                </tr>
+                <tr ng-if="student.mobilePhone">
+                    <td class="it-form-label">
+                        {{'student.mobilePhone' | translate}}
+                    </td>
+                    <td class="it-form-value">
+                        {{student.mobilePhone}}
+                    </td>
+                </tr>
+                <tr ng-if="student.postalAddress">
+                    <td class="it-form-label">
+                        {{'student.postalAddress' | translate}}
+                    </td>
+                    <td class="it-form-value">
+                        <it-todo>Formatting</it-todo>
+                        {{student.postalAddress}}
+                    </td>
+                </tr>
+                <tr ng-if="student.email">
+                    <td class="it-form-label">
+                        {{'student.email' | translate}}
+                    </td>
+                    <td class="it-form-value">
+                        <a href="mailto:{{student.email}}">{{student.email}}</a>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <button type="button" class="btn btn-warning" ng-click="update()">{{'dialog.update' | translate}}</button>
+                        <button type="button" class="btn btn-danger" ng-click="delete()">{{'dialog.delete' | translate}}</button>
+                        <a href="#/" class="btn btn-link">{{'home.back' | translate}}</a>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <it-todo>Student lessons</it-todo>
+        </div>
+        <div class="col-md-4">
+            <it-todo>Student comments</it-todo>
+        </div>
+    </div>
+</div>
