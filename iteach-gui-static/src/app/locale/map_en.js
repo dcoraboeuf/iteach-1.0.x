@@ -74,6 +74,7 @@ var map_en = {
     'student.email.error': "Email is not valid.",
     'student.disable': "Disable",
     'student.enable': "Enable",
+    'student.delete.prompt': "Do you want really to delete this student? The associated lessons will be lost.",
     // Lesson
     'lesson': "Lesson",
     'lesson.tip': "Create a new lesson by selection a date, a period of time, a student and an optional location.",

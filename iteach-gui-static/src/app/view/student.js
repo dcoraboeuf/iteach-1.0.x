@@ -19,7 +19,7 @@ angular.module('iteach.view.student', [
             teacherService.updateStudent($scope.student).then(loadStudent);
         };
 
-        // TODO Deleting the student
+        // Deleting the student
         $scope.delete = function () {
             teacherService.deleteStudent(studentId);
         };

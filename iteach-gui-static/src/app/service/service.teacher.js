@@ -111,6 +111,19 @@ angular.module('iteach.service.teacher', [
             }).result
         };
 
+        self.deleteStudent = function (studentId) {
+            return self.getStudent(studentId).success(function (student) {
+                alertService.confirm({
+                    title: student.name,
+                    message: $translate.instant('student.delete.prompt')
+                }).then(function () {
+                        return uiTeacher.deleteStudent(studentId).success(function () {
+                            $location.path('/');
+                        });
+                    });
+            });
+        };
+
         self.getLessons = uiTeacher.getLessons;
 
         self.getLesson = uiTeacher.getLesson;

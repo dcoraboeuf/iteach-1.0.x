@@ -68,6 +68,10 @@ angular.module('iteach.ui.teacher', [
             return $http.get(config.api('teacher/student/' + studentId));
         };
 
+        self.deleteStudent = function (studentId) {
+            return $http.delete(config.api('teacher/student/' + studentId));
+        };
+
         /**
          * Lessons
          */

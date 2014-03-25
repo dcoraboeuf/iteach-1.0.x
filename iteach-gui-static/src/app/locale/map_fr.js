@@ -75,6 +75,7 @@ var map_fr = {
     'student.email.error': "L'adresse email n'est pas valide.",
     'student.disable': "Désactiver",
     'student.enable': "Activer",
+    'student.delete.prompt': "Voulez-vous vraiment supprimer cet étudiant ? Les leçons associées seront également effacées.",
     // Lesson
     'lesson': "Leçon",
     'lesson.tip': "Créez une nouvelle leçon en fournissant une date, une période, un étudiant et éventuellement un emplacement.",
