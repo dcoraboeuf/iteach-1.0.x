@@ -11,7 +11,7 @@ var map_en = {
     'dialog.delete': "Delete",
     'logout': "Sign out",
     // Home page
-    'home.back': "Back",
+    'home.back': "Close",
     // Login page
     'login.iteach.message': 'iTeach is the application that will help you organise your courses and your planning.',
     'login.signin.google': 'Sign in with Google',
