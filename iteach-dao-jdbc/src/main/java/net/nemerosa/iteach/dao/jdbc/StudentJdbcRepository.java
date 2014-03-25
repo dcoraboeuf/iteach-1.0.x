@@ -68,4 +68,14 @@ public class StudentJdbcRepository extends AbstractJdbcRepository implements Stu
                 studentRowMapper
         );
     }
+
+    @Override
+    public void disable(int teacherId, int studentId, boolean disabled) {
+        getNamedParameterJdbcTemplate().update(
+                SQL.STUDENT_DISABLE,
+                params("teacherId", teacherId)
+                        .addValue("id", studentId)
+                        .addValue("disabled", disabled)
+        );
+    }
 }

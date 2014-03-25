@@ -28,6 +28,8 @@ public interface TeacherService {
 
     List<Student> getStudents();
 
+    void disableStudent(int studentId);
+
     // Lessons
 
     int createLesson(LessonForm form);

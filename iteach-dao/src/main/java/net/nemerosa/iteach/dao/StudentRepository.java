@@ -11,4 +11,6 @@ public interface StudentRepository {
     TStudent getById(int teacherId, int studentId);
 
     List<TStudent> findAll(int teacherId);
+
+    void disable(int teacherId, int studentId, boolean disabled);
 }

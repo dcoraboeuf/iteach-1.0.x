@@ -70,6 +70,10 @@ public class ImportServiceV1 implements ImportService {
                         getEmail(node)
                 )
         );
+        // Disabled state?
+        if (node.path("disabled").booleanValue()) {
+            teacherService.disableStudent(studentId);
+        }
         // Lessons
         for (JsonNode lesson : node.path("lessons")) {
             importLesson(studentId, lesson);

@@ -171,6 +171,14 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public void disableStudent(int studentId) {
+        // Checks the teacher access
+        int teacherId = securityUtils.checkTeacher();
+        // Change
+        studentRepository.disable(teacherId, studentId, true);
+    }
+
+    @Override
     public int createLesson(LessonForm form) {
         checkLessonForm(form);
         // Checks the teacher access to the student
