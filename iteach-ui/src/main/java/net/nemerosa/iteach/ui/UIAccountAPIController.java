@@ -1,10 +1,13 @@
 package net.nemerosa.iteach.ui;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import net.nemerosa.iteach.common.AccountAuthentication;
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.common.TokenType;
+import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import net.nemerosa.iteach.service.AccountService;
+import net.nemerosa.iteach.service.ImportExportService;
 import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.model.Account;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
@@ -12,7 +15,10 @@ import net.nemerosa.iteach.ui.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Locale;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -22,6 +28,7 @@ import java.util.stream.Collectors;
 public class UIAccountAPIController implements UIAccountAPI {
 
     private final AccountService accountService;
+    private final ImportExportService importExportService;
     private final SecurityUtils securityUtils;
     private final Function<AccountAuthentication, UITeacher> teacherFromAuthentication = authentication ->
             new UITeacher(
@@ -33,8 +40,9 @@ public class UIAccountAPIController implements UIAccountAPI {
             );
 
     @Autowired
-    public UIAccountAPIController(AccountService accountService, SecurityUtils securityUtils) {
+    public UIAccountAPIController(AccountService accountService, ImportExportService importExportService, SecurityUtils securityUtils) {
         this.accountService = accountService;
+        this.importExportService = importExportService;
         this.securityUtils = securityUtils;
     }
 
@@ -126,6 +134,22 @@ public class UIAccountAPIController implements UIAccountAPI {
             default:
                 throw new IllegalStateException("Token not handled: " + tokenType);
         }
+    }
+
+    @RequestMapping(value = "/{accountId}/import", method = RequestMethod.POST)
+    public UIAccount importAccount(Locale locale, @PathVariable int accountId, @RequestParam MultipartFile file) throws IOException {
+        // Gets the file as JSON
+        try (InputStream in = file.getInputStream()) {
+            JsonNode data = ObjectMapperFactory.create().readTree(in);
+            // Import
+            return importAccount(locale, accountId, data);
+        }
+    }
+
+    @Override
+    public UIAccount importAccount(Locale locale, int accountId, JsonNode data) {
+        importExportService.importFile(accountId, data);
+        return getAccount(locale, accountId);
     }
 
 }

@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.ui.client.support;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.common.TokenType;
@@ -48,6 +49,12 @@ public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> i
     @Override
     public Ack validate(Locale locale, TokenType tokenType, String token) {
         return get(locale, Ack.class, "/api/account/validate/%s/%s", tokenType, token);
+    }
+
+    @Override
+    public UIAccount importAccount(Locale locale, int accountId, JsonNode data) {
+        // FIXME Method net.nemerosa.iteach.ui.client.support.UIAccountAPIClientImpl.importAccount
+        return null;
     }
 
 }
