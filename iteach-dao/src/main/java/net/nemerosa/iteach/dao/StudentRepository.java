@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.dao;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.dao.model.TStudent;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface StudentRepository {
     List<TStudent> findAll(int teacherId);
 
     void disable(int teacherId, int studentId, boolean disabled);
+
+    Ack delete(int teacherId, int studentId);
 }

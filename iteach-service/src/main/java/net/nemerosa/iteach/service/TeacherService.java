@@ -30,6 +30,8 @@ public interface TeacherService {
 
     void disableStudent(int studentId);
 
+    Ack deleteStudent(int studentId);
+
     // Lessons
 
     int createLesson(LessonForm form);

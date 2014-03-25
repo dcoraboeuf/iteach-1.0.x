@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.dao.jdbc;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.dao.StudentNameAlreadyDefinedException;
 import net.nemerosa.iteach.dao.StudentRepository;
 import net.nemerosa.iteach.dao.model.TStudent;
@@ -76,6 +77,17 @@ public class StudentJdbcRepository extends AbstractJdbcRepository implements Stu
                 params("teacherId", teacherId)
                         .addValue("id", studentId)
                         .addValue("disabled", disabled)
+        );
+    }
+
+    @Override
+    public Ack delete(int teacherId, int studentId) {
+        return Ack.one(
+                getNamedParameterJdbcTemplate().update(
+                        SQL.STUDENT_DELETE,
+                        params("teacherId", teacherId)
+                                .addValue("id", studentId)
+                )
         );
     }
 }

@@ -156,6 +156,12 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     @Override
+    @RequestMapping(value = "/student/{studentId}", method = RequestMethod.DELETE)
+    public Ack deleteStudent(Locale locale, @PathVariable int studentId) {
+        return teacherService.deleteStudent(studentId);
+    }
+
+    @Override
     @RequestMapping(value = "/lesson", method = RequestMethod.POST)
     public UILesson createLesson(Locale locale, @RequestBody @Valid UILessonForm form) {
         // Creation
