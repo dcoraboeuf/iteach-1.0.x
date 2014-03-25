@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.service.impl;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.it.AbstractITTestSupport;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.*;
@@ -55,6 +56,33 @@ public class TeacherServiceIT extends AbstractITTestSupport {
         assertEquals("4567", school.getMobilePhone());
         assertEquals("school@test.com", school.getEmail());
         assertEquals("http://school.test.com", school.getWebSite());
+    }
+
+    @Test
+    public void update_student() throws Exception {
+        // Creates a student
+        Student student = serviceITSupport.createStudent();
+        // Updates the student
+        Ack ack = serviceITSupport.asTeacher(student.getTeacherId(), () ->
+                teacherService.updateStudent(student.getId(),
+                        new StudentForm(
+                                student.getSchoolId(),
+                                student.getName(),
+                                student.getSubject(),
+                                student.getPostalAddress(),
+                                "012345",
+                                student.getMobilePhone(),
+                                student.getEmail()
+                        )
+                )
+        );
+        assertTrue(ack.isSuccess());
+        // Gets the new student
+        Student newStudent = serviceITSupport.asTeacher(student.getTeacherId(), () ->
+                teacherService.getStudent(student.getId())
+        );
+        assertEquals(student.getId(), newStudent.getId());
+        assertEquals("012345", newStudent.getPhone());
     }
 
     @Test

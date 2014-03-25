@@ -75,9 +75,9 @@ public class SchoolJdbcRepository extends AbstractJdbcRepository implements Scho
     }
 
     @Override
-    public void update(int teacherId, int schoolId, String name, String colour, String contact, String email, Money hourlyRate, String postalAddress, String phone, String mobilePhone, String webSite) {
+    public Ack update(int teacherId, int schoolId, String name, String colour, String contact, String email, Money hourlyRate, String postalAddress, String phone, String mobilePhone, String webSite) {
         try {
-            getNamedParameterJdbcTemplate().update(
+            return Ack.one(getNamedParameterJdbcTemplate().update(
                     SQL.SCHOOL_UPDATE,
                     params("teacherId", teacherId)
                             .addValue("schoolId", schoolId)
@@ -90,7 +90,7 @@ public class SchoolJdbcRepository extends AbstractJdbcRepository implements Scho
                             .addValue("phone", phone)
                             .addValue("mobilePhone", mobilePhone)
                             .addValue("webSite", webSite)
-            );
+            ));
         } catch (DuplicateKeyException ex) {
             throw new SchoolNameAlreadyDefinedException(teacherId, name);
         }

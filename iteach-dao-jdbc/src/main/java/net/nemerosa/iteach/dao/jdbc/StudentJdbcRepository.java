@@ -92,12 +92,12 @@ public class StudentJdbcRepository extends AbstractJdbcRepository implements Stu
     }
 
     @Override
-    public void update(int teacherId, int studentId, int schoolId, String name, String subject, String postalAddress, String phone, String mobilePhone, String email) {
+    public Ack update(int teacherId, int studentId, int schoolId, String name, String subject, String postalAddress, String phone, String mobilePhone, String email) {
         try {
-            getNamedParameterJdbcTemplate().update(
+            return Ack.one(getNamedParameterJdbcTemplate().update(
                     SQL.STUDENT_UPDATE,
                     params("teacherId", teacherId)
-                            .addValue("studentId", schoolId)
+                            .addValue("studentId", studentId)
                             .addValue("schoolId", schoolId)
                             .addValue("name", name)
                             .addValue("subject", subject)
@@ -105,7 +105,7 @@ public class StudentJdbcRepository extends AbstractJdbcRepository implements Stu
                             .addValue("postalAddress", postalAddress)
                             .addValue("phone", phone)
                             .addValue("mobilePhone", mobilePhone)
-            );
+            ));
         } catch (DuplicateKeyException ex) {
             throw new StudentNameAlreadyDefinedException(teacherId, name);
         }

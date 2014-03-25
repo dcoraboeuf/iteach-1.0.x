@@ -16,7 +16,7 @@ public interface TeacherService {
 
     School getSchool(int schoolId);
 
-    void updateSchool(int schoolId, SchoolForm form);
+    Ack updateSchool(int schoolId, SchoolForm form);
 
     Ack deleteSchool(int schoolId);
 
@@ -34,7 +34,7 @@ public interface TeacherService {
 
     Ack deleteStudent(int studentId);
 
-    void updateStudent(int studentId, StudentForm form);
+    Ack updateStudent(int studentId, StudentForm form);
 
     // Lessons
 

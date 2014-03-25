@@ -97,11 +97,11 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void updateSchool(int schoolId, SchoolForm form) {
+    public Ack updateSchool(int schoolId, SchoolForm form) {
         // Checks the teacher access
         School school = getSchool(schoolId);
         // Updates
-        schoolRepository.update(
+        return schoolRepository.update(
                 school.getTeacherId(),
                 schoolId,
                 form.getName(),
@@ -203,11 +203,11 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void updateStudent(int studentId, StudentForm form) {
+    public Ack updateStudent(int studentId, StudentForm form) {
         // Checks the teacher access
         Student student = getStudent(studentId);
         // Updates
-        studentRepository.update(
+        return studentRepository.update(
                 student.getTeacherId(),
                 studentId,
                 form.getSchoolId(),

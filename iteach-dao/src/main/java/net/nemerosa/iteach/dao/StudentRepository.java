@@ -17,5 +17,5 @@ public interface StudentRepository {
 
     Ack delete(int teacherId, int studentId);
 
-    void update(int teacherId, int studentId, int schoolId, String name, String subject, String postalAddress, String phone, String mobilePhone, String email);
+    Ack update(int teacherId, int studentId, int schoolId, String name, String subject, String postalAddress, String phone, String mobilePhone, String email);
 }
