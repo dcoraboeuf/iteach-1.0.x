@@ -32,6 +32,11 @@ public interface UITeacherAPI {
     UISchool updateSchool(Locale locale, int schoolId, UISchoolForm form);
 
     /**
+     * Deletes a school
+     */
+    Ack deleteSchool(Locale locale, int schoolId);
+
+    /**
      * Gets the list of students for a teacher
      */
     UIStudentCollection getStudents(Locale locale);

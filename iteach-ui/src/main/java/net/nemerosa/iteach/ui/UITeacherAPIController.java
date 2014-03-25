@@ -102,6 +102,12 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     @Override
+    @RequestMapping(value = "/school/{schoolId}", method = RequestMethod.DELETE)
+    public Ack deleteSchool(Locale locale, @PathVariable int schoolId) {
+        return teacherService.deleteSchool(schoolId);
+    }
+
+    @Override
     @RequestMapping(value = "/student", method = RequestMethod.GET)
     public UIStudentCollection getStudents(Locale locale) {
         List<Student> schools = teacherService.getStudents();
