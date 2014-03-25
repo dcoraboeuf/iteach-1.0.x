@@ -14,7 +14,7 @@ angular.module('iteach.view.student', [
         // Loads the school
         loadStudent();
 
-        // TODO Updating the student
+        // Updating the student
         $scope.update = function () {
             teacherService.updateStudent($scope.student).then(loadStudent);
         };

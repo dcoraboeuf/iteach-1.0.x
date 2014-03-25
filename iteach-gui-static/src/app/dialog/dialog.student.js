@@ -1,9 +1,9 @@
 angular.module('iteach.dialog.student', [
         'iteach.ui.teacher'
     ])
-    .controller('dialogStudent', function ($log, $scope, $modalInstance, modalController, notificationService, uiTeacher) {
+    .controller('dialogStudent', function ($log, $scope, $modalInstance, modalController, initialStudent, notificationService, uiTeacher) {
 
-        $scope.student = {};
+        $scope.student = initialStudent;
         uiTeacher.getSchools().then(function (schools) {
             $scope.schools = schools
         })

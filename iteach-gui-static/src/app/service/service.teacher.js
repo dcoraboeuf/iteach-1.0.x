@@ -75,6 +75,9 @@ angular.module('iteach.service.teacher', [
                 templateUrl: 'app/dialog/dialog.student.tpl.html',
                 controller: 'dialogStudent',
                 resolve: {
+                    initialStudent: function () {
+                        return {}
+                    },
                     modalController: function () {
                         return {
                             onSubmit: function (student) {
@@ -87,6 +90,33 @@ angular.module('iteach.service.teacher', [
         };
 
         self.getStudent = uiTeacher.getStudent;
+
+        self.updateStudent = function (student) {
+            return $modal.open({
+                templateUrl: 'app/dialog/dialog.student.tpl.html',
+                controller: 'dialogStudent',
+                resolve: {
+                    initialStudent: function () {
+                        return angular.copy(student)
+                    },
+                    modalController: function () {
+                        return {
+                            onSubmit: function (studentForm) {
+                                return uiTeacher.updateStudent(student.id, {
+                                    schoolId: studentForm.schoolId,
+                                    name: studentForm.name,
+                                    subject: studentForm.subject,
+                                    postalAddress: studentForm.postalAddress,
+                                    phone: studentForm.phone,
+                                    mobilePhone: studentForm.mobilePhone,
+                                    email: studentForm.email
+                                })
+                            }
+                        }
+                    }
+                }
+            }).result
+        };
 
         self.createLesson = function (start, end) {
             return $modal.open({
