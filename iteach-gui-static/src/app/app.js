@@ -24,7 +24,6 @@ var iteach = angular.module('iteach', [
             'iteach.view.lesson',
             'iteach.view.admin.accounts',
             'iteach.view.admin.account',
-            'iteach.view.admin.account.import',
             // Services
             'iteach.service.core',
             'iteach.service.account',
