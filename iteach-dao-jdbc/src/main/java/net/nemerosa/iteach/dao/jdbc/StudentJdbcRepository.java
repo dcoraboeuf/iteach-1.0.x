@@ -110,4 +110,13 @@ public class StudentJdbcRepository extends AbstractJdbcRepository implements Stu
             throw new StudentNameAlreadyDefinedException(teacherId, name);
         }
     }
+
+    @Override
+    public List<TStudent> findBySchool(int teacherId, int schoolId) {
+        return getNamedParameterJdbcTemplate().query(
+                SQL.STUDENT_BY_SCHOOL,
+                params("teacherId", teacherId).addValue("schoolId", schoolId),
+                studentRowMapper
+        );
+    }
 }

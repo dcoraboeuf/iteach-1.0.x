@@ -18,4 +18,6 @@ public interface StudentRepository {
     Ack delete(int teacherId, int studentId);
 
     Ack update(int teacherId, int studentId, int schoolId, String name, String subject, String postalAddress, String phone, String mobilePhone, String email);
+
+    List<TStudent> findBySchool(int teacherId, int schoolId);
 }

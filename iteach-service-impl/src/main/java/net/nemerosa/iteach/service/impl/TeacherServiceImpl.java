@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.service.impl;
 
 import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.Period;
 import net.nemerosa.iteach.dao.LessonRepository;
 import net.nemerosa.iteach.dao.SchoolRepository;
 import net.nemerosa.iteach.dao.StudentRepository;
@@ -10,10 +11,13 @@ import net.nemerosa.iteach.dao.model.TStudent;
 import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.*;
+import org.joda.money.CurrencyUnit;
+import org.joda.money.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Function;
@@ -165,7 +169,18 @@ public class TeacherServiceImpl implements TeacherService {
         return studentRepository
                 .findAll(teacherId)
                 .stream()
-                .filter(student -> !student.isDisabled())
+                .map(studentFn)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Student> getStudentsForSchool(int schoolId) {
+        // Gets the school
+        int teacherId = getSchool(schoolId).getTeacherId();
+        // Lists
+        return studentRepository
+                .findBySchool(teacherId, schoolId)
+                .stream()
                 .map(studentFn)
                 .collect(Collectors.toList());
     }
@@ -290,6 +305,75 @@ public class TeacherServiceImpl implements TeacherService {
                 form.getLocation(),
                 form.getFrom(),
                 form.getTo()
+        );
+    }
+
+    @Override
+    public SchoolReport getSchoolReport(int schoolId, Period period) {
+        // Gets the school
+        School school = getSchool(schoolId);
+        // Gets all the students (including the disabled ones)
+        List<Student> students = getStudentsForSchool(schoolId);
+        // Gets the report for every student
+        List<StudentReport> studentReports = students
+                .stream()
+                .map(student -> getStudentReport(student.getId(), period))
+                .collect(Collectors.toList());
+        // Consolidation at school level
+        BigDecimal hours = BigDecimal.ZERO;
+        for (StudentReport studentReport : studentReports) {
+            hours = hours.add(studentReport.getHours());
+        }
+        // Global income
+        Money income = computeIncome(school, hours);
+        // OK
+        return new SchoolReport(
+                school.getId(),
+                school.getName(),
+                school.getColour(),
+                school.getHourlyRate(),
+                hours,
+                income,
+                studentReports
+        );
+    }
+
+    private Money computeIncome(School school, BigDecimal hours) {
+        Money hourlyRate = school.getHourlyRate();
+        if (hourlyRate != null) {
+            return Money.of(
+                    hourlyRate.getCurrencyUnit(),
+                    hours.multiply(hourlyRate.getAmount())
+            );
+        } else {
+            return Money.zero(CurrencyUnit.EUR);
+        }
+    }
+
+    @Override
+    public StudentReport getStudentReport(int studentId, Period period) {
+        // Gets the student
+        Student student = getStudent(studentId);
+        // Gets the school
+        School school = getSchool(student.getSchoolId());
+        // Gets all the student lessons for the given period
+        List<Lesson> lessons = getLessons(studentId, period.getFrom(), period.getTo());
+        // Hours
+        BigDecimal hours = BigDecimal.ZERO;
+        for (Lesson lesson : lessons) {
+            BigDecimal lessonDuration = lesson.getDurationInHours();
+            hours = hours.add(lessonDuration);
+        }
+        // Income
+        Money income = computeIncome(school, hours);
+        // OK
+        return new StudentReport(
+                student.getId(),
+                student.isDisabled(),
+                student.getName(),
+                student.getSubject(),
+                hours,
+                income
         );
     }
 

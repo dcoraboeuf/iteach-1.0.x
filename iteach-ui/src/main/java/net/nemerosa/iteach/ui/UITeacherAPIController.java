@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.ui;
 
 import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.Period;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.*;
 import net.nemerosa.iteach.ui.model.*;
@@ -105,6 +106,33 @@ public class UITeacherAPIController implements UITeacherAPI {
     @RequestMapping(value = "/school/{schoolId}", method = RequestMethod.DELETE)
     public Ack deleteSchool(Locale locale, @PathVariable int schoolId) {
         return teacherService.deleteSchool(schoolId);
+    }
+
+    @Override
+    @RequestMapping(value = "/school/{schoolId}/report", method = RequestMethod.POST)
+    public UISchoolReport getSchoolReport(Locale locale, @PathVariable int schoolId, @RequestBody Period period) {
+        // Gets the school report
+        SchoolReport report = teacherService.getSchoolReport(schoolId, period);
+        // Transforms it to UI
+        return new UISchoolReport(
+                report.getId(),
+                report.getName(),
+                report.getColour(),
+                report.getHourlyRate(),
+                report.getHours(),
+                report.getIncome(),
+                report.getStudents()
+                        .stream()
+                        .map(s -> new UIStudentReport(
+                                s.getId(),
+                                s.isDisabled(),
+                                s.getName(),
+                                s.getSubject(),
+                                s.getHours(),
+                                s.getIncome()
+                        ))
+                        .collect(Collectors.toList())
+        );
     }
 
 

@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.ui.client.support;
 
 import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.Period;
 import net.nemerosa.iteach.ui.client.UITeacherAPIClient;
 import net.nemerosa.iteach.ui.model.*;
 
@@ -36,6 +37,11 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     @Override
     public Ack deleteSchool(Locale locale, int schoolId) {
         return delete(locale, Ack.class, "/api/teacher/school/%d", schoolId);
+    }
+
+    @Override
+    public UISchoolReport getSchoolReport(Locale locale, int schoolId, Period period) {
+        return post(locale, UISchoolReport.class, period, "/api/teacher/school/%d/report", schoolId);
     }
 
     @Override

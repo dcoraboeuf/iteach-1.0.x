@@ -2,6 +2,8 @@ package net.nemerosa.iteach.service.model;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Data
@@ -14,4 +16,7 @@ public class Lesson {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
+    public BigDecimal getDurationInHours() {
+        return BigDecimal.valueOf(Duration.between(from, to).toHours());
+    }
 }

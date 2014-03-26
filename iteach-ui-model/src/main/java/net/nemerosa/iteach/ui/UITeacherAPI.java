@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.ui;
 
 import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.Period;
 import net.nemerosa.iteach.ui.model.*;
 
 import java.util.Locale;
@@ -34,6 +35,11 @@ public interface UITeacherAPI {
      * Deletes a school
      */
     Ack deleteSchool(Locale locale, int schoolId);
+
+    /**
+     * School report
+     */
+    UISchoolReport getSchoolReport(Locale locale, int schoolId, Period period);
 
     /**
      * Gets the list of students for a teacher

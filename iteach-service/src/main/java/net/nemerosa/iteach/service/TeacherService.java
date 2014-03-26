@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.service;
 
 import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.Period;
 import net.nemerosa.iteach.service.model.*;
 
 import java.time.LocalDateTime;
@@ -28,6 +29,8 @@ public interface TeacherService {
 
     List<Student> getStudents();
 
+    List<Student> getStudentsForSchool(int schoolId);
+
     Ack disableStudent(int studentId);
 
     Ack enableStudent(int studentId);
@@ -47,4 +50,11 @@ public interface TeacherService {
     Ack deleteLesson(int lessonId);
 
     void updateLesson(int lessonId, LessonForm form);
+
+    // Reports
+
+    SchoolReport getSchoolReport(int schoolId, Period period);
+
+    StudentReport getStudentReport(int studentId, Period period);
+
 }
