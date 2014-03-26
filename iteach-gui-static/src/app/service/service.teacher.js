@@ -78,11 +78,18 @@ angular.module('iteach.service.teacher', [
                     initialStudent: function () {
                         return {}
                     },
-                    schoolList: self.getSchools,
                     modalController: function () {
                         return {
-                            onSubmit: function (student) {
-                                return uiTeacher.createStudent(student)
+                            onSubmit: function (studentForm) {
+                                return uiTeacher.createStudent({
+                                    schoolId: studentForm.schoolId,
+                                    name: studentForm.name,
+                                    subject: studentForm.subject,
+                                    postalAddress: studentForm.postalAddress,
+                                    phone: studentForm.phone,
+                                    mobilePhone: studentForm.mobilePhone,
+                                    email: studentForm.email
+                                })
                             }
                         }
                     }
@@ -100,7 +107,6 @@ angular.module('iteach.service.teacher', [
                     initialStudent: function () {
                         return angular.copy(student)
                     },
-                    schoolList: self.getSchools,
                     modalController: function () {
                         return {
                             onSubmit: function (studentForm) {

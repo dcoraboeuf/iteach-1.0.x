@@ -1,17 +1,20 @@
 angular.module('iteach.dialog.student', [
         'iteach.ui.teacher'
     ])
-    .controller('dialogStudent', function ($log, $scope, $modalInstance, modalController, initialStudent, schoolList, notificationService, uiTeacher) {
+    .controller('dialogStudent', function ($log, $scope, $modalInstance, modalController, initialStudent, notificationService, uiTeacher) {
 
         $scope.student = initialStudent;
-        $scope.schools = schoolList;
+        uiTeacher.getSchools().then(function (schools) {
+            $scope.schools = schools
+        });
 
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel')
-        }
+        };
 
         $scope.submit = function (isValid) {
             if (isValid) {
+                $scope.student.schoolId = $scope.student.school.id;
                 modalController.onSubmit($scope.student).then(
                     function () {
                         $modalInstance.close('ok')
