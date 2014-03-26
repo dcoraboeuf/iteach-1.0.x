@@ -140,8 +140,12 @@ angular.module('iteach.service.teacher', [
                     modalController: function () {
                         return {
                             onSubmit: function (lessonForm) {
-                                delete lessonForm.date;
-                                return uiTeacher.createLesson(lessonForm)
+                                return uiTeacher.createLesson({
+                                    studentId: lessonForm.student.id,
+                                    location: lessonForm.location,
+                                    from: lessonForm.from,
+                                    to: lessonForm.to
+                                })
                             }
                         }
                     }
@@ -210,14 +214,14 @@ angular.module('iteach.service.teacher', [
                             start: lesson.from,
                             end: lesson.to,
                             location: lesson.location,
-                            studentId: lesson.student.id
+                            student: lesson.student
                         };
                     },
                     modalController: function () {
                         return {
                             onSubmit: function (lessonForm) {
                                 return uiTeacher.updateLesson(lesson.id, {
-                                    studentId: lessonForm.studentId,
+                                    studentId: lessonForm.student.id,
                                     location: lessonForm.location,
                                     from: lessonForm.from,
                                     to: lessonForm.to

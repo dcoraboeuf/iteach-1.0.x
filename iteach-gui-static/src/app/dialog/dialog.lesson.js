@@ -3,8 +3,9 @@ angular.module('iteach.dialog.lesson', [
     ])
     .controller('dialogLesson', function ($log, $scope, $translate, $modalInstance, modalController, input, notificationService, uiTeacher) {
 
+        $scope.update = angular.isDefined(input.student);
         $scope.lesson = {
-            studentId: input.studentId,
+            student: input.student,
             location: input.location,
             date: input.start,
             from: input.start,
