@@ -7,9 +7,9 @@
         <div class="form-group" ng-class="{ 'has-error' : lessonForm.student.$invalid && !lessonForm.student.$pristine }">
             <label class="control-label col-md-3">{{'lesson.student' | translate}}</label>
             <div class="col-md-9">
-                <select ng-model="lesson.studentId" name="studentId" required="required" class="form-control">
+                <select ng-model="lesson.studentId" ng-options="s.id as s.name for s in students" name="studentId" required="required" class="form-control">
                     <option value="">&nbsp;</option>
-                    <option ng-repeat="student in students.resources" value="{{student.id}}">{{student.name}}</option>
+                    <option ng-repeat="student in students" value="{{student.id}}">{{student.name}}</option>
                 </select>
                 <p ng-show="lessonForm.student.$invalid && !lessonForm.student.$pristine" class="help-block">{{'lesson.student.error' | translate}}</p>
             </div>
