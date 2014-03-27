@@ -34,8 +34,8 @@ public class UITeacherAPIController implements UITeacherAPI {
             student.getId(),
             student.isDisabled(),
             getSchoolSummary(student),
-            student.getName()
-    );
+            student.getName(),
+            student.getSubject());
 
     private UISchoolSummary getSchoolSummary(Student student) {
         return schoolSummaryFn.apply(teacherService.getSchool(student.getSchoolId()));
