@@ -364,4 +364,26 @@ public class TeacherServiceImpl implements TeacherService {
         );
     }
 
+    @Override
+    public LessonReport getLessonReport(int studentId, Period period) {
+        // Gets all the lessons for the student and getting their total number of hours
+        BigDecimal totalHours = getLessons(studentId, null, null)
+                .stream()
+                .map(Lesson::getHours)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        // Gets all the student lessons for the given period
+        List<Lesson> lessons = getLessons(studentId, period.getFrom(), period.getTo());
+        // Number of hours for this period
+        BigDecimal periodHours = lessons
+                .stream()
+                .map(Lesson::getHours)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        // OK
+        return new LessonReport(
+                totalHours,
+                periodHours,
+                lessons
+        );
+    }
+
 }

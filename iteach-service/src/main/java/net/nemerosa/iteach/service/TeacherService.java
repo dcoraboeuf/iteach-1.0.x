@@ -57,4 +57,6 @@ public interface TeacherService {
 
     StudentReport getStudentReport(int studentId, Period period);
 
+    LessonReport getLessonReport(int studentId, Period period);
+
 }
