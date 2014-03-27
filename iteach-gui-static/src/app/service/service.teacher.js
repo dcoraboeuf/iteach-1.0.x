@@ -68,6 +68,8 @@ angular.module('iteach.service.teacher', [
 
         self.getSchool = uiTeacher.getSchool;
 
+        self.getSchoolReport = uiTeacher.getSchoolReport;
+
         self.getStudents = uiTeacher.getStudents;
 
         self.createStudent = function () {

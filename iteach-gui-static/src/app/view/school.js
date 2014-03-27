@@ -8,7 +8,10 @@ angular.module('iteach.view.school', [
         function loadSchool() {
             teacherService.getSchool(schoolId).success(function (school) {
                 $scope.school = school;
-            })
+            });
+            teacherService.getSchoolReport(schoolId, {}).success(function (report) {
+                $scope.report = report;
+            });
         }
 
         // Loads the school
