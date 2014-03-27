@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -365,14 +366,14 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public LessonReport getLessonReport(int studentId, Period period) {
+    public LessonReport getLessonReport(int studentId, YearMonth period) {
         // Gets all the lessons for the student and getting their total number of hours
         BigDecimal totalHours = getLessons(studentId, null, null)
                 .stream()
                 .map(Lesson::getHours)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         // Gets all the student lessons for the given period
-        List<Lesson> lessons = getLessons(studentId, period.getFrom(), period.getTo());
+        List<Lesson> lessons = getLessons(studentId, period.atDay(1).atStartOfDay(), period.atEndOfMonth().atTime(23, 59));
         // Number of hours for this period
         BigDecimal periodHours = lessons
                 .stream()

@@ -106,6 +106,6 @@ public interface UITeacherAPI {
     /**
      * Lesson report for a student
      */
-    UILessonReport getLessonReport(Locale locale, int studentId, Period period);
+    UILessonReport getLessonReport(Locale locale, int studentId, int year, int month);
 
 }

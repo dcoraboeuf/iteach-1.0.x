@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
@@ -280,12 +281,15 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     @Override
-    @RequestMapping(value = "/student/{studentId}/lessons", method = RequestMethod.POST)
-    public UILessonReport getLessonReport(Locale locale, @PathVariable int studentId, @RequestBody Period period) {
+    @RequestMapping(value = "/student/{studentId}/lessons/{year}/{month}", method = RequestMethod.GET)
+    public UILessonReport getLessonReport(Locale locale, @PathVariable int studentId, @PathVariable int year, @PathVariable int month) {
+        YearMonth period = YearMonth.of(year, month);
         LessonReport report = teacherService.getLessonReport(studentId, period);
         return new UILessonReport(
                 studentId,
                 period,
+                period.minusMonths(1),
+                period.plusMonths(1),
                 report.getTotalHours(),
                 report.getPeriodHours(),
                 report.getLessons()

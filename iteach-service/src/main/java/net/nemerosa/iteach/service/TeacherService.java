@@ -5,6 +5,7 @@ import net.nemerosa.iteach.common.Period;
 import net.nemerosa.iteach.service.model.*;
 
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.List;
 
 public interface TeacherService {
@@ -57,6 +58,6 @@ public interface TeacherService {
 
     StudentReport getStudentReport(int studentId, Period period);
 
-    LessonReport getLessonReport(int studentId, Period period);
+    LessonReport getLessonReport(int studentId, YearMonth period);
 
 }
