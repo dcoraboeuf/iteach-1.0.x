@@ -37,6 +37,8 @@
                         <li>
                             <!-- Monthly report -->
                             <a id="user-monthly-report" href="#/report" ng-if="!account.teacher.administrator">{{'report.monthly' | translate}}</a>
+                            <!-- Profile -->
+                            <a id="user-profile" ng-click="accountProfile()" ng-if="!account.teacher.administrator">{{'account.profile' | translate}}</a>
                             <!-- Logout -->
                             <a id="user-logout" ng-click="accountLogout()">{{'logout' | translate}}</a>
                         </li>
