@@ -294,6 +294,7 @@ public class UITeacherAPIController implements UITeacherAPI {
         return new UILessonReport(
                 studentId,
                 period,
+                period.format(DateTimeFormatter.ofPattern("MMMM yyyy")),
                 period.minusMonths(1),
                 period.plusMonths(1),
                 report.getTotalHours(),

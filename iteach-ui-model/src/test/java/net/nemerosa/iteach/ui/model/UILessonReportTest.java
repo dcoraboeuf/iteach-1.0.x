@@ -36,6 +36,7 @@ public class UILessonReportTest {
         return new UILessonReport(
                 1,
                 YearMonth.of(2014, 3),
+                "March 2014",
                 YearMonth.of(2014, 2),
                 YearMonth.of(2014, 4),
                 BigDecimal.ZERO,
