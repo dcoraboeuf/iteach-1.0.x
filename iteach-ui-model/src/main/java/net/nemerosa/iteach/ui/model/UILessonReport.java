@@ -1,8 +1,8 @@
 package net.nemerosa.iteach.ui.model;
 
 import lombok.Data;
-import net.nemerosa.iteach.common.Period;
 
+import java.beans.ConstructorProperties;
 import java.math.BigDecimal;
 import java.time.YearMonth;
 import java.util.List;
@@ -11,6 +11,7 @@ import java.util.List;
 public class UILessonReport extends UIResource {
 
     private final int studentId;
+    private final String href;
     private final YearMonth period;
     private final YearMonth periodBefore;
     private final YearMonth periodAfter;
@@ -18,9 +19,16 @@ public class UILessonReport extends UIResource {
     private final BigDecimal periodHours;
     private final List<UILesson> lessons;
 
-    @Override
-    public String getHref() {
-        return UILink.href("api/teacher/student/%d/lessons/%d/%d", studentId, period.getYear(), period.getMonth().getValue());
+    @ConstructorProperties({"studentId", "period", "periodBefore", "periodAfter", "totalHours", "periodHours", "lessons"})
+    public UILessonReport(int studentId, YearMonth period, YearMonth periodBefore, YearMonth periodAfter, BigDecimal totalHours, BigDecimal periodHours, List<UILesson> lessons) {
+        this.studentId = studentId;
+        this.period = period;
+        this.periodBefore = periodBefore;
+        this.periodAfter = periodAfter;
+        this.totalHours = totalHours;
+        this.periodHours = periodHours;
+        this.lessons = lessons;
+        this.href = UILink.href("api/teacher/student/%d/lessons/%d/%d", studentId, period.getYear(), period.getMonth().getValue());
     }
 
 }
