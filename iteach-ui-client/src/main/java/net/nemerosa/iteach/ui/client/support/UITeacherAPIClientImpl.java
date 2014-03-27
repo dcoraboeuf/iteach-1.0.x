@@ -108,4 +108,9 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     public UILessonReport getLessonReport(Locale locale, int studentId, int year, int month) {
         return get(locale, UILessonReport.class, "/api/teacher/student/%d/lessons/%d/%s", studentId, year, month);
     }
+
+    @Override
+    public UIReport getReport(Locale locale, int year, int month) {
+        return get(locale, UIReport.class, "/api/teacher/report/%d/%d", year, month);
+    }
 }

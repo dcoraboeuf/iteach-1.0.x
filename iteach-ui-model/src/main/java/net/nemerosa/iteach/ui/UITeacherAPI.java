@@ -108,4 +108,9 @@ public interface UITeacherAPI {
      */
     UILessonReport getLessonReport(Locale locale, int studentId, int year, int month);
 
+    /**
+     * Monthly report
+     */
+    UIReport getReport(Locale locale, int year, int month);
+
 }

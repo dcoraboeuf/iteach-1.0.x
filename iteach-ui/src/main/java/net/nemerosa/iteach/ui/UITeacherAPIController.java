@@ -117,6 +117,10 @@ public class UITeacherAPIController implements UITeacherAPI {
         // Gets the school report
         SchoolReport report = teacherService.getSchoolReport(schoolId, period);
         // Transforms it to UI
+        return toUISchoolReport(report);
+    }
+
+    private UISchoolReport toUISchoolReport(SchoolReport report) {
         return new UISchoolReport(
                 report.getId(),
                 report.getName(),
@@ -294,7 +298,7 @@ public class UITeacherAPIController implements UITeacherAPI {
         return new UILessonReport(
                 studentId,
                 period,
-                period.format(DateTimeFormatter.ofPattern("MMMM yyyy")),
+                period.format(DateTimeFormatter.ofPattern("MMMM yyyy").withLocale(locale)),
                 period.minusMonths(1),
                 period.plusMonths(1),
                 report.getTotalHours(),
@@ -302,6 +306,25 @@ public class UITeacherAPIController implements UITeacherAPI {
                 report.getLessons()
                         .stream()
                         .map(l -> toUILesson(locale, l))
+                        .collect(Collectors.toList())
+        );
+    }
+
+    @Override
+    @RequestMapping(value = "/report/{year}/{month}", method = RequestMethod.GET)
+    public UIReport getReport(Locale locale, @PathVariable int year, @PathVariable int month) {
+        YearMonth period = YearMonth.of(year, month);
+        Report report = teacherService.getReport(period);
+        return new UIReport(
+                period,
+                period.format(DateTimeFormatter.ofPattern("MMMM yyyy").withLocale(locale)),
+                period.minusMonths(1),
+                period.plusMonths(1),
+                report.getHours(),
+                report.getIncome(),
+                report.getSchools()
+                        .stream()
+                        .map(this::toUISchoolReport)
                         .collect(Collectors.toList())
         );
     }
