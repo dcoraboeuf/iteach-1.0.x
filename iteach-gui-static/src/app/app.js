@@ -25,6 +25,7 @@ var iteach = angular.module('iteach', [
             'iteach.view.lesson',
             'iteach.view.admin.accounts',
             'iteach.view.admin.account',
+            'iteach.view.report',
             // Services
             'iteach.service.core',
             'iteach.service.account',
@@ -119,6 +120,11 @@ var iteach = angular.module('iteach', [
                 .when('/admin/account/:accountId/import', {
                     templateUrl: 'app/view/admin.account.import.tpl.html',
                     controller: 'AdminAccountImportCtrl'
+                })
+                // Monthly report
+                .when('/report', {
+                    templateUrl: 'app/view/report.tpl.html',
+                    controller: 'ReportCtrl'
                 })
                 // Default
                 .otherwise({
