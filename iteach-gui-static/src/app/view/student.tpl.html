@@ -27,7 +27,7 @@
                 </tr>
                 <tr ng-if="student.phone">
                     <td class="it-form-label">
-                        {{'student.phone' | translate}}
+                        <span title="{{'student.phone' | translate}}" class="glyphicon glyphicon-earphone"></span>
                     </td>
                     <td class="it-form-value">
                         {{student.phone}}
@@ -35,7 +35,7 @@
                 </tr>
                 <tr ng-if="student.mobilePhone">
                     <td class="it-form-label">
-                        {{'student.mobilePhone' | translate}}
+                        <span title="{{'student.mobilePhone' | translate}}" class="glyphicon glyphicon-phone"></span>
                     </td>
                     <td class="it-form-value">
                         {{student.mobilePhone}}
@@ -43,13 +43,13 @@
                 </tr>
                 <tr ng-if="student.postalAddress">
                     <td class="it-form-label">
-                        {{'student.postalAddress' | translate}}
+                        <span title="{{'student.postalAddress' | translate}}" class="glyphicon glyphicon-home"></span>
                     </td>
                     <td class="it-form-value it-form-pre">{{student.postalAddress}}</td>
                 </tr>
                 <tr ng-if="student.email">
                     <td class="it-form-label">
-                        {{'student.email' | translate}}
+                        <span title="{{'student.email' | translate}}" class="glyphicon glyphicon-envelope"></span>
                     </td>
                     <td class="it-form-value">
                         <a href="mailto:{{student.email}}">{{student.email}}</a>
