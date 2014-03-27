@@ -348,7 +348,7 @@ public class TeacherServiceImpl implements TeacherService {
         // Hours
         BigDecimal hours = BigDecimal.ZERO;
         for (Lesson lesson : lessons) {
-            BigDecimal lessonDuration = lesson.getDurationInHours();
+            BigDecimal lessonDuration = lesson.getHours();
             hours = hours.add(lessonDuration);
         }
         // Income

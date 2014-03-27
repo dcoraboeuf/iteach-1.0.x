@@ -16,7 +16,7 @@ public class LessonTest {
                 new Lesson(1, 1, 1, "",
                         LocalDateTime.of(2014, 3, 27, 13, 0),
                         LocalDateTime.of(2014, 3, 27, 15, 0))
-                        .getDurationInHours()
+                        .getHours()
         );
     }
 
@@ -27,7 +27,7 @@ public class LessonTest {
                 new Lesson(1, 1, 1, "",
                         LocalDateTime.of(2014, 3, 27, 13, 0),
                         LocalDateTime.of(2014, 3, 27, 15, 30))
-                        .getDurationInHours()
+                        .getHours()
         );
     }
 
@@ -38,7 +38,7 @@ public class LessonTest {
                 new Lesson(1, 1, 1, "",
                         LocalDateTime.of(2014, 3, 27, 13, 0),
                         LocalDateTime.of(2014, 3, 27, 15, 15))
-                        .getDurationInHours()
+                        .getHours()
         );
     }
 
@@ -49,7 +49,7 @@ public class LessonTest {
                 new Lesson(1, 1, 1, "",
                         LocalDateTime.of(2014, 3, 27, 13, 0),
                         LocalDateTime.of(2014, 3, 27, 15, 20))
-                        .getDurationInHours()
+                        .getHours()
         );
     }
 

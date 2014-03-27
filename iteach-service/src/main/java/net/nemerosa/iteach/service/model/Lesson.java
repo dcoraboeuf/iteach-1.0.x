@@ -17,7 +17,7 @@ public class Lesson {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
-    public BigDecimal getDurationInHours() {
+    public BigDecimal getHours() {
         return BigDecimal.valueOf(Duration.between(from, to).toMinutes()).divide(BigDecimal.valueOf(60), 2, RoundingMode.HALF_UP);
     }
 }
