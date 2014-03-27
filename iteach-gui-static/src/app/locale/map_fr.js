@@ -114,5 +114,6 @@ var map_fr = {
     'admin.account.import.success': "L'importation des données a réussi.",
     // Reporting
     'report.hours.total': "Nombre total d'heures",
+    'report.hours.period': "Nombre d'heure pour le mois",
     'report.income.total': "Revenu total"
 };

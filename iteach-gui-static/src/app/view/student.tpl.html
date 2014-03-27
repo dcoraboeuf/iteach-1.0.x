@@ -75,6 +75,44 @@
         </div>
         <div class="col-md-4">
             <h3>{{'student.lessons' | translate}}</h3>
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <td colspan="3" class="info">
+                        {{'report.hours.total' | translate}}
+                    </td>
+                    <td class="it-hours info">
+                        {{report.totalHours}}h
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="lesson in report.lessons">
+                    <td>
+                        <a href="#/lesson/{{lesson.id}}">TODO {{lesson.from}}</a>
+                    </td>
+                    <td>
+                        TODO {{lesson.from}}
+                    </td>
+                    <td>
+                        TODO {{lesson.to}}
+                    </td>
+                    <td>
+                        {{lesson.location}}
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="3" class="info">
+                        {{'report.hours.period' | translate}}
+                    </td>
+                    <td class="it-hours info">
+                        {{report.periodHours}}h
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
         </div>
         <div class="col-md-4">
             <it-todo>Student comments</it-todo>

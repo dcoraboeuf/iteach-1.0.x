@@ -113,5 +113,6 @@ var map_en = {
     'admin.account.import.success': "Import of data successful.",
     // Reporting
     'report.hours.total': 'Total hours',
+    'report.hours.period': "Hours for the month",
     'report.income.total': 'Total income'
 };
