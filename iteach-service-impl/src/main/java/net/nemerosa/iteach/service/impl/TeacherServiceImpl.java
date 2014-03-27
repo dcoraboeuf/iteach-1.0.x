@@ -310,12 +310,11 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public Report getReport(YearMonth period) {
-        // Checks the teacher access
-        int teacherId = securityUtils.checkTeacher();
         // Gets all the school reports
         List<SchoolReport> reports = getSchools()
                 .stream()
-                .map(school -> getSchoolReport(school.getId(), toPeriod(period)))
+                .map(school -> getSchoolReport(school.getId(), toPeriod(period), true))
+                .filter(report -> BigDecimal.ZERO.compareTo(report.getHours()) != 0)
                 .collect(Collectors.toList());
         // Hours
         BigDecimal hours = reports
@@ -336,7 +335,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public SchoolReport getSchoolReport(int schoolId, Period period) {
+    public SchoolReport getSchoolReport(int schoolId, Period period, boolean filter) {
         // Gets the school
         School school = getSchool(schoolId);
         // Gets all the students (including the disabled ones)
@@ -345,6 +344,7 @@ public class TeacherServiceImpl implements TeacherService {
         List<StudentReport> studentReports = students
                 .stream()
                 .map(student -> getStudentReport(student.getId(), period))
+                .filter(report -> !filter || BigDecimal.ZERO.compareTo(report.getHours()) != 0)
                 .collect(Collectors.toList());
         // Consolidation at school level
         BigDecimal hours = BigDecimal.ZERO;

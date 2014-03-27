@@ -115,7 +115,7 @@ public class UITeacherAPIController implements UITeacherAPI {
     @RequestMapping(value = "/school/{schoolId}/report", method = RequestMethod.POST)
     public UISchoolReport getSchoolReport(Locale locale, @PathVariable int schoolId, @RequestBody Period period) {
         // Gets the school report
-        SchoolReport report = teacherService.getSchoolReport(schoolId, period);
+        SchoolReport report = teacherService.getSchoolReport(schoolId, period, false);
         // Transforms it to UI
         return toUISchoolReport(report);
     }
