@@ -2,6 +2,7 @@ package net.nemerosa.iteach.ui.model;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertEquals;
@@ -33,8 +34,11 @@ public class UILessonTest {
                 ),
                 location,
                 LocalDateTime.now(),
-                LocalDateTime.now().plusHours(1)
-        );
+                LocalDateTime.now().plusHours(1),
+                "",
+                "",
+                "",
+                BigDecimal.ONE);
     }
 
 }

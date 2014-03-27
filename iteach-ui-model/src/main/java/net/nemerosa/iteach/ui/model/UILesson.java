@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.StringUtils;
 
 import java.beans.ConstructorProperties;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,15 +18,23 @@ public class UILesson extends UIResource {
     private final String location;
     private final LocalDateTime from;
     private final LocalDateTime to;
+    private final String formattedDate;
+    private final String formattedFrom;
+    private final String formattedTo;
+    private final BigDecimal hours;
 
-    @ConstructorProperties({"id", "student", "location", "from", "to"})
-    public UILesson(int id, UIStudentSummary student, String location, LocalDateTime from, LocalDateTime to) {
+    @ConstructorProperties({"id", "student", "location", "from", "to", "formattedDate", "formattedFrom", "formattedTo", "hours"})
+    public UILesson(int id, UIStudentSummary student, String location, LocalDateTime from, LocalDateTime to, String formattedDate, String formattedFrom, String formattedTo, BigDecimal hours) {
         this.id = id;
         this.href = UILink.href("api/teacher/lesson/%d", id);
         this.student = student;
         this.location = location;
         this.from = from;
         this.to = to;
+        this.formattedDate = formattedDate;
+        this.formattedFrom = formattedFrom;
+        this.formattedTo = formattedTo;
+        this.hours = hours;
     }
 
     public String getTitle() {

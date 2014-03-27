@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
@@ -233,16 +235,20 @@ public class UITeacherAPIController implements UITeacherAPI {
     @RequestMapping(value = "/lesson/{lessonId}", method = RequestMethod.GET)
     public UILesson getLesson(Locale locale, @PathVariable int lessonId) {
         Lesson lesson = teacherService.getLesson(lessonId);
-        return toUILesson(lesson);
+        return toUILesson(locale, lesson);
     }
 
-    private UILesson toUILesson(Lesson lesson) {
+    private UILesson toUILesson(Locale locale, Lesson lesson) {
         return new UILesson(
                 lesson.getId(),
                 getStudentSummary(lesson.getStudentId()),
                 lesson.getLocation(),
                 lesson.getFrom(),
-                lesson.getTo()
+                lesson.getTo(),
+                lesson.getFrom().toLocalDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale)),
+                lesson.getFrom().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(locale)),
+                lesson.getTo().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(locale)),
+                lesson.getHours()
         );
     }
 
@@ -254,7 +260,7 @@ public class UITeacherAPIController implements UITeacherAPI {
                 teacherService
                         .getLessons(filter.getStudentId(), filter.getFrom(), filter.getTo())
                         .stream()
-                        .map(this::toUILesson)
+                        .map(l -> toUILesson(locale, l))
                         .collect(Collectors.toList())
         );
     }
@@ -294,7 +300,7 @@ public class UITeacherAPIController implements UITeacherAPI {
                 report.getPeriodHours(),
                 report.getLessons()
                         .stream()
-                        .map(this::toUILesson)
+                        .map(l -> toUILesson(locale, l))
                         .collect(Collectors.toList())
         );
     }

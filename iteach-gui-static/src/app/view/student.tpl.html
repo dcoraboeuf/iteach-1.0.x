@@ -89,16 +89,18 @@
                 <tbody>
                 <tr ng-repeat="lesson in report.lessons">
                     <td>
-                        <a href="#/lesson/{{lesson.id}}">TODO {{lesson.from}}</a>
+                        <a href="#/lesson/{{lesson.id}}">{{lesson.formattedDate}}</a>
                     </td>
                     <td>
-                        TODO {{lesson.from}}
-                    </td>
-                    <td>
-                        TODO {{lesson.to}}
+                        {{lesson.formattedFrom}}
+                        -
+                        {{lesson.formattedTo}}
                     </td>
                     <td>
                         {{lesson.location}}
+                    </td>
+                    <td class="it-hours">
+                        {{lesson.hours}}h
                     </td>
                 </tr>
                 </tbody>
