@@ -54,6 +54,8 @@ public interface TeacherService {
 
     // Reports
 
+    Report getReport(YearMonth period);
+
     SchoolReport getSchoolReport(int schoolId, Period period);
 
     StudentReport getStudentReport(int studentId, Period period);

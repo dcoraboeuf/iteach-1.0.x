@@ -20,4 +20,14 @@ public final class MoneyUtils {
             return Money.zero(CurrencyUnit.EUR);
         }
     }
+
+    public static Money addIncome(Money old, Money m) {
+        if (old == null) {
+            return m;
+        } else if (old.getCurrencyUnit().equals(m.getCurrencyUnit())) {
+            return old.plus(m);
+        } else {
+            return Money.zero(CurrencyUnit.of("XXX"));
+        }
+    }
 }

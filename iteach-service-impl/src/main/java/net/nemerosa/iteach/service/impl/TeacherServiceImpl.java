@@ -309,6 +309,33 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public Report getReport(YearMonth period) {
+        // Checks the teacher access
+        int teacherId = securityUtils.checkTeacher();
+        // Gets all the school reports
+        List<SchoolReport> reports = getSchools()
+                .stream()
+                .map(school -> getSchoolReport(school.getId(), toPeriod(period)))
+                .collect(Collectors.toList());
+        // Hours
+        BigDecimal hours = reports
+                .stream()
+                .map(SchoolReport::getHours)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        // Income
+        Money income = reports
+                .stream()
+                .map(SchoolReport::getIncome)
+                .reduce(null, MoneyUtils::addIncome);
+        // OK
+        return new Report(
+                hours,
+                income,
+                reports
+        );
+    }
+
+    @Override
     public SchoolReport getSchoolReport(int schoolId, Period period) {
         // Gets the school
         School school = getSchool(schoolId);
@@ -373,7 +400,8 @@ public class TeacherServiceImpl implements TeacherService {
                 .map(Lesson::getHours)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         // Gets all the student lessons for the given period
-        List<Lesson> lessons = getLessons(studentId, period.atDay(1).atStartOfDay(), period.atEndOfMonth().atTime(23, 59));
+        Period p = toPeriod(period);
+        List<Lesson> lessons = getLessons(studentId, p.getFrom(), p.getTo());
         // Number of hours for this period
         BigDecimal periodHours = lessons
                 .stream()
@@ -385,6 +413,13 @@ public class TeacherServiceImpl implements TeacherService {
                 periodHours,
                 lessons
         );
+    }
+
+    private Period toPeriod(YearMonth period) {
+        Period p = new Period();
+        p.setFrom(period.atDay(1).atStartOfDay());
+        p.setTo(period.atEndOfMonth().atTime(23, 59));
+        return p;
     }
 
 }
