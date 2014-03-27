@@ -102,6 +102,10 @@ angular.module('iteach.service.core', [
             localStorage['iteachCurrentDate'] = date;
         };
 
+        self.clearCurrentDate = function () {
+            localStorage.removeItem('iteachCurrentDate');
+        };
+
         self.getCurrentPlanningViewMode = function () {
             var value = localStorage['iteachCurrentPlanningViewMode'];
             return value ? value : "agendaWeek";
