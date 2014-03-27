@@ -82,6 +82,10 @@ angular.module('iteach.ui.account', [
             return $http.get(config.api('account/profile'));
         };
 
+        self.updateAccountProfile = function (profile) {
+            return $http.put(config.api('account/profile'), profile);
+        };
+
         return self;
 
     })

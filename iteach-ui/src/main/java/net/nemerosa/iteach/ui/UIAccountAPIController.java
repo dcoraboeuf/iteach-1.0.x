@@ -169,7 +169,7 @@ public class UIAccountAPIController implements UIAccountAPI {
     }
 
     @Override
-    @RequestMapping(value = "/profile", method = RequestMethod.POST)
+    @RequestMapping(value = "/profile", method = RequestMethod.PUT)
     public Ack saveProfile(Locale locale, @RequestBody @Valid UIProfile profile) {
         accountService.saveProfile(
                 new Profile(
