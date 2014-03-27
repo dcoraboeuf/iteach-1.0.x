@@ -1,7 +1,8 @@
 angular.module('iteach.view.teacher', [
+        'iteach.service.core',
         'iteach.service.teacher'
     ])
-    .controller('TeacherCtrl', function ($log, $scope, $translate, teacherService) {
+    .controller('TeacherCtrl', function ($log, $scope, $translate, teacherService, localDataService) {
 
         /**
          * Schools
@@ -66,6 +67,7 @@ angular.module('iteach.view.teacher', [
         // Planning: ratio according to the view mode
         $scope.onViewDisplay = function onViewDisplay(view) {
             $log.debug('View display', view.name);
+            localDataService.setCurrentPlanningViewMode(view.name);
             if ('month' == view.name) {
                 $scope.mainCalendar.fullCalendar('option', 'aspectRatio', 1.25);
             } else {
@@ -105,8 +107,13 @@ angular.module('iteach.view.teacher', [
             teacherService.updateLessonWithDelta(lesson, false, dayDelta, minuteDelta).error(revertFunc);
         };
 
-        // TODO Current date from the session
-        $scope.currentDate = new Date();
+        $scope.onViewRender = function () {
+            var date = $scope.mainCalendar.fullCalendar('getDate');
+            localDataService.setCurrentDate(date);
+        };
+
+        // Current date from the local storage
+        $scope.currentDate = localDataService.getCurrentDate();
 
         $scope.calendarConfig = {
             calendar: {
@@ -123,6 +130,8 @@ angular.module('iteach.view.teacher', [
                 year: $scope.currentDate.getFullYear(),
                 month: $scope.currentDate.getMonth(),
                 date: $scope.currentDate.getDate(),
+                // Date change
+                viewRender: $scope.onViewRender,
                 // i18n
                 firstDay: $scope.calendarI18n().firstDay,
                 dayNames: $scope.calendarI18n().dayNames,
@@ -143,7 +152,7 @@ angular.module('iteach.view.teacher', [
                 // TODO Configurable week-ends
                 weekends: false,
                 // Default view
-                defaultView: 'agendaWeek',
+                defaultView: localDataService.getCurrentPlanningViewMode(),
                 // Allowing selection (-> creation)
                 selectable: true,
                 selectHelper: true,

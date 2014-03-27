@@ -87,4 +87,30 @@ angular.module('iteach.service.core', [
         };
         return self;
     })
+/**
+ * Access to the local storage in a centralized way
+ */
+    .service('localDataService', function () {
+        var self = {};
+
+        self.getCurrentDate = function () {
+            var currentDate = localStorage['iteachCurrentDate'];
+            return currentDate ? new Date(currentDate) : new Date();
+        };
+
+        self.setCurrentDate = function (date) {
+            localStorage['iteachCurrentDate'] = date;
+        };
+
+        self.getCurrentPlanningViewMode = function () {
+            var value = localStorage['iteachCurrentPlanningViewMode'];
+            return value ? value : "agendaWeek";
+        };
+
+        self.setCurrentPlanningViewMode = function (value) {
+            localStorage['iteachCurrentPlanningViewMode'] = value;
+        };
+
+        return self;
+    })
 ;
