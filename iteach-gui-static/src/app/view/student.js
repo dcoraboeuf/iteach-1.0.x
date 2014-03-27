@@ -1,14 +1,30 @@
 angular.module('iteach.view.student', [
+        'iteach.service.core',
         'iteach.service.teacher'
     ])
-    .controller('StudentCtrl', function ($scope, $routeParams, teacherService) {
+    .controller('StudentCtrl', function ($scope, $routeParams, teacherService, localDataService) {
 
         var studentId = $routeParams.studentId;
+
+        function loadLessonReport() {
+            // Gets the current date
+            var date = localDataService.getCurrentDate();
+            // Gets the year and the month only
+            var period = {
+                year: date.getFullYear(),
+                month: date.getMonth() + 1
+            };
+            // Loads the report for this period
+            teacherService.getLessonReport(studentId, period.year, period.month).success(function (report) {
+                $scope.report = report;
+            });
+        }
 
         function loadStudent() {
             teacherService.getStudent(studentId).success(function (student) {
                 $scope.student = student;
-            })
+            });
+            loadLessonReport();
         }
 
         // Loads the school

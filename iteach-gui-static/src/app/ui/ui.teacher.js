@@ -126,6 +126,14 @@ angular.module('iteach.ui.teacher', [
             return $http.post(config.api('teacher/school/{{id}}/report', {id: schoolId}), period);
         };
 
+        self.getLessonReport = function (studentId, year, month) {
+            return $http.get(config.api('teacher/student/{{id}}/lessons/{{year}}/{{month}}', {
+                id: studentId,
+                year: year,
+                month: month
+            }));
+        };
+
         /**
          * OK
          */

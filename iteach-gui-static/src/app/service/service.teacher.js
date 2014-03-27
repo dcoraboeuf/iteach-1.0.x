@@ -189,6 +189,8 @@ angular.module('iteach.service.teacher', [
 
         self.enableStudent = uiTeacher.enableStudent;
 
+        self.getLessonReport = uiTeacher.getLessonReport;
+
         self.getLessons = uiTeacher.getLessons;
 
         self.getLesson = uiTeacher.getLesson;

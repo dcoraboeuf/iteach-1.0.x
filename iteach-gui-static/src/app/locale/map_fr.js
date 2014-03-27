@@ -82,6 +82,7 @@ var map_fr = {
         "mensuel, mais il restera visible dans la liste des étudiants de l'école et dans la liste des lessons. " +
         "L'étudiant pourra être réactivé plus tard.",
     'student.delete.prompt': "Voulez-vous vraiment supprimer cet étudiant ? Les leçons associées seront également effacées.",
+    'student.lessons': "Ses leçons",
     // Lesson
     'lesson': "Leçon",
     'lesson.tip': "Créez une nouvelle leçon en fournissant une date, une période, un étudiant et éventuellement un emplacement.",

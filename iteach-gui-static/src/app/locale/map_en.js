@@ -81,6 +81,7 @@ var map_en = {
         "report, but he will remain visible in the list of students for the school and in the list of lessons. The " +
         "student can also be enabled again later.",
     'student.delete.prompt': "Do you want really to delete this student? The associated lessons will be lost.",
+    'student.lessons': "His lessons",
     // Lesson
     'lesson': "Lesson",
     'lesson.tip': "Create a new lesson by selection a date, a period of time, a student and an optional location.",
