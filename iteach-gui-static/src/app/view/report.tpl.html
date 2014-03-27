@@ -5,7 +5,11 @@
             <tr>
                 <th colspan="2">{{'school' | translate}}</th>
                 <th>{{'student' | translate}}</th>
-                <th colspan="2">Month navigation</th>
+                <th colspan="2">
+                    <a class="glyphicon glyphicon-arrow-left"></a>
+                    {{report.formattedPeriod}}
+                    <a class="glyphicon glyphicon-arrow-right"></a>
+                </th>
             </tr>
             </thead>
             <!-- Schools -->
