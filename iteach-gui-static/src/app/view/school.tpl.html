@@ -79,7 +79,20 @@
             </table>
         </div>
         <div class="col-md-4">
-            <it-todo>School students</it-todo>
+            <h3>{{'school.students' | translate}}</h3>
+            <table class="table table-condensed">
+                <tbody>
+                <tr ng-repeat="student in report.students">
+                    <td>
+                        <a href="#/student/{{student.id}}" ng-class="student.disabled ? 'text-muted' : ''">{{student.name}}</a>
+                        <span class="label it-label-description">{{student.subject}}</span>
+                    </td>
+                    <td class="it-hours">
+                        {{student.hours}}h
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
         <div class="col-md-4">
             <it-todo>School comments</it-todo>

@@ -61,6 +61,7 @@ var map_en = {
     'school.email': 'Email',
     'school.email.error': "Email is not valid.",
     'school.delete.prompt': "Do you want really to delete this school? The associated students and lessons will be lost.",
+    'school.students': "Its students",
     // Student
     'student': "Student",
     'student.school': "School",
