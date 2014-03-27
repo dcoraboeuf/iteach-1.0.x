@@ -92,6 +92,24 @@
                     </td>
                 </tr>
                 </tbody>
+                <tfoot>
+                <tr>
+                    <td class="info">
+                        {{'report.hours.total' | translate}}
+                    </td>
+                    <td class="it-hours info">
+                        {{report.hours}}h
+                    </td>
+                </tr>
+                <tr ng-if="report.hourlyRate">
+                    <td class="info">
+                        {{'report.income.total' | translate}}
+                    </td>
+                    <td class="it-income info">
+                        {{report.income}}
+                    </td>
+                </tr>
+                </tfoot>
             </table>
         </div>
         <div class="col-md-4">
