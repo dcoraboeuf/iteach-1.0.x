@@ -134,6 +134,13 @@ angular.module('iteach.ui.teacher', [
             }));
         };
 
+        self.getReport = function (year, month) {
+            return $http.get(config.api('teacher/report/{{year}}/{{month}}', {
+                year: year,
+                month: month
+            }));
+        };
+
         /**
          * OK
          */

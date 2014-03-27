@@ -262,6 +262,8 @@ angular.module('iteach.service.teacher', [
             })
         };
 
+        self.getReport = uiTeacher.getReport;
+
         return self;
     })
 ;
