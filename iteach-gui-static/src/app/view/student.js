@@ -6,6 +6,12 @@ angular.module('iteach.view.student', [
 
         var studentId = $routeParams.studentId;
 
+        function loadLessonReportForPeriod(period) {
+            teacherService.getLessonReport(studentId, period.year, period.month).success(function (report) {
+                $scope.report = report;
+            });
+        }
+
         function loadLessonReport() {
             // Gets the current date
             var date = localDataService.getCurrentDate();
@@ -15,9 +21,7 @@ angular.module('iteach.view.student', [
                 month: date.getMonth() + 1
             };
             // Loads the report for this period
-            teacherService.getLessonReport(studentId, period.year, period.month).success(function (report) {
-                $scope.report = report;
-            });
+            loadLessonReportForPeriod(period);
         }
 
         function loadStudent() {
@@ -48,6 +52,16 @@ angular.module('iteach.view.student', [
         // Enabling the student
         $scope.enable = function () {
             teacherService.enableStudent(studentId).then(loadStudent);
+        };
+
+        // Period before
+        $scope.periodBefore = function () {
+            loadLessonReportForPeriod($scope.report.periodBefore);
+        };
+
+        // Period after
+        $scope.periodAfter = function () {
+            loadLessonReportForPeriod($scope.report.periodAfter);
         };
 
     })
