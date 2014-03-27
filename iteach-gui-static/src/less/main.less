@@ -108,10 +108,17 @@ td.it-colour {
  * Forms
  */
 table.it-form {
-  td.it-form-title {
-    font-size: 200%;
-    font-weight: bold;
-    padding-bottom: 1em;
+  td {
+    padding-bottom: 0.5em;
+    &.it-form-title {
+      font-size: 200%;
+      font-weight: bold;
+      padding-bottom: 1em;
+    }
+    &.it-form-label {
+      padding-right: 1em;
+      vertical-align: top;
+    }
   }
   tfoot td {
     padding-top: 1.5em;
