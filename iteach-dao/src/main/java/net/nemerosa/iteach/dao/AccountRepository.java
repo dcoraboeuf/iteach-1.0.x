@@ -3,6 +3,7 @@ package net.nemerosa.iteach.dao;
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.AuthenticationMode;
 import net.nemerosa.iteach.dao.model.TAccount;
+import net.nemerosa.iteach.dao.model.TProfile;
 
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -26,4 +27,8 @@ public interface AccountRepository {
     TAccount findUserByUsernameForOpenIDMode(String identifier);
 
     Ack delete(int accountId);
+
+    TProfile getProfile(int accountId);
+
+    void saveProfile(int accountId, TProfile profile);
 }

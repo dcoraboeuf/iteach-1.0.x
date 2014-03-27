@@ -4,6 +4,7 @@ import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.AuthenticationMode;
 import net.nemerosa.iteach.dao.AccountRepository;
 import net.nemerosa.iteach.dao.model.TAccount;
+import net.nemerosa.iteach.dao.model.TProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
@@ -128,5 +129,35 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
                 SQL.ACCOUNT_DELETE,
                 params("id", accountId)
         ));
+    }
+
+    @Override
+    public TProfile getProfile(int accountId) {
+        return getNamedParameterJdbcTemplate().queryForObject(
+                SQL.ACCOUNT_BY_ID,
+                params("id", accountId),
+                (rs, rowNum) -> new TProfile(
+                        rs.getString("company"),
+                        rs.getString("postalAddress"),
+                        rs.getString("phone"),
+                        rs.getString("vat"),
+                        rs.getString("iban"),
+                        rs.getString("bic")
+                )
+        );
+    }
+
+    @Override
+    public void saveProfile(int accountId, TProfile profile) {
+        getNamedParameterJdbcTemplate().update(
+                SQL.ACCOUNT_UPDATE_PROFILE,
+                params("id", accountId)
+                        .addValue("company", profile.getCompany())
+                        .addValue("postalAddress", profile.getPostalAddress())
+                        .addValue("phone", profile.getPhone())
+                        .addValue("vat", profile.getVat())
+                        .addValue("iban", profile.getIban())
+                        .addValue("bic", profile.getBic())
+        );
     }
 }
