@@ -24,5 +24,15 @@ angular.module('iteach.view.report', [
 
         loadReport();
 
+        // Period before
+        $scope.periodBefore = function () {
+            loadReportForPeriod($scope.report.periodBefore);
+        };
+
+        // Period after
+        $scope.periodAfter = function () {
+            loadReportForPeriod($scope.report.periodAfter);
+        };
+
     })
 ;

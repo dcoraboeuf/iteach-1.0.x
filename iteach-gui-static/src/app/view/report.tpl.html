@@ -6,9 +6,9 @@
                 <th colspan="2">{{'school' | translate}}</th>
                 <th>{{'student' | translate}}</th>
                 <th colspan="2">
-                    <a class="glyphicon glyphicon-arrow-left"></a>
+                    <a class="glyphicon glyphicon-arrow-left" ng-click="periodBefore()"></a>
                     {{report.formattedPeriod}}
-                    <a class="glyphicon glyphicon-arrow-right"></a>
+                    <a class="glyphicon glyphicon-arrow-right" ng-click="periodAfter()"></a>
                 </th>
             </tr>
             </thead>
