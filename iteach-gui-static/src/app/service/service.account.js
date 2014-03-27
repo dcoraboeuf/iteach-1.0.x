@@ -1,7 +1,8 @@
 angular.module('iteach.service.account', [
         'iteach.service.core',
         'iteach.ui.account',
-        'iteach.dialog.account.import'
+        'iteach.dialog.account.import',
+        'iteach.dialog.account.profile'
     ])
     .service('accountService', function ($q, $modal, $rootScope, $log, $location, $translate, notificationService, alertService, uiAccount) {
 
@@ -116,6 +117,22 @@ angular.module('iteach.service.account', [
                         return {
                             onSubmit: function (file) {
                                 return uiAccount.importAccount(account.id, file);
+                            }
+                        }
+                    }
+                }
+            }).result;
+        };
+
+        self.accountProfile = function () {
+            return $modal.open({
+                templateUrl: 'app/dialog/dialog.account.profile.tpl.html',
+                controller: 'dialogAccountProfile',
+                resolve: {
+                    modalController: function () {
+                        return {
+                            onSubmit: function (profile) {
+                                return uiAccount.updateAccountProfile(profile);
                             }
                         }
                     }

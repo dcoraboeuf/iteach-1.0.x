@@ -175,6 +175,7 @@ var iteach = angular.module('iteach', [
             $scope.accountLogout = function () {
                 accountService.logout()
             };
+            $scope.accountProfile = accountService.accountProfile;
             // On state change
             $scope.$on('$routeChangeSuccess', function () {
                 $rootScope.message = undefined;

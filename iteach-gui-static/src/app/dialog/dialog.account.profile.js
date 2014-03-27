@@ -1,15 +1,13 @@
-angular.module('iteach.dialog.account.import', [
+angular.module('iteach.dialog.account.profile', [
     ])
-    .controller('dialogAccountImport', function ($scope, $modalInstance, modalController, account, notificationService) {
-
-        $scope.account = account;
+    .controller('dialogAccountProfile', function ($scope, $modalInstance, modalController, notificationService) {
 
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel')
         };
 
-        $scope.submit = function (inputFile) {
-            modalController.onSubmit(inputFile).then(
+        $scope.submit = function () {
+            modalController.onSubmit($scope.profile).then(
                 function () {
                     $modalInstance.close('ok')
                 },
