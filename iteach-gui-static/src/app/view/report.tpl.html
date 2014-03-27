@@ -3,12 +3,56 @@
         <table class="table">
             <thead>
             <tr>
-                <th>{{'school' | translate}}</th>
+                <th colspan="2">{{'school' | translate}}</th>
                 <th>{{'student' | translate}}</th>
-                <th colspan="2"><it-todo>Month navigation</it-todo></th>
-                <th colspan="2">{{'report.total' | translate}}</th>
+                <th colspan="2">Month navigation</th>
             </tr>
             </thead>
+            <!-- Schools -->
+            <tbody ng-repeat="school in report.schools">
+            <tr class="info">
+                <td class="it-colour">
+                    <div class="it-colour" style="background-color: {{school.colour}}">
+                        &nbsp;
+                    </div>
+                </td>
+                <td>
+                    <a href="#/school/{{school.id}}">{{school.name}}</a>
+                    <span class="text-muted" ng-if="school.hourlyRate">({{school.hourlyRate}})</span>
+                </td>
+                <td>&nbsp;</td>
+                <td class="it-hours">
+                    {{school.hours}}h
+                </td>
+                <td class="it-income">
+                    {{school.income}}
+                </td>
+            </tr>
+            <!-- Students -->
+            <tr ng-repeat="student in school.students">
+                <td colspan="2">&nbsp;</td>
+                <td>
+                    <a href="#/student/{{student.id}}" ng-class="student.disabled ? 'text-muted' : ''">{{student.name}}</a>
+                </td>
+                <td class="it-hours">
+                    {{student.hours}}h
+                </td>
+                <td class="it-income">
+                    {{student.income}}
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr class="success">
+                <td colspan="3">&nbsp;</td>
+                <td class="it-hours">
+                    {{report.hours}}h
+                </td>
+                <td class="it-income">
+                    {{report.income}}
+                </td>
+            </tr>
+            </tfoot>
         </table>
     </div>
     <div class="row">
