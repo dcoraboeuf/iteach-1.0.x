@@ -11,7 +11,6 @@ import net.nemerosa.iteach.dao.model.TStudent;
 import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.*;
-import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -325,7 +324,7 @@ public class TeacherServiceImpl implements TeacherService {
             hours = hours.add(studentReport.getHours());
         }
         // Global income
-        Money income = computeIncome(school, hours);
+        Money income = MoneyUtils.computeIncome(school, hours);
         // OK
         return new SchoolReport(
                 school.getId(),
@@ -336,18 +335,6 @@ public class TeacherServiceImpl implements TeacherService {
                 income,
                 studentReports
         );
-    }
-
-    private Money computeIncome(School school, BigDecimal hours) {
-        Money hourlyRate = school.getHourlyRate();
-        if (hourlyRate != null) {
-            return Money.of(
-                    hourlyRate.getCurrencyUnit(),
-                    hours.multiply(hourlyRate.getAmount())
-            );
-        } else {
-            return Money.zero(CurrencyUnit.EUR);
-        }
     }
 
     @Override
@@ -365,7 +352,7 @@ public class TeacherServiceImpl implements TeacherService {
             hours = hours.add(lessonDuration);
         }
         // Income
-        Money income = computeIncome(school, hours);
+        Money income = MoneyUtils.computeIncome(school, hours);
         // OK
         return new StudentReport(
                 student.getId(),
