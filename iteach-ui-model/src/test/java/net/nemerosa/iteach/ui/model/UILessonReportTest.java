@@ -50,6 +50,7 @@ public class UILessonReportTest {
                 .with("studentId", 1)
                 .with("href", "api/teacher/student/1/lessons/2014/3")
                 .with("period", object().with("year", 2014).with("month", 3).end())
+                .with("formattedPeriod", "March 2014")
                 .with("periodBefore", object().with("year", 2014).with("month", 2).end())
                 .with("periodAfter", object().with("year", 2014).with("month", 4).end())
                 .with("totalHours", 0)
