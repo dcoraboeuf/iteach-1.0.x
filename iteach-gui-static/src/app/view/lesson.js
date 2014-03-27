@@ -7,11 +7,6 @@ angular.module('iteach.view.lesson', [
 
         function loadLesson() {
             teacherService.getLesson(lessonId).success(function (lesson) {
-                lesson.formatted = {
-                    date: $filter('date')(new Date(lesson.from), 'fullDate'),
-                    from: $filter('date')(new Date(lesson.from), 'HH:mm'),
-                    to: $filter('date')(new Date(lesson.to), 'HH:mm')
-                };
                 $scope.lesson = lesson;
                 // Loads the student
                 teacherService.getStudent(lesson.student.id).success(function (student) {
