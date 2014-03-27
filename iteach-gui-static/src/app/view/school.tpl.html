@@ -26,38 +26,38 @@
                     </td>
                 </tr>
                 <tr ng-if="school.phone">
-                    <td class="it-form-label">
-                        {{'school.phone' | translate}}
+                    <td class="it-form-label it-form-icon">
+                        <span title="{{'school.phone' | translate}}" class="glyphicon glyphicon-earphone"></span>
                     </td>
                     <td class="it-form-value">
                         {{school.phone}}
                     </td>
                 </tr>
                 <tr ng-if="school.mobilePhone">
-                    <td class="it-form-label">
-                        {{'school.mobilePhone' | translate}}
+                    <td class="it-form-label it-form-icon">
+                        <span title="{{'school.mobilePhone' | translate}}" class="glyphicon glyphicon-phone"></span>
                     </td>
                     <td class="it-form-value">
                         {{school.mobilePhone}}
                     </td>
                 </tr>
                 <tr ng-if="school.postalAddress">
-                    <td class="it-form-label">
-                        {{'school.postalAddress' | translate}}
+                    <td class="it-form-label it-form-icon">
+                        <span title="{{'school.postalAddress' | translate}}" class="glyphicon glyphicon-home"></span>
                     </td>
                     <td class="it-form-value it-form-pre">{{school.postalAddress}}</td>
                 </tr>
                 <tr ng-if="school.webSite">
-                    <td class="it-form-label">
-                        {{'school.webSite' | translate}}
+                    <td class="it-form-label it-form-icon">
+                        <span title="{{'school.webSite' | translate}}" class="glyphicon glyphicon-globe"></span>
                     </td>
                     <td class="it-form-value">
                         <a href="{{school.webSite}}">{{school.webSite}}</a>
                     </td>
                 </tr>
                 <tr ng-if="school.email">
-                    <td class="it-form-label">
-                        {{'school.email' | translate}}
+                    <td class="it-form-label it-form-icon">
+                        <span title="{{'school.email' | translate}}" class="glyphicon glyphicon-envelope"></span>
                     </td>
                     <td class="it-form-value">
                         <a href="mailto:{{school.email}}">{{school.email}}</a>
