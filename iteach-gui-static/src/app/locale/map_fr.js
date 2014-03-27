@@ -113,6 +113,7 @@ var map_fr = {
     'admin.account.import.warning': "Attention ! L'import des données va écraser toutes les données précédentes de {{name}}.",
     'admin.account.import.success': "L'importation des données a réussi.",
     // Reporting
+    'report.monthly': "Rapport mensuel",
     'report.hours.total': "Nombre total d'heures",
     'report.hours.period': "Nombre d'heure pour le mois",
     'report.income.total': "Revenu total"

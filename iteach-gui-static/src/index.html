@@ -33,9 +33,11 @@
                         {{account.teacher.name}}
                         <b class="caret"></b>
                     </a>
-                    <!-- Logout -->
                     <ul class="dropdown-menu" role="menu">
                         <li>
+                            <!-- Monthly report -->
+                            <a id="user-monthly-report" href="#/report" ng-if="!account.teacher.administrator">{{'report.monthly' | translate}}</a>
+                            <!-- Logout -->
                             <a id="user-logout" ng-click="accountLogout()">{{'logout' | translate}}</a>
                         </li>
                     </ul>

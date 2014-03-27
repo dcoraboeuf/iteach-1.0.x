@@ -112,6 +112,7 @@ var map_en = {
     'admin.account.import.warning': "Warning! Importing data will erase any previous data for {{name}}.",
     'admin.account.import.success': "Import of data successful.",
     // Reporting
+    'report.monthly': "Monthly report",
     'report.hours.total': 'Total hours',
     'report.hours.period': "Hours for the month",
     'report.income.total': 'Total income'
