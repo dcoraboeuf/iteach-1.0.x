@@ -3,8 +3,10 @@ package net.nemerosa.iteach.service.impl;
 import net.nemerosa.iteach.common.*;
 import net.nemerosa.iteach.dao.AccountRepository;
 import net.nemerosa.iteach.dao.model.TAccount;
+import net.nemerosa.iteach.dao.model.TProfile;
 import net.nemerosa.iteach.service.*;
 import net.nemerosa.iteach.service.model.Account;
+import net.nemerosa.iteach.service.model.Profile;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
 import net.nemerosa.iteach.service.model.TemplateModel;
 import net.nemerosa.iteach.service.support.EnvService;
@@ -105,6 +107,36 @@ public class AccountServiceImpl implements AccountService {
         } else {
             return accountRepository.delete(accountId);
         }
+    }
+
+    @Override
+    public Profile getProfile() {
+        int id = securityUtils.checkTeacher();
+        TProfile t = accountRepository.getProfile(id);
+        return new Profile(
+                t.getCompany(),
+                t.getPostalAddress(),
+                t.getPhone(),
+                t.getVat(),
+                t.getIban(),
+                t.getBic()
+        );
+    }
+
+    @Override
+    public void saveProfile(Profile profile) {
+        int id = securityUtils.checkTeacher();
+        accountRepository.saveProfile(
+                id,
+                new TProfile(
+                        profile.getCompany(),
+                        profile.getPostalAddress(),
+                        profile.getPhone(),
+                        profile.getVat(),
+                        profile.getIban(),
+                        profile.getBic()
+                )
+        );
     }
 
     private Message createNewUserMessage(Locale locale, String name, String email) {

@@ -3,9 +3,9 @@ package net.nemerosa.iteach.service;
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.service.model.Account;
+import net.nemerosa.iteach.service.model.Profile;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
 
-import java.util.Collection;
 import java.util.Locale;
 import java.util.stream.Stream;
 
@@ -20,4 +20,8 @@ public interface AccountService {
     Stream<Account> getAccounts();
 
     Ack deleteAccount(int accountId);
+
+    Profile getProfile();
+
+    void saveProfile(Profile profile);
 }
