@@ -57,4 +57,13 @@ public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> i
         return null;
     }
 
+    @Override
+    public UIProfile getProfile(Locale locale) {
+        return get(locale, UIProfile.class, "/api/account/profile");
+    }
+
+    @Override
+    public Ack saveProfile(Locale locale, UIProfile profile) {
+        return put(locale, Ack.class, profile, "/api/account/profile");
+    }
 }

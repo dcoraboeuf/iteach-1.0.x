@@ -10,6 +10,7 @@ import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.ImportExportService;
 import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.model.Account;
+import net.nemerosa.iteach.service.model.Profile;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
 import net.nemerosa.iteach.ui.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
@@ -152,4 +154,33 @@ public class UIAccountAPIController implements UIAccountAPI {
         return getAccount(locale, accountId);
     }
 
+    @Override
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public UIProfile getProfile(Locale locale) {
+        Profile profile = accountService.getProfile();
+        return new UIProfile(
+                profile.getCompany(),
+                profile.getPostalAddress(),
+                profile.getPhone(),
+                profile.getVat(),
+                profile.getIban(),
+                profile.getBic()
+        );
+    }
+
+    @Override
+    @RequestMapping(value = "/profile", method = RequestMethod.POST)
+    public Ack saveProfile(Locale locale, @RequestBody @Valid UIProfile profile) {
+        accountService.saveProfile(
+                new Profile(
+                        profile.getCompany(),
+                        profile.getPostalAddress(),
+                        profile.getPhone(),
+                        profile.getVat(),
+                        profile.getIban(),
+                        profile.getBic()
+                )
+        );
+        return Ack.OK;
+    }
 }
