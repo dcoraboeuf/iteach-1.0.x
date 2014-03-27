@@ -3,6 +3,55 @@
 </div>
 <form name="accountProfileForm" class="form-horizontal" ng-submit="submit()">
     <div class="modal-body">
+
+        <div class="form-group">
+            <label class="control-label col-md-3">{{'account.profile.company' | translate}}</label>
+
+            <div class="col-md-9">
+                <input ng-model="profile.company" name="company" maxlength="80" type="text" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">{{'account.profile.postalAddress' | translate}}</label>
+
+            <div class="col-md-9">
+                <textarea ng-model="profile.postalAddress" name="postalAddress" maxlength="200" class="form-control" rows="3"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">{{'account.profile.phone' | translate}}</label>
+
+            <div class="col-md-9">
+                <input ng-model="profile.phone" name="phone" maxlength="40" type="text" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">{{'account.profile.vat' | translate}}</label>
+
+            <div class="col-md-9">
+                <input ng-model="profile.vat" name="vat" maxlength="40" type="text" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">{{'account.profile.iban' | translate}}</label>
+
+            <div class="col-md-9">
+                <input ng-model="profile.iban" name="iban" maxlength="80" type="text" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">{{'account.profile.bic' | translate}}</label>
+
+            <div class="col-md-9">
+                <input ng-model="profile.bic" name="bic" maxlength="10" type="text" class="form-control"/>
+            </div>
+        </div>
+
     </div>
     <div class="modal-footer">
 

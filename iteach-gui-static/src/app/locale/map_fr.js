@@ -114,6 +114,12 @@ var map_fr = {
     'admin.account.import.success': "L'importation des données a réussi.",
     // Profile
     'account.profile': "Profil",
+    'account.profile.company': "Entreprise",
+    'account.profile.postalAddress': "Adresse",
+    'account.profile.phone': "Téléphone",
+    'account.profile.vat': "Numéro de TVA",
+    'account.profile.iban': "IBAN",
+    'account.profile.bic': "BIC",
     // Reporting
     'report.total': "Total",
     'report.monthly': "Rapport mensuel",
