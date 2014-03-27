@@ -278,4 +278,20 @@ public class UITeacherAPIController implements UITeacherAPI {
     public Ack deleteLesson(Locale locale, @PathVariable int lessonId) {
         return teacherService.deleteLesson(lessonId);
     }
+
+    @Override
+    @RequestMapping(value = "/student/{studentId}/lessons", method = RequestMethod.POST)
+    public UILessonReport getLessonReport(Locale locale, @PathVariable int studentId, @RequestBody Period period) {
+        LessonReport report = teacherService.getLessonReport(studentId, period);
+        return new UILessonReport(
+                studentId,
+                period,
+                report.getTotalHours(),
+                report.getPeriodHours(),
+                report.getLessons()
+                        .stream()
+                        .map(this::toUILesson)
+                        .collect(Collectors.toList())
+        );
+    }
 }

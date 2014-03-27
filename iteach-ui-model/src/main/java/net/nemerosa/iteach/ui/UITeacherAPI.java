@@ -103,4 +103,9 @@ public interface UITeacherAPI {
      */
     Ack deleteLesson(Locale locale, int lessonId);
 
+    /**
+     * Lesson report for a student
+     */
+    UILessonReport getLessonReport(Locale locale, int studentId, Period period);
+
 }

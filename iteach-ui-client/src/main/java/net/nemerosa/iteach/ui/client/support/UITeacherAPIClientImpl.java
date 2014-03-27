@@ -103,4 +103,9 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     public Ack deleteLesson(Locale locale, int lessonId) {
         return delete(locale, Ack.class, "/api/teacher/lesson/%d", lessonId);
     }
+
+    @Override
+    public UILessonReport getLessonReport(Locale locale, int studentId, Period period) {
+        return post(locale, UILessonReport.class, period, "/api/teacher/student/%d/lessons", studentId);
+    }
 }
