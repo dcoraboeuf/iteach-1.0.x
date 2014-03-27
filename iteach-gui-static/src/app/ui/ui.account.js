@@ -78,6 +78,10 @@ angular.module('iteach.ui.account', [
             );
         };
 
+        self.getAccountProfile = function () {
+            return $http.get(config.api('account/profile'));
+        };
+
         return self;
 
     })

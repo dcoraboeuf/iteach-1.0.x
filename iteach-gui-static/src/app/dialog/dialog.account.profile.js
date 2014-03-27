@@ -1,6 +1,11 @@
 angular.module('iteach.dialog.account.profile', [
+        'iteach.ui.account'
     ])
-    .controller('dialogAccountProfile', function ($scope, $modalInstance, modalController, notificationService) {
+    .controller('dialogAccountProfile', function ($scope, $modalInstance, modalController, notificationService, uiAccount) {
+
+        uiAccount.getAccountProfile().success(function (profile) {
+            $scope.profile = profile;
+        });
 
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel')
