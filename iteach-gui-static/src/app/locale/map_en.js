@@ -116,9 +116,12 @@ var map_en = {
     // Profile
     'account.profile': "Profile",
     'account.profile.company': "Company",
+    'account.profile.company.logo': "Company logo",
+    'account.profile.company.logo.help': "Link to the company logo - must point to a valid image",
     'account.profile.postalAddress': "Address",
     'account.profile.phone': "Phone",
     'account.profile.vat': "VAT Number",
+    'account.profile.vat.help': "VAT number of the company, used for the generation of invoices.",
     'account.profile.iban': "IBAN",
     'account.profile.bic': "BIC",
     // Reporting

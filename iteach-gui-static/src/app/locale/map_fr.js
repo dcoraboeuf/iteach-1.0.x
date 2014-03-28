@@ -117,9 +117,12 @@ var map_fr = {
     // Profile
     'account.profile': "Profil",
     'account.profile.company': "Entreprise",
+    'account.profile.company.logo': "Logo de l'entreprise",
+    'account.profile.company.logo.help': "Lien vers le logo de l'entreprise (doit pointer vers une image)",
     'account.profile.postalAddress': "Adresse",
     'account.profile.phone': "Téléphone",
     'account.profile.vat': "Numéro de TVA",
+    'account.profile.vat.help': "Numéro de TVA de l'entreprise, utilisé pour la génération des factures.",
     'account.profile.iban': "IBAN",
     'account.profile.bic': "BIC",
     // Reporting
