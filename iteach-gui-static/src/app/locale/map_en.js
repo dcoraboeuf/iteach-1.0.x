@@ -58,6 +58,8 @@ var map_en = {
     'school.postalAddress': 'Postal address',
     'school.webSite': 'Web site',
     'school.webSite.error': "The web site URL is not valid.",
+    'school.vat': "VAT number",
+    'school.vat.help': "VAT number used to generated invoices for this school",
     'school.email': 'Email',
     'school.email.error': "Email is not valid.",
     'school.delete.prompt': "Do you want really to delete this school? The associated students and lessons will be lost.",

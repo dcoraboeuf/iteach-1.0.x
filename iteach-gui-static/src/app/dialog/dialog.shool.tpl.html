@@ -73,6 +73,14 @@
             </div>
         </div>
 
+        <div class="form-group" ng-class="{ 'has-error' : schoolForm.vat.$invalid && !schoolForm.vat.$pristine }">
+            <label class="control-label col-md-3">{{'school.vat' | translate}}</label>
+            <div class="col-md-9">
+                <input ng-model="school.vat" name="vat" maxlength="40" type="text" class="form-control" />
+                <p class="help-block">{{'school.vat.help' | translate}}</p>
+            </div>
+        </div>
+
     </div>
     <div class="modal-footer">
 
