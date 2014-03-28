@@ -25,6 +25,14 @@
                         {{school.hourlyRate}}
                     </td>
                 </tr>
+                <tr ng-if="school.vat">
+                    <td class="it-form-label">
+                        {{'school.vat' | translate}}
+                    </td>
+                    <td class="it-form-value">
+                        {{school.vat}}
+                    </td>
+                </tr>
                 <tr ng-if="school.phone">
                     <td class="it-form-label it-form-icon">
                         <span title="{{'school.phone' | translate}}" class="glyphicon glyphicon-earphone"></span>
