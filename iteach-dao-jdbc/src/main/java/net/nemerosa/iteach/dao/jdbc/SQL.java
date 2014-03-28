@@ -14,7 +14,7 @@ public interface SQL {
     String ACCOUNT_BY_OPENID = "SELECT * FROM ACCOUNT WHERE MODE = 'OPEN_ID' AND IDENTIFIER = :identifier";
     String ACCOUNT_PASSWORD = "SELECT PASSWORD FROM ACCOUNT WHERE MODE = 'PASSWORD' AND ID = :id AND VERIFIED IS TRUE AND DISABLED IS FALSE";
     String ACCOUNT_DELETE = "DELETE FROM ACCOUNT WHERE ID = :id";
-    String ACCOUNT_UPDATE_PROFILE = "UPDATE ACCOUNT SET COMPANY = :company, POSTALADDRESS = :postalAddress, PHONE = :phone, VAT = :vat, IBAN = :iban, BIC = :bic WHERE ID = :id";
+    String ACCOUNT_UPDATE_PROFILE = "UPDATE ACCOUNT SET COMPANY = :company, COMPANYLOGO = :companyLogo, POSTALADDRESS = :postalAddress, PHONE = :phone, VAT = :vat, IBAN = :iban, BIC = :bic WHERE ID = :id";
 
     String TOKEN_SAVE = "INSERT INTO TOKEN (TOKEN, TOKENTYPE, TOKENKEY, CREATION) VALUES (:token, :tokentype, :tokenkey, :creation)";
     String TOKEN_BY_TOKEN_AND_TYPE = "SELECT * FROM TOKEN WHERE TOKEN = :token AND TOKENTYPE = :tokentype ORDER BY CREATION DESC LIMIT 1";
@@ -22,9 +22,9 @@ public interface SQL {
 
     String SCHOOL_ALL = "SELECT * FROM SCHOOL WHERE TEACHERID = :teacherId ORDER BY NAME";
     String SCHOOL_BY_ID = "SELECT * FROM SCHOOL WHERE TEACHERID = :teacherId AND ID = :schoolId";
-    String SCHOOL_CREATE = "INSERT INTO SCHOOL (TEACHERID, NAME, CONTACT, COLOUR, EMAIL, HOURLYRATE, POSTALADDRESS, PHONE, MOBILEPHONE, WEBSITE) VALUES (:teacherId, :name, :contact, :colour, :email, :hourlyRate, :postalAddress, :phone, :mobilePhone, :webSite)";
+    String SCHOOL_CREATE = "INSERT INTO SCHOOL (TEACHERID, NAME, CONTACT, COLOUR, EMAIL, HOURLYRATE, POSTALADDRESS, PHONE, MOBILEPHONE, WEBSITE, VAT) VALUES (:teacherId, :name, :contact, :colour, :email, :hourlyRate, :postalAddress, :phone, :mobilePhone, :webSite, :vat)";
     String SCHOOL_DELETE = "DELETE FROM SCHOOL WHERE TEACHERID = :teacherId AND ID = :id";
-    String SCHOOL_UPDATE = "UPDATE SCHOOL SET NAME = :name, CONTACT = :contact, COLOUR = :colour, EMAIL = :email, HOURLYRATE = :hourlyRate, POSTALADDRESS = :postalAddress, PHONE = :phone, MOBILEPHONE = :mobilePhone, WEBSITE = :webSite WHERE TEACHERID = :teacherId AND ID = :schoolId";
+    String SCHOOL_UPDATE = "UPDATE SCHOOL SET NAME = :name, CONTACT = :contact, COLOUR = :colour, EMAIL = :email, HOURLYRATE = :hourlyRate, POSTALADDRESS = :postalAddress, PHONE = :phone, MOBILEPHONE = :mobilePhone, WEBSITE = :webSite, VAT = :vat WHERE TEACHERID = :teacherId AND ID = :schoolId";
 
     String STUDENT_CREATE = "INSERT INTO STUDENT (TEACHERID, SCHOOLID, DISABLED, NAME, SUBJECT, EMAIL, POSTALADDRESS, PHONE, MOBILEPHONE) VALUES (:teacherId, :schoolId, FALSE, :name, :subject, :email, :postalAddress, :phone, :mobilePhone)";
     String STUDENT_BY_ID = "SELECT * FROM STUDENT WHERE TEACHERID = :teacherId AND ID = :studentId";

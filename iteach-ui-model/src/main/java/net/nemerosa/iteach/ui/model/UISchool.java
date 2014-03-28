@@ -21,9 +21,10 @@ public class UISchool extends UIResource {
     private final String mobilePhone;
     private final String email;
     private final String webSite;
+    private final String vat;
 
-    @ConstructorProperties({"id", "name", "colour", "contact", "hourlyRate", "postalAddress", "phone", "mobilePhone", "email", "webSite"})
-    public UISchool(int id, String name, String colour, String contact, Money hourlyRate, String postalAddress, String phone, String mobilePhone, String email, String webSite) {
+    @ConstructorProperties({"id", "name", "colour", "contact", "hourlyRate", "postalAddress", "phone", "mobilePhone", "email", "webSite", "vat"})
+    public UISchool(int id, String name, String colour, String contact, Money hourlyRate, String postalAddress, String phone, String mobilePhone, String email, String webSite, String vat) {
         this.id = id;
         this.href = UILink.href("api/teacher/school/%d", id);
         this.name = name;
@@ -35,5 +36,6 @@ public class UISchool extends UIResource {
         this.mobilePhone = mobilePhone;
         this.email = email;
         this.webSite = webSite;
+        this.vat = vat;
     }
 }

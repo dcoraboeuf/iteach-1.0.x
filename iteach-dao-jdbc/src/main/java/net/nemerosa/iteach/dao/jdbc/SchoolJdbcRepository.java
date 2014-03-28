@@ -27,7 +27,8 @@ public class SchoolJdbcRepository extends AbstractJdbcRepository implements Scho
             rs.getString("phone"),
             rs.getString("mobilePhone"),
             rs.getString("email"),
-            rs.getString("webSite")
+            rs.getString("webSite"),
+            rs.getString("vat")
     );
 
     @Autowired
@@ -36,7 +37,7 @@ public class SchoolJdbcRepository extends AbstractJdbcRepository implements Scho
     }
 
     @Override
-    public int create(int teacherId, String name, String colour, String contact, String email, Money hourlyRate, String postalAddress, String phone, String mobilePhone, String webSite) {
+    public int create(int teacherId, String name, String colour, String contact, String email, Money hourlyRate, String postalAddress, String phone, String mobilePhone, String webSite, String vat) {
         try {
             return dbCreate(
                     SQL.SCHOOL_CREATE,
@@ -50,6 +51,7 @@ public class SchoolJdbcRepository extends AbstractJdbcRepository implements Scho
                             .addValue("phone", phone)
                             .addValue("mobilePhone", mobilePhone)
                             .addValue("webSite", webSite)
+                            .addValue("vat", vat)
             );
         } catch (DuplicateKeyException ex) {
             throw new SchoolNameAlreadyDefinedException(teacherId, name);
@@ -75,7 +77,7 @@ public class SchoolJdbcRepository extends AbstractJdbcRepository implements Scho
     }
 
     @Override
-    public Ack update(int teacherId, int schoolId, String name, String colour, String contact, String email, Money hourlyRate, String postalAddress, String phone, String mobilePhone, String webSite) {
+    public Ack update(int teacherId, int schoolId, String name, String colour, String contact, String email, Money hourlyRate, String postalAddress, String phone, String mobilePhone, String webSite, String vat) {
         try {
             return Ack.one(getNamedParameterJdbcTemplate().update(
                     SQL.SCHOOL_UPDATE,
@@ -90,6 +92,7 @@ public class SchoolJdbcRepository extends AbstractJdbcRepository implements Scho
                             .addValue("phone", phone)
                             .addValue("mobilePhone", mobilePhone)
                             .addValue("webSite", webSite)
+                            .addValue("vat", vat)
             ));
         } catch (DuplicateKeyException ex) {
             throw new SchoolNameAlreadyDefinedException(teacherId, name);

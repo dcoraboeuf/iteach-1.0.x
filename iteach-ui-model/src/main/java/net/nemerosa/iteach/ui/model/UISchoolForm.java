@@ -42,17 +42,8 @@ public class UISchoolForm {
     @Size(min = 0, max = 200)
     @URL
     private final String webSite;
-
-    /**
-     * CONTACT       VARCHAR(80)  NULL,
-     * COLOUR        CHAR(7)      NOT NULL,
-     * EMAIL         VARCHAR(120) NULL,
-     * HOURLYRATE    VARCHAR(20)  NULL,
-     * POSTALADDRESS VARCHAR(200) NULL,
-     * PHONE         VARCHAR(40)  NULL,
-     * MOBILEPHONE   VARCHAR(40)  NULL,
-     * WEBSITE       VARCHAR(200) NULL,
-     */
+    @Size(min = 0, max = 40)
+    private final String vat;
 
     public Money toHourlyRate() {
         if (StringUtils.isNotBlank(hourlyRate)) {

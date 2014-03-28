@@ -160,6 +160,7 @@ public class UIAccountAPIController implements UIAccountAPI {
         Profile profile = accountService.getProfile();
         return new UIProfile(
                 profile.getCompany(),
+                profile.getCompanyLogo(),
                 profile.getPostalAddress(),
                 profile.getPhone(),
                 profile.getVat(),
@@ -174,6 +175,7 @@ public class UIAccountAPIController implements UIAccountAPI {
         accountService.saveProfile(
                 new Profile(
                         profile.getCompany(),
+                        profile.getCompanyLogo(),
                         profile.getPostalAddress(),
                         profile.getPhone(),
                         profile.getVat(),

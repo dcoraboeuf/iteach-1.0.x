@@ -42,7 +42,8 @@ public class TeacherServiceImpl implements TeacherService {
             t.getPhone(),
             t.getMobilePhone(),
             t.getEmail(),
-            t.getWebSite()
+            t.getWebSite(),
+            t.getVat()
     );
     private final Function<? super TStudent, ? extends Student> studentFn = t -> new Student(
             t.getId(),
@@ -96,7 +97,8 @@ public class TeacherServiceImpl implements TeacherService {
                 form.getPostalAddress(),
                 form.getPhone(),
                 form.getMobilePhone(),
-                form.getWebSite()
+                form.getWebSite(),
+                form.getVat()
         );
     }
 
@@ -116,7 +118,8 @@ public class TeacherServiceImpl implements TeacherService {
                 form.getPostalAddress(),
                 form.getPhone(),
                 form.getMobilePhone(),
-                form.getWebSite()
+                form.getWebSite(),
+                form.getVat()
         );
     }
 

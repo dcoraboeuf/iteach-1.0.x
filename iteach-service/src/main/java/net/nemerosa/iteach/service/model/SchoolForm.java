@@ -15,5 +15,6 @@ public class SchoolForm {
     private final String mobilePhone;
     private final String email;
     private final String webSite;
+    private final String vat;
 
 }

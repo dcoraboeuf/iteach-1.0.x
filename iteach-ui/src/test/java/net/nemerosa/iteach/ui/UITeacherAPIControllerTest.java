@@ -24,7 +24,7 @@ public class UITeacherAPIControllerTest {
     public void before() {
         TeacherService teacherService = mock(TeacherService.class);
         when(teacherService.getSchool(10)).thenReturn(
-                new School(10, 1, "The School", "#FFFFFF", "", null, "", "", "", "", "")
+                new School(10, 1, "The School", "#FFFFFF", "", null, "", "", "", "", "", "")
         );
         when(teacherService.getStudents()).thenReturn(
                 Arrays.asList(

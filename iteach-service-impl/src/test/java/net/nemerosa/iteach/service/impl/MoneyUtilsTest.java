@@ -12,7 +12,7 @@ public class MoneyUtilsTest {
 
     @Test
     public void computeIncome() {
-        School school = new School(1, 1, "School", "", "", Money.parse("EUR 25.50"), "", "", "", "", "");
+        School school = new School(1, 1, "School", "", "", Money.parse("EUR 25.50"), "", "", "", "", "", "");
         Money income = MoneyUtils.computeIncome(school, new BigDecimal("12.50"));
         assertEquals("EUR 318.75", income.toString());
     }

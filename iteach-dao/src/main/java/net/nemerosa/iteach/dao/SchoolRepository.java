@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface SchoolRepository {
 
-    int create(int teacherId, String name, String colour, String contact, String email, Money hourlyRate, String postalAddress, String phone, String mobilePhone, String webSite);
+    int create(int teacherId, String name, String colour, String contact, String email, Money hourlyRate, String postalAddress, String phone, String mobilePhone, String webSite, String vat);
 
     TSchool getById(int teacherId, int schoolId);
 
     List<TSchool> findAll(int teacherId);
 
-    Ack update(int teacherId, int schoolId, String name, String colour, String contact, String email, Money hourlyRate, String postalAddress, String phone, String mobilePhone, String webSite);
+    Ack update(int teacherId, int schoolId, String name, String colour, String contact, String email, Money hourlyRate, String postalAddress, String phone, String mobilePhone, String webSite, String vat);
 
     Ack delete(int teacherId, int schoolId);
 }

@@ -47,7 +47,8 @@ public class ImportServiceV1 implements ImportService {
                         getPhone(school),
                         getMobilePhone(school),
                         getEmail(school),
-                        getWebSite(school)
+                        getWebSite(school),
+                        ""
                 )
         );
         // TODO School comments

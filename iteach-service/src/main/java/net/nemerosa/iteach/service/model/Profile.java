@@ -6,6 +6,7 @@ import lombok.Data;
 public class Profile {
 
     private final String company;
+    private final String companyLogo;
     private final String postalAddress;
     private final String phone;
     private final String vat;

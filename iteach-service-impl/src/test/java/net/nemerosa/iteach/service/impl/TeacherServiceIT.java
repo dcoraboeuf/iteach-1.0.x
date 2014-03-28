@@ -40,7 +40,8 @@ public class TeacherServiceIT extends AbstractITTestSupport {
                             "0123",
                             "4567",
                             "school@test.com",
-                            "http://school.test.com"
+                            "http://school.test.com",
+                            "BE0123456789"
                     ));
             // Gets the school back and checks its fields
             return teacherService.getSchool(schoolId);

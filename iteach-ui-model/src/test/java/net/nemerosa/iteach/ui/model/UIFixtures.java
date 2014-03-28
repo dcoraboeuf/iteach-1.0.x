@@ -31,6 +31,7 @@ public final class UIFixtures {
                 .with("mobilePhone", "4567")
                 .with("email", "school@test.com")
                 .with("webSite", "http://school.my")
+                .with("vat", "BE0123456789")
                 .end();
     }
 
@@ -49,7 +50,8 @@ public final class UIFixtures {
                 "0123",
                 "4567",
                 "school@test.com",
-                "http://school.my"
+                "http://school.my",
+                "BE0123456789"
         );
     }
 
