@@ -264,8 +264,8 @@ angular.module('iteach.service.teacher', [
 
         self.getReport = uiTeacher.getReport;
 
-        self.createInvoice = function (schoolId) {
-            alert('Creating an invoice for school = ' + schoolId);
+        self.createInvoice = function (schoolId, period) {
+            $log.debug('Creating invoice', schoolId, period);
         };
 
         return self;

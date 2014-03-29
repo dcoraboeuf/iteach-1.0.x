@@ -23,6 +23,11 @@
                 <td>
                     <a href="#/school/{{school.id}}">{{school.name}}</a>
                     <span class="text-muted" ng-if="school.hourlyRate">({{school.hourlyRate}})</span>
+                    <a
+                            ng-if="school.hourlyRate"
+                            ng-click="createInvoice(school.id, report.period)"
+                            class="glyphicon glyphicon-file"
+                            title="{{'invoice.generate' | translate}}"></a>
                 </td>
                 <td>&nbsp;</td>
                 <td class="it-hours">
