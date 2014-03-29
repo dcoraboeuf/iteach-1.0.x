@@ -73,16 +73,16 @@
                 <table class="it-invoice-students">
                     <thead>
                     <tr>
-                        <th>Student</th>
-                        <th>Hours</th>
+                        <th class="it-invoice-student">Student</th>
+                        <th class="it-invoice-hours">Hours</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="student in invoice.report.students">
-                        <td>
+                        <td class="it-invoice-student">
                             {{student.name}}
                         </td>
-                        <td>
+                        <td class="it-invoice-hours">
                             {{student.hours}}
                         </td>
                     </tr>
@@ -91,7 +91,7 @@
             </div>
             <div>
                 <h2>Total</h2>
-                <table>
+                <table class="it-invoice-total">
                     <tbody>
                     <tr>
                         <td>Total hours:</td>
@@ -110,7 +110,7 @@
                     <tr>
                         <td colspan="2">&nbsp;</td>
                         <td colspan="2">Total with VAT</td>
-                        <td>
+                        <td class="it-invoice-total-amount">
                             <it-todo>VAT contribution</it-todo>
                         </td>
                     </tr>
@@ -125,31 +125,31 @@
                     BIC <span class="it-invoice-bic">{{invoice.profile.bic}}</span>,
                     held by <span class="it-invoice-company">Nemerosa Sprl</span>.</p>
             </div>
-            <div>
+            <div class="it-invoice-info">
                 <table class="it-invoice-info">
                     <tbody>
                     <tr>
-                        <td>{{invoice.profile.company}}</td>
-                        <td>Tel:</td>
+                        <td class="it-invoice-company">{{invoice.profile.company}}</td>
+                        <td class="it-invoice-info-label">Tel:</td>
                         <td>{{invoice.profile.phone}}</td>
                     </tr>
                     <tr>
                         <td rowspan="2" class="it-invoice-address">{{invoice.profile.postalAddress}}</td>
-                        <td>email:</td>
+                        <td class="it-invoice-info-label">email:</td>
                         <td>
                             <it-todo>Email</it-todo>
                         </td>
                     </tr>
                     <tr>
-                        <td>VAT:</td>
+                        <td class="it-invoice-info-label">VAT:</td>
                         <td>{{invoice.profile.vat}}</td>
                     </tr>
                     <tr>
-                        <td colspan="2">IBAN:</td>
+                        <td colspan="2" class="it-invoice-info-label">IBAN:</td>
                         <td>{{invoice.profile.iban}}</td>
                     </tr>
                     <tr>
-                        <td colspan="2">BIC:</td>
+                        <td colspan="2" class="it-invoice-info-label">BIC:</td>
                         <td>{{invoice.profile.bic}}</td>
                     </tr>
                     </tbody>
