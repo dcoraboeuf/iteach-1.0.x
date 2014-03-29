@@ -2,7 +2,7 @@ angular.module('iteach.view.teacher', [
         'iteach.service.core',
         'iteach.service.teacher'
     ])
-    .controller('TeacherCtrl', function ($log, $scope, $translate, teacherService, localDataService) {
+    .controller('TeacherCtrl', function ($log, $scope, $translate, teacherService, localDataService, calendarService) {
 
         /**
          * Schools
@@ -43,11 +43,6 @@ angular.module('iteach.view.teacher', [
         /**
          * Planning
          */
-
-            // Intl
-        $scope.calendarI18n = function () {
-            return _calendar_i18n[$translate.use()]
-        };
 
         // Calendar - selection
         $scope.onCalendarSelect = function (start, end, allDay) {
@@ -133,16 +128,16 @@ angular.module('iteach.view.teacher', [
                 // Date change
                 viewRender: $scope.onViewRender,
                 // i18n
-                firstDay: $scope.calendarI18n().firstDay,
-                dayNames: $scope.calendarI18n().dayNames,
-                dayNamesShort: $scope.calendarI18n().dayNamesShort,
-                monthNames: $scope.calendarI18n().monthNames,
-                monthNamesShort: $scope.calendarI18n().monthNamesShort,
-                buttonText: $scope.calendarI18n().buttonText,
-                timeFormat: $scope.calendarI18n().timeFormat,
-                columnFormat: $scope.calendarI18n().columnFormat,
-                titleFormat: $scope.calendarI18n().titleFormat,
-                axisFormat: $scope.calendarI18n().axisFormat,
+                firstDay: calendarService.calendarI18n().firstDay,
+                dayNames: calendarService.calendarI18n().dayNames,
+                dayNamesShort: calendarService.calendarI18n().dayNamesShort,
+                monthNames: calendarService.calendarI18n().monthNames,
+                monthNamesShort: calendarService.calendarI18n().monthNamesShort,
+                buttonText: calendarService.calendarI18n().buttonText,
+                timeFormat: calendarService.calendarI18n().timeFormat,
+                columnFormat: calendarService.calendarI18n().columnFormat,
+                titleFormat: calendarService.calendarI18n().titleFormat,
+                axisFormat: calendarService.calendarI18n().axisFormat,
                 // General appearance
                 allDaySlot: false,
                 allDayDefault: false,

@@ -133,5 +133,6 @@ var map_en = {
     'report.hours.period': "Hours for the month",
     'report.income.total': "Total income",
     // Invoicing
-    'invoice.generate': "Generate invoice"
+    'invoice.generate': "Generate invoice",
+    'invoice.month': "Month"
 };

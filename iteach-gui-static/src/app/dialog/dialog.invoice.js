@@ -1,13 +1,20 @@
 angular.module('iteach.dialog.invoice', [
+        'iteach.service.core',
         'iteach.ui.teacher'
     ])
-    .controller('dialogInvoice', function ($log, $scope, $modalInstance, modalController, invoiceForm, notificationService, uiTeacher) {
+    .controller('dialogInvoice', function ($log, $scope, $translate, $modalInstance, calendarService, modalController, invoiceForm, notificationService, uiTeacher) {
 
         $scope.invoice = invoiceForm;
+        if (invoiceForm.period) {
+            $scope.invoice.year = invoiceForm.period.year;
+            $scope.invoice.month = invoiceForm.period.month;
+        }
 
         uiTeacher.getSchools().then(function (schools) {
             $scope.schools = schools.resources;
         });
+
+        $scope.months = calendarService.getMonths();
 
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel')

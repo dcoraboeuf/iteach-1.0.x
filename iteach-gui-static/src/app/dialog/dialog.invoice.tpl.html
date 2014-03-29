@@ -13,6 +13,15 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label class="control-label col-md-3">{{'invoice.month' | translate}}</label>
+            <div class="col-md-9">
+                <select ng-model="invoice.month" ng-options="m.index as m.name for m in months" name="month" required="required" class="form-control">
+                    <option value="">&nbsp;</option>
+                </select>
+            </div>
+        </div>
+
     </div>
 </form>
 <div class="modal-footer">

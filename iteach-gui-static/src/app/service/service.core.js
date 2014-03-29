@@ -1,6 +1,24 @@
 angular.module('iteach.service.core', [
         'iteach.alert.confirm'
     ])
+    .service('calendarService', function ($translate) {
+        var self = {};
+        self.calendarI18n = function () {
+            return _calendar_i18n[$translate.use()];
+        };
+        self.getMonths = function () {
+            var months = [];
+            var monthNames = self.calendarI18n().monthNames;
+            for (var i = 0; i < 12; i++) {
+                months.push({
+                    index: i + 1,
+                    name: monthNames[i]
+                });
+            }
+            return months;
+        };
+        return self;
+    })
     .service('notificationService', function ($log, $rootScope) {
         var self = {
             scopes: [ $rootScope ]
@@ -75,6 +93,7 @@ angular.module('iteach.service.core', [
     .service('alertService', function ($modal) {
         var self = {};
         self.confirm = function (config) {
+            //noinspection JSUnusedGlobalSymbols
             return $modal.open({
                 templateUrl: 'app/dialog/alert.confirm.tpl.html',
                 controller: 'alertConfirm',
