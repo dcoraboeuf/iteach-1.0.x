@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h3>{{'invoice.generate' | translate}}</h3>
+</div>
+<form name="invoiceForm" class="form-horizontal" ng-submit="submit(invoiceForm.$valid)" novalidate="novalidate">
+    <div class="modal-body">
+
+        <div class="form-group" ng-class="{ 'has-error' : invoiceForm.schoolId.$invalid && !invoiceForm.schoolId.$pristine }">
+            <label class="control-label col-md-3">{{'school' | translate}}</label>
+            <div class="col-md-9">
+                <select ng-model="invoice.schoolId" ng-options="school.id as school.name for school in schools" name="schoolId" required="required" class="form-control">
+                    <option value="">&nbsp;</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+</form>
+<div class="modal-footer">
+
+    <div class="alert alert-{{messageType}} alert-dismissable" ng-show="message">
+        <span>{{message}}</span>
+    </div>
+
+    <button class="btn btn-primary" type="submit" ng-disabled="invoiceForm.$invalid">{{'dialog.ok' | translate}}</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">{{'dialog.cancel' | translate}}</button>
+</div>

@@ -3,9 +3,10 @@ angular.module('iteach.service.teacher', [
         'iteach.ui.teacher',
         'iteach.dialog.school',
         'iteach.dialog.student',
-        'iteach.dialog.lesson'
+        'iteach.dialog.lesson',
+        'iteach.dialog.invoice'
     ])
-    .service('teacherService', function ($q, $log, $modal, $translate, $location, alertService, uiTeacher) {
+    .service('teacherService', function ($q, $log, $modal, $translate, $location, alertService, uiTeacher, localDataService) {
         var self = {};
 
         self.getSchools = function () {
@@ -266,6 +267,35 @@ angular.module('iteach.service.teacher', [
 
         self.createInvoice = function (schoolId, period) {
             $log.debug('Creating invoice', schoolId, period);
+            var thePeriod;
+            if (period) {
+                thePeriod = period;
+            } else {
+                var date = localDataService.getCurrentDate();
+                thePeriod = {
+                    year: date.getFullYear(),
+                    month: date.getMonth() + 1
+                };
+            }
+            return $modal.open({
+                templateUrl: 'app/dialog/dialog.invoice.tpl.html',
+                controller: 'dialogInvoice',
+                resolve: {
+                    invoiceForm: function () {
+                        return {
+                            schoolId: schoolId,
+                            period: thePeriod
+                        };
+                    },
+                    modalController: function () {
+                        return {
+                            onSubmit: function (todo) {
+                                // TODO Submitting the invoice request
+                            }
+                        }
+                    }
+                }
+            }).result;
         };
 
         return self;
