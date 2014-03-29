@@ -3,6 +3,7 @@ package net.nemerosa.iteach.ui.model;
 import lombok.Data;
 import org.hibernate.validator.constraints.URL;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 @Data
@@ -23,5 +24,7 @@ public class UIProfile {
     private final String iban;
     @Size(max = 10)
     private final String bic;
+    @Min(0L)
+    private final Long invoiceLastNb;
 
 }

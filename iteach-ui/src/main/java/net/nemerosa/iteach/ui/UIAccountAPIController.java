@@ -165,7 +165,8 @@ public class UIAccountAPIController implements UIAccountAPI {
                 profile.getPhone(),
                 profile.getVat(),
                 profile.getIban(),
-                profile.getBic()
+                profile.getBic(),
+                profile.getInvoiceLastNb()
         );
     }
 
@@ -180,7 +181,8 @@ public class UIAccountAPIController implements UIAccountAPI {
                         profile.getPhone(),
                         profile.getVat(),
                         profile.getIban(),
-                        profile.getBic()
+                        profile.getBic(),
+                        profile.getInvoiceLastNb()
                 )
         );
         return Ack.OK;
