@@ -2,12 +2,20 @@ package net.nemerosa.iteach.service.model;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+
 /**
  * Invoice data for a school and a month.
  */
 @Data
 public class InvoiceData {
 
+    /**
+     * Period for the invoice
+     */
+    private final YearMonth period;
+    private final LocalDate date;
     /**
      * Invoice number
      */

@@ -304,7 +304,7 @@ public class UITeacherAPIController implements UITeacherAPI {
         return new UILessonReport(
                 studentId,
                 period,
-                period.format(DateTimeFormatter.ofPattern("MMMM yyyy").withLocale(locale)),
+                formatMonth(locale, period),
                 period.minusMonths(1),
                 period.plusMonths(1),
                 report.getTotalHours(),
@@ -323,7 +323,7 @@ public class UITeacherAPIController implements UITeacherAPI {
         Report report = teacherService.getReport(period);
         return new UIReport(
                 period,
-                period.format(DateTimeFormatter.ofPattern("MMMM yyyy").withLocale(locale)),
+                formatMonth(locale, period),
                 period.minusMonths(1),
                 period.plusMonths(1),
                 report.getHours(),
@@ -333,6 +333,10 @@ public class UITeacherAPIController implements UITeacherAPI {
                         .map(this::toUISchoolReport)
                         .collect(Collectors.toList())
         );
+    }
+
+    private String formatMonth(Locale locale, YearMonth period) {
+        return period.format(DateTimeFormatter.ofPattern("MMMM yyyy").withLocale(locale));
     }
 
     @Override
@@ -346,6 +350,10 @@ public class UITeacherAPIController implements UITeacherAPI {
                 )
         );
         return new UIInvoiceData(
+                data.getPeriod(),
+                data.getDate(),
+                formatMonth(locale, data.getPeriod()),
+                data.getDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale)),
                 data.getNumber(),
                 data.getTeacherName(),
                 data.getTeacherEmail(),

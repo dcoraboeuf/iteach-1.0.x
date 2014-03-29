@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.List;
@@ -426,6 +427,8 @@ public class TeacherServiceImpl implements TeacherService {
     public InvoiceData getInvoiceData(InvoiceForm form) {
         AccountAuthentication account = securityUtils.getCurrentAccount();
         return new InvoiceData(
+                form.getPeriod(),
+                LocalDate.now(),
                 form.getNumber(),
                 account.getName(),
                 account.getEmail(),
