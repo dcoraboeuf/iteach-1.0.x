@@ -4,7 +4,7 @@ angular.module('iteach.dialog.invoice', [
     ])
     .controller('dialogInvoice', function ($log, $scope, $translate, $modalInstance, calendarService, modalController, invoiceForm, notificationService, uiTeacher) {
 
-        $scope.invoice = invoiceForm;
+        $scope.invoice = invoiceForm;
         if (invoiceForm.period) {
             $scope.invoice.year = invoiceForm.period.year;
             $scope.invoice.month = invoiceForm.period.month;
@@ -22,7 +22,15 @@ angular.module('iteach.dialog.invoice', [
 
         $scope.submit = function (isValid) {
             if (isValid) {
-                modalController.onSubmit($scope.invoiceForm).then(
+                var invoice = {
+                    schoolId: $scope.invoice.schoolId,
+                    period: {
+                        year: $scope.invoice.year,
+                        month: $scope.invoice.month
+                    },
+                    number: $scope.invoice.number
+                };
+                modalController.onSubmit(invoice).then(
                     function () {
                         $modalInstance.close('ok')
                     },
