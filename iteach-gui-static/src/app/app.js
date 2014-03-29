@@ -136,7 +136,7 @@ var iteach = angular.module('iteach', [
         .controller('HomeCtrl', function (accountService) {
             accountService.init();
         })
-        .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, config, accountService) {
+        .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, config, accountService, teacherService) {
             $scope.version = config.version;
             // Language management
             $scope.language = function () {
@@ -176,6 +176,8 @@ var iteach = angular.module('iteach', [
                 accountService.logout()
             };
             $scope.accountProfile = accountService.accountProfile;
+            // User menu actions
+            $scope.createInvoice = teacherService.createInvoice;
             // On state change
             $scope.$on('$routeChangeSuccess', function () {
                 $rootScope.message = undefined;

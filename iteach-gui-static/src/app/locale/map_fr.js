@@ -130,5 +130,7 @@ var map_fr = {
     'report.monthly': "Rapport mensuel",
     'report.hours.total': "Nombre total d'heures",
     'report.hours.period': "Nombre d'heure pour le mois",
-    'report.income.total': "Revenu total"
+    'report.income.total': "Revenu total",
+    // Invoicing
+    'invoice.generate': "Générer une facture"
 };
