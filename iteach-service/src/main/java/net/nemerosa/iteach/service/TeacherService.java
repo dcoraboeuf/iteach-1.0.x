@@ -62,4 +62,6 @@ public interface TeacherService {
 
     LessonReport getLessonReport(int studentId, YearMonth period);
 
+    InvoiceData getInvoiceData(InvoiceForm form);
+
 }

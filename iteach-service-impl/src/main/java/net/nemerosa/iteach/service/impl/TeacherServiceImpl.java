@@ -8,6 +8,7 @@ import net.nemerosa.iteach.dao.StudentRepository;
 import net.nemerosa.iteach.dao.model.TLesson;
 import net.nemerosa.iteach.dao.model.TSchool;
 import net.nemerosa.iteach.dao.model.TStudent;
+import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.*;
@@ -31,6 +32,7 @@ public class TeacherServiceImpl implements TeacherService {
     private final StudentRepository studentRepository;
     private final LessonRepository lessonRepository;
     private final SecurityUtils securityUtils;
+    private final AccountService accountService;
     private final Function<? super TSchool, ? extends School> schoolFn = t -> new School(
             t.getId(),
             t.getTeacherId(),
@@ -67,11 +69,12 @@ public class TeacherServiceImpl implements TeacherService {
     );
 
     @Autowired
-    public TeacherServiceImpl(SchoolRepository schoolRepository, StudentRepository studentRepository, LessonRepository lessonRepository, SecurityUtils securityUtils) {
+    public TeacherServiceImpl(SchoolRepository schoolRepository, StudentRepository studentRepository, LessonRepository lessonRepository, SecurityUtils securityUtils, AccountService accountService) {
         this.schoolRepository = schoolRepository;
         this.studentRepository = studentRepository;
         this.lessonRepository = lessonRepository;
         this.securityUtils = securityUtils;
+        this.accountService = accountService;
     }
 
     @Override
@@ -415,6 +418,17 @@ public class TeacherServiceImpl implements TeacherService {
                 totalHours,
                 periodHours,
                 lessons
+        );
+    }
+
+    @Override
+    public InvoiceData getInvoiceData(InvoiceForm form) {
+        // OK
+        return new InvoiceData(
+                securityUtils.getCurrentAccountName(),
+                accountService.getProfile(),
+                getSchool(form.getSchoolId()),
+                getSchoolReport(form.getSchoolId(), toPeriod(form.getPeriod()), true)
         );
     }
 

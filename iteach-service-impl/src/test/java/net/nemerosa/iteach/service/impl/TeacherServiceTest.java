@@ -37,8 +37,8 @@ public class TeacherServiceTest {
                 schoolRepository,
                 studentRepository,
                 lessonRepository,
-                securityUtils
-        );
+                securityUtils,
+                accountService);
         when(securityUtils.checkTeacher()).thenReturn(TEACHERID);
         when(studentRepository.getById(TEACHERID, STUDENT_ID)).thenReturn(new TStudent(STUDENT_ID, TEACHERID, SCHOOL_ID, false, "A student", "", "", "", "", ""));
     }
