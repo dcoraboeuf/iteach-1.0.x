@@ -7,7 +7,7 @@ angular.module('iteach.service.teacher', [
         'iteach.dialog.lesson',
         'iteach.dialog.invoice'
     ])
-    .service('teacherService', function ($q, $log, $modal, $translate, $location, alertService, uiTeacher, localDataService, uiAccount) {
+    .service('teacherService', function ($q, $log, $modal, $translate, $interpolate, $location, alertService, uiTeacher, localDataService, uiAccount) {
         var self = {};
 
         self.getSchools = function () {
@@ -280,7 +280,7 @@ angular.module('iteach.service.teacher', [
             }
             var d = $q.defer();
             uiAccount.getAccountProfile().success(function (profile) {
-               var nb = 1;
+                var nb = 1;
                 if (profile.invoiceLastNb) {
                     nb = profile.invoiceLastNb + 1;
                 }
@@ -297,8 +297,14 @@ angular.module('iteach.service.teacher', [
                         },
                         modalController: function () {
                             return {
-                                onSubmit: function (todo) {
-                                    // TODO Submitting the invoice request
+                                onSubmit: function (invoiceForm) {
+                                    // The `modalController.onSubmit` is expected to return a promise.
+                                    var d = $q.defer();
+                                    $location.path(
+                                        $interpolate('/invoice/{{schoolId}}/{{period.year}}/{{period.month}}/{{number}}')(invoiceForm)
+                                    );
+                                    d.resolve();
+                                    return d.promise;
                                 }
                             }
                         }

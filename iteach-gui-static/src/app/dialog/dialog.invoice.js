@@ -30,6 +30,7 @@ angular.module('iteach.dialog.invoice', [
                     },
                     number: $scope.invoice.number
                 };
+                console.log('Invoice form', invoice);
                 modalController.onSubmit(invoice).then(
                     function () {
                         $modalInstance.close('ok')

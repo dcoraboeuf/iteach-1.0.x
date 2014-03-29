@@ -4,10 +4,13 @@
 <form name="invoiceForm" class="form-horizontal" ng-submit="submit(invoiceForm.$valid)" novalidate="novalidate">
     <div class="modal-body">
 
-        <div class="form-group" ng-class="{ 'has-error' : invoiceForm.schoolId.$invalid && !invoiceForm.schoolId.$pristine }">
+        <div class="form-group"
+             ng-class="{ 'has-error' : invoiceForm.schoolId.$invalid && !invoiceForm.schoolId.$pristine }">
             <label class="control-label col-md-3">{{'school' | translate}}</label>
+
             <div class="col-md-9">
-                <select ng-model="invoice.schoolId" ng-options="school.id as school.name for school in schools" name="schoolId" required="required" class="form-control">
+                <select ng-model="invoice.schoolId" ng-options="school.id as school.name for school in schools"
+                        name="schoolId" required="required" class="form-control">
                     <option value="">&nbsp;</option>
                 </select>
             </div>
@@ -15,11 +18,14 @@
 
         <div class="form-group">
             <label class="control-label col-md-3">{{'invoice.month' | translate}}</label>
+
             <div class="col-md-3">
-                <input ng-model="invoice.year" name="year" required="required" class="form-control" type="number" min="2000" maxlength="4" />
+                <input ng-model="invoice.year" name="year" required="required" class="form-control" type="number"
+                       min="2000" maxlength="4"/>
             </div>
             <div class="col-md-6">
-                <select ng-model="invoice.month" ng-options="m.index as m.name for m in months" name="month" required="required" class="form-control">
+                <select ng-model="invoice.month" ng-options="m.index as m.name for m in months" name="month"
+                        required="required" class="form-control">
                     <option value="">&nbsp;</option>
                 </select>
             </div>
@@ -27,19 +33,22 @@
 
         <div class="form-group">
             <label class="control-label col-md-3">{{'invoice.number' | translate}}</label>
+
             <div class="col-md-9">
-                <input ng-model="invoice.number" name="number" required="required" class="form-control" type="number" min="1" maxlength="20" />
+                <input ng-model="invoice.number" name="number" required="required" class="form-control" type="number"
+                       min="1" maxlength="20"/>
             </div>
         </div>
 
     </div>
-</form>
-<div class="modal-footer">
+    <div class="modal-footer">
 
-    <div class="alert alert-{{messageType}} alert-dismissable" ng-show="message">
-        <span>{{message}}</span>
+        <div class="alert alert-{{messageType}} alert-dismissable" ng-show="message">
+            <span>{{message}}</span>
+        </div>
+
+        <button class="btn btn-primary" type="submit" ng-disabled="invoiceForm.$invalid">{{'dialog.ok' | translate}}
+        </button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">{{'dialog.cancel' | translate}}</button>
     </div>
-
-    <button class="btn btn-primary" type="submit" ng-disabled="invoiceForm.$invalid">{{'dialog.ok' | translate}}</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">{{'dialog.cancel' | translate}}</button>
-</div>
+</form>
