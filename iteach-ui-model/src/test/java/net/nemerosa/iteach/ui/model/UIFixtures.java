@@ -51,8 +51,8 @@ public final class UIFixtures {
                 "4567",
                 "school@test.com",
                 "http://school.my",
-                "BE0123456789"
-        );
+                "BE0123456789",
+                null);
     }
 
     public static ObjectNode jsonTeacher() {

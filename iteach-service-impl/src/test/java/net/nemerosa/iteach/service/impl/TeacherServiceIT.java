@@ -8,6 +8,7 @@ import org.joda.money.Money;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import static net.nemerosa.iteach.test.TestUtils.uid;
@@ -41,7 +42,8 @@ public class TeacherServiceIT extends AbstractITTestSupport {
                             "4567",
                             "school@test.com",
                             "http://school.test.com",
-                            "BE0123456789"
+                            "BE0123456789",
+                            new BigDecimal("21")
                     ));
             // Gets the school back and checks its fields
             return teacherService.getSchool(schoolId);

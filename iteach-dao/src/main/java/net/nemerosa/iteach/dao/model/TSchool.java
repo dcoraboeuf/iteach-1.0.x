@@ -3,6 +3,8 @@ package net.nemerosa.iteach.dao.model;
 import lombok.Data;
 import org.joda.money.Money;
 
+import java.math.BigDecimal;
+
 @Data
 public class TSchool {
 
@@ -18,5 +20,6 @@ public class TSchool {
     private final String email;
     private final String webSite;
     private final String vat;
+    private final BigDecimal vatRate;
 
 }

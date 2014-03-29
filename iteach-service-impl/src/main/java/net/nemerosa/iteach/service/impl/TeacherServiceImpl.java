@@ -47,7 +47,8 @@ public class TeacherServiceImpl implements TeacherService {
             t.getMobilePhone(),
             t.getEmail(),
             t.getWebSite(),
-            t.getVat()
+            t.getVat(),
+            t.getVatRate()
     );
     private final Function<? super TStudent, ? extends Student> studentFn = t -> new Student(
             t.getId(),
@@ -103,7 +104,8 @@ public class TeacherServiceImpl implements TeacherService {
                 form.getPhone(),
                 form.getMobilePhone(),
                 form.getWebSite(),
-                form.getVat()
+                form.getVat(),
+                form.getVatRate()
         );
     }
 
@@ -124,7 +126,8 @@ public class TeacherServiceImpl implements TeacherService {
                 form.getPhone(),
                 form.getMobilePhone(),
                 form.getWebSite(),
-                form.getVat()
+                form.getVat(),
+                form.getVatRate()
         );
     }
 

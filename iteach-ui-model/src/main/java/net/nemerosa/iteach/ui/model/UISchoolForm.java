@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.URL;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -44,6 +45,7 @@ public class UISchoolForm {
     private final String webSite;
     @Size(min = 0, max = 40)
     private final String vat;
+    private final BigDecimal vatRate;
 
     public Money toHourlyRate() {
         if (StringUtils.isNotBlank(hourlyRate)) {

@@ -36,7 +36,8 @@ public class ACCTeacher extends AbstractACCSupport {
                                 "",
                                 "",
                                 "",
-                                ""
+                                "",
+                                null
                         )
                 )
         );
@@ -63,7 +64,8 @@ public class ACCTeacher extends AbstractACCSupport {
                         "",
                         "",
                         "",
-                        ""
+                        "",
+                        null
                 ),
                 "School name may not be null"
         );
@@ -82,7 +84,8 @@ public class ACCTeacher extends AbstractACCSupport {
                         "",
                         "",
                         "",
-                        ""
+                        "",
+                        null
                 ),
                 "Nom de l'école : ne doit pas être nul"
         );
@@ -101,7 +104,8 @@ public class ACCTeacher extends AbstractACCSupport {
                         "",
                         "",
                         "",
-                        ""
+                        "",
+                        null
                 ),
                 "School colour must be a hexadecimal colour code like #AA66CC"
         );
@@ -120,7 +124,8 @@ public class ACCTeacher extends AbstractACCSupport {
                         "",
                         "",
                         "",
-                        ""
+                        "",
+                        null
                 ),
                 "School hourly rate must be like EUR 45.00 or 45.00 (defaults to EUR)"
         );
@@ -139,7 +144,8 @@ public class ACCTeacher extends AbstractACCSupport {
                         "",
                         "",
                         "",
-                        ""
+                        "",
+                        null
                 ),
                 "School name size must be between 1 and 80"
         );
@@ -159,7 +165,8 @@ public class ACCTeacher extends AbstractACCSupport {
                         "",
                         "",
                         "",
-                        ""
+                        "",
+                        null
                 ),
                 "Nom de l'école : le nombre de caractères doit être entre 1 et 80"
         );
@@ -178,7 +185,8 @@ public class ACCTeacher extends AbstractACCSupport {
                         "",
                         "www",
                         "",
-                        ""
+                        "",
+                        null
                 ),
                 "School email is not a well-formed email address"
         );
@@ -197,7 +205,8 @@ public class ACCTeacher extends AbstractACCSupport {
                         "",
                         "info@school.com",
                         "xxxx",
-                        ""
+                        "",
+                        null
                 ),
                 "School web site must be a valid URL"
         );

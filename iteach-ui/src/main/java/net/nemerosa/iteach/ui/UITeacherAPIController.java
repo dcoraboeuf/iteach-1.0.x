@@ -77,7 +77,8 @@ public class UITeacherAPIController implements UITeacherAPI {
                 form.getMobilePhone(),
                 form.getEmail(),
                 form.getWebSite(),
-                form.getVat()
+                form.getVat(),
+                form.getVatRate()
         );
     }
 
@@ -100,8 +101,8 @@ public class UITeacherAPIController implements UITeacherAPI {
                 o.getMobilePhone(),
                 o.getEmail(),
                 o.getWebSite(),
-                o.getVat()
-        );
+                o.getVat(),
+                o.getVatRate());
     }
 
     @Override
