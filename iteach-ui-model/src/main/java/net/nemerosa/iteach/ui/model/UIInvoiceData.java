@@ -7,6 +7,7 @@ public class UIInvoiceData {
 
     private final long number;
     private final String teacherName;
+    private final String teacherEmail;
     private final UIProfile profile;
     private final UISchool school;
     private final UISchoolReport report;

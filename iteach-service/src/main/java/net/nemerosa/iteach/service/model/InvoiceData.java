@@ -16,6 +16,7 @@ public class InvoiceData {
      * Data for the teacher
      */
     private final String teacherName;
+    private final String teacherEmail;
     /**
      * Profile used for the invoice
      */

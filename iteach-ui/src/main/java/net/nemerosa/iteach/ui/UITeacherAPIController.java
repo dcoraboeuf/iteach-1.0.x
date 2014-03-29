@@ -348,6 +348,7 @@ public class UITeacherAPIController implements UITeacherAPI {
         return new UIInvoiceData(
                 data.getNumber(),
                 data.getTeacherName(),
+                data.getTeacherEmail(),
                 UIAccountAPIController.toUIProfile(data.getProfile()),
                 toUISchool(data.getSchool()),
                 toUISchoolReport(data.getReport())

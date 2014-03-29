@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.service.impl;
 
+import net.nemerosa.iteach.common.AccountAuthentication;
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.Period;
 import net.nemerosa.iteach.dao.LessonRepository;
@@ -423,10 +424,11 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public InvoiceData getInvoiceData(InvoiceForm form) {
-        // OK
+        AccountAuthentication account = securityUtils.getCurrentAccount();
         return new InvoiceData(
                 form.getNumber(),
-                securityUtils.getCurrentAccountName(),
+                account.getName(),
+                account.getEmail(),
                 accountService.getProfile(),
                 getSchool(form.getSchoolId()),
                 getSchoolReport(form.getSchoolId(), toPeriod(form.getPeriod()), true)
