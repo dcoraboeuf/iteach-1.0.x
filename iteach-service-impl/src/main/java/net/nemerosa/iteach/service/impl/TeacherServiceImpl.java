@@ -425,6 +425,7 @@ public class TeacherServiceImpl implements TeacherService {
     public InvoiceData getInvoiceData(InvoiceForm form) {
         // OK
         return new InvoiceData(
+                form.getNumber(),
                 securityUtils.getCurrentAccountName(),
                 accountService.getProfile(),
                 getSchool(form.getSchoolId()),

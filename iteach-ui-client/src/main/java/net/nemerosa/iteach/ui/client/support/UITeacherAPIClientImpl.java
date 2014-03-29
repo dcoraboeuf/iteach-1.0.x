@@ -113,4 +113,9 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     public UIReport getReport(Locale locale, int year, int month) {
         return get(locale, UIReport.class, "/api/teacher/report/%d/%d", year, month);
     }
+
+    @Override
+    public UIInvoiceData getInvoiceData(Locale locale, int schoolId, int year, int month, long number) {
+        return get(locale, UIInvoiceData.class, "/api/teacher/invoice/%d/%d/%d/%d", schoolId, year, month, number);
+    }
 }

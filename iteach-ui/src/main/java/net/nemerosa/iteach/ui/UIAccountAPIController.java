@@ -158,6 +158,10 @@ public class UIAccountAPIController implements UIAccountAPI {
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public UIProfile getProfile(Locale locale) {
         Profile profile = accountService.getProfile();
+        return toUIProfile(profile);
+    }
+
+    public static UIProfile toUIProfile(Profile profile) {
         return new UIProfile(
                 profile.getCompany(),
                 profile.getCompanyLogo(),

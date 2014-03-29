@@ -113,4 +113,9 @@ public interface UITeacherAPI {
      */
     UIReport getReport(Locale locale, int year, int month);
 
+    /**
+     * Invoice data
+     */
+    UIInvoiceData getInvoiceData(Locale locale, int schoolId, int year, int month, long number);
+
 }

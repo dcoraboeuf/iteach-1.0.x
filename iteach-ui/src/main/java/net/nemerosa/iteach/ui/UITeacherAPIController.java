@@ -85,6 +85,10 @@ public class UITeacherAPIController implements UITeacherAPI {
     @RequestMapping(value = "/school/{schoolId}", method = RequestMethod.GET)
     public UISchool getSchool(Locale locale, @PathVariable int schoolId) {
         School o = teacherService.getSchool(schoolId);
+        return toUISchool(o);
+    }
+
+    private static UISchool toUISchool(School o) {
         return new UISchool(
                 o.getId(),
                 o.getName(),
@@ -328,6 +332,25 @@ public class UITeacherAPIController implements UITeacherAPI {
                         .stream()
                         .map(this::toUISchoolReport)
                         .collect(Collectors.toList())
+        );
+    }
+
+    @Override
+    @RequestMapping(value = "/invoice/{schoolId}/{year}/{month}/{number}", method = RequestMethod.GET)
+    public UIInvoiceData getInvoiceData(Locale locale, @PathVariable int schoolId, @PathVariable int year, @PathVariable int month, @PathVariable long number) {
+        InvoiceData data = teacherService.getInvoiceData(
+                new InvoiceForm(
+                        schoolId,
+                        YearMonth.of(year, month),
+                        number
+                )
+        );
+        return new UIInvoiceData(
+                data.getNumber(),
+                data.getTeacherName(),
+                UIAccountAPIController.toUIProfile(data.getProfile()),
+                toUISchool(data.getSchool()),
+                toUISchoolReport(data.getReport())
         );
     }
 }

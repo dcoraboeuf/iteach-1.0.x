@@ -9,6 +9,10 @@ import lombok.Data;
 public class InvoiceData {
 
     /**
+     * Invoice number
+     */
+    private final long number;
+    /**
      * Data for the teacher
      */
     private final String teacherName;
