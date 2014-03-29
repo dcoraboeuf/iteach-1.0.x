@@ -1,4 +1,163 @@
 <div class="container">
+
+    <div class="row">
+        <div class="col-md-12 it-invoice" id="invoice">
+            <div class="it-invoice-header">
+                <img src="{{invoice.profile.companyLogo}}" class="it-invoice-logo"/>
+            </div>
+            <div>
+                <table class="it-invoice">
+                    <tbody>
+                    <tr>
+                        <td class="it-invoice-from it-invoice-from-label">
+                            From:
+                        </td>
+                        <td class="it-invoice-from it-invoice-from-ref">
+                            <p class="it-invoice-company">{{invoice.profile.company}}</p>
+
+                            <p class="it-invoice-address">{{invoice.profile.postalAddress}}</p>
+
+                            <p class="it-invoice-vat">VAT: {{invoice.profile.vat}}</p>
+                        </td>
+                        <td class="it-invoice-to it-invoice-to-label">
+                            To:
+                        </td>
+                        <td class="it-invoice-to it-invoice-to-ref">
+                            <p class="it-invoice-company">{{invoice.school.name}}</p>
+
+                            <p class="it-invoice-address">{{invoice.school.postalAddress}}</p>
+
+                            <p class="it-invoice-vat">VAT: {{invoice.school.vat}}</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h2>Invoice</h2>
+                <table class="it-invoice-data">
+                    <tbody>
+                    <tr>
+                        <td>Invoice number:</td>
+                        <td class="it-invoice-number">{{invoice.number}}</td>
+                    </tr>
+                    <tr>
+                        <td>Invoice date:</td>
+                        <td class="it-invoice-date">
+                            <it-todo>Invoice date</it-todo>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <table class="it-invoice-data">
+                    <tbody>
+                    <tr>
+                        <td>Work carried out by:</td>
+                        <td>{{invoice.teacherName}}
+                            <it-todo>Missing teacher name</it-todo>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Period:</td>
+                        <td>
+                            <it-todo>Formatted period</it-todo>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h2>Detail per student</h2>
+                <table class="it-invoice-students">
+                    <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Hours</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="student in invoice.report.students">
+                        <td>
+                            {{student.name}}
+                        </td>
+                        <td>
+                            {{student.hours}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h2>Total</h2>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>Total hours:</td>
+                        <td>{{invoice.report.hours}}</td>
+                        <td>&times;</td>
+                        <td>{{invoice.school.hourlyRate}}</td>
+                        <td>{{invoice.report.income}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                        <td colspan="2">VAT 21,00%</td>
+                        <td>
+                            <it-todo>VAT contribution</it-todo>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                        <td colspan="2">Total with VAT</td>
+                        <td>
+                            <it-todo>VAT contribution</it-todo>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <p>The payment is to be made to the following account:</p>
+
+                <p>
+                    IBAN <span class="it-invoice-iban">{{invoice.profile.iban}}</span> with
+                    BIC <span class="it-invoice-bic">{{invoice.profile.bic}}</span>,
+                    held by <span class="it-invoice-company">Nemerosa Sprl</span>.</p>
+            </div>
+            <div>
+                <table class="it-invoice-info">
+                    <tbody>
+                    <tr>
+                        <td>{{invoice.profile.company}}</td>
+                        <td>Tel:</td>
+                        <td>{{invoice.profile.phone}}</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2" class="it-invoice-address">{{invoice.profile.postalAddress}}</td>
+                        <td>email:</td>
+                        <td>
+                            <it-todo>Email</it-todo>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>VAT:</td>
+                        <td>{{invoice.profile.vat}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">IBAN:</td>
+                        <td>{{invoice.profile.iban}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">BIC:</td>
+                        <td>{{invoice.profile.bic}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <!-- TODO Printing the invoice -->
