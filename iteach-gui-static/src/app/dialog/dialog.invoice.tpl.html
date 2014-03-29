@@ -15,7 +15,10 @@
 
         <div class="form-group">
             <label class="control-label col-md-3">{{'invoice.month' | translate}}</label>
-            <div class="col-md-9">
+            <div class="col-md-3">
+                <input ng-model="invoice.year" name="year" required="required" class="form-control" type="number" min="2000" maxlength="4" />
+            </div>
+            <div class="col-md-6">
                 <select ng-model="invoice.month" ng-options="m.index as m.name for m in months" name="month" required="required" class="form-control">
                     <option value="">&nbsp;</option>
                 </select>
