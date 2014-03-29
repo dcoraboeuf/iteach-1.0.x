@@ -314,6 +314,8 @@ angular.module('iteach.service.teacher', [
             return d.promise;
         };
 
+        self.loadInvoice = uiTeacher.loadInvoice;
+
         return self;
     })
 ;
