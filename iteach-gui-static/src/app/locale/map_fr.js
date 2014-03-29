@@ -135,5 +135,6 @@ var map_fr = {
     'report.income.total': "Revenu total",
     // Invoicing
     'invoice.generate': "Générer une facture",
-    'invoice.month': "Année & Mois"
+    'invoice.month': "Année & Mois",
+    'invoice.number': "Numéro de facture"
 };

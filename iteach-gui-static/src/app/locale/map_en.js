@@ -134,5 +134,6 @@ var map_en = {
     'report.income.total': "Total income",
     // Invoicing
     'invoice.generate': "Generate invoice",
-    'invoice.month': "Year & Month"
+    'invoice.month': "Year & Month",
+    'invoice.number': "Invoice number"
 };
