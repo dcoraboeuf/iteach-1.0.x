@@ -1,12 +1,13 @@
 angular.module('iteach.service.teacher', [
         'iteach.service.core',
+        'iteach.ui.account',
         'iteach.ui.teacher',
         'iteach.dialog.school',
         'iteach.dialog.student',
         'iteach.dialog.lesson',
         'iteach.dialog.invoice'
     ])
-    .service('teacherService', function ($q, $log, $modal, $translate, $location, alertService, uiTeacher, localDataService) {
+    .service('teacherService', function ($q, $log, $modal, $translate, $location, alertService, uiTeacher, localDataService, uiAccount) {
         var self = {};
 
         self.getSchools = function () {
@@ -277,25 +278,34 @@ angular.module('iteach.service.teacher', [
                     month: date.getMonth() + 1
                 };
             }
-            return $modal.open({
-                templateUrl: 'app/dialog/dialog.invoice.tpl.html',
-                controller: 'dialogInvoice',
-                resolve: {
-                    invoiceForm: function () {
-                        return {
-                            schoolId: schoolId,
-                            period: thePeriod
-                        };
-                    },
-                    modalController: function () {
-                        return {
-                            onSubmit: function (todo) {
-                                // TODO Submitting the invoice request
+            var d = $q.defer();
+            uiAccount.getAccountProfile().success(function (profile) {
+               var nb = 1;
+                if (profile.invoiceLastNb) {
+                    nb = profile.invoiceLastNb + 1;
+                }
+                d.resolve($modal.open({
+                    templateUrl: 'app/dialog/dialog.invoice.tpl.html',
+                    controller: 'dialogInvoice',
+                    resolve: {
+                        invoiceForm: function () {
+                            return {
+                                schoolId: schoolId,
+                                period: thePeriod,
+                                number: nb
+                            };
+                        },
+                        modalController: function () {
+                            return {
+                                onSubmit: function (todo) {
+                                    // TODO Submitting the invoice request
+                                }
                             }
                         }
                     }
-                }
-            }).result;
+                }).result);
+            });
+            return d.promise;
         };
 
         return self;
