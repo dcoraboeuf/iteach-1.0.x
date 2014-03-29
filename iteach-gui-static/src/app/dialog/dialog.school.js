@@ -3,6 +3,7 @@ angular.module('iteach.dialog.school', [])
 
         $scope.colourPattern = /#[0-9A-Fa-f]{6}/;
         $scope.hourlyRatePattern = /^([A-Z]{3} )?\d+(\.\d+)?$/;
+        $scope.vatRatePattern = /^([0-9]+([\.,][0-9]+)?)$/;
         $scope.school = initialSchool;
 
         $scope.cancel = function () {

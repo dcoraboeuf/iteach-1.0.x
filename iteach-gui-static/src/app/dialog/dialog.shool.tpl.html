@@ -81,6 +81,15 @@
             </div>
         </div>
 
+        <div class="form-group" ng-class="{ 'has-error' : schoolForm.vatRate.$invalid && !schoolForm.vatRate.$pristine }">
+            <label class="control-label col-md-3">{{'school.vatRate' | translate}}</label>
+            <div class="col-md-9">
+                <input ng-model="school.vatRate" name="vatRate" maxlength="10" type="text" ng-pattern="vatRatePattern" class="form-control" />
+                <p ng-hide="schoolForm.vatRate.$invalid && !schoolForm.vatRate.$pristine" class="help-block">{{'school.vatRate.help' | translate}}</p>
+                <p ng-show="schoolForm.vatRate.$invalid && !schoolForm.vatRate.$pristine" class="help-block">{{'school.vatRate.error' | translate}}</p>
+            </div>
+        </div>
+
     </div>
     <div class="modal-footer">
 
