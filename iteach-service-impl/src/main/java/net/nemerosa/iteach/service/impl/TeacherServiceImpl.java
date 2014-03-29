@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
@@ -429,6 +430,21 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public InvoiceData getInvoiceData(InvoiceForm form) {
         AccountAuthentication account = securityUtils.getCurrentAccount();
+        SchoolReport report = getSchoolReport(form.getSchoolId(), toPeriod(form.getPeriod()), true);
+        School school = getSchool(form.getSchoolId());
+        // VAT support
+        Money vat;
+        Money vatTotal;
+        BigDecimal vatRate = school.getVatRate();
+        if (vatRate != null) {
+            vatRate = vatRate.movePointLeft(2);
+            vat = report.getIncome().multipliedBy(vatRate, RoundingMode.HALF_UP);
+            vatTotal = report.getIncome().plus(vat);
+        } else {
+            vat = Money.zero(report.getIncome().getCurrencyUnit());
+            vatTotal = report.getIncome();
+        }
+        // OK
         return new InvoiceData(
                 form.getPeriod(),
                 LocalDate.now(),
@@ -436,8 +452,10 @@ public class TeacherServiceImpl implements TeacherService {
                 account.getName(),
                 account.getEmail(),
                 accountService.getProfile(),
-                getSchool(form.getSchoolId()),
-                getSchoolReport(form.getSchoolId(), toPeriod(form.getPeriod()), true)
+                school,
+                report,
+                vat,
+                vatTotal
         );
     }
 

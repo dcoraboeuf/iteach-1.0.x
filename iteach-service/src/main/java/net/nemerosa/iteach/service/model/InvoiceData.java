@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.service.model;
 
 import lombok.Data;
+import org.joda.money.Money;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -37,5 +38,10 @@ public class InvoiceData {
      * School report
      */
     private final SchoolReport report;
+    /**
+     * VAT support
+     */
+    private final Money vat;
+    private final Money vatTotal;
 
 }

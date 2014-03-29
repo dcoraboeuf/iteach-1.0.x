@@ -96,17 +96,13 @@
                     </tr>
                     <tr>
                         <td colspan="2">&nbsp;</td>
-                        <td colspan="2">VAT 21,00%</td>
-                        <td>
-                            <it-todo>VAT contribution</it-todo>
-                        </td>
+                        <td colspan="2">VAT {{invoice.school.vatRate}}%</td>
+                        <td>{{invoice.vat}}</td>
                     </tr>
                     <tr>
                         <td colspan="2">&nbsp;</td>
                         <td colspan="2">Total with VAT</td>
-                        <td class="it-invoice-total-amount">
-                            <it-todo>VAT contribution</it-todo>
-                        </td>
+                        <td class="it-invoice-total-amount">{{invoice.vatTotal}}</td>
                     </tr>
                     </tbody>
                 </table>

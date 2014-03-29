@@ -360,7 +360,9 @@ public class UITeacherAPIController implements UITeacherAPI {
                 data.getTeacherEmail(),
                 UIAccountAPIController.toUIProfile(data.getProfile()),
                 toUISchool(data.getSchool()),
-                toUISchoolReport(data.getReport())
+                toUISchoolReport(data.getReport()),
+                data.getVat(),
+                data.getVatTotal()
         );
     }
 }

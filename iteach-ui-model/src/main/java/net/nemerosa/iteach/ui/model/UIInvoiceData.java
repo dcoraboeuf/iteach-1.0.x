@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.ui.model;
 
 import lombok.Data;
+import org.joda.money.Money;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -18,5 +19,7 @@ public class UIInvoiceData {
     private final UIProfile profile;
     private final UISchool school;
     private final UISchoolReport report;
+    private final Money vat;
+    private final Money vatTotal;
 
 }
