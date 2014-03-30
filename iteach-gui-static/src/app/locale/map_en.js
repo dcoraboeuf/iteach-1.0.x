@@ -138,5 +138,6 @@ var map_en = {
     // Invoicing
     'invoice.generate': "Generate invoice",
     'invoice.month': "Year & Month",
-    'invoice.number': "Invoice number"
+    'invoice.number': "Invoice number",
+    'invoice.print': "Print"
 };

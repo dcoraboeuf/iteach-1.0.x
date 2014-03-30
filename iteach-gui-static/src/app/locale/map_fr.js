@@ -139,5 +139,6 @@ var map_fr = {
     // Invoicing
     'invoice.generate': "Générer une facture",
     'invoice.month': "Année & Mois",
-    'invoice.number': "Numéro de facture"
+    'invoice.number': "Numéro de facture",
+    'invoice.print': "Imprimer"
 };
