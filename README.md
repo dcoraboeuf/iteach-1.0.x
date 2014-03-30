@@ -336,7 +336,63 @@ Output:
  * 403 Not authorized
 ```
 
-#### (NEW) I want to generate an invoice for a school for a given period
+#### I want to generate an invoice for a school for a given period
+
+##### Invoice set-up
+
+The invoice functionality is available from different locations:
+
+* the school page
+* the monthly report, at school level
+* the user menu
+* the invoice management page
+
+It displays a modal box that allows the user to select:
+
+* the school
+* the month and the year for the invoice
+* the invoice number
+* an optional comment for the invoice
+* if the details for the students must be displayed
+
+The school and the month may be already selected, according to the place where the invoice was requested from.
+
+The invoice number is a free numeric field, but its proposed value is computed according to the following rules:
+
+1. the last invoice number, plus one
+1. the last invoice number from the user's profile, plus one
+1. one
+
+The comment is some text that will be displayed on the invoice. It is optional. Its last value in saved in the user's preferences.
+
+A checkbox allows the user to select if he wants the student details appear on the invoice. This selection is saved in the user's preferences.
+
+##### Invoice creation
+
+When the user validates the invoice creation, the invoice is created and saved as a PDF. The user is notified on the dialog box when the invoice is ready and he can download it.
+
+He can also close the dialog box and go to the _Invoice management_, accessible from the user menu.
+
+##### Invoice management
+
+This page allows the user to list all its invoices, the ones created and the ones pending. He can:
+
+* download the PDF of an invoice at any time. 
+* delete invoices
+
+Note that the number of invoices is limited to 12 per user.
+
+##### Implementation notes
+
+When the creation of an invoice is requested, the system:
+
+* checks if the user is still allowed to create new invoices (the maximum number of invoices per user is 12).
+* checks if the user's profile is complete enough for the creation of an invoice
+* checks if the school's profile is complete enough for the creation of an invoice
+
+The PDF for the invoice is generated asynchronously. The invoice is stored on _iTeach_ systems using the invoice input data only. The PDF itself is stored remotely using Amazon S3.
+
+The configuration of the storage is done by the administrator in the _Settings_ page. As long as this setting is not done, no invoice can be generated.
 
 ## Non functional requirements
 
