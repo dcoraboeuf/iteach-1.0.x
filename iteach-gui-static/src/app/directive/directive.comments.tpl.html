@@ -1,14 +1,7 @@
-<div class="row">
-    <div class="col-md-12">
-        <table class="table table-condensed table-hover">
-            <tbody ng-repeat="comment in comments">
-            <tr>
-                <td>
-                    {{comment.renderedContent}}
-                </td>
-            </tr>
-            </tbody>
-        </table>
+<div class="row" ng-repeat="comment in comments">
+    <div class="col-md-12 well well-sm">
+        <span>{{comment.renderedContent}}</span>
+        <p class="it-comment-date">{{comment.formattedCreationDate}}</p>
     </div>
 </div>
 
