@@ -102,6 +102,7 @@ var map_fr = {
     'lesson.delete.prompt': "Voulez-vous vraiment supprimer cette leçon ? Les commentaires associés seront également supprimés.",
     // Comments
     'comments': "Commentaires",
+    'comment.create': "Ajouter un commentaire",
     // Admin
     'admin.page': "Administration",
     'admin.accounts': "Gestion des comptes utilisateurs",

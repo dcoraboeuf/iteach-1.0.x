@@ -101,6 +101,7 @@ var map_en = {
     'lesson.delete.prompt': "Do you want really to delete this lesson? The associated comments will be lost.",
     // Comments
     'comments': "Comments",
+    'comment.create': "Add comment",
     // Admin
     'admin.page': "Administration page",
     'admin.accounts': "Management of accounts",
