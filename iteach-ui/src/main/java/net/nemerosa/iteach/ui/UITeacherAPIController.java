@@ -5,13 +5,12 @@ import net.nemerosa.iteach.common.Period;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.*;
 import net.nemerosa.iteach.ui.model.*;
+import net.nemerosa.iteach.ui.support.UIFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
@@ -25,6 +24,7 @@ import java.util.stream.Collectors;
 public class UITeacherAPIController implements UITeacherAPI {
 
     private final TeacherService teacherService;
+    private final UIFormatter formatter;
     private final Function<? super School, ? extends UISchoolSummary> schoolSummaryFn = school -> new UISchoolSummary(
             school.getId(),
             school.getName(),
@@ -46,8 +46,9 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     @Autowired
-    public UITeacherAPIController(TeacherService teacherService) {
+    public UITeacherAPIController(TeacherService teacherService, UIFormatter formatter) {
         this.teacherService = teacherService;
+        this.formatter = formatter;
     }
 
     @Override
@@ -256,9 +257,9 @@ public class UITeacherAPIController implements UITeacherAPI {
                 lesson.getLocation(),
                 lesson.getFrom(),
                 lesson.getTo(),
-                lesson.getFrom().toLocalDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale)),
-                lesson.getFrom().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(locale)),
-                lesson.getTo().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(locale)),
+                formatter.formatDate(lesson.getFrom(), locale),
+                formatter.formatTime(lesson.getFrom(), locale),
+                formatter.formatTime(lesson.getTo(), locale),
                 lesson.getHours()
         );
     }
@@ -305,7 +306,7 @@ public class UITeacherAPIController implements UITeacherAPI {
         return new UILessonReport(
                 studentId,
                 period,
-                formatMonth(locale, period),
+                formatter.formatMonth(period, locale),
                 period.minusMonths(1),
                 period.plusMonths(1),
                 report.getTotalHours(),
@@ -324,7 +325,7 @@ public class UITeacherAPIController implements UITeacherAPI {
         Report report = teacherService.getReport(period);
         return new UIReport(
                 period,
-                formatMonth(locale, period),
+                formatter.formatMonth(period, locale),
                 period.minusMonths(1),
                 period.plusMonths(1),
                 report.getHours(),
@@ -334,10 +335,6 @@ public class UITeacherAPIController implements UITeacherAPI {
                         .map(this::toUISchoolReport)
                         .collect(Collectors.toList())
         );
-    }
-
-    private String formatMonth(Locale locale, YearMonth period) {
-        return period.format(DateTimeFormatter.ofPattern("MMMM yyyy").withLocale(locale));
     }
 
     @Override
@@ -353,8 +350,8 @@ public class UITeacherAPIController implements UITeacherAPI {
         return new UIInvoiceData(
                 data.getPeriod(),
                 data.getDate(),
-                formatMonth(locale, data.getPeriod()),
-                data.getDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale)),
+                formatter.formatMonth(data.getPeriod(), locale),
+                formatter.formatDate(data.getDate(), locale),
                 data.getNumber(),
                 data.getTeacherName(),
                 data.getTeacherEmail(),

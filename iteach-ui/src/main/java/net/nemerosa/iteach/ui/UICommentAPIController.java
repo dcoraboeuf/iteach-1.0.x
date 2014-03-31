@@ -6,6 +6,7 @@ import net.nemerosa.iteach.service.model.Comment;
 import net.nemerosa.iteach.ui.model.UIComment;
 import net.nemerosa.iteach.ui.model.UICommentCollection;
 import net.nemerosa.iteach.ui.model.UICommentForm;
+import net.nemerosa.iteach.ui.support.UIFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +19,12 @@ import java.util.stream.Collectors;
 public class UICommentAPIController implements UICommentAPI {
 
     private final CommentService commentService;
+    private final UIFormatter formatter;
 
     @Autowired
-    public UICommentAPIController(CommentService commentService) {
+    public UICommentAPIController(CommentService commentService, UIFormatter formatter) {
         this.commentService = commentService;
+        this.formatter = formatter;
     }
 
     @Override
@@ -60,10 +63,8 @@ public class UICommentAPIController implements UICommentAPI {
                 c.getRawContent(),
                 // FIXME Formatted content
                 c.getRawContent(),
-                // FIXME Formatted date
-                null,
-                // FIXME Formatted date
-                null
+                formatter.formatDateTime(c.getCreation(), locale),
+                formatter.formatDateTime(c.getUpdate(), locale)
         );
     }
 }
