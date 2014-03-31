@@ -2,6 +2,7 @@ package net.nemerosa.iteach.ui;
 
 import net.nemerosa.iteach.common.CommentEntity;
 import net.nemerosa.iteach.service.CommentService;
+import net.nemerosa.iteach.service.model.Comment;
 import net.nemerosa.iteach.ui.model.UIComment;
 import net.nemerosa.iteach.ui.model.UICommentCollection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/account")
+@RequestMapping("/api/comment")
 public class UICommentAPIController implements UICommentAPI {
 
     private final CommentService commentService;
@@ -31,21 +32,25 @@ public class UICommentAPIController implements UICommentAPI {
                 entityId,
                 commentService.getComments(entity, entityId)
                         .stream()
-                        .map(c -> new UIComment(
-                                c.getId(),
-                                c.getEntity(),
-                                c.getId(),
-                                c.getCreation(),
-                                c.getUpdate(),
-                                c.getRawContent(),
-                                // FIXME Formatted content
-                                c.getRawContent(),
-                                // FIXME Formatted date
-                                null,
-                                // FIXME Formatted date
-                                null
-                        ))
+                        .map(this::toUIComment)
                         .collect(Collectors.toList())
+        );
+    }
+
+    private UIComment toUIComment(Comment c) {
+        return new UIComment(
+                c.getId(),
+                c.getEntity(),
+                c.getId(),
+                c.getCreation(),
+                c.getUpdate(),
+                c.getRawContent(),
+                // FIXME Formatted content
+                c.getRawContent(),
+                // FIXME Formatted date
+                null,
+                // FIXME Formatted date
+                null
         );
     }
 }

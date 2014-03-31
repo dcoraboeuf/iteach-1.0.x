@@ -5,10 +5,10 @@ package net.nemerosa.iteach.common;
  */
 public enum CommentEntity {
 
-    SCHOOL,
+    school,
 
-    STUDENT,
+    student,
 
-    LESSON
+    lesson
 
 }
