@@ -9,4 +9,7 @@ public interface CommentRepository {
 
     List<TComment> findByEntityId(int teacherId, CommentEntity entity, int entityId);
 
+    TComment getById(int teacherId, CommentEntity entity, int commentId);
+
+    int create(int teacherId, CommentEntity entity, int entityId, String content);
 }

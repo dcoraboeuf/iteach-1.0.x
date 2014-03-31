@@ -3,7 +3,7 @@ angular.module('iteach.ui.comment', [])
         var self = {};
 
         self.getComments = function (entity, entityId) {
-            return $http.get(config.api('comment/{{entity}}/{{entityId}}', {
+            return $http.get(config.api('comment/{{entity}}/list/{{entityId}}', {
                 entity: entity,
                 entityId: entityId
             }));

@@ -9,4 +9,8 @@ public interface CommentService {
 
     List<Comment> getComments(CommentEntity entity, int entityId);
 
+    Comment getComment(CommentEntity entity, int commentId);
+
+    int postComment(CommentEntity entity, int entityId, String content);
+
 }

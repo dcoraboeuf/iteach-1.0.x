@@ -5,11 +5,11 @@ import net.nemerosa.iteach.service.CommentService;
 import net.nemerosa.iteach.service.model.Comment;
 import net.nemerosa.iteach.ui.model.UIComment;
 import net.nemerosa.iteach.ui.model.UICommentCollection;
+import net.nemerosa.iteach.ui.model.UICommentForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
@@ -25,19 +25,32 @@ public class UICommentAPIController implements UICommentAPI {
     }
 
     @Override
-    @RequestMapping(value = "/{entity}/{entityId}")
+    @RequestMapping(value = "/{entity}/list/{entityId}", method = RequestMethod.GET)
     public UICommentCollection getComments(Locale locale, @PathVariable CommentEntity entity, @PathVariable int entityId) {
         return new UICommentCollection(
                 entity,
                 entityId,
                 commentService.getComments(entity, entityId)
                         .stream()
-                        .map(this::toUIComment)
+                        .map(c -> toUIComment(locale, c))
                         .collect(Collectors.toList())
         );
     }
 
-    private UIComment toUIComment(Comment c) {
+    @Override
+    @RequestMapping(value = "/{entity}/{entityId}", method = RequestMethod.POST)
+    public UIComment postComment(Locale locale, @PathVariable CommentEntity entity, @PathVariable int entityId, @RequestBody @Valid UICommentForm form) {
+        int id = commentService.postComment(entity, entityId, form.getContent());
+        return getComment(locale, entity, id);
+    }
+
+    @Override
+    @RequestMapping(value = "/{entity}/{commentId}", method = RequestMethod.GET)
+    public UIComment getComment(Locale locale, @PathVariable CommentEntity entity, @PathVariable int commentId) {
+        return toUIComment(locale, commentService.getComment(entity, commentId));
+    }
+
+    private UIComment toUIComment(Locale locale, Comment c) {
         return new UIComment(
                 c.getId(),
                 c.getEntity(),

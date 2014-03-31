@@ -8,11 +8,13 @@ import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.model.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
@@ -33,6 +35,22 @@ public class CommentServiceImpl implements CommentService {
                 .stream()
                 .map(this::toComment)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Comment getComment(CommentEntity entity, int commentId) {
+        // Gets the teacher
+        int teacherId = securityUtils.checkTeacher();
+        // Gets the comment
+        return toComment(commentRepository.getById(teacherId, entity, commentId));
+    }
+
+    @Override
+    public int postComment(CommentEntity entity, int entityId, String content) {
+        // Gets the teacher
+        int teacherId = securityUtils.checkTeacher();
+        // Creates the comment
+        return commentRepository.create(teacherId, entity, entityId, content);
     }
 
     private Comment toComment(TComment t) {
