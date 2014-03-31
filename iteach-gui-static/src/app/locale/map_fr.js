@@ -103,6 +103,7 @@ var map_fr = {
     // Comments
     'comments': "Commentaires",
     'comment.create': "Ajouter un commentaire",
+    'comment.post': "Ajouter le commentaire",
     // Admin
     'admin.page': "Administration",
     'admin.accounts': "Gestion des comptes utilisateurs",

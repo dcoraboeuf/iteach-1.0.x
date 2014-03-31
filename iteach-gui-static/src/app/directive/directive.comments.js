@@ -14,6 +14,15 @@ angular.module('iteach.directive.comments', [
                 uiComment.getComments(scope.entity, scope.entityId).success(function (comments) {
                     scope.comments = comments;
                 });
+            },
+            controller: function ($scope) {
+                $scope.commentContent = '';
+                $scope.commentForm = false;
+                $scope.showCommandForm = function (show) {
+                    $scope.commentForm = show;
+                };
+                $scope.submitComment = function () {
+                };
             }
         }
     })

@@ -102,6 +102,7 @@ var map_en = {
     // Comments
     'comments': "Comments",
     'comment.create': "Add comment",
+    'comment.post': "Post comment",
     // Admin
     'admin.page': "Administration page",
     'admin.accounts': "Management of accounts",
