@@ -32,7 +32,15 @@
 
 <div class="row it-comment" ng-repeat="comment in comments">
     <div class="col-md-12 panel panel-default">
-        <span>{{comment.renderedContent}}</span>
-        <p class="it-comment-date">{{comment.formattedCreationDate}}</p>
+        <div class="row">
+            <div class="col-md-9">
+                <span>{{comment.renderedContent}}</span>
+                <p class="it-comment-date">{{comment.formattedCreationDate}}</p>
+            </div>
+            <div class="col-md-3 it-comment-commands">
+                <a class="glyphicon glyphicon-pencil"></a>
+                <a class="glyphicon glyphicon-trash"></a>
+            </div>
+        </div>
     </div>
 </div>
