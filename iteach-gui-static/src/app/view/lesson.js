@@ -4,6 +4,7 @@ angular.module('iteach.view.lesson', [
     .controller('LessonCtrl', function ($scope, $filter, $routeParams, teacherService) {
 
         var lessonId = $routeParams.lessonId;
+        $scope.lessonId = lessonId;
 
         function loadLesson() {
             teacherService.getLesson(lessonId).success(function (lesson) {

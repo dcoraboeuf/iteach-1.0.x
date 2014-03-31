@@ -5,6 +5,7 @@ angular.module('iteach.view.student', [
     .controller('StudentCtrl', function ($scope, $routeParams, teacherService, localDataService) {
 
         var studentId = $routeParams.studentId;
+        $scope.studentId = studentId;
 
         function loadLessonReportForPeriod(period) {
             teacherService.getLessonReport(studentId, period.year, period.month).success(function (report) {
