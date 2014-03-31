@@ -39,7 +39,7 @@ public interface SQL {
     String LESSON_BY_ID = "SELECT * FROM LESSON WHERE TEACHERID = :teacherId AND ID = :lessonId";
     String LESSON_DELETE = "DELETE FROM LESSON WHERE TEACHERID = :teacherId AND ID = :lessonId";
 
-    String COMMENT_BY_ENTITY_ID = "SELECT * FROM COMMENT WHERE TEACHER = :teacherId AND %s = :entityId ORDER BY CREATION";
+    String COMMENT_BY_ENTITY_ID = "SELECT * FROM COMMENT WHERE TEACHER = :teacherId AND %s = :entityId ORDER BY CREATION DESC";
     String COMMENT_BY_ID = "SELECT * FROM COMMENT WHERE TEACHER = :teacherId AND ID = :commentId";
     String COMMENT_POST = "INSERT INTO COMMENT (TEACHER, %s, CREATION, CONTENT) VALUES (:teacherId, :entityId, :creation, :content)";
 }
