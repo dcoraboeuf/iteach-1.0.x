@@ -100,6 +100,8 @@ var map_fr = {
     'lesson.location': "Emplacement",
     'lesson.schedule': "Planning",
     'lesson.delete.prompt': "Voulez-vous vraiment supprimer cette leçon ? Les commentaires associés seront également supprimés.",
+    // Comments
+    'comments': "Commentaires",
     // Admin
     'admin.page': "Administration",
     'admin.accounts': "Gestion des comptes utilisateurs",

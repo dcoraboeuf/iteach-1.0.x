@@ -99,6 +99,8 @@ var map_en = {
     'lesson.location': "Location",
     'lesson.schedule': "Schedule",
     'lesson.delete.prompt': "Do you want really to delete this lesson? The associated comments will be lost.",
+    // Comments
+    'comments': "Comments",
     // Admin
     'admin.page': "Administration page",
     'admin.accounts': "Management of accounts",
