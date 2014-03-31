@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.ui.client;
 
 import net.nemerosa.iteach.ui.client.support.UIAccountAPIClientImpl;
+import net.nemerosa.iteach.ui.client.support.UICommentAPIClientImpl;
 import net.nemerosa.iteach.ui.client.support.UITeacherAPIClientImpl;
 import net.nemerosa.iteach.ui.client.support.UITestAPIClientImpl;
 
@@ -31,5 +32,9 @@ public class UIClientFactory {
 
     public UITeacherAPIClient teacherClient() throws MalformedURLException {
         return new UITeacherAPIClientImpl(url);
+    }
+
+    public UICommentAPIClient commentClient() throws MalformedURLException {
+        return new UICommentAPIClientImpl(url);
     }
 }
