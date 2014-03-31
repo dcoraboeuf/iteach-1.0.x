@@ -22,6 +22,11 @@ angular.module('iteach.directive.comments', [
                     $scope.commentForm = show;
                 };
                 $scope.submitComment = function () {
+                    uiComment.postComment($scope.entity, $scope.entityId, $scope.commentContent).success(function (comment) {
+                        $scope.commentContent = '';
+                        $scope.commentForm = false;
+                        // TODO $scope.comments.unshift(comment);
+                    });
                 };
             }
         }

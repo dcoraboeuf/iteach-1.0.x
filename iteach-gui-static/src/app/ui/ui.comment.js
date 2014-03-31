@@ -9,6 +9,15 @@ angular.module('iteach.ui.comment', [])
             }));
         };
 
+        self.postComment = function (entity, entityId, content) {
+            return $http.post(config.api('comment/{{entity}}/{{entityId}}', {
+                entity: entity,
+                entityId: entityId
+            }), {
+                content: content
+            });
+        };
+
         return self;
     })
 ;
