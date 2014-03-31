@@ -1,10 +1,3 @@
-<div class="row" ng-repeat="comment in comments">
-    <div class="col-md-12 well well-sm">
-        <span>{{comment.renderedContent}}</span>
-        <p class="it-comment-date">{{comment.formattedCreationDate}}</p>
-    </div>
-</div>
-
 <div class="row" ng-hide="commentForm">
     <div class="col-md-12">
         <button class="btn btn-link" ng-click="showCommandForm(true)">
@@ -34,5 +27,12 @@
                 </div>
             </div>
         </form>
+    </div>
+</div>
+
+<div class="row" ng-repeat="comment in comments">
+    <div class="col-md-12 well well-sm">
+        <span>{{comment.renderedContent}}</span>
+        <p class="it-comment-date">{{comment.formattedCreationDate}}</p>
     </div>
 </div>
