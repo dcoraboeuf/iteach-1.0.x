@@ -24,7 +24,7 @@ angular.module('iteach.directive.comments', [
                     uiComment.postComment($scope.entity, $scope.entityId, $scope.commentContent).success(function (comment) {
                         $scope.commentContent = '';
                         $scope.commentForm = false;
-                        // TODO $scope.comments.unshift(comment);
+                        $scope.comments.unshift(comment);
                     });
                 };
             }
