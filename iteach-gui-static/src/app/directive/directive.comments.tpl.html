@@ -1,4 +1,16 @@
-<it-todo>List of comments</it-todo>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-condensed table-hover">
+            <tbody ng-repeat="comment in comments">
+            <tr>
+                <td>
+                    {{comment.renderedContent}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <div class="row" ng-hide="commentForm">
     <div class="col-md-12">

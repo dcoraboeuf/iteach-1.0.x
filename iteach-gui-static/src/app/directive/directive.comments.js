@@ -9,13 +9,12 @@ angular.module('iteach.directive.comments', [
                 entityId: '@'
             },
             templateUrl: 'app/directive/directive.comments.tpl.html',
-            link: function (scope) {
-                // Getting the list of comments
-                uiComment.getComments(scope.entity, scope.entityId).success(function (comments) {
-                    scope.comments = comments;
-                });
-            },
             controller: function ($scope) {
+                // Getting the list of comments
+                uiComment.getComments($scope.entity, $scope.entityId).success(function (comments) {
+                    $scope.comments = comments.resources;
+                });
+                // Form
                 $scope.commentContent = '';
                 $scope.commentForm = false;
                 $scope.showCommandForm = function (show) {
