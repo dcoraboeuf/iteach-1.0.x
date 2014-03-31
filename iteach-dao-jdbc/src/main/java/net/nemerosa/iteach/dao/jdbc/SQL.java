@@ -39,4 +39,5 @@ public interface SQL {
     String LESSON_BY_ID = "SELECT * FROM LESSON WHERE TEACHERID = :teacherId AND ID = :lessonId";
     String LESSON_DELETE = "DELETE FROM LESSON WHERE TEACHERID = :teacherId AND ID = :lessonId";
 
+    String COMMENT_BY_ENTITY_ID = "SELECT * FROM COMMENT WHERE TEACHERID = :teacherId AND %s = :entityId ORDER BY CREATION";
 }
