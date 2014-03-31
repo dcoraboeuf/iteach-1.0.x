@@ -27,6 +27,21 @@ angular.module('iteach.directive.comments', [
                         $scope.comments.unshift(comment);
                     });
                 };
+                // Deleting a comment
+                $scope.deleteComment = function (id) {
+                    uiComment.deleteComment($scope.entity, id).success(function () {
+                        // Deletes the item from the list using its ID
+                        var index = -1;
+                        for (var i = 0; i < $scope.comments.length; i++) {
+                            if ($scope.comments[i].id == id) {
+                                index = i;
+                            }
+                        }
+                        if (index >= 0) {
+                            $scope.comments.splice(index, 1);
+                        }
+                    });
+                };
             }
         }
     })

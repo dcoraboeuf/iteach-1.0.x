@@ -18,6 +18,13 @@ angular.module('iteach.ui.comment', [])
             });
         };
 
+        self.deleteComment = function (entity, id) {
+            return $http.delete(config.api('comment/{{entity}}/{{id}}', {
+                entity: entity,
+                id: id
+            }));
+        };
+
         return self;
     })
 ;
