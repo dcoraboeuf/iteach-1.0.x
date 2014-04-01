@@ -39,6 +39,6 @@ public class DefaultUIFormatter implements UIFormatter {
 
     @Override
     public String formatDateTime(LocalDateTime dateTime, Locale locale) {
-        return dateTime != null ? dateTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale)) : "";
+        return dateTime != null ? dateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(locale)) : "";
     }
 }
