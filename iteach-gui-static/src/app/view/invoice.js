@@ -12,5 +12,9 @@ angular.module('iteach.view.invoice', [
             $scope.invoice = invoice;
         });
 
+        $scope.printInvoice = function () {
+            window.print();
+        };
+
     })
 ;

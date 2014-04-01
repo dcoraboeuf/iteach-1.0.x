@@ -4,6 +4,7 @@ angular.module('iteach.view.school', [
     .controller('SchoolCtrl', function ($scope, $routeParams, teacherService) {
 
         var schoolId = $routeParams.schoolId;
+        $scope.schoolId = schoolId;
 
         function loadSchool() {
             teacherService.getSchool(schoolId).success(function (school) {

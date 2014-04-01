@@ -148,9 +148,10 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row it-invoice-commands">
         <div class="col-md-12">
-            <!-- TODO Printing the invoice -->
+            <!-- Printing the invoice -->
+            <button type="button" class="btn btn-info" ng-click="printInvoice()">{{'invoice.print' | translate}}</button>
             <!-- Close the view -->
             <a href="#/" class="btn btn-default">{{'home.back' | translate}}</a>
         </div>

@@ -32,7 +32,7 @@ public class UITeacherAPIControllerTest {
                         new Student(101, 1, 10, true, "B Name", "", "", "", "", "")
                 )
         );
-        controller = new UITeacherAPIController(teacherService);
+        controller = new UITeacherAPIController(teacherService, null);
     }
 
     @Test

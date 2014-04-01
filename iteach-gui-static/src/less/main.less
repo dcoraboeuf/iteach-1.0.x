@@ -57,6 +57,13 @@
 }
 
 /**
+ * Overrides for the print
+ */
+.navbar {
+  .hidden-print;
+}
+
+/**
  * General
  */
 
@@ -85,6 +92,7 @@ img.it-icon {
 
 .it-footer {
   margin-top: 20px;
+  .hidden-print;
   .it-footer-inner {
     padding: 20px 0;
     text-align: right;
@@ -173,6 +181,38 @@ a.glyphicon {
 .it-student-summary {
   .text-muted;
   font-size: 75%;
+}
+
+/**
+ * Comments
+ */
+.it-comment-date {
+  .text-muted;
+  font-size: 60%;
+  margin: 0px;
+  padding-top: 1px;
+}
+
+.it-comment-commands {
+  padding-right: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  opacity: 0.05;
+}
+
+.it-comment {
+  padding-left: 15px;
+  padding-right: 15px;
+  &:hover .it-comment-commands {
+    opacity: 1.0;
+  }
+}
+
+form.it-comment-update {
+  div.it-comment-update-field {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 }
 
 /**

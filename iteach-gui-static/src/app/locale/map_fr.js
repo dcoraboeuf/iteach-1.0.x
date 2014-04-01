@@ -17,7 +17,7 @@ var map_fr = {
     'login.signin.google': 'Se connecter avec Google',
     'login.signin.with': 'Se connecter avec',
     'login.signin.form': 'Se connecter avec iTeach',
-    'login.signin.form.email': 'Entrez votre adresse mail',
+    'login.signin.form.email': 'Entrez votre adresse mail ou votre identifiant',
     'login.signin.form.password': 'Entrez votre mot de passe',
     'login.signin.form.submit': 'Se connecter',
     'login.signin.form.register': "S'enregistrer",
@@ -100,6 +100,11 @@ var map_fr = {
     'lesson.location': "Emplacement",
     'lesson.schedule': "Planning",
     'lesson.delete.prompt': "Voulez-vous vraiment supprimer cette leçon ? Les commentaires associés seront également supprimés.",
+    // Comments
+    'comments': "Commentaires",
+    'comment.create': "Ajouter un commentaire",
+    'comment.post': "Ajouter le commentaire",
+    'comment.update': "Mettre à jour",
     // Admin
     'admin.page': "Administration",
     'admin.accounts': "Gestion des comptes utilisateurs",
@@ -139,5 +144,6 @@ var map_fr = {
     // Invoicing
     'invoice.generate': "Générer une facture",
     'invoice.month': "Année & Mois",
-    'invoice.number': "Numéro de facture"
+    'invoice.number': "Numéro de facture",
+    'invoice.print': "Imprimer"
 };

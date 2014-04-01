@@ -8,11 +8,13 @@ var iteach = angular.module('iteach', [
             'ui.bootstrap',
             'ui.calendar',
             'ngRoute',
+            'ngSanitize',
             'pascalprecht.translate',
             'iteach.templates',
             'iteach.config',
             // Directives
             'iteach.directive.view',
+            'iteach.directive.comments',
             'iteach.directive.misc',
             // Views
             'iteach.view.login',
