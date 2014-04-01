@@ -17,7 +17,7 @@ var map_en = {
     'login.signin.google': 'Sign in with Google',
     'login.signin.with': 'Sign in with',
     'login.signin.form': 'Sign in with iTeach',
-    'login.signin.form.email': 'Enter your email',
+    'login.signin.form.email': 'Enter your email or your identifier',
     'login.signin.form.password': 'Enter your password',
     'login.signin.form.submit': 'Sign in',
     'login.signin.form.register': 'Register',

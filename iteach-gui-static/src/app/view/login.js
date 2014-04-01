@@ -4,13 +4,15 @@ angular.module('iteach.view.login', [
     ])
     .controller('LoginCtrl', function ($scope, $routeParams, $translate, accountService, localDataService) {
         localDataService.clearCurrentDate(); // Resets the current date as now at login time
-        $scope.email = '';
-        $scope.password = '';
+        $scope.login = {
+            email: '',
+            password: ''
+        };
         if ($routeParams.error) {
             $scope.loginError = $translate.instant('login.error.' + $routeParams.error);
         }
         $scope.iteachLogin = function () {
-            accountService.iteachLogin($scope.email, $scope.password).then(angular.noop, function () {
+            accountService.iteachLogin($scope.login.email, $scope.login.password).then(angular.noop, function () {
                 $scope.loginError = $translate.instant('login.error');
             });
         }
