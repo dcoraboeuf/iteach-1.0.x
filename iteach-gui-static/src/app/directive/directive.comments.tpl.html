@@ -55,7 +55,13 @@
         <div class="row" ng-hide="comment.edited">
             <div class="col-md-9">
                 <span>{{comment.renderedContent}}</span>
-                <p class="it-comment-date">{{comment.formattedCreationDate}}</p>
+                <p class="it-comment-date">
+                    {{comment.formattedCreationDate}}
+                    <span ng-if="comment.formattedUpdateDate">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        {{comment.formattedUpdateDate}}
+                    </span>
+                </p>
             </div>
             <div class="col-md-3 it-comment-commands">
                 <a class="glyphicon glyphicon-pencil" ng-click="showUpdateForm(comment)"></a>
