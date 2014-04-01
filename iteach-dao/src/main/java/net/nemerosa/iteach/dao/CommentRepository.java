@@ -15,4 +15,6 @@ public interface CommentRepository {
     int create(int teacherId, CommentEntity entity, int entityId, String content);
 
     Ack delete(int teacherId, CommentEntity entity, int commentId);
+
+    void update(int teacherId, CommentEntity entity, int commentId, String content);
 }

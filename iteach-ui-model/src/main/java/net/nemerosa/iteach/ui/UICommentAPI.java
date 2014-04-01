@@ -30,4 +30,9 @@ public interface UICommentAPI {
      */
     Ack deleteComment(Locale locale, CommentEntity entity, int commentId);
 
+    /**
+     * Updates a comment
+     */
+    UIComment updateComment(Locale locale, CommentEntity entity, int commentId, UICommentForm form);
+
 }

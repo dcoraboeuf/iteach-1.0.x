@@ -35,4 +35,9 @@ public class UICommentAPIClientImpl extends AbstractClient<UICommentAPIClient> i
     public Ack deleteComment(Locale locale, CommentEntity entity, int commentId) {
         return delete(locale, Ack.class, "/api/comment/%s/%d", entity, commentId);
     }
+
+    @Override
+    public UIComment updateComment(Locale locale, CommentEntity entity, int commentId, UICommentForm form) {
+        return put(locale, UIComment.class, form, "/api/comment/%s/%d", entity, commentId);
+    }
 }

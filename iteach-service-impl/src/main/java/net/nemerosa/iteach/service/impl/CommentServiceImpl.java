@@ -62,6 +62,14 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.delete(teacherId, entity, commentId);
     }
 
+    @Override
+    public void updateComment(CommentEntity entity, int commentId, String content) {
+        // Gets the teacher
+        int teacherId = securityUtils.checkTeacher();
+        // Updates the comment
+        commentRepository.update(teacherId, entity, commentId, content);
+    }
+
     private Comment toComment(TComment t) {
         return new Comment(
                 t.getId(),

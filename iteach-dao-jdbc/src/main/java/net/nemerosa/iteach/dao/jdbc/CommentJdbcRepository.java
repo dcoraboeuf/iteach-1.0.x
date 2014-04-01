@@ -72,4 +72,15 @@ public class CommentJdbcRepository extends AbstractJdbcRepository implements Com
                 )
         );
     }
+
+    @Override
+    public void update(int teacherId, CommentEntity entity, int commentId, String content) {
+        getNamedParameterJdbcTemplate().update(
+                SQL.COMMENT_UPDATE,
+                params("teacherId", teacherId)
+                        .addValue("commentId", commentId)
+                        .addValue("edition", SQLUtils.getDBValueFromLocalDateTime(LocalDateTime.now()))
+                        .addValue("content", content)
+        );
+    }
 }

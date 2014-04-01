@@ -60,6 +60,15 @@ public class UICommentAPIController implements UICommentAPI {
         return commentService.deleteComment(entity, commentId);
     }
 
+    @Override
+    @RequestMapping(value = "/{entity}/{commentId}", method = RequestMethod.PUT)
+    public UIComment updateComment(Locale locale, @PathVariable CommentEntity entity, @PathVariable int commentId, @RequestBody @Valid UICommentForm form) {
+        // Update
+        commentService.updateComment(entity, commentId, form.getContent());
+        // OK
+        return getComment(locale, entity, commentId);
+    }
+
     private UIComment toUIComment(Locale locale, Comment c) {
         return new UIComment(
                 c.getId(),
