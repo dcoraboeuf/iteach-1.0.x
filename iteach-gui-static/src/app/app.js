@@ -8,6 +8,7 @@ var iteach = angular.module('iteach', [
             'ui.bootstrap',
             'ui.calendar',
             'ngRoute',
+            'ngSanitize',
             'pascalprecht.translate',
             'iteach.templates',
             'iteach.config',
