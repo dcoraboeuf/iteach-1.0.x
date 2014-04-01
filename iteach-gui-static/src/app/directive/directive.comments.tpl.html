@@ -33,7 +33,7 @@
 <div class="row it-comment" ng-repeat="comment in comments">
     <div class="col-md-12" ng-class="!comment.edited ? 'panel panel-default' : ''">
 
-        <form class="form-horizontal" role="form" ng-show="comment.edited" ng-submit="updateComment(comment.id, comment.rawContent)">
+        <form class="form-horizontal it-comment-update" role="form" ng-show="comment.edited" ng-submit="updateComment(comment.id, comment.rawContent)">
             <div class="form-group">
                 <div class="col-md-12">
                     <textarea ng-model="comment.rawContent" class="form-control" rows="4" required="required"></textarea>
@@ -58,7 +58,7 @@
                 <p class="it-comment-date">{{comment.formattedCreationDate}}</p>
             </div>
             <div class="col-md-3 it-comment-commands">
-                <a class="glyphicon glyphicon-pencil" ng-click="comment.edited = true"></a>
+                <a class="glyphicon glyphicon-pencil" ng-click="showUpdateForm(comment)"></a>
                 <a class="glyphicon glyphicon-trash" ng-click="deleteComment(comment.id)"></a>
             </div>
         </div>

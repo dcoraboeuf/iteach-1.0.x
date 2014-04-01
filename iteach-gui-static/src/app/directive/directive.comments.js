@@ -19,6 +19,9 @@ angular.module('iteach.directive.comments', [
                 $scope.commentForm = false;
                 $scope.showCommandForm = function (show) {
                     $scope.commentForm = show;
+                    for (var i = 0; i < $scope.comments.length; i++) {
+                        $scope.comments[i].edited = false;
+                    }
                 };
                 $scope.submitComment = function () {
                     uiComment.postComment($scope.entity, $scope.entityId, $scope.commentContent).success(function (comment) {
@@ -26,6 +29,11 @@ angular.module('iteach.directive.comments', [
                         $scope.commentForm = false;
                         $scope.comments.unshift(comment);
                     });
+                };
+                // Updating a comment
+                $scope.showUpdateForm = function (comment) {
+                    $scope.showCommandForm(false);
+                    comment.edited = true;
                 };
                 // Deleting a comment
                 $scope.deleteComment = function (id) {
