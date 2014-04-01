@@ -25,6 +25,15 @@ angular.module('iteach.ui.comment', [])
             }));
         };
 
+        self.updateComment = function (entity, id, content) {
+            return $http.put(config.api('comment/{{entity}}/{{id}}', {
+                entity: entity,
+                id: id
+            }), {
+                content: content
+            });
+        };
+
         return self;
     })
 ;
