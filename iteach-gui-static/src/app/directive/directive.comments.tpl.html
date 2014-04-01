@@ -21,7 +21,7 @@
                         <span class="glyphicon glyphicon-comment"></span>
                         {{'comment.post' | translate}}
                     </button>
-                    <button class="btn btn-link" ng-click="showCommandForm(false)">
+                    <button class="btn btn-link" type="button" ng-click="showCommandForm(false)">
                         {{'dialog.cancel' | translate}}
                     </button>
                 </div>
@@ -38,7 +38,7 @@
                 <p class="it-comment-date">{{comment.formattedCreationDate}}</p>
             </div>
             <div class="col-md-3 it-comment-commands">
-                <a class="glyphicon glyphicon-pencil"></a>
+                <a class="glyphicon glyphicon-pencil" ng-click="updateComment(comment.id)"></a>
                 <a class="glyphicon glyphicon-trash" ng-click="deleteComment(comment.id)"></a>
             </div>
         </div>
