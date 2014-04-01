@@ -3,12 +3,22 @@
 // Initial configuration
 var _calendar_i18n = [];
 
+// Local storage for the locale
+if (console) console.log('[language] Checking language on load');
+var language = localStorage['iteachLanguage'];
+if (!language) {
+    if (console) console.log('[language] No language specified, using "en"');
+    language = 'en';
+}
+if (console) console.log('[language] Using ' + language);
+
 // Declare app level module which depends on filters, and services
 var iteach = angular.module('iteach', [
             'ui.bootstrap',
             'ui.calendar',
             'ngRoute',
             'ngSanitize',
+            'ngLocale_' + language,
             'pascalprecht.translate',
             'iteach.templates',
             'iteach.config',
@@ -48,7 +58,7 @@ var iteach = angular.module('iteach', [
         .config(function ($translateProvider) {
             $translateProvider.translations('en', map_en);
             $translateProvider.translations('fr', map_fr);
-            $translateProvider.preferredLanguage('en');
+            $translateProvider.preferredLanguage(language);
         })
         // Runs the initial security service (in case of refresh)
         .run(function AppRun(accountService) {
@@ -161,7 +171,8 @@ var iteach = angular.module('iteach', [
                 }
             ];
             $scope.changeLanguage = function (lang) {
-                $translate.use(lang);
+                localStorage['iteachLanguage'] = lang;
+                location.reload();
             };
             // Notifications
             $scope.hasNotification = function () {
