@@ -83,4 +83,16 @@ public class CommentJdbcRepository extends AbstractJdbcRepository implements Com
                         .addValue("content", content)
         );
     }
+
+    @Override
+    public void importComment(int teacherId, CommentEntity entity, int entityId, LocalDateTime creationTime, LocalDateTime editionTime, String content) {
+        dbCreate(
+                format(SQL.COMMENT_IMPORT, entity.name()),
+                params("teacherId", teacherId)
+                        .addValue("entityId", entityId)
+                        .addValue("creation", SQLUtils.getDBValueFromLocalDateTime(creationTime))
+                        .addValue("edition", SQLUtils.getDBValueFromLocalDateTime(editionTime))
+                        .addValue("content", content)
+        );
+    }
 }

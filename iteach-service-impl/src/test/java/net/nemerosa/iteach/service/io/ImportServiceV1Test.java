@@ -13,7 +13,7 @@ public class ImportServiceV1Test {
     public void getTime() {
         assertEquals(
                 LocalDateTime.of(2014, 3, 24, 18, 34),
-                new ImportServiceV1(null).getTime("2014-03-24", "18:34")
+                new ImportServiceV1(null, null, null).getTime("2014-03-24", "18:34")
         );
     }
 
@@ -21,7 +21,7 @@ public class ImportServiceV1Test {
     public void getTimeFromJson() {
         assertEquals(
                 LocalDateTime.of(2014, 3, 24, 18, 34),
-                new ImportServiceV1(null).getTime(
+                new ImportServiceV1(null, null, null).getTime(
                         object()
                                 .with("date", "2014-03-24")
                                 .with("from", "18:34")

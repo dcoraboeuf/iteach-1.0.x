@@ -3,6 +3,9 @@ package net.nemerosa.iteach.service.io;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.CommentEntity;
+import net.nemerosa.iteach.dao.CommentRepository;
+import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.LessonForm;
 import net.nemerosa.iteach.service.model.SchoolForm;
@@ -14,17 +17,23 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Component
 @Qualifier("v1")
 public class ImportServiceV1 implements ImportService {
 
     private final TeacherService teacherService;
+    private final CommentRepository commentRepository;
+    private final SecurityUtils securityUtils;
 
     @Autowired
-    public ImportServiceV1(TeacherService teacherService) {
+    public ImportServiceV1(TeacherService teacherService, CommentRepository commentRepository, SecurityUtils securityUtils) {
         this.teacherService = teacherService;
+        this.commentRepository = commentRepository;
+        this.securityUtils = securityUtils;
     }
 
     @Override
@@ -52,7 +61,8 @@ public class ImportServiceV1 implements ImportService {
                         null
                 )
         );
-        // TODO School comments
+        // School comments
+        importComments(CommentEntity.school, schoolId, school.get("comments"));
         // School students
         for (JsonNode student : school.path("students")) {
             importStudent(schoolId, student);
@@ -80,7 +90,8 @@ public class ImportServiceV1 implements ImportService {
         for (JsonNode lesson : node.path("lessons")) {
             importLesson(studentId, lesson);
         }
-        // TODO Student comments
+        // Student comments
+        importComments(CommentEntity.student, studentId, node.get("comments"));
     }
 
     private void importLesson(int studentId, JsonNode node) {
@@ -93,7 +104,39 @@ public class ImportServiceV1 implements ImportService {
                         getTime(node, "date", "to")
                 )
         );
-        // TODO Lesson comments
+        // Lesson comments
+        importComments(CommentEntity.lesson, lessonId, node.get("comments"));
+    }
+
+    protected void importComments(CommentEntity entity, int entityId, JsonNode comments) {
+        for (JsonNode comment : comments) {
+            long creation = comment.path("creation").asLong();
+            long edition = comment.path("edition").asLong();
+            String content = comment.path("content").asText();
+            // Dates
+            LocalDateTime creationTime = getTime(creation);
+            LocalDateTime editionTime = getTime(edition);
+            // Creation
+            commentRepository.importComment(
+                    securityUtils.getCurrentAccount().getId(),
+                    entity,
+                    entityId,
+                    creationTime,
+                    editionTime,
+                    content
+            );
+        }
+    }
+
+    protected LocalDateTime getTime(long time) {
+        if (time == 0) {
+            return null;
+        } else {
+            return LocalDateTime.ofInstant(
+                    Instant.ofEpochMilli(time),
+                    ZoneId.of("Europe/Brussels")
+            );
+        }
     }
 
     protected LocalDateTime getTime(JsonNode node, String fieldDate, String fieldTime) {
