@@ -104,6 +104,7 @@ var map_fr = {
     'comments': "Commentaires",
     'comment.create': "Ajouter un commentaire",
     'comment.post': "Ajouter le commentaire",
+    'comment.update': "Mettre à jour",
     // Admin
     'admin.page': "Administration",
     'admin.accounts': "Gestion des comptes utilisateurs",

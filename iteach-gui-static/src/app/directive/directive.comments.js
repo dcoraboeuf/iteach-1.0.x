@@ -27,21 +27,6 @@ angular.module('iteach.directive.comments', [
                         $scope.comments.unshift(comment);
                     });
                 };
-                // Updating a comment
-                $scope.updateComment = function (id) {
-                    // Looks for the comment to update
-                    var comment = undefined;
-                    for (var i = 0; i < $scope.comments.length; i++) {
-                        if ($scope.comments[i].id == id) {
-                            comment = $scope.comments[i];
-                        }
-                    }
-                    // Editing the comment
-                    if (comment) {
-                        $scope.commentContent = comment.rawContent;
-                        $scope.showCommandForm(true);
-                    }
-                };
                 // Deleting a comment
                 $scope.deleteComment = function (id) {
                     uiComment.deleteComment($scope.entity, id).success(function () {

@@ -31,14 +31,34 @@
 </div>
 
 <div class="row it-comment" ng-repeat="comment in comments">
-    <div class="col-md-12 panel panel-default">
-        <div class="row">
+    <div class="col-md-12" ng-class="!comment.edited ? 'panel panel-default' : ''">
+
+        <form class="form-horizontal" role="form" ng-show="comment.edited" ng-submit="updateComment(comment.id, comment.rawContent)">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <textarea ng-model="comment.rawContent" class="form-control" rows="4" required="required"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <button class="btn btn-primary" type="submit">
+                        <span class="glyphicon glyphicon-comment"></span>
+                        {{'comment.update' | translate}}
+                    </button>
+                    <button class="btn btn-link" type="button" ng-click="comment.edited = false">
+                        {{'dialog.cancel' | translate}}
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <div class="row" ng-hide="comment.edited">
             <div class="col-md-9">
                 <span>{{comment.renderedContent}}</span>
                 <p class="it-comment-date">{{comment.formattedCreationDate}}</p>
             </div>
             <div class="col-md-3 it-comment-commands">
-                <a class="glyphicon glyphicon-pencil" ng-click="updateComment(comment.id)"></a>
+                <a class="glyphicon glyphicon-pencil" ng-click="comment.edited = true"></a>
                 <a class="glyphicon glyphicon-trash" ng-click="deleteComment(comment.id)"></a>
             </div>
         </div>
