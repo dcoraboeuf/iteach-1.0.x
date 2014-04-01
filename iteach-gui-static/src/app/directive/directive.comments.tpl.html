@@ -54,7 +54,7 @@
 
         <div class="row" ng-hide="comment.edited">
             <div class="col-md-9">
-                <span>{{comment.renderedContent}}</span>
+                <span ng-bind-html="comment.renderedContent"></span>
                 <p class="it-comment-date">
                     {{comment.formattedCreationDate}}
                     <span ng-if="comment.formattedUpdateDate">
