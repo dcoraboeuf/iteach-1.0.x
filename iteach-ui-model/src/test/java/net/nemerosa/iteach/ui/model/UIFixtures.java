@@ -32,6 +32,7 @@ public final class UIFixtures {
                 .with("email", "school@test.com")
                 .with("webSite", "http://school.my")
                 .with("vat", "BE0123456789")
+                .with("vatRate", 21)
                 .end();
     }
 
@@ -52,7 +53,7 @@ public final class UIFixtures {
                 "school@test.com",
                 "http://school.my",
                 "BE0123456789",
-                null);
+                BigDecimal.valueOf(21));
     }
 
     public static ObjectNode jsonTeacher() {
