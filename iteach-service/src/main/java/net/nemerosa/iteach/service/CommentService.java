@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.service;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.CommentEntity;
 import net.nemerosa.iteach.service.model.Comment;
 
@@ -13,4 +14,5 @@ public interface CommentService {
 
     int postComment(CommentEntity entity, int entityId, String content);
 
+    Ack deleteComment(CommentEntity entity, int commentId);
 }

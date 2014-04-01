@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.dao.jdbc;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.CommentEntity;
 import net.nemerosa.iteach.dao.CommentRepository;
 import net.nemerosa.iteach.dao.model.TComment;
@@ -59,6 +60,16 @@ public class CommentJdbcRepository extends AbstractJdbcRepository implements Com
                         .addValue("entityId", entityId)
                         .addValue("creation", SQLUtils.getDBValueFromLocalDateTime(LocalDateTime.now()))
                         .addValue("content", content)
+        );
+    }
+
+    @Override
+    public Ack delete(int teacherId, CommentEntity entity, int commentId) {
+        return Ack.one(
+                getNamedParameterJdbcTemplate().update(
+                        SQL.COMMENT_DELETE,
+                        params("teacherId", teacherId).addValue("commentId", commentId)
+                )
         );
     }
 }

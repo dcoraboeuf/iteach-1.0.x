@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.ui;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.CommentEntity;
 import net.nemerosa.iteach.ui.model.UIComment;
 import net.nemerosa.iteach.ui.model.UICommentCollection;
@@ -23,5 +24,10 @@ public interface UICommentAPI {
      * Gets an individual comment
      */
     UIComment getComment(Locale locale, CommentEntity entity, int commentId);
+
+    /**
+     * Deletes a comment
+     */
+    Ack deleteComment(Locale locale, CommentEntity entity, int commentId);
 
 }

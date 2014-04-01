@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.ui;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.CommentEntity;
 import net.nemerosa.iteach.service.CommentService;
 import net.nemerosa.iteach.service.model.Comment;
@@ -51,6 +52,12 @@ public class UICommentAPIController implements UICommentAPI {
     @RequestMapping(value = "/{entity}/{commentId}", method = RequestMethod.GET)
     public UIComment getComment(Locale locale, @PathVariable CommentEntity entity, @PathVariable int commentId) {
         return toUIComment(locale, commentService.getComment(entity, commentId));
+    }
+
+    @Override
+    @RequestMapping(value = "/{entity}/{commentId}", method = RequestMethod.DELETE)
+    public Ack deleteComment(Locale locale, @PathVariable CommentEntity entity, @PathVariable int commentId) {
+        return commentService.deleteComment(entity, commentId);
     }
 
     private UIComment toUIComment(Locale locale, Comment c) {

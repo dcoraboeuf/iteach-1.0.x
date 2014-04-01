@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.ui.client.support;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.CommentEntity;
 import net.nemerosa.iteach.ui.client.UICommentAPIClient;
 import net.nemerosa.iteach.ui.model.UIComment;
@@ -28,5 +29,10 @@ public class UICommentAPIClientImpl extends AbstractClient<UICommentAPIClient> i
     @Override
     public UIComment getComment(Locale locale, CommentEntity entity, int commentId) {
         return get(locale, UIComment.class, "/api/comment/%s/%d", entity, commentId);
+    }
+
+    @Override
+    public Ack deleteComment(Locale locale, CommentEntity entity, int commentId) {
+        return delete(locale, Ack.class, "/api/comment/%s/%d", entity, commentId);
     }
 }

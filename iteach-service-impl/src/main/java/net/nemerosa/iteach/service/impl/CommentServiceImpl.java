@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.service.impl;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.CommentEntity;
 import net.nemerosa.iteach.dao.CommentRepository;
 import net.nemerosa.iteach.dao.model.TComment;
@@ -51,6 +52,14 @@ public class CommentServiceImpl implements CommentService {
         int teacherId = securityUtils.checkTeacher();
         // Creates the comment
         return commentRepository.create(teacherId, entity, entityId, content);
+    }
+
+    @Override
+    public Ack deleteComment(CommentEntity entity, int commentId) {
+        // Gets the teacher
+        int teacherId = securityUtils.checkTeacher();
+        // Deletes the comment
+        return commentRepository.delete(teacherId, entity, commentId);
     }
 
     private Comment toComment(TComment t) {
