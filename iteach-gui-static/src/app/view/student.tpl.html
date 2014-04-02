@@ -94,9 +94,9 @@
                         <a href="#/lesson/{{lesson.id}}">{{lesson.from | date:'fullDate'}}</a>
                     </td>
                     <td>
-                        {{lesson.formattedFrom}}
+                        {{lesson.from | date:'HH:mm'}}
                         -
-                        {{lesson.formattedTo}}
+                        {{lesson.to | date:'HH:mm'}}
                     </td>
                     <td>
                         {{lesson.location}}
