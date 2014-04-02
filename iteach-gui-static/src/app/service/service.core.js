@@ -61,10 +61,12 @@ angular.module('iteach.service.core', [
     })
     .service('errorService', function ($interpolate, $log, notificationService) {
         var self = {};
-        self.errorMsg = function (status) {
+        self.errorMsg = function (status, data) {
             // TODO Uses translations
             if (status == 401 || status == 403 || status == 404) {
                 return '';
+            } else if (status == 400) {
+                return data;
             } else {
                 return 'Connection problem';
             }
@@ -83,7 +85,7 @@ angular.module('iteach.service.core', [
             });
             $log.error('[app] ' + log);
             // Displays a notification
-            var errorMessage = self.errorMsg(status);
+            var errorMessage = self.errorMsg(status, response.data);
             if (errorMessage) {
                 notificationService.error(errorMessage);
             }
