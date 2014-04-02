@@ -12,6 +12,14 @@
                 <p ng-show="setupForm.email.$invalid && !setupForm.email.$pristine" class="help-block">{{'admin.setup.email.error' | translate}}</p>
             </div>
         </div>
+        <div class="form-group" ng-class="{ 'has-error' : setupForm.password.$invalid && !setupForm.password.$pristine }">
+            <label for="password" class="control-label col-md-3">{{'admin.setup.password' | translate}}</label>
+            <div class="col-md-6">
+                <input ng-model="setup.password" id="password" name="password" type="password" class="form-control" required="required" />
+                <p ng-hide="setupForm.password.$invalid && !setupForm.password.$pristine" class="help-block">{{'admin.setup.password.help' | translate}}</p>
+                <p ng-show="setupForm.password.$invalid && !setupForm.password.$pristine" class="help-block">{{'admin.setup.password.error' | translate}}</p>
+            </div>
+        </div>
         <div class="form-group">
             <div class="col-md-6 col-md-offset-3">
                 <button class="btn btn-primary" type="submit" ng-disabled="setupForm.$invalid">{{'dialog.save' | translate}}</button>
