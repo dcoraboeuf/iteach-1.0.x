@@ -7,6 +7,7 @@ import net.nemerosa.iteach.common.AuthenticationMode;
 public class TAccount {
 
     private final int id;
+    private final String identifier;
     private final String name;
     private final String email;
     private final boolean administrator;

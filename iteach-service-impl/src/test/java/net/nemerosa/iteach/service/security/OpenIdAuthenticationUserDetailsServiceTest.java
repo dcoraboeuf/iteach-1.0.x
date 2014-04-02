@@ -44,6 +44,7 @@ public class OpenIdAuthenticationUserDetailsServiceTest {
         when(accountRepository.findUserByUsernameForOpenIDMode(IDENTITY_URL)).thenReturn(
                 new TAccount(
                         1,
+                        IDENTITY_URL,
                         ACCOUNT_NAME,
                         ACCOUNT_EMAIL,
                         false,
@@ -66,6 +67,7 @@ public class OpenIdAuthenticationUserDetailsServiceTest {
         when(accountRepository.findUserByUsernameForOpenIDMode(IDENTITY_URL)).thenReturn(
                 new TAccount(
                         1,
+                        IDENTITY_URL,
                         ACCOUNT_NAME,
                         ACCOUNT_EMAIL,
                         false,
@@ -88,6 +90,7 @@ public class OpenIdAuthenticationUserDetailsServiceTest {
         when(accountRepository.findUserByUsernameForOpenIDMode(IDENTITY_URL)).thenReturn(
                 new TAccount(
                         1,
+                        IDENTITY_URL,
                         ACCOUNT_NAME,
                         ACCOUNT_EMAIL,
                         false,

@@ -22,6 +22,7 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
 
     private final RowMapper<TAccount> accountRowMapper = (rs, rowNum) -> new TAccount(
             rs.getInt("id"),
+            rs.getString("identifier"),
             rs.getString("name"),
             rs.getString("email"),
             rs.getBoolean("administrator"),
@@ -174,10 +175,11 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
 
     @Override
     public void updateEmail(int accountId, String email) {
+        TAccount account = getById(accountId);
         // Gets the authentication mode
-        AuthenticationMode mode = getById(accountId).getAuthenticationMode();
-        // Changes only the email for OPEN_ID
-        if (mode == AuthenticationMode.OPEN_ID) {
+        AuthenticationMode mode = account.getAuthenticationMode();
+        // Changes only the email for OPEN_ID or for the default admin account
+        if (mode == AuthenticationMode.OPEN_ID || "admin".equals(account.getIdentifier())) {
             getNamedParameterJdbcTemplate().update(
                     SQL.ACCOUNT_CHANGE_EMAIL_ONLY,
                     params("id", accountId).addValue("email", email)
