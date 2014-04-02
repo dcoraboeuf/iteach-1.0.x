@@ -17,9 +17,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 
 @Component
 @Qualifier("v1")
@@ -145,8 +143,15 @@ public class ImportServiceV1 implements ImportService {
         return getTime(dateValue, timeValue);
     }
 
+    /**
+     * The times are stored for the Europe/Brussels time zone. We have to get them in the UTC
+     * time zone before considering them as local.
+     */
     protected LocalDateTime getTime(String date, String time) {
-        return LocalDateTime.parse(date + "T" + time);
+        LocalDateTime parsedTime = LocalDateTime.parse(date + "T" + time + ":00");
+        ZonedDateTime zonedTime = parsedTime.atZone(ZoneId.of("Europe/Brussels"));
+        ZonedDateTime utcTime = zonedTime.withZoneSameInstant(ZoneOffset.UTC);
+        return utcTime.toLocalDateTime();
     }
 
     private String getWebSite(JsonNode node) {
