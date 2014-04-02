@@ -21,6 +21,18 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="passwordChange" class="control-label col-md-3">{{'admin.setup.password.change' | translate}}</label>
+            <div class="col-md-6">
+                <input ng-model="setup.passwordChange" id="passwordChange" name="passwordChange" type="password" class="form-control" />
+                <p class="help-block">{{'admin.setup.password.change.help' | translate}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-6">
+                <input ng-model="setup.passwordChangeConfirm" id="passwordChangeConfirm" name="passwordChangeConfirm" type="password" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
             <div class="col-md-6 col-md-offset-3">
                 <button class="btn btn-primary" type="submit" ng-disabled="setupForm.$invalid">{{'dialog.save' | translate}}</button>
                 <a href="#/admin" class="btn btn-link">{{'home.back' | translate}}</a>
