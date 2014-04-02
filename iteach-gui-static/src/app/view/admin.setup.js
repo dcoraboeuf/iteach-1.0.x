@@ -30,6 +30,7 @@ angular.module('iteach.view.admin.setup', [
                     } else {
                         message = $translate.instant('admin.setup.saved');
                     }
+                    // TODO The message is erased on route change (see app.js#$routeChangeSuccess)
                     notificationService.success(message);
                 })
             }
