@@ -41,9 +41,9 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
     @Override
     public int createAccount(AuthenticationMode mode, String identifier, String email, String name, String encodedPassword) {
         // Checks for unicity of email
-        checkEmailIsUnique(email);
+        checkEmailIsUnique(-1, email);
         // Checks for unicity of identifier
-        checkIdentifierIsUnique(identifier);
+        checkIdentifierIsUnique(-1, identifier);
         // Parameters
         MapSqlParameterSource params = params("email", email);
         params.addValue("name", name);
@@ -56,16 +56,16 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
 
     }
 
-    private void checkIdentifierIsUnique(String identifier) {
+    private void checkIdentifierIsUnique(int accountId, String identifier) {
         Integer existingAccountId = getFirstItem(SQL.ACCOUNT_ID_BY_IDENTIFIER, params("identifier", identifier), Integer.class);
-        if (existingAccountId != null) {
+        if (existingAccountId != null && existingAccountId != accountId) {
             throw new AccountIdentifierAlreadyExistsException(identifier);
         }
     }
 
-    private void checkEmailIsUnique(String email) {
+    private void checkEmailIsUnique(int accountId, String email) {
         Integer existingAccountIdWithEmail = getFirstItem(SQL.ACCOUNT_ID_BY_EMAIL, params("email", email), Integer.class);
-        if (existingAccountIdWithEmail != null) {
+        if (existingAccountIdWithEmail != null && existingAccountIdWithEmail != accountId) {
             throw new AccountEmailAlreadyExistsException(email);
         }
     }
@@ -191,7 +191,7 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
         // Changes only the email for OPEN_ID or for the default admin account
         if (mode == AuthenticationMode.OPEN_ID || "admin".equals(account.getIdentifier())) {
             // Checks for unicity of email
-            checkEmailIsUnique(email);
+            checkEmailIsUnique(accountId, email);
             // Update
             getNamedParameterJdbcTemplate().update(
                     SQL.ACCOUNT_CHANGE_EMAIL_ONLY,
@@ -201,9 +201,9 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
         // Changes both the identifier & the email for the PASSWORD
         else if (mode == AuthenticationMode.PASSWORD) {
             // Checks for unicity of email
-            checkEmailIsUnique(email);
+            checkEmailIsUnique(accountId, email);
             // Checks for unicity of identifier
-            checkIdentifierIsUnique(email);
+            checkIdentifierIsUnique(accountId, email);
             // Update
             getNamedParameterJdbcTemplate().update(
                     SQL.ACCOUNT_CHANGE_EMAIL_AND_IDENTIFIER,
