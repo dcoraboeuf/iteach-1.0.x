@@ -118,6 +118,8 @@ var map_en = {
     'admin.setup.password.change.help': "Enter a new password (twice) if you want to change your password",
     'admin.setup.password.change.error': "The confirmation of your new password is not correct.",
     'admin.setup.saved': "Your setup changes have been saved.",
+    'admin.setup.saved.passwordChanged': "Your setup changes have been saved. Your password change will be " +
+        "taken into account at next login.",
     'admin.account.name': "Name",
     'admin.account.email': "Email",
     'admin.account.administrator': "Administrator",

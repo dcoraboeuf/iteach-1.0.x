@@ -116,6 +116,8 @@ var map_fr = {
     'admin.setup.password.help': "Entrez votre mot de passe afin de confirmer les changements.",
     'admin.setup.password.error': "Votre mot de passe est requis afin de confirmer les changements.",
     'admin.setup.saved': "Vos changements de configuration ont été enregistrés.",
+    'admin.setup.saved.passwordChanged': "Vos changements de configuration ont été enregistrés. Votre changement de " +
+        "mot de passe sera pris en compte à votre prochain connexion.",
     'admin.account.name': "Nom",
     'admin.account.email': "Email",
     'admin.account.administrator': "Administrateur",
