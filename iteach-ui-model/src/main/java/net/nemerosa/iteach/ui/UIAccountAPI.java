@@ -32,4 +32,6 @@ public interface UIAccountAPI {
 
     UISetup getSetup(Locale locale);
 
+    Ack saveSetup(Locale locale, UISetupForm form);
+
 }

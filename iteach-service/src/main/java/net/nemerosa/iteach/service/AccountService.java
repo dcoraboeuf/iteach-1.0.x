@@ -2,10 +2,7 @@ package net.nemerosa.iteach.service;
 
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.ID;
-import net.nemerosa.iteach.service.model.Account;
-import net.nemerosa.iteach.service.model.Profile;
-import net.nemerosa.iteach.service.model.Setup;
-import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
+import net.nemerosa.iteach.service.model.*;
 
 import java.util.Locale;
 import java.util.stream.Stream;
@@ -27,4 +24,6 @@ public interface AccountService {
     void saveProfile(Profile profile);
 
     Setup getSetup();
+
+    Ack saveSetup(SetupForm form);
 }

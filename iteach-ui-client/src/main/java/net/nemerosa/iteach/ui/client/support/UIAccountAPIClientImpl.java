@@ -71,4 +71,9 @@ public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> i
     public UISetup getSetup(Locale locale) {
         return get(locale, UISetup.class, "/api/account/setup");
     }
+
+    @Override
+    public Ack saveSetup(Locale locale, UISetupForm form) {
+        return put(locale, Ack.class, form, "/api/account/setup");
+    }
 }

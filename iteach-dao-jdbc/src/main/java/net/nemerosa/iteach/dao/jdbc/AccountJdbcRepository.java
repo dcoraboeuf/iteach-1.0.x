@@ -171,4 +171,28 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
                         .addValue("invoiceLastNb", profile.getInvoiceLastNb())
         );
     }
+
+    @Override
+    public void updateEmail(int accountId, String email) {
+        // Gets the authentication mode
+        AuthenticationMode mode = getById(accountId).getAuthenticationMode();
+        // Changes only the email for OPEN_ID
+        if (mode == AuthenticationMode.OPEN_ID) {
+            getNamedParameterJdbcTemplate().update(
+                    SQL.ACCOUNT_CHANGE_EMAIL_ONLY,
+                    params("id", accountId).addValue("email", email)
+            );
+        }
+        // Changes both the identifier & the email for the PASSWORD
+        else if (mode == AuthenticationMode.PASSWORD) {
+            getNamedParameterJdbcTemplate().update(
+                    SQL.ACCOUNT_CHANGE_EMAIL_AND_IDENTIFIER,
+                    params("id", accountId).addValue("email", email)
+            );
+        }
+        // Not managed
+        else {
+            throw new IllegalStateException("Authentication mode not managed: " + mode);
+        }
+    }
 }

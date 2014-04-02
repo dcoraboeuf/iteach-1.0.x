@@ -31,4 +31,6 @@ public interface AccountRepository {
     TProfile getProfile(int accountId);
 
     void saveProfile(int accountId, TProfile profile);
+
+    void updateEmail(int accountId, String email);
 }

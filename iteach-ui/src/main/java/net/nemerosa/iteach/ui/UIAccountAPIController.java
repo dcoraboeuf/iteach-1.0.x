@@ -9,10 +9,7 @@ import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.ImportExportService;
 import net.nemerosa.iteach.service.SecurityUtils;
-import net.nemerosa.iteach.service.model.Account;
-import net.nemerosa.iteach.service.model.Profile;
-import net.nemerosa.iteach.service.model.Setup;
-import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
+import net.nemerosa.iteach.service.model.*;
 import net.nemerosa.iteach.ui.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -199,5 +196,16 @@ public class UIAccountAPIController implements UIAccountAPI {
         securityUtils.checkAdmin();
         Setup setup = accountService.getSetup();
         return new UISetup(setup.getEmail());
+    }
+
+    @Override
+    @RequestMapping(value = "/setup", method = RequestMethod.PUT)
+    public Ack saveSetup(Locale locale, @RequestBody @Valid UISetupForm form) {
+        securityUtils.checkAdmin();
+        return accountService.saveSetup(new SetupForm(
+                form.getEmail(),
+                form.getPassword(),
+                form.getPasswordChange()
+        ));
     }
 }

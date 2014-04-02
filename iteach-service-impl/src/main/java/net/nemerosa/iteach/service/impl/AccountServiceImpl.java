@@ -9,6 +9,7 @@ import net.nemerosa.iteach.service.model.*;
 import net.nemerosa.iteach.service.support.EnvService;
 import net.sf.jstring.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -149,6 +150,23 @@ public class AccountServiceImpl implements AccountService {
         return new Setup(
                 t.getEmail()
         );
+    }
+
+    @Override
+    public Ack saveSetup(SetupForm form) {
+        int adminId = securityUtils.checkAdmin();
+        // Checks the password
+        if (!accountRepository.checkPassword(
+                adminId,
+                encodedPassword -> passwordEncoder.matches(form.getPassword(), encodedPassword)
+        )) {
+            throw new AccessDeniedException("Password incorrect");
+        }
+        // Changes the email
+        accountRepository.updateEmail(adminId, form.getEmail());
+        // TODO Changes the password if needed
+        // OK
+        return Ack.OK;
     }
 
     private Message createNewUserMessage(Locale locale, String name, String email) {
