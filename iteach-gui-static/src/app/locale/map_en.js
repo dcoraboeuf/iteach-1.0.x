@@ -107,6 +107,7 @@ var map_en = {
     // Admin
     'admin.page': "Administration page",
     'admin.accounts': "Management of accounts",
+    'admin.setup': "General set-up",
     'admin.account.name': "Name",
     'admin.account.email': "Email",
     'admin.account.administrator': "Administrator",
