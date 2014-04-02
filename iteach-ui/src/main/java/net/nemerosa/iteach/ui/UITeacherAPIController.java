@@ -247,19 +247,16 @@ public class UITeacherAPIController implements UITeacherAPI {
     @RequestMapping(value = "/lesson/{lessonId}", method = RequestMethod.GET)
     public UILesson getLesson(Locale locale, @PathVariable int lessonId) {
         Lesson lesson = teacherService.getLesson(lessonId);
-        return toUILesson(locale, lesson);
+        return toUILesson(lesson);
     }
 
-    private UILesson toUILesson(Locale locale, Lesson lesson) {
+    private UILesson toUILesson(Lesson lesson) {
         return new UILesson(
                 lesson.getId(),
                 getStudentSummary(lesson.getStudentId()),
                 lesson.getLocation(),
                 lesson.getFrom(),
                 lesson.getTo(),
-                formatter.formatDate(lesson.getFrom(), locale),
-                formatter.formatTime(lesson.getFrom(), locale),
-                formatter.formatTime(lesson.getTo(), locale),
                 lesson.getHours()
         );
     }
@@ -272,7 +269,7 @@ public class UITeacherAPIController implements UITeacherAPI {
                 teacherService
                         .getLessons(filter.getStudentId(), filter.getFrom(), filter.getTo())
                         .stream()
-                        .map(l -> toUILesson(locale, l))
+                        .map(this::toUILesson)
                         .collect(Collectors.toList())
         );
     }
@@ -313,7 +310,7 @@ public class UITeacherAPIController implements UITeacherAPI {
                 report.getPeriodHours(),
                 report.getLessons()
                         .stream()
-                        .map(l -> toUILesson(locale, l))
+                        .map(this::toUILesson)
                         .collect(Collectors.toList())
         );
     }
