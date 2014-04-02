@@ -4,6 +4,7 @@ import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.service.model.Account;
 import net.nemerosa.iteach.service.model.Profile;
+import net.nemerosa.iteach.service.model.Setup;
 import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
 
 import java.util.Locale;
@@ -24,4 +25,6 @@ public interface AccountService {
     Profile getProfile();
 
     void saveProfile(Profile profile);
+
+    Setup getSetup();
 }

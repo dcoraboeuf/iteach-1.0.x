@@ -30,4 +30,6 @@ public interface UIAccountAPI {
 
     Ack saveProfile(Locale locale, UIProfile profile);
 
+    UISetup getSetup(Locale locale);
+
 }

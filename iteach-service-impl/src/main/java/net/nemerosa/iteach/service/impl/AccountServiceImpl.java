@@ -5,10 +5,7 @@ import net.nemerosa.iteach.dao.AccountRepository;
 import net.nemerosa.iteach.dao.model.TAccount;
 import net.nemerosa.iteach.dao.model.TProfile;
 import net.nemerosa.iteach.service.*;
-import net.nemerosa.iteach.service.model.Account;
-import net.nemerosa.iteach.service.model.Profile;
-import net.nemerosa.iteach.service.model.TeacherRegistrationForm;
-import net.nemerosa.iteach.service.model.TemplateModel;
+import net.nemerosa.iteach.service.model.*;
 import net.nemerosa.iteach.service.support.EnvService;
 import net.sf.jstring.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,6 +137,17 @@ public class AccountServiceImpl implements AccountService {
                         profile.getBic(),
                         profile.getInvoiceLastNb()
                 )
+        );
+    }
+
+    @Override
+    public Setup getSetup() {
+        int adminId = securityUtils.checkAdmin();
+        // Gets the account
+        TAccount t = accountRepository.getById(adminId);
+        // OK
+        return new Setup(
+                t.getEmail()
         );
     }
 
