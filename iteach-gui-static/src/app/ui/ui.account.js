@@ -86,6 +86,10 @@ angular.module('iteach.ui.account', [
             return $http.put(config.api('account/profile'), profile);
         };
 
+        self.loadSetup = function () {
+            return $http.get(config.api('account/setup'));
+        };
+
         return self;
 
     })

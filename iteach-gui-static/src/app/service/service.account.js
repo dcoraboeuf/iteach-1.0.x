@@ -140,6 +140,8 @@ angular.module('iteach.service.account', [
             }).result;
         };
 
+        self.loadSetup = uiAccount.loadSetup;
+
         return self;
 
     })
