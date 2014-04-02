@@ -9,6 +9,7 @@ var map_en = {
     'dialog.cancel': 'Cancel',
     'dialog.update': "Modify",
     'dialog.delete': "Delete",
+    'dialog.save': "Save",
     'logout': "Sign out",
     // Home page
     'home.back': "Close",
@@ -108,6 +109,9 @@ var map_en = {
     'admin.page': "Administration page",
     'admin.accounts': "Management of accounts",
     'admin.setup': "General set-up",
+    'admin.setup.email': "Administrator email",
+    'admin.setup.email.error': "Email is not valid.",
+    'admin.setup.password': "Enter your password in order to confirm your changes",
     'admin.account.name': "Name",
     'admin.account.email': "Email",
     'admin.account.administrator': "Administrator",

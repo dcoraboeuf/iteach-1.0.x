@@ -9,6 +9,7 @@ var map_fr = {
     'dialog.cancel': 'Annuler',
     'dialog.update': "Modifier",
     'dialog.delete': "Supprimer",
+    'dialog.save': "Enregistrer",
     'logout': "Se déconnecter",
     // Home page
     'home.back': "Fermer",
@@ -109,6 +110,9 @@ var map_fr = {
     'admin.page': "Administration",
     'admin.accounts': "Gestion des comptes utilisateurs",
     'admin.setup': "Configuration générale",
+    'admin.setup.email': "Email de l'administrateur",
+    'admin.setup.email.error': "L'adresse email n'est pas valide.",
+    'admin.setup.password': "Entrez votre mot de passe afin de confirmer les changements",
     'admin.account.name': "Nom",
     'admin.account.email': "Email",
     'admin.account.administrator': "Administrateur",
