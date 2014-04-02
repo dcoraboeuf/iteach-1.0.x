@@ -90,6 +90,10 @@ angular.module('iteach.ui.account', [
             return $http.get(config.api('account/setup'));
         };
 
+        self.saveSetup = function (form) {
+            return $http.put(config.api('account/setup'), form);
+        };
+
         return self;
 
     })
