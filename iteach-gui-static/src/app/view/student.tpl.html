@@ -91,7 +91,7 @@
                 <tbody>
                 <tr ng-repeat="lesson in report.lessons">
                     <td>
-                        <a href="#/lesson/{{lesson.id}}">{{lesson.formattedDate}}</a>
+                        <a href="#/lesson/{{lesson.id}}">{{lesson.from | date:'fullDate'}}</a>
                     </td>
                     <td>
                         {{lesson.formattedFrom}}
