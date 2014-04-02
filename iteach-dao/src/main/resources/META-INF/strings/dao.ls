@@ -13,3 +13,11 @@ net.nemerosa.iteach.dao.TokenNotFoundException
 net.nemerosa.iteach.dao.StudentNameAlreadyDefinedException
     en -> Student with name "{1}" is already defined.
     fr -> L'étudiant de nom "{1}" est déjà défini.
+
+net.nemerosa.iteach.dao.AccountEmailAlreadyExistsException
+    en -> A user with email "{0}" is already defined.
+    fr -> Un utilisateur d'email "{0}" est déjà défini.
+
+net.nemerosa.iteach.dao.AccountIdentifierAlreadyExistsException
+    en -> A user with the same identifier already exists.
+    fr -> Un utilisateur de même identifiant existe déjà.

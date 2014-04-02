@@ -2,6 +2,8 @@ package net.nemerosa.iteach.dao.jdbc;
 
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.AuthenticationMode;
+import net.nemerosa.iteach.dao.AccountEmailAlreadyExistsException;
+import net.nemerosa.iteach.dao.AccountIdentifierAlreadyExistsException;
 import net.nemerosa.iteach.dao.AccountRepository;
 import net.nemerosa.iteach.dao.model.TAccount;
 import net.nemerosa.iteach.dao.model.TProfile;
@@ -38,16 +40,10 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
 
     @Override
     public int createAccount(AuthenticationMode mode, String identifier, String email, String name, String encodedPassword) {
-        // Checks for unicity of identifier
-        Integer existingAccountId = getFirstItem(SQL.ACCOUNT_ID_BY_IDENTIFIER, params("identifier", identifier), Integer.class);
-        if (existingAccountId != null) {
-            throw new AccountIdentifierAlreadyExistsException(identifier);
-        }
         // Checks for unicity of email
-        existingAccountId = getFirstItem(SQL.ACCOUNT_ID_BY_EMAIL, params("email", email), Integer.class);
-        if (existingAccountId != null) {
-            throw new AccountEmailAlreadyExistsException(email);
-        }
+        checkEmailIsUnique(email);
+        // Checks for unicity of identifier
+        checkIdentifierIsUnique(identifier);
         // Parameters
         MapSqlParameterSource params = params("email", email);
         params.addValue("name", name);
@@ -58,6 +54,20 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
         // Insert the user
         return dbCreate(SQL.ACCOUNT_CREATE, params);
 
+    }
+
+    private void checkIdentifierIsUnique(String identifier) {
+        Integer existingAccountId = getFirstItem(SQL.ACCOUNT_ID_BY_IDENTIFIER, params("identifier", identifier), Integer.class);
+        if (existingAccountId != null) {
+            throw new AccountIdentifierAlreadyExistsException(identifier);
+        }
+    }
+
+    private void checkEmailIsUnique(String email) {
+        Integer existingAccountIdWithEmail = getFirstItem(SQL.ACCOUNT_ID_BY_EMAIL, params("email", email), Integer.class);
+        if (existingAccountIdWithEmail != null) {
+            throw new AccountEmailAlreadyExistsException(email);
+        }
     }
 
     @Override
@@ -180,6 +190,9 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
         AuthenticationMode mode = account.getAuthenticationMode();
         // Changes only the email for OPEN_ID or for the default admin account
         if (mode == AuthenticationMode.OPEN_ID || "admin".equals(account.getIdentifier())) {
+            // Checks for unicity of email
+            checkEmailIsUnique(email);
+            // Update
             getNamedParameterJdbcTemplate().update(
                     SQL.ACCOUNT_CHANGE_EMAIL_ONLY,
                     params("id", accountId).addValue("email", email)
@@ -187,6 +200,11 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
         }
         // Changes both the identifier & the email for the PASSWORD
         else if (mode == AuthenticationMode.PASSWORD) {
+            // Checks for unicity of email
+            checkEmailIsUnique(email);
+            // Checks for unicity of identifier
+            checkIdentifierIsUnique(email);
+            // Update
             getNamedParameterJdbcTemplate().update(
                     SQL.ACCOUNT_CHANGE_EMAIL_AND_IDENTIFIER,
                     params("id", accountId).addValue("email", email)
