@@ -8,6 +8,7 @@ import net.nemerosa.iteach.service.*;
 import net.nemerosa.iteach.service.model.*;
 import net.nemerosa.iteach.service.support.EnvService;
 import net.sf.jstring.Strings;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -164,7 +165,15 @@ public class AccountServiceImpl implements AccountService {
         }
         // Changes the email
         accountRepository.updateEmail(adminId, form.getEmail());
-        // TODO Changes the password if needed
+        // Changes the password if needed
+        if (StringUtils.isNotBlank(form.getPasswordChange())) {
+            accountRepository.changePassword(
+                    adminId,
+                    passwordEncoder.encode(
+                            form.getPasswordChange()
+                    )
+            );
+        }
         // OK
         return Ack.OK;
     }

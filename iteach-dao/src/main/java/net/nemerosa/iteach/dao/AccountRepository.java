@@ -33,4 +33,6 @@ public interface AccountRepository {
     void saveProfile(int accountId, TProfile profile);
 
     void updateEmail(int accountId, String email);
+
+    void changePassword(int accountId, String encodedPassword);
 }

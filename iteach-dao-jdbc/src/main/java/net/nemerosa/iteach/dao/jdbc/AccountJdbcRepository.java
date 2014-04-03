@@ -215,4 +215,12 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
             throw new IllegalStateException("Authentication mode not managed: " + mode);
         }
     }
+
+    @Override
+    public void changePassword(int accountId, String encodedPassword) {
+        getNamedParameterJdbcTemplate().update(
+                SQL.ACCOUNT_CHANGE_PASSWORD,
+                params("id", accountId).addValue("encodedPassword", encodedPassword)
+        );
+    }
 }
