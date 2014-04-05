@@ -31,7 +31,8 @@ public class UILessonTest {
                                 "#667788"
                         ),
                         "The student",
-                        "My subject"),
+                        "My subject",
+                        false),
                 location,
                 LocalDateTime.now(),
                 LocalDateTime.now().plusHours(1),

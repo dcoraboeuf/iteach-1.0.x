@@ -33,19 +33,23 @@ public class UITeacherAPIController implements UITeacherAPI {
             school.getName(),
             school.getColour()
     );
-    private final Function<? super Student, ? extends UIStudentSummary> studentSummaryFn = student -> new UIStudentSummary(
-            student.getId(),
-            student.isDisabled(),
-            getSchoolSummary(student),
-            student.getName(),
-            student.getSubject());
+
+    private UIStudentSummary toUIStudentSummary(Student student) {
+        return new UIStudentSummary(
+                student.getId(),
+                student.isDisabled(),
+                getSchoolSummary(student),
+                student.getName(),
+                student.getSubject(),
+                commentService.hasComments(CommentEntity.student, student.getId()));
+    }
 
     private UISchoolSummary getSchoolSummary(Student student) {
         return schoolSummaryFn.apply(teacherService.getSchool(student.getSchoolId()));
     }
 
     private UIStudentSummary getStudentSummary(int studentId) {
-        return studentSummaryFn.apply(teacherService.getStudent(studentId));
+        return toUIStudentSummary(teacherService.getStudent(studentId));
     }
 
     @Autowired
@@ -163,7 +167,7 @@ public class UITeacherAPIController implements UITeacherAPI {
                 schools
                         .stream()
                         .filter(o -> !filtered || !o.isDisabled())
-                        .map(studentSummaryFn)
+                        .map(this::toUIStudentSummary)
                         .collect(Collectors.toList())
         );
     }
@@ -202,8 +206,8 @@ public class UITeacherAPIController implements UITeacherAPI {
                 o.getPostalAddress(),
                 o.getPhone(),
                 o.getMobilePhone(),
-                o.getEmail()
-        );
+                o.getEmail(),
+                commentService.hasComments(CommentEntity.student, o.getId()));
     }
 
     @Override

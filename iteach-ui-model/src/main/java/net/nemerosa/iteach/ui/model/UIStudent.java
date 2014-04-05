@@ -19,9 +19,10 @@ public class UIStudent extends UIResource {
     private final String mobilePhone;
     private final String email;
     private final UISchoolSummary school;
+    private final boolean hasComments;
 
-    @ConstructorProperties({"id", "disabled", "school", "name", "subject", "postalAddress", "phone", "mobilePhone", "email"})
-    public UIStudent(int id, boolean disabled, UISchoolSummary school, String name, String subject, String postalAddress, String phone, String mobilePhone, String email) {
+    @ConstructorProperties({"id", "disabled", "school", "name", "subject", "postalAddress", "phone", "mobilePhone", "email", "hasComments"})
+    public UIStudent(int id, boolean disabled, UISchoolSummary school, String name, String subject, String postalAddress, String phone, String mobilePhone, String email, boolean hasComments) {
         this.id = id;
         this.disabled = disabled;
         this.school = school;
@@ -32,5 +33,6 @@ public class UIStudent extends UIResource {
         this.phone = phone;
         this.mobilePhone = mobilePhone;
         this.email = email;
+        this.hasComments = hasComments;
     }
 }
