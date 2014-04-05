@@ -25,6 +25,7 @@
 		<springSecurityVersion>3.2.2.RELEASE</springSecurityVersion>
 		<slf4jVersion>1.7.6</slf4jVersion>
 		<lombokVersion>1.12.4</lombokVersion>
+        <h2Version>1.3.176</h2Version>
 		<!-- General -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -197,7 +198,7 @@
 			<dependency>
 				<groupId>com.h2database</groupId>
 				<artifactId>h2</artifactId>
-				<version>1.3.170</version>
+				<version>${h2Version}</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-dbcp</groupId>
