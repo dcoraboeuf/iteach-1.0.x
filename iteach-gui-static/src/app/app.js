@@ -30,6 +30,7 @@ var iteach = angular.module('iteach', [
             'iteach.view.login',
             'iteach.view.register',
             'iteach.view.registrationResult',
+            'iteach.view.passwordChangeRequest',
             'iteach.view.account',
             'iteach.view.admin',
             'iteach.view.teacher',
@@ -95,6 +96,11 @@ var iteach = angular.module('iteach', [
                 .when('/registration/:result', {
                     templateUrl: 'app/view/registrationResult.tpl.html',
                     controller: 'RegistrationResultCtrl'
+                })
+                // Password change form
+                .when('/passwordChangeRequest/:token', {
+                    templateUrl: 'app/view/passwordChangeRequest.tpl.html',
+                    controller: 'PasswordChangeRequestCtrl'
                 })
                 // Account page
                 .when('/account', {
