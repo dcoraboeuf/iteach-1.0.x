@@ -14,7 +14,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="account in accounts.resources">
+                <tr ng-repeat="account in accounts.resources" ng-class="{ 'danger': !account.verified, 'warning': account.disabled }">
                     <td><a href="#/admin/account/{{account.id}}">{{account.name}}</a></td>
                     <td><a href="mailto:{{account.email}}">{{account.email}}</a></td>
                     <td><it-yes-no value="account.administrator"></it-yes-no></td>
