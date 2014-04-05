@@ -79,6 +79,8 @@ angular.module('iteach.view.teacher', [
             lesson.backgroundColor = lesson.student.school.colour;
             // Link
             lesson.url = "#/lesson/" + lesson.id;
+            // TODO Title with icon
+            lesson.className = 'it-lesson-with-comments';
         }
 
         $scope.fetchEvents = function fetchEvents(start, end, callback) {
