@@ -16,7 +16,9 @@
                                 </div>
                             </td>
                             <td>
-                                <a href="#/student/{{student.id}}">{{student.name}}</a><br/>
+                                <a href="#/student/{{student.id}}">{{student.name}}</a>
+                                <span ng-if="student.hasComments" class="it-student-with-comments"></span>
+                                <br/>
                                 <span class="it-student-summary">{{student.subject}} @ {{student.school.name}}</span>
                             </td>
                         </tr>
@@ -36,6 +38,7 @@
                             </td>
                             <td>
                                 <a href="#/school/{{school.id}}">{{school.name}}</a>
+                                <span ng-if="school.hasComments" class="it-school-with-comments"></span>
                             </td>
                         </tr>
                     </tbody>
