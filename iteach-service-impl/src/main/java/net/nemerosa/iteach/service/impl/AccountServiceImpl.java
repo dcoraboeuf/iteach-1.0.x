@@ -15,9 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.Locale;
-import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -84,7 +82,7 @@ public class AccountServiceImpl implements AccountService {
         // Checks the mode
         if (t.getAuthenticationMode() != AuthenticationMode.PASSWORD) return Ack.NOK;
         // Creates a message and sends it
-        Message message = createPasswordChangeRequestMessage(locale, id, t.getName(), t.getEmail());
+        Message message = createPasswordChangeRequestMessage(locale, t.getName(), t.getEmail());
         // Sends the message
         messageService.sendMessage(message, t.getEmail());
         // OK
@@ -213,22 +211,19 @@ public class AccountServiceImpl implements AccountService {
 
     private Message createNewUserMessage(Locale locale, String name, String email) {
         return createUserMessage(
-                locale, name, email, TokenType.REGISTRATION, strings.get(locale, "message.registration"),
-                Collections.emptyMap()
+                locale, name, email, TokenType.REGISTRATION, strings.get(locale, "message.registration")
         );
     }
 
-    private Message createPasswordChangeRequestMessage(Locale locale, int id, String name, String email) {
+    private Message createPasswordChangeRequestMessage(Locale locale, String name, String email) {
         return createUserMessage(
-                locale, name, email, TokenType.PASSWORD_CHANGE, strings.get(locale, "message.passwordChangeRequest"),
-                Collections.singletonMap("id", id)
+                locale, name, email, TokenType.PASSWORD_CHANGE, strings.get(locale, "message.passwordChangeRequest")
         );
     }
 
     private Message createUserMessage(Locale locale, String name, String email,
                                       TokenType tokenType,
-                                      String title,
-                                      Map<String, ?> params) {
+                                      String title) {
         // Generates a token for the response
         String token = tokenService.generateToken(tokenType, email);
         // Gets the return link
@@ -243,9 +238,6 @@ public class AccountServiceImpl implements AccountService {
         model.add("userName", name);
         model.add("userEmail", email);
         model.add("link", link);
-        for (Map.Entry<String, ?> entry : params.entrySet()) {
-            model.add(entry.getKey(), entry.getValue());
-        }
         // Template ID
         String templateId = tokenType.name().toLowerCase() + ".txt";
         // Message content
