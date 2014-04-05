@@ -231,4 +231,16 @@ public class UIAccountAPIController implements UIAccountAPI {
                 form.getPasswordChange()
         ));
     }
+
+    @Override
+    @RequestMapping(value = "/{accountId}/disable", method = RequestMethod.PUT)
+    public Ack disableAccount(Locale locale, @PathVariable int accountId) {
+        return accountService.disableAccount(accountId);
+    }
+
+    @Override
+    @RequestMapping(value = "/{accountId}/enable", method = RequestMethod.PUT)
+    public Ack enableAccount(Locale locale, @PathVariable int accountId) {
+        return accountService.enableAccount(accountId);
+    }
 }

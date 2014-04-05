@@ -36,4 +36,8 @@ public interface UIAccountAPI {
 
     Ack saveSetup(Locale locale, UISetupForm form);
 
+    Ack disableAccount(Locale locale, int accountId);
+
+    Ack enableAccount(Locale locale, int accountId);
+
 }

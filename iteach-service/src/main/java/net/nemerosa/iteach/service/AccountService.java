@@ -26,4 +26,8 @@ public interface AccountService {
     Setup getSetup();
 
     Ack saveSetup(SetupForm form);
+
+    Ack disableAccount(int accountId);
+
+    Ack enableAccount(int accountId);
 }

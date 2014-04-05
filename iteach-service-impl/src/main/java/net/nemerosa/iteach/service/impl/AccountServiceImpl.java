@@ -178,6 +178,22 @@ public class AccountServiceImpl implements AccountService {
         return Ack.OK;
     }
 
+    @Override
+    public Ack disableAccount(int accountId) {
+        securityUtils.checkAdmin();
+        TAccount t = accountRepository.getById(accountId);
+        accountRepository.disable(accountId, true);
+        return Ack.validate(!t.isDisabled());
+    }
+
+    @Override
+    public Ack enableAccount(int accountId) {
+        securityUtils.checkAdmin();
+        TAccount t = accountRepository.getById(accountId);
+        accountRepository.disable(accountId, false);
+        return Ack.validate(t.isDisabled());
+    }
+
     private Message createNewUserMessage(Locale locale, String name, String email) {
         return createUserMessage(locale, name, email, TokenType.REGISTRATION, strings.get(locale, "message.registration"));
     }

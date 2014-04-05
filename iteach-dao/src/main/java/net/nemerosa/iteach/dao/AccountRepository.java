@@ -35,4 +35,6 @@ public interface AccountRepository {
     void updateEmail(int accountId, String email);
 
     void changePassword(int accountId, String encodedPassword);
+
+    void disable(int accountId, boolean disabled);
 }

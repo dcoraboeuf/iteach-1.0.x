@@ -223,4 +223,12 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
                 params("id", accountId).addValue("encodedPassword", encodedPassword)
         );
     }
+
+    @Override
+    public void disable(int accountId, boolean disabled) {
+        getNamedParameterJdbcTemplate().update(
+                SQL.ACCOUNT_DISABLE,
+                params("id", accountId).addValue("disabled", disabled)
+        );
+    }
 }
