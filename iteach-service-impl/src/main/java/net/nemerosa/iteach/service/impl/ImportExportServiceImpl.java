@@ -7,6 +7,7 @@ import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.ImportExportService;
 import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.TeacherService;
+import net.nemerosa.iteach.service.io.ExportService;
 import net.nemerosa.iteach.service.io.ImportService;
 import net.nemerosa.iteach.service.model.Account;
 import net.nemerosa.iteach.service.model.School;
@@ -20,6 +21,7 @@ import java.util.List;
 public class ImportExportServiceImpl implements ImportExportService {
 
     private final ImportService importServiceV1;
+    private final ExportService exportService;
     private final AccountService accountService;
     private final TeacherService teacherService;
     private final SecurityUtils securityUtils;
@@ -28,8 +30,9 @@ public class ImportExportServiceImpl implements ImportExportService {
     public ImportExportServiceImpl(
             @Qualifier("v1")
             ImportService importServiceV1,
-            AccountService accountService, TeacherService teacherService, SecurityUtils securityUtils) {
+            ExportService exportService, AccountService accountService, TeacherService teacherService, SecurityUtils securityUtils) {
         this.importServiceV1 = importServiceV1;
+        this.exportService = exportService;
         this.accountService = accountService;
         this.teacherService = teacherService;
         this.securityUtils = securityUtils;
@@ -59,6 +62,21 @@ public class ImportExportServiceImpl implements ImportExportService {
         Account account = accountService.getAccount(accountId);
         try {
             securityUtils.asAccount(account, () -> doImport(importService, accountId, root));
+        } catch (RuntimeException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new ImportException(ex);
+        }
+    }
+
+    @Override
+    public JsonNode exportFile(int accountId) {
+        // Admin only
+        securityUtils.checkAdmin();
+        // Importing
+        Account account = accountService.getAccount(accountId);
+        try {
+            return securityUtils.asAccount(account, exportService::export);
         } catch (RuntimeException ex) {
             throw ex;
         } catch (Exception ex) {

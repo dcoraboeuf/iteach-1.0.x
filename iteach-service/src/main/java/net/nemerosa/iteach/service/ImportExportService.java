@@ -6,4 +6,6 @@ public interface ImportExportService {
 
     void importFile(int accountId, JsonNode data);
 
+    JsonNode exportFile(int accountId);
+
 }
