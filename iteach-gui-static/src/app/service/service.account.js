@@ -44,7 +44,11 @@ angular.module('iteach.service.account', [
                 }
             } else {
                 var current = $location.path();
-                if (current == '/register' || current == '/login' || current.match(/\/registration\/.*/)) {
+                if (current == '/register'
+                    || current == '/login'
+                    || current.match(/\/registration\/.*/)
+                    || current.match(/\/passwordChangeRequest\/.*/)
+                ) {
                     // Stays on the page
                 } else {
                     // Login page

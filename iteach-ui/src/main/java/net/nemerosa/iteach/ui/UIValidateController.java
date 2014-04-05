@@ -13,6 +13,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
+// FIXME Move to the GUI layer
 @Controller
 public class UIValidateController {
 
@@ -27,21 +28,26 @@ public class UIValidateController {
 
     @RequestMapping(value = "/validate/{tokenType}/{token}", method = RequestMethod.GET, headers = "Accept=text/html")
     public RedirectView guiValidate(Locale locale, @PathVariable TokenType tokenType, @PathVariable String token, HttpServletRequest request) {
-        boolean success;
-        try {
-            success = accountAPI.validate(locale, tokenType, token).isSuccess();
-        } catch (Exception ex) {
-            errorHandler.handleError(locale, request, ex);
-            success = false;
-        }
-        switch (tokenType) {
-            case REGISTRATION:
-                return new RedirectView(
-                        String.format("/index.html#/registration/%s", success),
-                        true
-                );
-            default:
-                throw new ValidationTokenTypeNotManagedException(tokenType);
+        if (tokenType == TokenType.REGISTRATION) {
+            boolean success;
+            try {
+                success = accountAPI.validate(locale, tokenType, token).isSuccess();
+            } catch (Exception ex) {
+                errorHandler.handleError(locale, request, ex);
+                success = false;
+            }
+            return new RedirectView(
+                    String.format("/index.html#/registration/%s", success),
+                    true
+            );
+        } else if (tokenType == TokenType.PASSWORD_CHANGE) {
+            return new RedirectView(
+                    String.format("/index.html#/passwordChangeRequest/%s", token),
+                    true
+            );
+        } else {
+            // FIXME Redirect to an error page
+            throw new ValidationTokenTypeNotManagedException(tokenType);
         }
     }
 
