@@ -16,9 +16,11 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.util.Locale;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -150,6 +152,27 @@ public class UIAccountAPIController implements UIAccountAPI {
     public UIAccount importAccount(Locale locale, int accountId, JsonNode data) {
         importExportService.importFile(accountId, data);
         return getAccount(locale, accountId);
+    }
+
+    @RequestMapping(value = "/{accountId}/export", method = RequestMethod.GET)
+    public void exportAccount(Locale locale, @PathVariable int accountId, HttpServletResponse response) throws IOException {
+        // Gets the file as JSON
+        JsonNode jsonNode = exportAccount(locale, accountId);
+        // Writes as a JSON file
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.addHeader("Content-Disposition", String.format("attachment; filename=account-%d.json", accountId));
+        // Serializes as JSON
+        ObjectMapperFactory.create().writeValue(
+                new OutputStreamWriter(
+                        response.getOutputStream(),
+                        "UTF-8"),
+                jsonNode);
+    }
+
+    @Override
+    public JsonNode exportAccount(Locale locale, int accountId) {
+        return importExportService.exportFile(accountId);
     }
 
     @Override

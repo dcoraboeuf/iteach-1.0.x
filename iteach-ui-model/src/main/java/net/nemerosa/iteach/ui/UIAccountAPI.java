@@ -26,6 +26,8 @@ public interface UIAccountAPI {
 
     UIAccount importAccount(Locale locale, int accountId, JsonNode data);
 
+    JsonNode exportAccount(Locale locale, int accountId);
+
     UIProfile getProfile(Locale locale);
 
     Ack saveProfile(Locale locale, UIProfile profile);

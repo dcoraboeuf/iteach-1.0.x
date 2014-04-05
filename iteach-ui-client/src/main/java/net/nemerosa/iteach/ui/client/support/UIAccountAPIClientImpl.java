@@ -58,6 +58,12 @@ public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> i
     }
 
     @Override
+    public JsonNode exportAccount(Locale locale, int accountId) {
+        // FIXME Method net.nemerosa.iteach.ui.client.support.UIAccountAPIClientImpl.exportAccount
+        return null;
+    }
+
+    @Override
     public UIProfile getProfile(Locale locale) {
         return get(locale, UIProfile.class, "/api/account/profile");
     }
