@@ -19,9 +19,10 @@ public class UILesson extends UIResource {
     private final LocalDateTime from;
     private final LocalDateTime to;
     private final BigDecimal hours;
+    private final boolean hasComments;
 
-    @ConstructorProperties({"id", "student", "location", "from", "to", "hours"})
-    public UILesson(int id, UIStudentSummary student, String location, LocalDateTime from, LocalDateTime to, BigDecimal hours) {
+    @ConstructorProperties({"id", "student", "location", "from", "to", "hours", "hasComments"})
+    public UILesson(int id, UIStudentSummary student, String location, LocalDateTime from, LocalDateTime to, BigDecimal hours, boolean hasComments) {
         this.id = id;
         this.href = UILink.href("api/teacher/lesson/%d", id);
         this.student = student;
@@ -29,6 +30,7 @@ public class UILesson extends UIResource {
         this.from = from;
         this.to = to;
         this.hours = hours;
+        this.hasComments = hasComments;
     }
 
     public String getTitle() {

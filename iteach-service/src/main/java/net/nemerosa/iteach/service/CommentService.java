@@ -17,4 +17,6 @@ public interface CommentService {
     Ack deleteComment(CommentEntity entity, int commentId);
 
     void updateComment(CommentEntity entity, int commentId, String content);
+
+    boolean hasComments(CommentEntity entity, int entityId);
 }

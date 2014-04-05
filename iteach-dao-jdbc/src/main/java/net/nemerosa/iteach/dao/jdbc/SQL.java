@@ -48,4 +48,5 @@ public interface SQL {
     String COMMENT_IMPORT = "INSERT INTO COMMENT (TEACHER, %s, CREATION, EDITION, CONTENT) VALUES (:teacherId, :entityId, :creation, :edition, :content)";
     String COMMENT_DELETE = "DELETE FROM COMMENT WHERE TEACHER = :teacherId AND ID = :commentId";
     String COMMENT_UPDATE = "UPDATE COMMENT SET EDITION = :edition, CONTENT = :content WHERE TEACHER = :teacherId AND ID = :commentId";
+    String COMMENT_COUNT = "SELECT COUNT(ID) FROM COMMENT WHERE TEACHER = :teacherId AND %s = :entityId";
 }

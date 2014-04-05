@@ -35,7 +35,9 @@ public class UILessonTest {
                 location,
                 LocalDateTime.now(),
                 LocalDateTime.now().plusHours(1),
-                BigDecimal.ONE);
+                BigDecimal.ONE,
+                false
+        );
     }
 
 }

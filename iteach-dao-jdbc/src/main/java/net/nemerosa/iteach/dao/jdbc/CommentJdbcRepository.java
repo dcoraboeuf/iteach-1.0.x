@@ -95,4 +95,14 @@ public class CommentJdbcRepository extends AbstractJdbcRepository implements Com
                         .addValue("content", content)
         );
     }
+
+    @Override
+    public boolean hasComments(int teacherId, CommentEntity entity, int entityId) {
+        return getNamedParameterJdbcTemplate().queryForObject(
+                format(SQL.COMMENT_COUNT, entity.name()),
+                params("teacherId", teacherId)
+                        .addValue("entityId", entityId),
+                Integer.class
+        ) > 0;
+    }
 }

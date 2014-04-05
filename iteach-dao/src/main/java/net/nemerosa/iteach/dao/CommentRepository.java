@@ -20,4 +20,6 @@ public interface CommentRepository {
     void update(int teacherId, CommentEntity entity, int commentId, String content);
 
     void importComment(int teacherId, CommentEntity entity, int entityId, LocalDateTime creationTime, LocalDateTime editionTime, String content);
+
+    boolean hasComments(int teacherId, CommentEntity entity, int entityId);
 }

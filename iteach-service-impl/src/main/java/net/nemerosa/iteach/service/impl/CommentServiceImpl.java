@@ -70,6 +70,14 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.update(teacherId, entity, commentId, content);
     }
 
+    @Override
+    public boolean hasComments(CommentEntity entity, int entityId) {
+        // Gets the teacher
+        int teacherId = securityUtils.checkTeacher();
+        // Repository
+        return commentRepository.hasComments(teacherId, entity, entityId);
+    }
+
     private Comment toComment(TComment t) {
         return new Comment(
                 t.getId(),

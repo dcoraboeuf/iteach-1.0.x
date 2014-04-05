@@ -1,7 +1,9 @@
 package net.nemerosa.iteach.ui;
 
 import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.CommentEntity;
 import net.nemerosa.iteach.common.Period;
+import net.nemerosa.iteach.service.CommentService;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.*;
 import net.nemerosa.iteach.ui.model.*;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 public class UITeacherAPIController implements UITeacherAPI {
 
     private final TeacherService teacherService;
+    private final CommentService commentService;
     private final UIFormatter formatter;
     private final Function<? super School, ? extends UISchoolSummary> schoolSummaryFn = school -> new UISchoolSummary(
             school.getId(),
@@ -46,8 +49,9 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     @Autowired
-    public UITeacherAPIController(TeacherService teacherService, UIFormatter formatter) {
+    public UITeacherAPIController(TeacherService teacherService, CommentService commentService, UIFormatter formatter) {
         this.teacherService = teacherService;
+        this.commentService = commentService;
         this.formatter = formatter;
     }
 
@@ -257,8 +261,8 @@ public class UITeacherAPIController implements UITeacherAPI {
                 lesson.getLocation(),
                 lesson.getFrom(),
                 lesson.getTo(),
-                lesson.getHours()
-        );
+                lesson.getHours(),
+                commentService.hasComments(CommentEntity.lesson, lesson.getId()));
     }
 
     @Override
