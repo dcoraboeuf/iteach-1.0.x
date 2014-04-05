@@ -78,6 +78,10 @@ angular.module('iteach.ui.account', [
             );
         };
 
+        self.disableAccount = function (accountId) {
+            return $http.put(config.api('account/{{id}}/disable', {id: accountId}));
+        };
+
         self.getAccountProfile = function () {
             return $http.get(config.api('account/profile'));
         };

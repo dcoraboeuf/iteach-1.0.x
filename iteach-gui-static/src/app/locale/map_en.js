@@ -135,6 +135,11 @@ var map_en = {
     'admin.account.import.warning': "Warning! Importing data will erase any previous data for {{name}}.",
     'admin.account.import.success': "Import of data successful.",
     'admin.account.export': "Export",
+    'admin.account.disable': "Disable",
+    'admin.account.disable.message': "This account is currently disabled. You can re-enable it by clicking on the " +
+        "'Enable' button below.",
+    'admin.account.enable': "Enable",
+    'admin.account.disable.prompt': "Disabling this account will prevent any connection. Do you want to continue?",
     // Profile
     'account.profile': "Profile",
     'account.profile.company': "Company",

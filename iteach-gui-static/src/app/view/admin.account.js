@@ -31,5 +31,9 @@ angular.module('iteach.view.admin.account', [
             });
         };
 
+        $scope.disable = function () {
+            accountService.disableAccount(accountId).then(loadAccount);
+        };
+
     })
 ;

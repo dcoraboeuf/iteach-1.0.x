@@ -37,8 +37,11 @@
             <tfoot>
             <tr>
                 <td colspan="2">
+                    <div class="alert alert-warning" ng-show="account.disabled">{{'admin.account.disable.message' | translate}}</div>
                     <a class="btn btn-info" href="api/account/{{account.id}}/export">{{'admin.account.export' | translate}}</a>
                     <button class="btn btn-warning" ng-if="deleteAllowed" ng-click="importAccount()">{{'admin.account.import' | translate}}</button>
+                    <button type="button" class="btn btn-danger" ng-click="disable()" ng-show="!account.disabled">{{'admin.account.disable' | translate}}</button>
+                    <button type="button" class="btn btn-warning" ng-click="enable()" ng-show="account.disabled">{{'admin.account.enable' | translate}}</button>
                     <button type="button" class="btn btn-danger" ng-if="deleteAllowed" ng-click="deleteAccount()">{{'dialog.delete' | translate}}</button>
                     <a href="#/admin/accounts" class="btn btn-link">{{'home.back' | translate}}</a>
                 </td>

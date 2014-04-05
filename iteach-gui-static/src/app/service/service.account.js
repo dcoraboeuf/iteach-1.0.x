@@ -124,6 +124,25 @@ angular.module('iteach.service.account', [
             }).result;
         };
 
+        self.disableAccount = function (accountId) {
+            var d = $q.defer();
+            self.getAccount(accountId).success(function (account) {
+                if (account.disabled) {
+                    d.reject();
+                } else {
+                    alertService.confirm({
+                        title: account.name,
+                        message: $translate.instant('admin.account.disable.prompt')
+                    }).then(function () {
+                            uiAccount.disableAccount(accountId).success(function () {
+                                d.resolve()
+                            })
+                        })
+                }
+            });
+            return d.promise;
+        };
+
         self.accountProfile = function () {
             return $modal.open({
                 templateUrl: 'app/dialog/dialog.account.profile.tpl.html',

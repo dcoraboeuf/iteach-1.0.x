@@ -133,6 +133,11 @@ var map_fr = {
     'admin.account.import.warning': "Attention ! L'import des données va écraser toutes les données précédentes de {{name}}.",
     'admin.account.import.success': "L'importation des données a réussi.",
     'admin.account.export': "Exporter",
+    'admin.account.disable': "Désactiver",
+    'admin.account.disable.message': "Ce compte a été désactivé. Vous pouvez le réactiver en cliquant sur le " +
+        "bouton 'Activer' ci-dessous",
+    'admin.account.enable': "Activer",
+    'admin.account.disable.prompt': "Désactiver ce compte empêchera toute connexion. Voulez-vous continuer ?",
     // Profile
     'account.profile': "Profil",
     'account.profile.company': "Entreprise",
