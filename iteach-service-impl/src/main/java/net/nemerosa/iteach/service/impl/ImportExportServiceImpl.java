@@ -21,6 +21,7 @@ import java.util.List;
 public class ImportExportServiceImpl implements ImportExportService {
 
     private final ImportService importServiceV1;
+    private final ImportService importServiceV2;
     private final ExportService exportService;
     private final AccountService accountService;
     private final TeacherService teacherService;
@@ -30,8 +31,12 @@ public class ImportExportServiceImpl implements ImportExportService {
     public ImportExportServiceImpl(
             @Qualifier("v1")
             ImportService importServiceV1,
-            ExportService exportService, AccountService accountService, TeacherService teacherService, SecurityUtils securityUtils) {
+            @Qualifier("v2")
+            ImportService importServiceV2,
+            ExportService exportService,
+            AccountService accountService, TeacherService teacherService, SecurityUtils securityUtils) {
         this.importServiceV1 = importServiceV1;
+        this.importServiceV2 = importServiceV2;
         this.exportService = exportService;
         this.accountService = accountService;
         this.teacherService = teacherService;
@@ -54,7 +59,9 @@ public class ImportExportServiceImpl implements ImportExportService {
             case 1:
                 importService = importServiceV1;
                 break;
-            // TODO case 2: Importing current version
+            case 2:
+                importService = importServiceV2;
+                break;
             default:
                 throw new ImportVersionNotRecognizedException(version);
         }
