@@ -19,6 +19,15 @@ angular.module('iteach.service.core', [
         };
         return self;
     })
+    .service('routeService', function ($rootScope, $location, notificationService) {
+        var self = {};
+        self.routeWithSuccess = function (path, message) {
+            $rootScope.preserveMessage = message;
+            $location.path(path);
+            notificationService.success(message);
+        };
+        return self;
+    })
     .service('notificationService', function ($log, $rootScope) {
         var self = {
             scopes: [ $rootScope ]

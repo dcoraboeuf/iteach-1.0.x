@@ -205,7 +205,12 @@ var iteach = angular.module('iteach', [
             $scope.createInvoice = teacherService.createInvoice;
             // On state change
             $scope.$on('$routeChangeSuccess', function () {
-                $rootScope.message = undefined;
+                if ($rootScope.preserveMessage) {
+                    // We want to preserve the message only for this time
+                    $rootScope.preserveMessage = undefined;
+                } else {
+                    $rootScope.message = undefined;
+                }
             });
         })
     ;

@@ -2,7 +2,7 @@ angular.module('iteach.view.admin.setup', [
         'iteach.service.account',
         'iteach.service.core'
     ])
-    .controller('AdminSetupCtrl', function ($scope, $location, $translate, notificationService, accountService) {
+    .controller('AdminSetupCtrl', function ($scope, $location, $translate, routeService, accountService) {
         accountService.loadSetup().success(function (setup) {
             $scope.setup = setup;
         });
@@ -23,15 +23,13 @@ angular.module('iteach.view.admin.setup', [
                     passwordChange: passwordChange
                 };
                 accountService.saveSetup(form).success(function () {
-                    $location.path('/admin');
                     var message;
                     if (passwordChange) {
                         message = $translate.instant('admin.setup.saved.passwordChanged');
                     } else {
                         message = $translate.instant('admin.setup.saved');
                     }
-                    // TODO The message is erased on route change (see app.js#$routeChangeSuccess)
-                    notificationService.success(message);
+                    routeService.routeWithSuccess('/admin', message);
                 })
             }
         };
