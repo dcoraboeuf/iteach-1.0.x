@@ -132,6 +132,7 @@ var map_fr = {
     'admin.account.import.message': "Sélectionnez un fichier JSON préalablement exporté depuis iTeach.",
     'admin.account.import.warning': "Attention ! L'import des données va écraser toutes les données précédentes de {{name}}.",
     'admin.account.import.success': "L'importation des données a réussi.",
+    'admin.account.export': "Exporter",
     // Profile
     'account.profile': "Profil",
     'account.profile.company': "Entreprise",
