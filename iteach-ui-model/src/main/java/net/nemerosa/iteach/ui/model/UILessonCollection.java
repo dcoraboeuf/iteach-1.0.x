@@ -8,13 +8,13 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class UILessonCollection extends UIResourceCollection<UILesson> {
+public class UILessonCollection extends UIResourceCollection<UILessonSummary> {
 
     private final String href = "api/teacher/lesson";
     private final UILessonFilter filter;
 
     @ConstructorProperties({"filter", "resources"})
-    public UILessonCollection(UILessonFilter filter, List<UILesson> resources) {
+    public UILessonCollection(UILessonFilter filter, List<UILessonSummary> resources) {
         super(resources);
         this.filter = filter;
     }

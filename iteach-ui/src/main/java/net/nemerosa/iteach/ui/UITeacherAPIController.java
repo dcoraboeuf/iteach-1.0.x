@@ -268,7 +268,21 @@ public class UITeacherAPIController implements UITeacherAPI {
                 lesson.getLocation(),
                 lesson.getFrom(),
                 lesson.getTo(),
-                lesson.getHours(),
+                lesson.getHours()
+        );
+    }
+
+    private UILessonSummary toUILessonSummary(Lesson lesson) {
+        Student student = teacherService.getStudent(lesson.getStudentId());
+        School school = teacherService.getSchool(student.getSchoolId());
+        return new UILessonSummary(
+                lesson.getId(),
+                student.getName(),
+                school.getName(),
+                school.getColour(),
+                lesson.getLocation(),
+                lesson.getFrom(),
+                lesson.getTo(),
                 commentService.hasComments(CommentEntity.lesson, lesson.getId()));
     }
 
@@ -280,7 +294,7 @@ public class UITeacherAPIController implements UITeacherAPI {
                 teacherService
                         .getLessons(filter.getStudentId(), filter.getFrom(), filter.getTo())
                         .stream()
-                        .map(this::toUILesson)
+                        .map(this::toUILessonSummary)
                         .collect(Collectors.toList())
         );
     }

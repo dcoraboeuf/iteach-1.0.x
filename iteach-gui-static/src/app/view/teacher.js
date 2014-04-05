@@ -76,7 +76,7 @@ angular.module('iteach.view.teacher', [
             lesson.start = new Date(lesson.from);
             lesson.end = new Date(lesson.to);
             // Colour
-            lesson.backgroundColor = lesson.student.school.colour;
+            lesson.backgroundColor = lesson.schoolColour;
             // Link
             lesson.url = "#/lesson/" + lesson.id;
             // Title with icon if comments
