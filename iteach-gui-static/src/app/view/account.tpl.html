@@ -1,0 +1,37 @@
+<div class="container">
+    <h3>{{account.teacher.name}}</h3>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="it-form">
+                <tbody>
+                <tr>
+                    <td class="it-form-label">
+                        {{'admin.account.email' | translate}}
+                    </td>
+                    <td class="it-form-value">
+                        {{account.teacher.email}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="it-form-label">
+                        {{'admin.account.authenticationMode' | translate}}
+                    </td>
+                    <td class="it-form-value">
+                        {{'admin.account.authenticationMode.' + account.teacher.authenticationMode | translate}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Password change -->
+            <button class="btn btn-info" type="button" ng-click="passwordChange()"
+                    ng-if="account.teacher.authenticationMode == 'PASSWORD'">{{'account.passwordChange' | translate}}
+            </button>
+            <a class="btn btn-link" href="#/">{{'home.back' | translate}}</a>
+        </div>
+    </div>
+</div>
