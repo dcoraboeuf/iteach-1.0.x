@@ -154,6 +154,8 @@ var map_fr = {
     // Account mgt
     'account.menu': 'Compte',
     'account.passwordChange': 'Changer de mot de passe',
+    'account.passwordChange.requested': "Votre demande de changement de mot de passe a été acceptée. Vous allez " +
+        "bientôt recevoir un email avec un lien vous permettant de réaliser ce changement.",
     // Reporting
     'report.total': "Total",
     'report.monthly': "Rapport mensuel",

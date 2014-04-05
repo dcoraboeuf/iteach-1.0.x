@@ -164,6 +164,8 @@ angular.module('iteach.service.account', [
         self.loadSetup = uiAccount.loadSetup;
         self.saveSetup = uiAccount.saveSetup;
 
+        self.passwordChangeRequest = uiAccount.passwordChangeRequest;
+
         return self;
 
     })
