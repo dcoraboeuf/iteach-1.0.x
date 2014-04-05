@@ -26,8 +26,8 @@ public class UIResourceCollectionTest {
     private ObjectNode jsonResourceCollection() {
         return object()
                 .with("resources", JsonUtils.array()
-                        .with(object().with("id", 1).with("href", "api/teacher/school/1").with("name", "School1").with("colour", "#111111").end())
-                        .with(object().with("id", 2).with("href", "api/teacher/school/2").with("name", "School2").with("colour", "#222222").end())
+                        .with(object().with("id", 1).with("href", "api/teacher/school/1").with("name", "School1").with("colour", "#111111").with("hasComments", false).end())
+                        .with(object().with("id", 2).with("href", "api/teacher/school/2").with("name", "School2").with("colour", "#222222").with("hasComments", true).end())
                         .end())
                 .with("href", "api/teacher/school")
                 .end();
