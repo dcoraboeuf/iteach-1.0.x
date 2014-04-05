@@ -30,4 +30,6 @@ public interface AccountService {
     Ack disableAccount(int accountId);
 
     Ack enableAccount(int accountId);
+
+    Ack passwordChangeRequest(Locale locale);
 }

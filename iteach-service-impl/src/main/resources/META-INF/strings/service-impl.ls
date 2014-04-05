@@ -2,6 +2,10 @@ message.registration
 	en -> iTeach - Validation of your account
 	fr -> iTeach - Validation de votre compte
 
+message.passwordChangeRequest
+    en -> iTeach - Your request for a password change
+    fr -> iTeach - Votre demande de changement de mot de passe
+
 net.nemerosa.iteach.service.impl.LessonNotSameDayException
     en -> A lesson must not span on several days.
     fr -> Une leçon ne peut pas être sur plusieurs jours.

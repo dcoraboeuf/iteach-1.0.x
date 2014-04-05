@@ -243,4 +243,10 @@ public class UIAccountAPIController implements UIAccountAPI {
     public Ack enableAccount(Locale locale, @PathVariable int accountId) {
         return accountService.enableAccount(accountId);
     }
+
+    @Override
+    @RequestMapping(value = "/passwordChangeRequest", method = RequestMethod.GET)
+    public Ack passwordChangeRequest(Locale locale) {
+        return accountService.passwordChangeRequest(locale);
+    }
 }

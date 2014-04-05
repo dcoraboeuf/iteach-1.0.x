@@ -92,4 +92,9 @@ public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> i
     public Ack enableAccount(Locale locale, int accountId) {
         return put(locale, Ack.class, null, "/api/account/%d/enable", accountId);
     }
+
+    @Override
+    public Ack passwordChangeRequest(Locale locale) {
+        return get(locale, Ack.class, "/api/account/passwordChangeRequest");
+    }
 }

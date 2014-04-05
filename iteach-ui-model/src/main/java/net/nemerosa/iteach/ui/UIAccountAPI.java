@@ -40,4 +40,6 @@ public interface UIAccountAPI {
 
     Ack enableAccount(Locale locale, int accountId);
 
+    Ack passwordChangeRequest(Locale locale);
+
 }
