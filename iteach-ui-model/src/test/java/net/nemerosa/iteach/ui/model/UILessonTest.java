@@ -28,8 +28,8 @@ public class UILessonTest {
                         new UISchoolSummary(
                                 1,
                                 "The school",
-                                "#667788"
-                        ),
+                                "#667788",
+                                false),
                         "The student",
                         "My subject",
                         false),

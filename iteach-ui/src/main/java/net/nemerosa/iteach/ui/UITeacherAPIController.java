@@ -15,7 +15,6 @@ import javax.validation.Valid;
 import java.time.YearMonth;
 import java.util.List;
 import java.util.Locale;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -28,11 +27,14 @@ public class UITeacherAPIController implements UITeacherAPI {
     private final TeacherService teacherService;
     private final CommentService commentService;
     private final UIFormatter formatter;
-    private final Function<? super School, ? extends UISchoolSummary> schoolSummaryFn = school -> new UISchoolSummary(
-            school.getId(),
-            school.getName(),
-            school.getColour()
-    );
+
+    private UISchoolSummary toUISchoolSummary(School school) {
+        return new UISchoolSummary(
+                school.getId(),
+                school.getName(),
+                school.getColour(),
+                commentService.hasComments(CommentEntity.school, school.getId()));
+    }
 
     private UIStudentSummary toUIStudentSummary(Student student) {
         return new UIStudentSummary(
@@ -45,7 +47,7 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     private UISchoolSummary getSchoolSummary(Student student) {
-        return schoolSummaryFn.apply(teacherService.getSchool(student.getSchoolId()));
+        return toUISchoolSummary(teacherService.getSchool(student.getSchoolId()));
     }
 
     private UIStudentSummary getStudentSummary(int studentId) {
@@ -64,7 +66,7 @@ public class UITeacherAPIController implements UITeacherAPI {
     public UISchoolCollection getSchools(Locale locale) {
         List<School> schools = teacherService.getSchools();
         return new UISchoolCollection(
-                schools.stream().map(schoolSummaryFn).collect(Collectors.toList())
+                schools.stream().map(this::toUISchoolSummary).collect(Collectors.toList())
         );
     }
 
@@ -111,7 +113,8 @@ public class UITeacherAPIController implements UITeacherAPI {
                 o.getEmail(),
                 o.getWebSite(),
                 o.getVat(),
-                o.getVatRate());
+                o.getVatRate()
+        );
     }
 
     @Override
@@ -206,8 +209,8 @@ public class UITeacherAPIController implements UITeacherAPI {
                 o.getPostalAddress(),
                 o.getPhone(),
                 o.getMobilePhone(),
-                o.getEmail(),
-                commentService.hasComments(CommentEntity.student, o.getId()));
+                o.getEmail()
+        );
     }
 
     @Override

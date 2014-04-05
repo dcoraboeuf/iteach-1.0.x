@@ -36,8 +36,8 @@ public class UIResourceCollectionTest {
     private UISchoolCollection resourceCollection() {
         return new UISchoolCollection(
                 Arrays.asList(
-                        new UISchoolSummary(1, "School1", "#111111"),
-                        new UISchoolSummary(2, "School2", "#222222")
+                        new UISchoolSummary(1, "School1", "#111111", false),
+                        new UISchoolSummary(2, "School2", "#222222", true)
                 )
         );
     }
