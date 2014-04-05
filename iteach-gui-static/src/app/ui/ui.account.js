@@ -82,6 +82,10 @@ angular.module('iteach.ui.account', [
             return $http.put(config.api('account/{{id}}/disable', {id: accountId}));
         };
 
+        self.enableAccount = function (accountId) {
+            return $http.put(config.api('account/{{id}}/enable', {id: accountId}));
+        };
+
         self.getAccountProfile = function () {
             return $http.get(config.api('account/profile'));
         };

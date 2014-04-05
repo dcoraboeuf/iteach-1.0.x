@@ -143,6 +143,8 @@ angular.module('iteach.service.account', [
             return d.promise;
         };
 
+        self.enableAccount = uiAccount.enableAccount;
+
         self.accountProfile = function () {
             return $modal.open({
                 templateUrl: 'app/dialog/dialog.account.profile.tpl.html',

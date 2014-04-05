@@ -35,5 +35,9 @@ angular.module('iteach.view.admin.account', [
             accountService.disableAccount(accountId).then(loadAccount);
         };
 
+        $scope.enable = function () {
+            accountService.enableAccount(accountId).then(loadAccount);
+        };
+
     })
 ;
