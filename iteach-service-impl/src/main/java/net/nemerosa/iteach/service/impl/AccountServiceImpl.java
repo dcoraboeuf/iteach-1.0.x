@@ -10,7 +10,6 @@ import net.nemerosa.iteach.service.support.EnvService;
 import net.sf.jstring.Strings;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -85,6 +84,28 @@ public class AccountServiceImpl implements AccountService {
         Message message = createPasswordChangeRequestMessage(locale, t.getName(), t.getEmail());
         // Sends the message
         messageService.sendMessage(message, t.getEmail());
+        // OK
+        return Ack.OK;
+    }
+
+    @Override
+    public Ack passwordChange(String token, String oldPassword, String newPassword) {
+        // User email
+        TokenKey key = tokenService.checkToken(token, TokenType.PASSWORD_CHANGE);
+        String email = key.getKey();
+        // Gets the user by using its email
+        TAccount account = accountRepository.findByEmail(email);
+        // Checks the password
+        if (!accountRepository.checkPassword(
+                account.getId(),
+                encodedPassword -> passwordEncoder.matches(oldPassword, encodedPassword)
+        )) {
+            throw new AccountPasswordCheckException();
+        }
+        // Consumes the token
+        tokenService.consumesToken(token, TokenType.REGISTRATION, account.getEmail());
+        // Changes the password
+        accountRepository.changePassword(account.getId(), newPassword);
         // OK
         return Ack.OK;
     }
@@ -176,7 +197,7 @@ public class AccountServiceImpl implements AccountService {
                 adminId,
                 encodedPassword -> passwordEncoder.matches(form.getPassword(), encodedPassword)
         )) {
-            throw new AccessDeniedException("Password incorrect");
+            throw new AccountPasswordCheckException();
         }
         // Changes the email
         accountRepository.updateEmail(adminId, form.getEmail());

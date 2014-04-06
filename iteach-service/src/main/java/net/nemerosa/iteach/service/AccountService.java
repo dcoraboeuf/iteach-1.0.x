@@ -32,4 +32,6 @@ public interface AccountService {
     Ack enableAccount(int accountId);
 
     Ack passwordChangeRequest(Locale locale);
+
+    Ack passwordChange(String token, String oldPassword, String newPassword);
 }

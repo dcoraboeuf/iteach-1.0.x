@@ -12,7 +12,7 @@ angular.module('iteach.view.passwordChangeRequest', [
             // Sending the form
             accountService.passwordChange($routeParams.token, $scope.oldPassword, $scope.newPassword)
                 .success(function () {
-                    routeService.route('/', $translate.instant())
+                    routeService.route('/teacher', $translate.instant('account.passwordChange.success'))
                 })
         }
     })

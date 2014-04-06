@@ -97,4 +97,9 @@ public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> i
     public Ack passwordChangeRequest(Locale locale) {
         return get(locale, Ack.class, "/api/account/passwordChangeRequest");
     }
+
+    @Override
+    public Ack passwordChange(Locale locale, UIPasswordChangeForm form) {
+        return post(locale, Ack.class, form, "/api/account/passwordChange");
+    }
 }

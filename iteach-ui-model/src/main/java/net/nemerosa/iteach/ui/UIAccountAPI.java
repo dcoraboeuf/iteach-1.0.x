@@ -42,4 +42,6 @@ public interface UIAccountAPI {
 
     Ack passwordChangeRequest(Locale locale);
 
+    Ack passwordChange(Locale locale, UIPasswordChangeForm form);
+
 }

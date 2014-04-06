@@ -37,3 +37,7 @@ net.nemerosa.iteach.service.impl.AccountCannotDeleteHimselfException
 net.nemerosa.iteach.service.impl.ImportException
     en -> Error during the the import: {0}
     fr -> Erreur durant l'importation : {0}
+
+net.nemerosa.iteach.service.AccountPasswordCheckException
+    en -> Password is incorrect.
+    fr -> Le mot de passe est incorrect.

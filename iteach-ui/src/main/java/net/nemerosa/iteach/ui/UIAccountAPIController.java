@@ -249,4 +249,10 @@ public class UIAccountAPIController implements UIAccountAPI {
     public Ack passwordChangeRequest(Locale locale) {
         return accountService.passwordChangeRequest(locale);
     }
+
+    @Override
+    @RequestMapping(value = "/passwordChange", method = RequestMethod.POST)
+    public Ack passwordChange(Locale locale, @RequestBody @Valid UIPasswordChangeForm form) {
+        return accountService.passwordChange(form.getToken(), form.getOldPassword(), form.getNewPassword());
+    }
 }
