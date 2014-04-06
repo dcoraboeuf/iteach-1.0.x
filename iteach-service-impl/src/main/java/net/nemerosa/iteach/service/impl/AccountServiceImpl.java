@@ -103,9 +103,9 @@ public class AccountServiceImpl implements AccountService {
             throw new AccountPasswordCheckException();
         }
         // Consumes the token
-        tokenService.consumesToken(token, TokenType.REGISTRATION, account.getEmail());
+        tokenService.consumesToken(token, TokenType.PASSWORD_CHANGE, account.getEmail());
         // Changes the password
-        accountRepository.changePassword(account.getId(), newPassword);
+        accountRepository.changePassword(account.getId(), passwordEncoder.encode(newPassword));
         // OK
         return Ack.OK;
     }
