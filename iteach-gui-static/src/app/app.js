@@ -27,6 +27,7 @@ var iteach = angular.module('iteach', [
             'iteach.directive.comments',
             'iteach.directive.misc',
             // Views
+            'iteach.view.error',
             'iteach.view.login',
             'iteach.view.register',
             'iteach.view.registrationResult',
@@ -82,6 +83,11 @@ var iteach = angular.module('iteach', [
         .config(function ($routeProvider) {
             // TODO Try to register routes in the modules themselves
             $routeProvider
+                // Error page
+                .when('/error', {
+                    templateUrl: 'app/view/error.tpl.html',
+                    controller: 'ErrorCtrl'
+                })
                 // Login page
                 .when('/login', {
                     templateUrl: 'app/view/login.tpl.html',

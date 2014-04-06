@@ -13,6 +13,9 @@ var map_en = {
     'logout': "Sign out",
     // Home page
     'home.back': "Close",
+    // Error page
+    'error': "Error",
+    'error.message': "The page you have requested cannot be displayed.",
     // Login page
     'login.iteach.message': 'iTeach is the application that will help you organise your courses and your planning.',
     'login.signin.google': 'Sign in with Google',

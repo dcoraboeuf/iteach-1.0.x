@@ -46,6 +46,7 @@ angular.module('iteach.service.account', [
                 var current = $location.path();
                 if (current == '/register'
                     || current == '/login'
+                    || current.match(/\/error\/.*/)
                     || current.match(/\/registration\/.*/)
                     || current.match(/\/passwordChangeRequest\/.*/)
                 ) {
