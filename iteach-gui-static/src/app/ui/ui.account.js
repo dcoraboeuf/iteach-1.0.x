@@ -106,6 +106,14 @@ angular.module('iteach.ui.account', [
             return $http.get(config.api('account/passwordChangeRequest'));
         };
 
+        self.passwordChange = function (token, oldPassword, newPassword) {
+            return $http.post(config.api('account/passwordChange'), {
+                token: token,
+                oldPassword: oldPassword,
+                newPassword: newPassword
+            });
+        };
+
         return self;
 
     })
