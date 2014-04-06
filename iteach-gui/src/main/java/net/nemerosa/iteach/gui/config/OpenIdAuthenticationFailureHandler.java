@@ -1,12 +1,9 @@
-package net.nemerosa.iteach.ui.config;
+package net.nemerosa.iteach.gui.config;
 
 import net.nemerosa.iteach.service.AccountNonVerifiedOrDisabledException;
 import net.nemerosa.iteach.service.AccountOpenIDNotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.openid.OpenIDAuthenticationStatus;
-import org.springframework.security.openid.OpenIDAuthenticationToken;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
@@ -16,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-// FIXME Moves to the GUI layer
 @Component
 @Qualifier("openid")
 public class OpenIdAuthenticationFailureHandler implements AuthenticationFailureHandler {

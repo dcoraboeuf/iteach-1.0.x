@@ -89,7 +89,7 @@
         </profile>
 
         <profile>
-            <id>prod</id>
+            <id>release</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
@@ -100,7 +100,7 @@
                         <artifactId>exec-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>prepare-prod</id>
+                                <id>prepare-release</id>
                                 <phase>compile</phase>
                                 <goals>
                                     <goal>exec</goal>
