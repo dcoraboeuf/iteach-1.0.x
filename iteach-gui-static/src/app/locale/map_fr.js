@@ -156,6 +156,9 @@ var map_fr = {
     'account.passwordChange': 'Changer de mot de passe',
     'account.passwordChange.requested': "Votre demande de changement de mot de passe a été acceptée. Vous allez " +
         "bientôt recevoir un email avec un lien vous permettant de réaliser ce changement.",
+    'account.passwordChange.old': "Ancien mot de passe",
+    'account.passwordChange.new': "Nouveau mot de passe",
+    'account.passwordChange.new.confirm': "Confirmation",
     // Reporting
     'report.total': "Total",
     'report.monthly': "Rapport mensuel",

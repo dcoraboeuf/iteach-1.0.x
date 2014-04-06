@@ -158,6 +158,9 @@ var map_en = {
     'account.passwordChange': 'Change password',
     'account.passwordChange.requested': "Your request for a password change has been accepted. You will shortly " +
         "receive a mail with a link that allows you to complete this change.",
+    'account.passwordChange.old': "Old password",
+    'account.passwordChange.new': "New password",
+    'account.passwordChange.new.confirm': "Confirmation",
     // Reporting
     'report.total': "Total",
     'report.monthly': "Monthly report",
