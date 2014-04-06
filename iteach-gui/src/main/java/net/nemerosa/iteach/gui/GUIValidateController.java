@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.gui;
 
 import net.nemerosa.iteach.common.TokenType;
+import net.nemerosa.iteach.service.TokenService;
 import net.nemerosa.iteach.service.ValidationTokenTypeNotManagedException;
 import net.nemerosa.iteach.ui.UIAccountAPI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,12 @@ import java.util.Locale;
 public class GUIValidateController {
 
     private final UIAccountAPI accountAPI;
+    private final TokenService tokenService;
 
     @Autowired
-    public GUIValidateController(UIAccountAPI accountAPI) {
+    public GUIValidateController(UIAccountAPI accountAPI, TokenService tokenService) {
         this.accountAPI = accountAPI;
+        this.tokenService = tokenService;
     }
 
     @RequestMapping(value = "/validate/{tokenType}/{token}", method = RequestMethod.GET, headers = "Accept=text/html")
@@ -37,7 +40,9 @@ public class GUIValidateController {
                     true
             );
         } else if (tokenType == TokenType.PASSWORD_CHANGE) {
-            // FIXME Checks the token before hand
+            // Checks the token before hand
+            tokenService.checkToken(token, tokenType);
+            // Redirects to the form
             return new RedirectView(
                     String.format("/index.html#/passwordChangeRequest/%s", token),
                     true
