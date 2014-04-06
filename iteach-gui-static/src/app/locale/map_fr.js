@@ -159,6 +159,7 @@ var map_fr = {
     'account.passwordChange.old': "Ancien mot de passe",
     'account.passwordChange.new': "Nouveau mot de passe",
     'account.passwordChange.new.confirm': "Confirmation",
+    'account.passwordChange.new.confirm.error': "La confirmation du mot de passe n'est pas correcte.",
     // Reporting
     'report.total': "Total",
     'report.monthly': "Rapport mensuel",
