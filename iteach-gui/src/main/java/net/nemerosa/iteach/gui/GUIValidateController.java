@@ -1,8 +1,8 @@
-package net.nemerosa.iteach.ui;
+package net.nemerosa.iteach.gui;
 
 import net.nemerosa.iteach.common.TokenType;
-import net.nemerosa.iteach.ui.support.ErrorHandler;
-import net.nemerosa.iteach.ui.support.ValidationTokenTypeNotManagedException;
+import net.nemerosa.iteach.service.ValidationTokenTypeNotManagedException;
+import net.nemerosa.iteach.ui.UIAccountAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,30 +10,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
-// FIXME Move to the GUI layer
 @Controller
-public class UIValidateController {
+public class GUIValidateController {
 
     private final UIAccountAPI accountAPI;
-    private final ErrorHandler errorHandler;
 
     @Autowired
-    public UIValidateController(UIAccountAPI accountAPI, ErrorHandler errorHandler) {
+    public GUIValidateController(UIAccountAPI accountAPI) {
         this.accountAPI = accountAPI;
-        this.errorHandler = errorHandler;
     }
 
     @RequestMapping(value = "/validate/{tokenType}/{token}", method = RequestMethod.GET, headers = "Accept=text/html")
-    public RedirectView guiValidate(Locale locale, @PathVariable TokenType tokenType, @PathVariable String token, HttpServletRequest request) {
+    public RedirectView guiValidate(Locale locale, @PathVariable TokenType tokenType, @PathVariable String token) {
         if (tokenType == TokenType.REGISTRATION) {
             boolean success;
             try {
                 success = accountAPI.validate(locale, tokenType, token).isSuccess();
             } catch (Exception ex) {
-                errorHandler.handleError(locale, request, ex);
+                // FIXME Redirects to an error page
                 success = false;
             }
             return new RedirectView(
@@ -41,6 +37,7 @@ public class UIValidateController {
                     true
             );
         } else if (tokenType == TokenType.PASSWORD_CHANGE) {
+            // FIXME Checks the token before hand
             return new RedirectView(
                     String.format("/index.html#/passwordChangeRequest/%s", token),
                     true

@@ -1,4 +1,4 @@
-package net.nemerosa.iteach.ui.support;
+package net.nemerosa.iteach.service;
 
 import net.nemerosa.iteach.common.TokenType;
 import net.sf.jstring.support.CoreException;
