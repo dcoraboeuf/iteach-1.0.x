@@ -162,6 +162,7 @@ var map_en = {
     'account.passwordChange.new': "New password",
     'account.passwordChange.new.confirm': "Confirmation",
     'account.passwordChange.new.confirm.error': "Confirmation of the password is not correct.",
+    'account.passwordChange.success': "Your password has been changed.",
     // Reporting
     'report.total': "Total",
     'report.monthly': "Monthly report",
