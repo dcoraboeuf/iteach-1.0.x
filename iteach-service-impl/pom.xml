@@ -53,6 +53,11 @@
             <artifactId>aspectjweaver</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!-- Mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+        </dependency>
         <!-- Templating -->
         <dependency>
             <groupId>org.freemarker</groupId>
