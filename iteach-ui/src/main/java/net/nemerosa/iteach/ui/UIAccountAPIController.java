@@ -9,6 +9,7 @@ import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.ImportExportService;
 import net.nemerosa.iteach.service.SecurityUtils;
+import net.nemerosa.iteach.service.ValidationTokenTypeNotManagedException;
 import net.nemerosa.iteach.service.model.*;
 import net.nemerosa.iteach.ui.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -134,7 +135,7 @@ public class UIAccountAPIController implements UIAccountAPI {
             case REGISTRATION:
                 return accountService.completeRegistration(locale, token);
             default:
-                throw new IllegalStateException("Token not handled: " + tokenType);
+                throw new ValidationTokenTypeNotManagedException(tokenType);
         }
     }
 

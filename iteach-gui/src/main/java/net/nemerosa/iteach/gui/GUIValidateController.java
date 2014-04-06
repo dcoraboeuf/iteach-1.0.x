@@ -28,13 +28,7 @@ public class GUIValidateController {
     @RequestMapping(value = "/validate/{tokenType}/{token}", method = RequestMethod.GET, headers = "Accept=text/html")
     public RedirectView guiValidate(Locale locale, @PathVariable TokenType tokenType, @PathVariable String token) {
         if (tokenType == TokenType.REGISTRATION) {
-            boolean success;
-            try {
-                success = accountAPI.validate(locale, tokenType, token).isSuccess();
-            } catch (Exception ex) {
-                // FIXME Redirects to an error page
-                success = false;
-            }
+            boolean success = accountAPI.validate(locale, tokenType, token).isSuccess();
             return new RedirectView(
                     String.format("/index.html#/registration/%s", success),
                     true
@@ -48,7 +42,6 @@ public class GUIValidateController {
                     true
             );
         } else {
-            // FIXME Redirect to an error page
             throw new ValidationTokenTypeNotManagedException(tokenType);
         }
     }
