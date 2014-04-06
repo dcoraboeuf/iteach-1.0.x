@@ -57,6 +57,7 @@
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
+            <scope>provided</scope>
         </dependency>
         <!-- Templating -->
         <dependency>
