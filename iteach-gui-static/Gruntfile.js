@@ -147,6 +147,17 @@ module.exports = function ( grunt ) {
                         expand: true
                     }
                 ]
+            },
+            prod_vendor_fonts: {
+                files: [
+                    {
+                        src: [ '<%= vendor_files.fonts%>' ],
+                        dest: '<%= prod_dir %>/fonts/',
+                        cwd: '.',
+                        expand: true,
+                        flatten: true
+                    }
+                ]
             }
         },
 
@@ -457,8 +468,8 @@ module.exports = function ( grunt ) {
         'concat:prod_js',
         'concat:prod_css',
         'uglify:prod',
-        'index:prod'
-        // FIXME Fonts
+        'index:prod',
+        'copy:prod_vendor_fonts'
     ]);
 
     /**

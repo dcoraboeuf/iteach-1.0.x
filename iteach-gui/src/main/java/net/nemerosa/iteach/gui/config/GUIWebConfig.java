@@ -17,6 +17,7 @@ public class GUIWebConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/app/**").addResourceLocations("/app/");
         registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
         registry.addResourceHandler("/vendor/**").addResourceLocations("/vendor/");
+        registry.addResourceHandler("/fonts/**").addResourceLocations("/fonts/");
         registry.addResourceHandler("index.html").addResourceLocations("index.html");
     }
 
