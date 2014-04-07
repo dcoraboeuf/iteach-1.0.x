@@ -53,11 +53,8 @@ module.exports = function ( grunt ) {
          */
         clean: [
             '<%= temp_dir %>',
-            '<%= dev_dir %>/index.html',
-            '<%= dev_dir %>/app',
-            '<%= dev_dir %>/vendor',
-            '<%= prod_dir %>/index.html',
-            '<%= prod_dir %>/assets'
+            '<%= dev_dir %>',
+            '<%= prod_dir %>'
         ],
 
         /**
