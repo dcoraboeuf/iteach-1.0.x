@@ -161,7 +161,6 @@ module.exports = function ( grunt ) {
         less: {
             dev: {
                 options: {
-                    paths: ['<%= src_dir %>/<%= dev_dir %>/app/css']
                 },
                 files: [{
                     '<%= dev_dir %>/app/css/main.css': '<%= src_dir %>/<%= app_files.less %>'
@@ -169,11 +168,10 @@ module.exports = function ( grunt ) {
             },
             prod: {
                 options: {
-                    paths: ['<%= src_dir %>/<%= dev_dir %>/app/css'],
                     compress: true
                 },
                 files: [{
-                    '<%= prod_dir %>/app/css/main.css': '<%= src_dir %>/<%= app_files.less %>'
+                    '<%= temp_dir %>/css/main.css': '<%= src_dir %>/<%= app_files.less %>'
                 }]
             }
         },
@@ -201,7 +199,7 @@ module.exports = function ( grunt ) {
             prod_css: {
                 src: [
                     '<%= vendor_files.css %>',
-                    '<%= prod_dir %>/app/css/**/*.css'
+                    '<%= temp_dir %>/css/**/*.css'
                 ],
                 dest: '<%= prod_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
             }
