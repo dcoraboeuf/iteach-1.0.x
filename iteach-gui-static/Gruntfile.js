@@ -150,6 +150,26 @@ module.exports = function ( grunt ) {
             }
         },
 
+        less: {
+            dev: {
+                options: {
+                    paths: ['<%= src_dir %>/<%= dev_dir %>/app/css']
+                },
+                files: [{
+                    '<%= dev_dir %>/app/css/main.css': '<%= src_dir %>/<%= app_files.less %>'
+                }]
+            },
+            prod: {
+                options: {
+                    paths: ['<%= src_dir %>/<%= dev_dir %>/app/css'],
+                    compress: true
+                },
+                files: [{
+                    '<%= prod_dir %>/app/css/main.css': '<%= src_dir %>/<%= app_files.less %>'
+                }]
+            }
+        },
+
         /**
          * `grunt concat` concatenates multiple source files into a single file.
          */
@@ -171,26 +191,13 @@ module.exports = function ( grunt ) {
                     'module.suffix'
                 ],
                 dest: '<%= prod_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.js'
-            }
-        },
-
-        less: {
-            dev: {
-                options: {
-                    paths: ['<%= src_dir %>/<%= dev_dir %>/app/css']
-                },
-                files: [{
-                    '<%= dev_dir %>/app/css/main.css': '<%= src_dir %>/<%= app_files.less %>'
-                }]
             },
-            prod: {
-                options: {
-                    paths: ['<%= src_dir %>/<%= dev_dir %>/app/css'],
-                    compress: true
-                },
-                files: [{
-                    '<%= prod_dir %>/app/css/main.css': '<%= src_dir %>/<%= app_files.less %>'
-                }]
+            prod_css: {
+                src: [
+                    '<%= vendor_files.css %>',
+                    '<%= prod_dir %>/app/css/**/*.css'
+                ],
+                dest: '<%= prod_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
             }
         },
 
@@ -276,6 +283,8 @@ module.exports = function ( grunt ) {
                 },
                 files: {
                     '<%= concat.prod_js.dest %>': '<%= concat.prod_js.dest %>'
+                    // TODO Uglify CSS
+                    // '<%= concat.prod_css.dest %>': '<%= concat.prod_css.dest %>'
                 }
             }
         },
@@ -310,9 +319,8 @@ module.exports = function ( grunt ) {
             prod: {
                 dir: '<%= prod_dir %>',
                 src: [
-                    '<%= concat.prod_js.dest %>',
-                    '<%= vendor_files.css %>',
-                    '<%= prod_dir %>/app/css/**/*.css'
+                    '<%= concat.prod_css.dest %>',
+                    '<%= concat.prod_js.dest %>'
                 ]
             }
         },
@@ -447,6 +455,7 @@ module.exports = function ( grunt ) {
         'html2js:prod',
         'ngmin:prod',
         'concat:prod_js',
+        'concat:prod_css',
         'uglify:prod',
         'index:prod'
         // FIXME Fonts
