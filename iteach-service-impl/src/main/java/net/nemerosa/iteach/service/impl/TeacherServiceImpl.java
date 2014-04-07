@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static net.nemerosa.iteach.service.impl.PeriodUtils.toPeriod;
+
 @Service
 @Transactional
 public class TeacherServiceImpl implements TeacherService {
@@ -457,13 +459,6 @@ public class TeacherServiceImpl implements TeacherService {
                 vat,
                 vatTotal
         );
-    }
-
-    private Period toPeriod(YearMonth period) {
-        Period p = new Period();
-        p.setFrom(period.atDay(1).atStartOfDay());
-        p.setTo(period.atEndOfMonth().atTime(23, 59));
-        return p;
     }
 
 }
