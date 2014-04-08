@@ -140,7 +140,7 @@
                             <groupId>org.apache.tomcat.maven</groupId>
                             <artifactId>tomcat7-maven-plugin</artifactId>
                             <configuration>
-                                <path>/iteach</path>
+                                <path>/</path>
                                 <contextFile>${project.basedir}/src/test/resources/tomcat/context-dev.xml</contextFile>
                                 <warSourceDirectory>../iteach-gui-static/target/dev</warSourceDirectory>
                                 <systemProperties>

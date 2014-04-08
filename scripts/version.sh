@@ -16,19 +16,23 @@ NEXT_VERSION=${MAJOR}.${MINOR}.${NEXT_PATCH}
 echo Next version = $NEXT_VERSION
 
 # Update the version for the tag
-mvn versions:set -DnewVersion=$CURRENT_VERSION -DgenerateBackupPoms=false
+mvn versions:set -DnewVersion=$CURRENT_VERSION -DgenerateBackupPoms=false > /dev/null
 
 # Commits & tags
 git commit -am "Version $CURRENT_VERSION"
 git tag $CURRENT_VERSION -m "v$CURRENT_VERSION"
 
 # Changes to the next version
-mvn versions:set -DnewVersion=$NEXT_VERSION-SNAPSHOT -DgenerateBackupPoms=false
+mvn versions:set -DnewVersion=$NEXT_VERSION-SNAPSHOT -DgenerateBackupPoms=false > /dev/null
 
 # Commit
 git commit -am "Prepare for version $NEXT_VERSION"
 
 # End
-echo Tag created. Perform the following commands to push:
+echo Tag created. Perform the following commands to build and push:
+echo git checkout $CURRENT_VERSION
+echo mvn clean install -P release -P acceptance -P acceptance-local
+echo git checkout release_${MAJOR}.${MINOR}
+echo git reset --hard HEAD
 echo git push
 echo git push --tags
