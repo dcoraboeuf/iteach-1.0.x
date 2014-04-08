@@ -33,5 +33,6 @@ echo Tag created. Perform the following commands to build and push:
 echo git checkout $CURRENT_VERSION
 echo mvn clean install -P release -P acceptance -P acceptance-local
 echo git checkout release_${MAJOR}.${MINOR}
+echo git reset --hard HEAD
 echo git push
 echo git push --tags
