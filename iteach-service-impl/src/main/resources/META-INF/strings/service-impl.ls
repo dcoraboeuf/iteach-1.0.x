@@ -45,3 +45,7 @@ net.nemerosa.iteach.service.AccountPasswordCheckException
 net.nemerosa.iteach.service.InvoiceGeneratorTypeNotFoundException
     en -> Invoice generator of type "{0}" cannot be found.
     fr -> Aucun générateur de facture de type "{0}" ne peut être trouvé.
+
+net.nemerosa.iteach.service.InvoiceGenerationException
+    en -> Invoice generation problem.
+    fr -> Problème lors de la génération de la facture.

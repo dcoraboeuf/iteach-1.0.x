@@ -53,6 +53,11 @@
             <artifactId>aspectjweaver</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!-- iText - PDF -->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+        </dependency>
         <!-- Mail -->
         <dependency>
             <groupId>javax.mail</groupId>
