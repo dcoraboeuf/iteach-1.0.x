@@ -1,7 +1,9 @@
 package net.nemerosa.iteach.service;
 
 import net.nemerosa.iteach.service.model.InvoiceForm;
+import net.nemerosa.iteach.service.model.InvoiceInfo;
 
+import java.util.List;
 import java.util.concurrent.Future;
 
 public interface InvoiceService {
@@ -15,7 +17,14 @@ public interface InvoiceService {
      */
     Future<Integer> generate(InvoiceForm invoiceForm, String type);
 
-    // TODO Gets info about an invoice using its ID
+    /**
+     * Gets the list of invoices.
+     *
+     * @param school Optional school ID used to filter
+     * @param year   Optional year used to filter
+     */
+    List<InvoiceInfo> getInvoices(Integer school, Integer year);
+
     // TODO Downloads an invoice using its ID
 
 }

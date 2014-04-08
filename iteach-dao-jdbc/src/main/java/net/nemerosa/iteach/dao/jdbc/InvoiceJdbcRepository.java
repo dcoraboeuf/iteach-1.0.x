@@ -1,13 +1,16 @@
 package net.nemerosa.iteach.dao.jdbc;
 
 import net.nemerosa.iteach.dao.InvoiceRepository;
+import net.nemerosa.iteach.dao.model.TInvoice;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneOffset;
+import java.util.List;
 
 @Component
 public class InvoiceJdbcRepository extends AbstractJdbcRepository implements InvoiceRepository {
@@ -30,6 +33,40 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
                         .addValue("invoiceNb", number)
                         .addValue("documentType", type)
                         .addValue("document", document)
+        );
+    }
+
+    @Override
+    public List<TInvoice> list(int teacherId, Integer schoolId, Integer year) {
+        StringBuilder sql = new StringBuilder("SELECT ID, SCHOOL, YEAR, MONTH, GENERATION, INVOICENB, DOCUMENTTYPE " +
+                "FROM INVOICE" +
+                "WHERE TEACHER = :teacher");
+        MapSqlParameterSource params = params("teacher", teacherId);
+        // School
+        if (schoolId != null) {
+            sql.append(" AND SCHOOL = :school");
+            params.addValue("school", schoolId);
+        }
+        // Year
+        if (year != null) {
+            sql.append(" AND YEAR = :year");
+            params.addValue("year", year);
+        }
+        // Ordering
+        sql.append(" ORDER BY INVOICENB DESC");
+        // Query
+        return getNamedParameterJdbcTemplate().query(
+                sql.toString(),
+                params,
+                (rs, rowNum) -> new TInvoice(
+                        rs.getInt("id"),
+                        rs.getInt("school"),
+                        rs.getInt("year"),
+                        rs.getInt("month"),
+                        SQLUtils.getLocalDateTimeFromDB(rs, "generation"),
+                        rs.getLong("invoiceNb"),
+                        rs.getString("documentType")
+                )
         );
     }
 }

@@ -6,10 +6,7 @@ import net.nemerosa.iteach.common.AccountAuthentication;
 import net.nemerosa.iteach.dao.InvoiceRepository;
 import net.nemerosa.iteach.service.*;
 import net.nemerosa.iteach.service.invoice.InvoiceGenerator;
-import net.nemerosa.iteach.service.model.InvoiceData;
-import net.nemerosa.iteach.service.model.InvoiceForm;
-import net.nemerosa.iteach.service.model.School;
-import net.nemerosa.iteach.service.model.SchoolReport;
+import net.nemerosa.iteach.service.model.*;
 import org.joda.money.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +14,15 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 import static net.nemerosa.iteach.service.impl.PeriodUtils.toPeriod;
 
@@ -63,6 +63,21 @@ public class InvoiceServiceImpl implements InvoiceService {
         return executorService.submit(
                 (Callable<Integer>) () -> generate(invoiceData, generator)
         );
+    }
+
+    @Override
+    public List<InvoiceInfo> getInvoices(Integer school, Integer year) {
+        return invoiceRepository.list(securityUtils.checkTeacher(), school, year)
+                .stream()
+                .map(t -> new InvoiceInfo(
+                        t.getId(),
+                        t.getSchool(),
+                        YearMonth.of(t.getYear(), t.getMonth()),
+                        t.getNumber(),
+                        t.getGeneration(),
+                        t.getDocumentType()
+                ))
+                .collect(Collectors.toList());
     }
 
     protected int generate(InvoiceData data, InvoiceGenerator generator) {
