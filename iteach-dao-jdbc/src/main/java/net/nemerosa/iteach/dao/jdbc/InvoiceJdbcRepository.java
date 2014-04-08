@@ -5,6 +5,8 @@ import net.nemerosa.iteach.dao.InvoiceRepository;
 import net.nemerosa.iteach.dao.model.TInvoice;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +14,8 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneOffset;
@@ -77,18 +81,21 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
 
     @Override
     public void download(int teacherId, int invoiceId, OutputStream out) {
+        //noinspection Convert2Lambda
         getNamedParameterJdbcTemplate().query(
                 SQL.INVOICE_DOWNLOAD,
                 params("teacherId", teacherId).addValue("invoiceId", invoiceId),
-                rs -> {
-                    try (InputStream in = rs.getBinaryStream("document")) {
-                        IOUtils.copy(in, out);
-                    } catch (IOException e) {
-                        throw new InvoiceCannotReadException(e);
+                new ResultSetExtractor<Void>() {
+                    @Override
+                    public Void extractData(ResultSet rs) throws SQLException, DataAccessException {
+                        try (InputStream in = rs.getBinaryStream("document")) {
+                            IOUtils.copy(in, out);
+                        } catch (IOException e) {
+                            throw new InvoiceCannotReadException(e);
+                        }
+                        return null;
                     }
-                    return null;
-                }
-        );
+                });
     }
 
     @Override
