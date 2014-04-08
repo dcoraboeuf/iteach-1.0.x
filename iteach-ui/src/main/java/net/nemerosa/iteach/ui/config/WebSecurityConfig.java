@@ -2,7 +2,6 @@ package net.nemerosa.iteach.ui.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -37,6 +36,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/api/**")
                 .openidLogin()
+                    /**
+                     * The default login page (/login) is used to match against the request URI
+                     * in order to know if an OpenID form must be generated or not (in
+                     * DefaultLoginPageGeneratingFilter). However, in a configuration where the
+                     * context path is empty (like in production), the Spring code just checks
+                     * if the request URI (in this case /api/account/login) ends with the login
+                     * page (/login). In this case, it returns true, and a login form is generated
+                     * where it is useless.
+                     *
+                     * In order to work around this case, we put an arbitrary login page URI.
+                     */
+                    .loginPage("/openid/login")
                     .loginProcessingUrl("/api/login/openid")
                     .failureHandler(openIdAuthenticationFailureHandler)
                     .authenticationUserDetailsService(openIdAuthenticationUserDetailsService)
