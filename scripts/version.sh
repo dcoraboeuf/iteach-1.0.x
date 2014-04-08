@@ -16,14 +16,14 @@ NEXT_VERSION=${MAJOR}.${MINOR}.${NEXT_PATCH}
 echo Next version = $NEXT_VERSION
 
 # Update the version for the tag
-mvn versions:set -DnewVersion=$CURRENT_VERSION -DgenerateBackupPoms=false
+mvn versions:set -DnewVersion=$CURRENT_VERSION -DgenerateBackupPoms=false > /dev/null
 
 # Commits & tags
 git commit -am "Version $CURRENT_VERSION"
 git tag $CURRENT_VERSION -m "v$CURRENT_VERSION"
 
 # Changes to the next version
-mvn versions:set -DnewVersion=$NEXT_VERSION-SNAPSHOT -DgenerateBackupPoms=false
+mvn versions:set -DnewVersion=$NEXT_VERSION-SNAPSHOT -DgenerateBackupPoms=false > /dev/null
 
 # Commit
 git commit -am "Prepare for version $NEXT_VERSION"
