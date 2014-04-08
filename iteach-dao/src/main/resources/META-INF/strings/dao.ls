@@ -21,3 +21,7 @@ net.nemerosa.iteach.dao.AccountEmailAlreadyExistsException
 net.nemerosa.iteach.dao.AccountIdentifierAlreadyExistsException
     en -> A user with the same identifier already exists.
     fr -> Un utilisateur de même identifiant existe déjà.
+
+net.nemerosa.iteach.dao.InvoiceCannotReadException
+    en -> Cannot read the content of the invoice.
+    fr -> Impossible de lire le contenu de la facture.

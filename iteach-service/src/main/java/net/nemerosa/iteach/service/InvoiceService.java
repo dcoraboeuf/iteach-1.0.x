@@ -3,6 +3,7 @@ package net.nemerosa.iteach.service;
 import net.nemerosa.iteach.service.model.InvoiceForm;
 import net.nemerosa.iteach.service.model.InvoiceInfo;
 
+import java.io.OutputStream;
 import java.util.List;
 import java.util.concurrent.Future;
 
@@ -25,6 +26,9 @@ public interface InvoiceService {
      */
     List<InvoiceInfo> getInvoices(Integer school, Integer year);
 
-    // TODO Downloads an invoice using its ID
+    /**
+     * Downloads an invoice using its ID
+     */
+    void downloadInvoice(int invoiceId, OutputStream out);
 
 }

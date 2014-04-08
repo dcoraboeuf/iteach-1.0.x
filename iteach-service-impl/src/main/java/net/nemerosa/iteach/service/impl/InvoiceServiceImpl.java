@@ -10,7 +10,9 @@ import net.nemerosa.iteach.service.model.*;
 import org.joda.money.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 import static net.nemerosa.iteach.service.impl.PeriodUtils.toPeriod;
 
 @Service
+@Transactional
 public class InvoiceServiceImpl implements InvoiceService {
 
     private final TeacherService teacherService;
@@ -78,6 +81,12 @@ public class InvoiceServiceImpl implements InvoiceService {
                         t.getDocumentType()
                 ))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void downloadInvoice(int invoiceId, OutputStream out) {
+        int teacherId = securityUtils.checkTeacher();
+        invoiceRepository.download(teacherId, invoiceId, out);
     }
 
     protected int generate(InvoiceData data, InvoiceGenerator generator) {

@@ -50,4 +50,6 @@ public interface SQL {
     String COMMENT_DELETE = "DELETE FROM COMMENT WHERE TEACHER = :teacherId AND ID = :commentId";
     String COMMENT_UPDATE = "UPDATE COMMENT SET EDITION = :edition, CONTENT = :content WHERE TEACHER = :teacherId AND ID = :commentId";
     String COMMENT_COUNT = "SELECT COUNT(ID) FROM COMMENT WHERE TEACHER = :teacherId AND %s = :entityId";
+
+    String INVOICE_DOWNLOAD = "SELECT DOCUMENT FROM INVOICE WHERE TEACHER = :teacherId AND ID = :invoiceId";
 }
