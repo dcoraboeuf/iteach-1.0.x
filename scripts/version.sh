@@ -29,6 +29,9 @@ mvn versions:set -DnewVersion=$NEXT_VERSION-SNAPSHOT -DgenerateBackupPoms=false 
 git commit -am "Prepare for version $NEXT_VERSION"
 
 # End
-echo Tag created. Perform the following commands to push:
+echo Tag created. Perform the following commands to build and push:
+echo git checkout $CURRENT_VERSION
+echo mvn clean install -P release -P acceptance -P acceptance-local
+echo git checkout release_${MAJOR}.${MINOR}
 echo git push
 echo git push --tags
