@@ -13,4 +13,6 @@ public interface InvoiceRepository {
     List<TInvoice> list(int teacherId, Integer schoolId, Integer year);
 
     void download(int teacherId, int invoiceId, OutputStream out);
+
+    Long getLastInvoiceNumber(int teacherId);
 }

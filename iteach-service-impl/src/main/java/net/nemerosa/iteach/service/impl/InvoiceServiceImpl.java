@@ -89,6 +89,17 @@ public class InvoiceServiceImpl implements InvoiceService {
         invoiceRepository.download(teacherId, invoiceId, out);
     }
 
+    @Override
+    public long getNextInvoiceNumber() {
+        int teacherId = securityUtils.checkTeacher();
+        Long lastInvoiceNumber = invoiceRepository.getLastInvoiceNumber(teacherId);
+        if (lastInvoiceNumber != null) {
+            return lastInvoiceNumber + 1;
+        } else {
+            return 1;
+        }
+    }
+
     protected int generate(InvoiceData data, InvoiceGenerator generator) {
         // Generation of the content
         byte[] document = generator.generate(data);

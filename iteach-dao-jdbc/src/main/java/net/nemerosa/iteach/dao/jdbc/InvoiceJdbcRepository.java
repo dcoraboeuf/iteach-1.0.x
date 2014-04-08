@@ -90,4 +90,13 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
                 }
         );
     }
+
+    @Override
+    public Long getLastInvoiceNumber(int teacherId) {
+        return getFirstItem(
+                SQL.INVOICE_LAST_NB,
+                params("teacherId", teacherId),
+                Long.class
+        );
+    }
 }

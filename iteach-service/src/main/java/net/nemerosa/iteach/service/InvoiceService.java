@@ -31,4 +31,9 @@ public interface InvoiceService {
      */
     void downloadInvoice(int invoiceId, OutputStream out);
 
+    /**
+     * Gets the next invoice number
+     */
+    long getNextInvoiceNumber();
+
 }
