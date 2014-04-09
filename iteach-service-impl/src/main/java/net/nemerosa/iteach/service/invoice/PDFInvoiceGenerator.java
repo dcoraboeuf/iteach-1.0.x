@@ -43,16 +43,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
             @SuppressWarnings("deprecation")
             Chunk tab1 = new Chunk(new VerticalPositionMark(), 150, false);
 
-            Paragraph p = new Paragraph();
-            p.add(new Paragraph("Invoice", section));
-            p.add(new Paragraph(""));
-
-            p.add(tabbedLine(tab1, "Invoice number:", String.valueOf(data.getNumber())));
-            p.add(tabbedLine(tab1, "Invoice date:", DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale).format(data.getDate())));
-            p.add(tabbedLine(tab1, "Work carried out by:", data.getTeacherName()));
-            p.add(tabbedLine(tab1, "Period:", DateTimeFormatter.ofPattern("MMMM yyyy", locale).format(data.getPeriod())));
-
-            document.add(p);
+            document.add(getInvoicePara(data, locale, tab1));
 
             // End of the document
             document.close();
@@ -62,6 +53,17 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         } catch (IOException | DocumentException e) {
             throw new InvoiceGenerationException(e);
         }
+    }
+
+    private Paragraph getInvoicePara(InvoiceData data, Locale locale, Chunk tab1) {
+        Paragraph p = new Paragraph();
+        p.add(new Paragraph("Invoice", section));
+        p.add(new Paragraph(""));
+        p.add(tabbedLine(tab1, "Invoice number:", String.valueOf(data.getNumber())));
+        p.add(tabbedLine(tab1, "Invoice date:", DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale).format(data.getDate())));
+        p.add(tabbedLine(tab1, "Work carried out by:", data.getTeacherName()));
+        p.add(tabbedLine(tab1, "Period:", DateTimeFormatter.ofPattern("MMMM yyyy", locale).format(data.getPeriod())));
+        return p;
     }
 
     private Paragraph tabbedLine(Chunk tab1, String label, String value) {
