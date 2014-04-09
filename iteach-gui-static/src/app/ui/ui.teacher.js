@@ -150,6 +150,10 @@ angular.module('iteach.ui.teacher', [
             }))
         };
 
+        self.getInvoiceFormData = function () {
+            return $http.get(config.api('teacher/invoice/form'));
+        };
+
         /**
          * OK
          */

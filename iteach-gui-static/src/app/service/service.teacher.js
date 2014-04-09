@@ -279,12 +279,8 @@ angular.module('iteach.service.teacher', [
                 };
             }
             var d = $q.defer();
-            // FIXME Last invoice number
-            uiAccount.getAccountProfile().success(function (profile) {
-                var nb = 1;
-                if (profile.invoiceLastNb) {
-                    nb = profile.invoiceLastNb + 1;
-                }
+            uiTeacher.getInvoiceFormData().success(function (data) {
+                var nb = data.nextInvoiceNumber;
                 d.resolve($modal.open({
                     templateUrl: 'app/dialog/dialog.invoice.tpl.html',
                     controller: 'dialogInvoice',
