@@ -23,6 +23,8 @@ import java.util.Locale;
 public class PDFInvoiceGenerator implements InvoiceGenerator {
 
     private static final Font section = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
+    private static final Font amount = new Font(Font.FontFamily.COURIER, 14, Font.NORMAL);
+    private static final Font amountTotal = new Font(Font.FontFamily.COURIER, 14, Font.BOLD);
     public static final int TABLE_WIDTH = 75;
 
     @Override
@@ -85,17 +87,36 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
                         Element.ALIGN_RIGHT
                 )
         );
-        table.addCell(cell(data.getReport().getIncome().toString(), Element.ALIGN_RIGHT));
+        table.addCell(
+                cell()
+                        .withText(data.getReport().getIncome().toString())
+                        .withFont(amount)
+                        .withAlign(Element.ALIGN_RIGHT)
+                        .done()
+        );
 
         // Line 2
         filler(table, 1);
         table.addCell(cell(String.format(locale, "VAT %s%%", data.getSchool().getVatRate()), Element.ALIGN_RIGHT));
-        table.addCell(cell(data.getVat().toString(), Element.ALIGN_RIGHT));
+        table.addCell(
+                cell()
+                        .withText(data.getVat().toString())
+                        .withFont(amount)
+                        .withAlign(Element.ALIGN_RIGHT)
+                        .done()
+        );
 
         // Line 3
         filler(table, 1);
         table.addCell(cell("Total with VAT", Element.ALIGN_RIGHT));
-        table.addCell(cell().withText(data.getVatTotal().toString()).withAlign(Element.ALIGN_RIGHT).withBorderWidth(2).done());
+        table.addCell(
+                cell()
+                        .withText(data.getVatTotal().toString())
+                        .withFont(amountTotal)
+                        .withAlign(Element.ALIGN_RIGHT)
+                        .withBorderWidth(2)
+                        .done()
+        );
 
         p.add(table);
         return p;
