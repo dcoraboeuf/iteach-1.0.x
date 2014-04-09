@@ -13,6 +13,7 @@ public class InvoiceInfo {
     private final YearMonth period;
     private final long number;
     private final LocalDateTime generation;
+    private final boolean downloaded;
     private final String documentType;
 
 }

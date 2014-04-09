@@ -32,8 +32,7 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
     @Override
     public int save(int teacherId, int schoolId, int year, Month month, long number, String type, byte[] document) {
         return dbCreate(
-                "INSERT INTO (TEACHER, SCHOOL, YEAR, MONTH, GENERATION, INVOICENB, DOCUMENTTYPE, DOCUMENT) " +
-                        "VALUES (:teacher, :school, :year, :month, :generation, :invoiceNb, :documentType, :document)",
+                SQL.INVOICE_CREATE,
                 params("teacher", teacherId)
                         .addValue("school", schoolId)
                         .addValue("year", year)
@@ -74,6 +73,7 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
                         rs.getInt("month"),
                         SQLUtils.getLocalDateTimeFromDB(rs, "generation"),
                         rs.getLong("invoiceNb"),
+                        rs.getBoolean("downloaded"),
                         rs.getString("documentType")
                 )
         );

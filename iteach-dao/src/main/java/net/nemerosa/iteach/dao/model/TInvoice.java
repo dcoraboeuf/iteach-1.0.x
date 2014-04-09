@@ -13,6 +13,7 @@ public class TInvoice {
     private final int month;
     private final LocalDateTime generation;
     private final long number;
+    private final boolean downloaded;
     private final String documentType;
 
 }

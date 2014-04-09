@@ -79,6 +79,7 @@ public class InvoiceServiceImpl implements InvoiceService {
                         YearMonth.of(t.getYear(), t.getMonth()),
                         t.getNumber(),
                         t.getGeneration(),
+                        t.isDownloaded(),
                         t.getDocumentType()
                 ))
                 .collect(Collectors.toList());
