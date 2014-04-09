@@ -74,15 +74,36 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
 
         PdfPTable table = new PdfPTable(5);
         table.setWidthPercentage(100);
+
+        // Line 1
         table.addCell(cell("Total hours:"));
         table.addCell(cell(formatHours(data.getReport().getHours(), locale) + " hours"));
         table.addCell(cell("x")); // TODO Unicode for x
         table.addCell(cell(data.getSchool().getHourlyRate().toString()));
         table.addCell(cell(data.getReport().getIncome().toString(), Element.ALIGN_RIGHT));
-        // TODO VAT & total with VAT
+
+        // Line 2
+        filler(table, 2);
+        PdfPCell vatRate = cell(String.format(locale, "VAT %s%%", data.getSchool().getVatRate()), Element.ALIGN_RIGHT);
+        vatRate.setColspan(2);
+        table.addCell(vatRate);
+        table.addCell(cell(data.getVat().toString(), Element.ALIGN_RIGHT));
+
+        // Line 3
+        filler(table, 2);
+        PdfPCell vatTotal = cell("Total with VAT", Element.ALIGN_RIGHT);
+        vatTotal.setColspan(2);
+        table.addCell(vatTotal);
+        table.addCell(cell(data.getVatTotal().toString(), Element.ALIGN_RIGHT));
 
         p.add(table);
         return p;
+    }
+
+    private void filler(PdfPTable table, int colspan) {
+        PdfPCell filler = cell("");
+        filler.setColspan(colspan);
+        table.addCell(filler);
     }
 
     private Paragraph studentDetail(InvoiceData data, Locale locale) {
