@@ -1,16 +1,15 @@
 package net.nemerosa.iteach.service.invoice;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.VerticalPositionMark;
 import net.nemerosa.iteach.service.InvoiceGenerationException;
 import net.nemerosa.iteach.service.model.InvoiceData;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 @Component
 public class PDFInvoiceGenerator implements InvoiceGenerator {
@@ -37,10 +36,15 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
             document.addCreator("iTeach");
             document.addTitle(String.format("Invoice")); // TODO Complete title
 
+            @SuppressWarnings("deprecation")
+            Chunk tab1 = new Chunk(new VerticalPositionMark(), 150, false);
+
             Paragraph p = new Paragraph();
             p.add(new Paragraph("Invoice", section));
             p.add(new Paragraph(""));
-            p.add(new Paragraph("Invoice number: "));
+
+            p.add(tabbedLine(tab1, "Invoice number:", String.valueOf(data.getNumber())));
+
             document.add(p);
 
             // End of the document
@@ -51,5 +55,13 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         } catch (IOException | DocumentException e) {
             throw new InvoiceGenerationException(e);
         }
+    }
+
+    private Paragraph tabbedLine(Chunk tab1, String label, String value) {
+        Paragraph line = new Paragraph();
+        line.add(new Chunk(label, normal));
+        line.add(tab1);
+        line.add(new Chunk(value, normal));
+        return line;
     }
 }
