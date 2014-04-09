@@ -20,6 +20,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Locale;
 
+import static com.itextpdf.text.Element.ALIGN_RIGHT;
+
 @Component
 public class PDFInvoiceGenerator implements InvoiceGenerator {
 
@@ -58,10 +60,10 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
             document.add(header(data));
             document.add(getInvoicePara(data, locale, tab1));
             document.add(studentDetail(data, locale));
-
             document.add(total(data, locale));
+            document.add(coordinates(data));
 
-            // TODO Coordinates
+            // TODO Message about the IBAN & BIC
 
             // End of the document
             document.close();
@@ -71,6 +73,42 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         } catch (IOException | DocumentException e) {
             throw new InvoiceGenerationException(e);
         }
+    }
+
+    private Element coordinates(InvoiceData data) {
+        PdfPTable table = new PdfPTable(3);
+        table.setWidthPercentage(100);
+
+        // Line 1
+        table.addCell(cell().withText(data.getProfile().getCompany()).done());
+        table.addCell(cell().withText("Tel:").withAlign(ALIGN_RIGHT).done());
+        table.addCell(cell().withText(data.getProfile().getPhone()).withAlign(ALIGN_RIGHT).done());
+
+        // Line 2
+        table.addCell(cell().withText(data.getProfile().getPostalAddress()).withRowspan(2).done());
+        table.addCell(cell().withText("Email:").withAlign(ALIGN_RIGHT).done());
+        table.addCell(cell().withText(data.getTeacherEmail()).withAlign(ALIGN_RIGHT).done());
+
+        // Line 3
+        table.addCell(cell().withText("VAT:").withAlign(ALIGN_RIGHT).done());
+        table.addCell(cell().withText(data.getProfile().getVat()).withAlign(ALIGN_RIGHT).done());
+
+        // Line 4
+        table.addCell(cell().withText("IBAN:").withAlign(ALIGN_RIGHT).withColspan(2).done());
+        table.addCell(cell().withText(data.getProfile().getIban()).withAlign(ALIGN_RIGHT).done());
+
+        // Line 5
+        table.addCell(cell().withText("BIC:").withAlign(ALIGN_RIGHT).withColspan(2).done());
+        table.addCell(cell().withText(data.getProfile().getBic()).withAlign(ALIGN_RIGHT).done());
+
+        // Container
+        PdfPTable section = new PdfPTable(1);
+        section.setSpacingBefore(50);
+        section.setWidthPercentage(100);
+        section.addCell(table);
+
+        // OK for the table
+        return section;
     }
 
     private Paragraph total(InvoiceData data, Locale locale) {
@@ -89,7 +127,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
                                         + " \u00D7 "
                                         + data.getSchool().getHourlyRate().toString()
                         )
-                        .withAlign(Element.ALIGN_RIGHT)
+                        .withAlign(ALIGN_RIGHT)
                         .withPadding(PADDING)
                         .done()
         );
@@ -100,7 +138,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         table.addCell(
                 cell()
                         .withText(String.format(locale, "VAT %s%%", data.getSchool().getVatRate()))
-                        .withAlign(Element.ALIGN_RIGHT)
+                        .withAlign(ALIGN_RIGHT)
                         .withPadding(PADDING)
                         .done()
         );
@@ -111,7 +149,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         table.addCell(
                 cell()
                         .withText("Total with VAT")
-                        .withAlign(Element.ALIGN_RIGHT)
+                        .withAlign(ALIGN_RIGHT)
                         .withPadding(PADDING)
                         .done()
         );
@@ -130,7 +168,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         return cell()
                 .withText(amount.toString())
                 .withFont(PDFInvoiceGenerator.amount)
-                .withAlign(Element.ALIGN_RIGHT)
+                .withAlign(ALIGN_RIGHT)
                 .withPadding(PADDING);
     }
 
@@ -162,7 +200,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
             table.addCell(
                     cell()
                             .withText(formatHours(student.getHours(), locale) + " hours")
-                            .withAlign(Element.ALIGN_RIGHT)
+                            .withAlign(ALIGN_RIGHT)
                             .withPadding(PADDING)
                             .done()
             );

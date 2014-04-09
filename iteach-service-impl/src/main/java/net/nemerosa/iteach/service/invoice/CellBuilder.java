@@ -12,6 +12,8 @@ public class CellBuilder {
     private int align = Element.ALIGN_LEFT;
     private float borderWith = 0;
     private float padding = 1f;
+    private int colspan = 1;
+    private int rowspan = 1;
 
     public static CellBuilder create() {
         return new CellBuilder();
@@ -42,11 +44,23 @@ public class CellBuilder {
         return this;
     }
 
+    public CellBuilder withColspan(int colspan) {
+        this.colspan = colspan;
+        return this;
+    }
+
+    public CellBuilder withRowspan(int rowspan) {
+        this.rowspan = rowspan;
+        return this;
+    }
+
     public PdfPCell done() {
         PdfPCell cell = new PdfPCell(new Phrase(text, font));
         cell.setHorizontalAlignment(align);
         cell.setBorderWidth(borderWith);
         cell.setPadding(padding);
+        cell.setColspan(colspan);
+        cell.setRowspan(rowspan);
         return cell;
     }
 }
