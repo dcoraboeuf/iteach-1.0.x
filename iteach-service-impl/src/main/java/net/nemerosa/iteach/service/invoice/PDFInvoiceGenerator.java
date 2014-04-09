@@ -51,23 +51,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
 
             document.add(header(data));
             document.add(getInvoicePara(data, locale, tab1));
-
-            // Details of students
-            // TODO Details of student is optional
-            Paragraph p = new Paragraph();
-            p.add(new Paragraph("Detail per student", section));
-
-            PdfPTable table = new PdfPTable(2);
-            table.setWidthPercentage(50);
-            for (StudentReport student : data.getReport().getStudents()) {
-                table.addCell(cell(student.getName()));
-                PdfPCell cell = cell(formatHours(student.getHours(), locale) + " hours");
-                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                table.addCell(cell);
-            }
-            p.add(table);
-
-            document.add(p);
+            document.add(studentDetail(data, locale));
 
             // End of the document
             document.close();
@@ -77,6 +61,24 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         } catch (IOException | DocumentException e) {
             throw new InvoiceGenerationException(e);
         }
+    }
+
+    private Paragraph studentDetail(InvoiceData data, Locale locale) {
+        // Details of students
+        // TODO Details of student is optional
+        Paragraph p = new Paragraph();
+        p.add(new Paragraph("Detail per student", section));
+
+        PdfPTable table = new PdfPTable(2);
+        table.setWidthPercentage(50);
+        for (StudentReport student : data.getReport().getStudents()) {
+            table.addCell(cell(student.getName()));
+            PdfPCell cell = cell(formatHours(student.getHours(), locale) + " hours");
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            table.addCell(cell);
+        }
+        p.add(table);
+        return p;
     }
 
     public static String formatHours(BigDecimal hours, Locale locale) {
