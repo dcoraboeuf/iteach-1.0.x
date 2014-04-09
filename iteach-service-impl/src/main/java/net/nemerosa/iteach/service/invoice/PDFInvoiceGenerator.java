@@ -57,6 +57,9 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
             // Addresses
             table.addCell(cell(data.getProfile().getPostalAddress()));
             table.addCell(cell(data.getSchool().getPostalAddress()));
+            // VAT
+            table.addCell(cell("VAT: " + data.getProfile().getVat()));
+            table.addCell(cell("VAT: " + data.getSchool().getVat()));
             // OK for the table
             document.add(table);
 
