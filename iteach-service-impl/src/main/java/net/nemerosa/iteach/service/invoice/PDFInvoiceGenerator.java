@@ -113,13 +113,12 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         Paragraph p = new Paragraph();
         p.add(new Paragraph("Detail per student", section));
 
-        PdfPTable table = new PdfPTable(2);
+        PdfPTable table = new PdfPTable(3);
         table.setWidthPercentage(TABLE_WIDTH);
         for (StudentReport student : data.getReport().getStudents()) {
             table.addCell(cell(student.getName()));
-            PdfPCell cell = cell(formatHours(student.getHours(), locale) + " hours");
-            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            table.addCell(cell);
+            table.addCell(cell(formatHours(student.getHours(), locale) + " hours", Element.ALIGN_RIGHT));
+            filler(table, 1);
         }
         p.add(table);
         return p;
