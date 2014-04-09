@@ -23,7 +23,6 @@ import java.util.Locale;
 public class PDFInvoiceGenerator implements InvoiceGenerator {
 
     private static final Font section = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
-    private static final Font normal = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.NORMAL);
     public static final int TABLE_WIDTH = 75;
 
     @Override
@@ -176,9 +175,9 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
 
     private Paragraph tabbedLine(Chunk tab1, String label, String value) {
         Paragraph line = new Paragraph();
-        line.add(new Chunk(label, normal));
+        line.add(new Chunk(label));
         line.add(tab1);
-        line.add(new Chunk(value, normal));
+        line.add(new Chunk(value));
         return line;
     }
 }
