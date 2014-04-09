@@ -14,8 +14,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -156,15 +154,9 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
                         rs.getString("phone"),
                         rs.getString("vat"),
                         rs.getString("iban"),
-                        rs.getString("bic"),
-                        getLong(rs, "invoiceLastNb")
+                        rs.getString("bic")
                 )
         );
-    }
-
-    private Long getLong(ResultSet rs, String column) throws SQLException {
-        long value = rs.getLong(column);
-        return rs.wasNull() ? null : value;
     }
 
     @Override
@@ -179,7 +171,6 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
                         .addValue("vat", profile.getVat())
                         .addValue("iban", profile.getIban())
                         .addValue("bic", profile.getBic())
-                        .addValue("invoiceLastNb", profile.getInvoiceLastNb())
         );
     }
 

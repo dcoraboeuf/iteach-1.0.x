@@ -153,8 +153,6 @@ var map_fr = {
     'account.profile.vat.help': "Numéro de TVA de l'entreprise, utilisé pour la génération des factures.",
     'account.profile.iban': "IBAN",
     'account.profile.bic': "BIC",
-    'account.profile.invoiceLastNb': "Dernier numéro de facture",
-    'account.profile.invoiceLastNb.help': "Le prochain numéro de facture sera égal à ce numéro, plus un.",
     // Account mgt
     'account.menu': 'Compte',
     'account.passwordChange': 'Changer de mot de passe',

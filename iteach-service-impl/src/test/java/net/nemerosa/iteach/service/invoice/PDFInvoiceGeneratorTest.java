@@ -39,7 +39,7 @@ public class PDFInvoiceGeneratorTest {
                 LocalDate.now(),
                 2014001L,
                 teacherId, "Teacher Name", "teacher@test.com",
-                new Profile("Company", "", "Rue de la Ville\n1000 Brussels", "01234", "BE56789", "BE567", "BBGGRR", 1L),
+                new Profile("Company", "", "Rue de la Ville\n1000 Brussels", "01234", "BE56789", "BE567", "BBGGRR"),
                 new School(schoolId, teacherId, schoolName, schoolColour, "", hourlyRate, "Avenue du Village\n3000 Labas", "", "", "", "", "BE09876", BigDecimal.valueOf(21)),
                 new SchoolReport(
                         schoolId,

@@ -155,8 +155,6 @@ var map_en = {
     'account.profile.vat.help': "VAT number of the company, used for the generation of invoices.",
     'account.profile.iban': "IBAN",
     'account.profile.bic': "BIC",
-    'account.profile.invoiceLastNb': "Last invoice number",
-    'account.profile.invoiceLastNb.help': "The next invoice number will be equal to this number, plus one.",
     // Account mgt
     'account.menu': 'Account',
     'account.passwordChange': 'Change password',

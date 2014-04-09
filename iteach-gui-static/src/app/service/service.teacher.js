@@ -279,6 +279,7 @@ angular.module('iteach.service.teacher', [
                 };
             }
             var d = $q.defer();
+            // FIXME Last invoice number
             uiAccount.getAccountProfile().success(function (profile) {
                 var nb = 1;
                 if (profile.invoiceLastNb) {
