@@ -179,7 +179,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         return format.format(hours);
     }
 
-    private PdfPTable header(InvoiceData data) {
+    private Element header(InvoiceData data) {
         PdfPTable table = new PdfPTable(2);
         table.setWidthPercentage(100);
         // From/To
@@ -194,8 +194,13 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         // VAT
         table.addCell(cell("VAT: " + data.getProfile().getVat()));
         table.addCell(cell("VAT: " + data.getSchool().getVat()));
+
+        PdfPTable section = new PdfPTable(1);
+        section.setWidthPercentage(100);
+        section.addCell(table);
+
         // OK for the table
-        return table;
+        return section;
     }
 
     private PdfPCell cell(String text) {
