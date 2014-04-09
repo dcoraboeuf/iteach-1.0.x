@@ -49,9 +49,14 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
             @SuppressWarnings("deprecation")
             Chunk tab1 = new Chunk(new VerticalPositionMark(), 150, false);
 
+            // TODO Company logo
             document.add(header(data));
             document.add(getInvoicePara(data, locale, tab1));
             document.add(studentDetail(data, locale));
+
+            document.add(total(data, locale));
+
+            // TODO Coordinates
 
             // End of the document
             document.close();
@@ -61,6 +66,23 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         } catch (IOException | DocumentException e) {
             throw new InvoiceGenerationException(e);
         }
+    }
+
+    private Paragraph total(InvoiceData data, Locale locale) {
+        Paragraph p = new Paragraph();
+        p.add(new Paragraph("Total", section));
+
+        PdfPTable table = new PdfPTable(5);
+        table.setWidthPercentage(100);
+        table.addCell(cell("Total hours:"));
+        table.addCell(cell(formatHours(data.getReport().getHours(), locale) + " hours"));
+        table.addCell(cell("x")); // TODO Unicode for x
+        table.addCell(cell(data.getSchool().getHourlyRate().toString()));
+        table.addCell(cell(data.getReport().getIncome().toString(), Element.ALIGN_RIGHT));
+        // TODO VAT & total with VAT
+
+        p.add(table);
+        return p;
     }
 
     private Paragraph studentDetail(InvoiceData data, Locale locale) {
@@ -108,9 +130,14 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
     }
 
     private PdfPCell cell(String text) {
-        PdfPCell from = new PdfPCell(new Phrase(text));
-        from.setBorder(0);
-        return from;
+        return cell(text, Element.ALIGN_LEFT);
+    }
+
+    private PdfPCell cell(String text, int alignment) {
+        PdfPCell cell = new PdfPCell(new Phrase(text));
+        cell.setBorder(0);
+        cell.setHorizontalAlignment(alignment);
+        return cell;
     }
 
     private Paragraph getInvoicePara(InvoiceData data, Locale locale, Chunk tab1) {
