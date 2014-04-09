@@ -8,6 +8,7 @@ import com.itextpdf.text.pdf.draw.VerticalPositionMark;
 import net.nemerosa.iteach.service.InvoiceGenerationException;
 import net.nemerosa.iteach.service.model.InvoiceData;
 import net.nemerosa.iteach.service.model.StudentReport;
+import org.joda.money.Money;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
@@ -26,6 +27,8 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
     private static final Font amount = new Font(Font.FontFamily.COURIER, 14, Font.NORMAL);
     private static final Font amountTotal = new Font(Font.FontFamily.COURIER, 14, Font.BOLD);
     public static final int TABLE_WIDTH = 75;
+    public static final int AMOUNT_BORDER_WIDTH = 2;
+    public static final int AMOUNT_PADDING = 5;
 
     @Override
     public String getType() {
@@ -87,39 +90,33 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
                         Element.ALIGN_RIGHT
                 )
         );
-        table.addCell(
-                cell()
-                        .withText(data.getReport().getIncome().toString())
-                        .withFont(amount)
-                        .withAlign(Element.ALIGN_RIGHT)
-                        .done()
-        );
+        table.addCell(amount(data.getReport().getIncome()).done());
 
         // Line 2
         filler(table, 1);
         table.addCell(cell(String.format(locale, "VAT %s%%", data.getSchool().getVatRate()), Element.ALIGN_RIGHT));
-        table.addCell(
-                cell()
-                        .withText(data.getVat().toString())
-                        .withFont(amount)
-                        .withAlign(Element.ALIGN_RIGHT)
-                        .done()
-        );
+        table.addCell(amount(data.getVat()).done());
 
         // Line 3
         filler(table, 1);
         table.addCell(cell("Total with VAT", Element.ALIGN_RIGHT));
         table.addCell(
-                cell()
-                        .withText(data.getVatTotal().toString())
+                amount(data.getVatTotal())
                         .withFont(amountTotal)
-                        .withAlign(Element.ALIGN_RIGHT)
-                        .withBorderWidth(2)
+                        .withBorderWidth(AMOUNT_BORDER_WIDTH)
                         .done()
         );
 
         p.add(table);
         return p;
+    }
+
+    private CellBuilder amount(Money amount) {
+        return cell()
+                .withText(amount.toString())
+                .withFont(PDFInvoiceGenerator.amount)
+                .withAlign(Element.ALIGN_RIGHT)
+                .withPadding(AMOUNT_PADDING);
     }
 
     private CellBuilder cell() {

@@ -11,6 +11,7 @@ public class CellBuilder {
     private Font font = new Font();
     private int align = Element.ALIGN_LEFT;
     private float borderWith = 0;
+    private float padding = 1f;
 
     public static CellBuilder create() {
         return new CellBuilder();
@@ -23,6 +24,11 @@ public class CellBuilder {
 
     public CellBuilder withAlign(int align) {
         this.align = align;
+        return this;
+    }
+
+    public CellBuilder withPadding(float padding) {
+        this.padding = padding;
         return this;
     }
 
@@ -40,6 +46,7 @@ public class CellBuilder {
         PdfPCell cell = new PdfPCell(new Phrase(text, font));
         cell.setHorizontalAlignment(align);
         cell.setBorderWidth(borderWith);
+        cell.setPadding(padding);
         return cell;
     }
 }
