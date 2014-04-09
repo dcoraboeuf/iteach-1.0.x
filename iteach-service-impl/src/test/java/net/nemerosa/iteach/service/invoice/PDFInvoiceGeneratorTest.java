@@ -14,7 +14,17 @@ import java.time.YearMonth;
 import java.util.Arrays;
 import java.util.Locale;
 
+import static org.junit.Assert.assertEquals;
+
 public class PDFInvoiceGeneratorTest {
+
+    @Test
+    public void hours_format() {
+        assertEquals("2.5", PDFInvoiceGenerator.formatHours(BigDecimal.valueOf(2.5), Locale.ENGLISH));
+        assertEquals("2", PDFInvoiceGenerator.formatHours(BigDecimal.valueOf(2.0), Locale.ENGLISH));
+        assertEquals("2,5", PDFInvoiceGenerator.formatHours(BigDecimal.valueOf(2.5), Locale.FRENCH));
+        assertEquals("2", PDFInvoiceGenerator.formatHours(BigDecimal.valueOf(2.0), Locale.FRENCH));
+    }
 
     @Test
     public void generate() throws IOException {
@@ -41,12 +51,12 @@ public class PDFInvoiceGeneratorTest {
                         Arrays.asList(
                                 new StudentReport(
                                         1, false, "Student 1", "Subject 1",
-                                        BigDecimal.valueOf(6),
+                                        BigDecimal.valueOf(6.5),
                                         Money.of(CurrencyUnit.EUR, 120)
                                 ),
                                 new StudentReport(
                                         2, false, "Student 2", "Subject 2",
-                                        BigDecimal.valueOf(4),
+                                        BigDecimal.valueOf(3.5),
                                         Money.of(CurrencyUnit.EUR, 80)
                                 )
                         )
