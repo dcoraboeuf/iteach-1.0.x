@@ -81,25 +81,40 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         table.setWidthPercentage(TABLE_WIDTH);
 
         // Line 1
-        table.addCell(cell("Total hours:"));
+        table.addCell(cell().withText("Total hours:").withPadding(AMOUNT_PADDING).done());
         table.addCell(
-                cell(
-                        formatHours(data.getReport().getHours(), locale) + " hours"
-                                + " x " // TODO Unicode for x
-                                + data.getSchool().getHourlyRate().toString(),
-                        Element.ALIGN_RIGHT
-                )
+                cell()
+                        .withText(
+                                formatHours(data.getReport().getHours(), locale) + " hours"
+                                        + " x " // TODO Unicode for x
+                                        + data.getSchool().getHourlyRate().toString()
+                        )
+                        .withAlign(Element.ALIGN_RIGHT)
+                        .withPadding(AMOUNT_PADDING)
+                        .done()
         );
         table.addCell(amount(data.getReport().getIncome()).done());
 
         // Line 2
         filler(table, 1);
-        table.addCell(cell(String.format(locale, "VAT %s%%", data.getSchool().getVatRate()), Element.ALIGN_RIGHT));
+        table.addCell(
+                cell()
+                        .withText(String.format(locale, "VAT %s%%", data.getSchool().getVatRate()))
+                        .withAlign(Element.ALIGN_RIGHT)
+                        .withPadding(AMOUNT_PADDING)
+                        .done()
+        );
         table.addCell(amount(data.getVat()).done());
 
         // Line 3
         filler(table, 1);
-        table.addCell(cell("Total with VAT", Element.ALIGN_RIGHT));
+        table.addCell(
+                cell()
+                        .withText("Total with VAT")
+                        .withAlign(Element.ALIGN_RIGHT)
+                        .withPadding(AMOUNT_PADDING)
+                        .done()
+        );
         table.addCell(
                 amount(data.getVatTotal())
                         .withFont(amountTotal)
