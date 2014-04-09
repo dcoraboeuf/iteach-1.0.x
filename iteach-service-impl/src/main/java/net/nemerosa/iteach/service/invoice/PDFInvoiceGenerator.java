@@ -86,7 +86,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
                 cell()
                         .withText(
                                 formatHours(data.getReport().getHours(), locale) + " hours"
-                                        + " x " // TODO Unicode for x
+                                        + " \u00D7 "
                                         + data.getSchool().getHourlyRate().toString()
                         )
                         .withAlign(Element.ALIGN_RIGHT)
