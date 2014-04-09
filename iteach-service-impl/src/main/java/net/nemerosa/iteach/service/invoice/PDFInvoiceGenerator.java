@@ -24,6 +24,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
 
     private static final Font section = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
     private static final Font normal = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.NORMAL);
+    public static final int TABLE_WIDTH = 75;
 
     @Override
     public String getType() {
@@ -72,28 +73,29 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         Paragraph p = new Paragraph();
         p.add(new Paragraph("Total", section));
 
-        PdfPTable table = new PdfPTable(5);
-        table.setWidthPercentage(100);
+        PdfPTable table = new PdfPTable(3);
+        table.setWidthPercentage(TABLE_WIDTH);
 
         // Line 1
         table.addCell(cell("Total hours:"));
-        table.addCell(cell(formatHours(data.getReport().getHours(), locale) + " hours"));
-        table.addCell(cell("x")); // TODO Unicode for x
-        table.addCell(cell(data.getSchool().getHourlyRate().toString()));
+        table.addCell(
+                cell(
+                        formatHours(data.getReport().getHours(), locale) + " hours"
+                                + " x " // TODO Unicode for x
+                                + data.getSchool().getHourlyRate().toString(),
+                        Element.ALIGN_RIGHT
+                )
+        );
         table.addCell(cell(data.getReport().getIncome().toString(), Element.ALIGN_RIGHT));
 
         // Line 2
-        filler(table, 2);
-        PdfPCell vatRate = cell(String.format(locale, "VAT %s%%", data.getSchool().getVatRate()), Element.ALIGN_RIGHT);
-        vatRate.setColspan(2);
-        table.addCell(vatRate);
+        filler(table, 1);
+        table.addCell(cell(String.format(locale, "VAT %s%%", data.getSchool().getVatRate()), Element.ALIGN_RIGHT));
         table.addCell(cell(data.getVat().toString(), Element.ALIGN_RIGHT));
 
         // Line 3
-        filler(table, 2);
-        PdfPCell vatTotal = cell("Total with VAT", Element.ALIGN_RIGHT);
-        vatTotal.setColspan(2);
-        table.addCell(vatTotal);
+        filler(table, 1);
+        table.addCell(cell("Total with VAT", Element.ALIGN_RIGHT));
         table.addCell(cell(data.getVatTotal().toString(), Element.ALIGN_RIGHT));
 
         p.add(table);
@@ -113,7 +115,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         p.add(new Paragraph("Detail per student", section));
 
         PdfPTable table = new PdfPTable(2);
-        table.setWidthPercentage(50);
+        table.setWidthPercentage(TABLE_WIDTH);
         for (StudentReport student : data.getReport().getStudents()) {
             table.addCell(cell(student.getName()));
             PdfPCell cell = cell(formatHours(student.getHours(), locale) + " hours");
