@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -57,14 +58,14 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public Future<Integer> generate(InvoiceForm invoiceForm, String type) {
+    public Future<Integer> generate(InvoiceForm invoiceForm, String type, Locale locale) {
         // Gets the invoice data
         InvoiceData invoiceData = getInvoiceData(invoiceForm);
         // Gets a generator for the type
         InvoiceGenerator generator = getInvoiceGenerator(type);
         // Asynchronous generation
         return executorService.submit(
-                (Callable<Integer>) () -> generate(invoiceData, generator)
+                (Callable<Integer>) () -> generate(invoiceData, generator, locale)
         );
     }
 
@@ -100,9 +101,9 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
     }
 
-    protected int generate(InvoiceData data, InvoiceGenerator generator) {
+    protected int generate(InvoiceData data, InvoiceGenerator generator, Locale locale) {
         // Generation of the content
-        byte[] document = generator.generate(data);
+        byte[] document = generator.generate(data, locale);
         // Saving in repository
         return invoiceRepository.save(
                 data.getTeacherId(),

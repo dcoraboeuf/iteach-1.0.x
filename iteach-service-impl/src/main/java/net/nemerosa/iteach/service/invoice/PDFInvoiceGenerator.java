@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Locale;
 
 @Component
 public class PDFInvoiceGenerator implements InvoiceGenerator {
@@ -23,7 +24,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
     }
 
     @Override
-    public byte[] generate(InvoiceData data) {
+    public byte[] generate(InvoiceData data, Locale locale) {
         // Creates the output
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             // Creates the document
@@ -44,6 +45,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
             p.add(new Paragraph(""));
 
             p.add(tabbedLine(tab1, "Invoice number:", String.valueOf(data.getNumber())));
+            p.add(tabbedLine(tab1, "Invoice date:", "TODO"));
 
             document.add(p);
 

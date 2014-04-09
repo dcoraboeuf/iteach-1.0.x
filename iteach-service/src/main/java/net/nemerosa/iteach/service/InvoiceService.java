@@ -5,6 +5,7 @@ import net.nemerosa.iteach.service.model.InvoiceInfo;
 
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Future;
 
 public interface InvoiceService {
@@ -14,9 +15,10 @@ public interface InvoiceService {
      *
      * @param invoiceForm Data used for the generation.
      * @param type        Document type
+     * @param locale      Locale used for the generation of the invoice
      * @return ID of the generated invoice when complete.
      */
-    Future<Integer> generate(InvoiceForm invoiceForm, String type);
+    Future<Integer> generate(InvoiceForm invoiceForm, String type, Locale locale);
 
     /**
      * Gets the list of invoices.
