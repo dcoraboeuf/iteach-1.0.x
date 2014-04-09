@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.Locale;
 
 public class PDFInvoiceGeneratorTest {
 
@@ -32,7 +33,7 @@ public class PDFInvoiceGeneratorTest {
         );
         // Generation
         PDFInvoiceGenerator generator = new PDFInvoiceGenerator();
-        byte[] bytes = generator.generate(data);
+        byte[] bytes = generator.generate(data, Locale.ENGLISH);
         // Saves into a file
         FileUtils.writeByteArrayToFile(
                 new File("target/test.pdf"),

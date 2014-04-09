@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -25,6 +27,8 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
 
     @Override
     public byte[] generate(InvoiceData data, Locale locale) {
+        // TODO Using the locale for the generation
+        locale = Locale.ENGLISH;
         // Creates the output
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             // Creates the document
@@ -45,7 +49,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
             p.add(new Paragraph(""));
 
             p.add(tabbedLine(tab1, "Invoice number:", String.valueOf(data.getNumber())));
-            p.add(tabbedLine(tab1, "Invoice date:", "TODO"));
+            p.add(tabbedLine(tab1, "Invoice date:", DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale).format(data.getDate())));
 
             document.add(p);
 
