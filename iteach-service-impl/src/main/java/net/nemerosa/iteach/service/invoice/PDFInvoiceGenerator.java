@@ -1,6 +1,8 @@
 package net.nemerosa.iteach.service.invoice;
 
 import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.VerticalPositionMark;
 import net.nemerosa.iteach.service.InvoiceGenerationException;
@@ -43,6 +45,21 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
             @SuppressWarnings("deprecation")
             Chunk tab1 = new Chunk(new VerticalPositionMark(), 150, false);
 
+
+            PdfPTable table = new PdfPTable(2);
+            table.setWidthPercentage(100);
+            // From/To
+            table.addCell(cell("From:"));
+            table.addCell(cell("To:"));
+            // Company -- School name
+            table.addCell(cell(data.getProfile().getCompany()));
+            table.addCell(cell(data.getSchool().getName()));
+            // Addresses
+            table.addCell(cell(data.getProfile().getPostalAddress()));
+            table.addCell(cell(data.getSchool().getPostalAddress()));
+            // OK for the table
+            document.add(table);
+
             document.add(getInvoicePara(data, locale, tab1));
 
             // End of the document
@@ -53,6 +70,12 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         } catch (IOException | DocumentException e) {
             throw new InvoiceGenerationException(e);
         }
+    }
+
+    private PdfPCell cell(String text) {
+        PdfPCell from = new PdfPCell(new Phrase(text));
+        from.setBorder(0);
+        return from;
     }
 
     private Paragraph getInvoicePara(InvoiceData data, Locale locale, Chunk tab1) {

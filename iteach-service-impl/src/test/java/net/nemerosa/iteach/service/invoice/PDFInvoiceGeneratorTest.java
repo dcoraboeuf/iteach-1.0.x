@@ -25,8 +25,8 @@ public class PDFInvoiceGeneratorTest {
                 LocalDate.now(),
                 2014001L,
                 1, "Teacher Name", "teacher@test.com",
-                new Profile("Company", "", "Rue de la Ville", "01234", "56789", "BE567", "BBGGRR", 1L),
-                new School(1, 1, "School", "#FF0000", "", Money.of(CurrencyUnit.EUR, 56), "", "", "", "", "", "", BigDecimal.valueOf(21)),
+                new Profile("Company", "", "Rue de la Ville\n1000 Brussels", "01234", "56789", "BE567", "BBGGRR", 1L),
+                new School(1, 1, "School", "#FF0000", "", Money.of(CurrencyUnit.EUR, 56), "Avenue du Village\n3000 Labas", "", "", "", "", "", BigDecimal.valueOf(21)),
                 null,
                 null,
                 null
