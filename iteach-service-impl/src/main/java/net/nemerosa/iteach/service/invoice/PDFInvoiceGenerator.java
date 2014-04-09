@@ -95,10 +95,14 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         // Line 3
         filler(table, 1);
         table.addCell(cell("Total with VAT", Element.ALIGN_RIGHT));
-        table.addCell(cell(data.getVatTotal().toString(), Element.ALIGN_RIGHT));
+        table.addCell(cell().withText(data.getVatTotal().toString()).withAlign(Element.ALIGN_RIGHT).withBorderWidth(2).done());
 
         p.add(table);
         return p;
+    }
+
+    private CellBuilder cell() {
+        return CellBuilder.create();
     }
 
     private void filler(PdfPTable table, int colspan) {
@@ -155,10 +159,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
     }
 
     private PdfPCell cell(String text, int alignment) {
-        PdfPCell cell = new PdfPCell(new Phrase(text));
-        cell.setBorder(0);
-        cell.setHorizontalAlignment(alignment);
-        return cell;
+        return cell().withText(text).withAlign(alignment).done();
     }
 
     private Paragraph getInvoicePara(InvoiceData data, Locale locale, Chunk tab1) {
