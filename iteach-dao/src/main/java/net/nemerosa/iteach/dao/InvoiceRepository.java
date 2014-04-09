@@ -15,4 +15,6 @@ public interface InvoiceRepository {
     void download(int teacherId, int invoiceId, OutputStream out);
 
     Long getLastInvoiceNumber(int teacherId);
+
+    void downloaded(int teacherId, int invoiceId);
 }

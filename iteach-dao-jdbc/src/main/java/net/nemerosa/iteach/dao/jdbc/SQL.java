@@ -55,4 +55,5 @@ public interface SQL {
     String INVOICE_LAST_NB = "SELECT INVOICENB FROM INVOICE WHERE TEACHERID = :teacherId ORDER BY INVOICENB DESC";
     String INVOICE_CREATE = "INSERT INTO (TEACHER, SCHOOL, YEAR, MONTH, GENERATION, INVOICENB, DOWNLOADED, DOCUMENTTYPE, DOCUMENT) " +
             "VALUES (:teacher, :school, :year, :month, :generation, :invoiceNb, FALSE, :documentType, :document)";
+    String INVOICE_DOWNLOADED = "UPDATE INVOICE SET DOWNLOADED = WHERE TEACHER = :teacher AND ID = :invoiceId";
 }

@@ -92,6 +92,12 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
+    public void invoiceIsDownloaded(int invoiceId) {
+        int teacherId = securityUtils.checkTeacher();
+        invoiceRepository.downloaded(teacherId, invoiceId);
+    }
+
+    @Override
     public long getNextInvoiceNumber() {
         int teacherId = securityUtils.checkTeacher();
         Long lastInvoiceNumber = invoiceRepository.getLastInvoiceNumber(teacherId);

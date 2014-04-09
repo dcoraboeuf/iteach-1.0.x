@@ -106,4 +106,12 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
                 Long.class
         );
     }
+
+    @Override
+    public void downloaded(int teacherId, int invoiceId) {
+        getNamedParameterJdbcTemplate().update(
+                SQL.INVOICE_DOWNLOADED,
+                params("teacherId", teacherId).addValue("invoiceId", invoiceId)
+        );
+    }
 }
