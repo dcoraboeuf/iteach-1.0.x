@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.dao.jdbc;
 
+import net.nemerosa.iteach.common.InvoiceStatus;
 import net.nemerosa.iteach.dao.InvoiceCannotReadException;
 import net.nemerosa.iteach.dao.InvoiceRepository;
 import net.nemerosa.iteach.dao.model.TInvoice;
@@ -18,7 +19,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.ZoneOffset;
 import java.util.List;
 
 @Component
@@ -30,17 +30,17 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
     }
 
     @Override
-    public int save(int teacherId, int schoolId, int year, Month month, long number, String type, byte[] document) {
+    public int create(int teacherId, int schoolId, int year, Month month, long number, String type, LocalDateTime generation) {
         return dbCreate(
                 SQL.INVOICE_CREATE,
                 params("teacher", teacherId)
+                        .addValue("status", InvoiceStatus.CREATED)
                         .addValue("school", schoolId)
                         .addValue("year", year)
                         .addValue("month", month)
-                        .addValue("generation", SQLUtils.getDBValueFromLocalDateTime(LocalDateTime.now(ZoneOffset.UTC)))
+                        .addValue("generation", SQLUtils.getDBValueFromLocalDateTime(generation))
                         .addValue("invoiceNb", number)
                         .addValue("documentType", type)
-                        .addValue("document", document)
         );
     }
 
@@ -66,16 +66,21 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
         return getNamedParameterJdbcTemplate().query(
                 sql.toString(),
                 params,
-                (rs, rowNum) -> new TInvoice(
-                        rs.getInt("id"),
-                        rs.getInt("school"),
-                        rs.getInt("year"),
-                        rs.getInt("month"),
-                        SQLUtils.getLocalDateTimeFromDB(rs, "generation"),
-                        rs.getLong("invoiceNb"),
-                        rs.getBoolean("downloaded"),
-                        rs.getString("documentType")
-                )
+                (rs, rowNum) -> toInvoice(rs)
+        );
+    }
+
+    private TInvoice toInvoice(ResultSet rs) throws SQLException {
+        return new TInvoice(
+                rs.getInt("id"),
+                SQLUtils.getEnum(InvoiceStatus.class, rs, "status"),
+                rs.getInt("school"),
+                rs.getInt("year"),
+                rs.getInt("month"),
+                SQLUtils.getLocalDateTimeFromDB(rs, "generation"),
+                rs.getLong("invoiceNb"),
+                rs.getBoolean("downloaded"),
+                rs.getString("documentType")
         );
     }
 
@@ -112,6 +117,37 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
         getNamedParameterJdbcTemplate().update(
                 SQL.INVOICE_DOWNLOADED,
                 params("teacherId", teacherId).addValue("invoiceId", invoiceId)
+        );
+    }
+
+    @Override
+    public void save(int teacherId, int invoiceId, byte[] document) {
+        getNamedParameterJdbcTemplate().update(
+                SQL.INVOICE_SAVE,
+                params("teacherId", teacherId)
+                        .addValue("invoiceId", invoiceId)
+                        .addValue("document", document)
+                        .addValue("status", InvoiceStatus.READY)
+        );
+    }
+
+    @Override
+    public TInvoice getById(int teacherId, int invoiceId) {
+        return getNamedParameterJdbcTemplate().queryForObject(
+                SQL.INVOICE_BY_ID,
+                params("teacherId", teacherId)
+                        .addValue("invoiceId", invoiceId),
+                (rs, rowNum) -> toInvoice(rs)
+        );
+    }
+
+    @Override
+    public void startGeneration(int teacherId, int invoiceId) {
+        getNamedParameterJdbcTemplate().update(
+                SQL.INVOICE_STARTED,
+                params("teacherId", teacherId)
+                        .addValue("invoiceId", invoiceId)
+                        .addValue("status", InvoiceStatus.GENERATING)
         );
     }
 }

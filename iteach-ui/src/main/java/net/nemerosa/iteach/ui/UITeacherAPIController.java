@@ -364,27 +364,26 @@ public class UITeacherAPIController implements UITeacherAPI {
 
     @Override
     @RequestMapping(value = "/invoice/{schoolId}/{year}/{month}/{number}", method = RequestMethod.GET)
-    public UIInvoiceData getInvoiceData(Locale locale, @PathVariable int schoolId, @PathVariable int year, @PathVariable int month, @PathVariable long number) {
-        InvoiceData data = teacherService.getInvoiceData(
+    public UIInvoiceInfo getInvoiceData(Locale locale, @PathVariable int schoolId, @PathVariable int year, @PathVariable int month, @PathVariable long number) {
+
+        InvoiceInfo data = invoiceService.generate(
                 new InvoiceForm(
                         schoolId,
                         YearMonth.of(year, month),
                         number
-                )
+                ),
+                "application/pdf", // TODO Only PDF is supported right now
+                locale
         );
-        return new UIInvoiceData(
+        return new UIInvoiceInfo(
+                data.getId(),
+                data.getStatus(),
+                toUISchoolSummary(teacherService.getSchool(data.getSchoolId())),
                 data.getPeriod(),
-                data.getDate(),
-                formatter.formatMonth(data.getPeriod(), locale),
-                formatter.formatDate(data.getDate(), locale),
                 data.getNumber(),
-                data.getTeacherName(),
-                data.getTeacherEmail(),
-                UIAccountAPIController.toUIProfile(data.getProfile()),
-                toUISchool(data.getSchool()),
-                toUISchoolReport(data.getReport()),
-                data.getVat(),
-                data.getVatTotal()
+                data.getGeneration(),
+                data.isDownloaded(),
+                data.getDocumentType()
         );
     }
 

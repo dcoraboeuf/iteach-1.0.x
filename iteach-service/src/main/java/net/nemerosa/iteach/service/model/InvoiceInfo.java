@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.service.model;
 
 import lombok.Data;
+import net.nemerosa.iteach.common.InvoiceStatus;
 
 import java.time.LocalDateTime;
 import java.time.YearMonth;
@@ -9,6 +10,7 @@ import java.time.YearMonth;
 public class InvoiceInfo {
 
     private final int id;
+    private final InvoiceStatus status;
     private final int schoolId;
     private final YearMonth period;
     private final long number;

@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.dao.model;
 
 import lombok.Data;
+import net.nemerosa.iteach.common.InvoiceStatus;
 
 import java.time.LocalDateTime;
 
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 public class TInvoice {
 
     private final int id;
+    private final InvoiceStatus status;
     private final int school;
     private final int year;
     private final int month;

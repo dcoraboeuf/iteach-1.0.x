@@ -115,8 +115,8 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     }
 
     @Override
-    public UIInvoiceData getInvoiceData(Locale locale, int schoolId, int year, int month, long number) {
-        return get(locale, UIInvoiceData.class, "/api/teacher/invoice/%d/%d/%d/%d", schoolId, year, month, number);
+    public UIInvoiceInfo getInvoiceData(Locale locale, int schoolId, int year, int month, long number) {
+        return get(locale, UIInvoiceInfo.class, "/api/teacher/invoice/%d/%d/%d/%d", schoolId, year, month, number);
     }
 
     @Override

@@ -116,7 +116,7 @@ public interface UITeacherAPI {
     /**
      * Invoice data
      */
-    UIInvoiceData getInvoiceData(Locale locale, int schoolId, int year, int month, long number);
+    UIInvoiceInfo getInvoiceData(Locale locale, int schoolId, int year, int month, long number);
 
     /**
      * Invoice form data
