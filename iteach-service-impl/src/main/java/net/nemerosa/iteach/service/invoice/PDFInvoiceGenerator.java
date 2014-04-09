@@ -161,6 +161,30 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         );
 
         p.add(table);
+
+        // Message
+        p.add(new Paragraph("The payment is to be made to the following account:"));
+        p.add(
+                new Paragraph(
+                        String.format(
+                                "IBAN %s (BIC %s) held by %s",
+                                data.getProfile().getIban(),
+                                data.getProfile().getBic(),
+                                data.getProfile().getCompany()
+                        )
+                )
+        );
+
+        /*
+         * <p>The payment is to be made to the following account:</p>
+
+                <p>
+                    IBAN <span class="it-invoice-iban">{{invoice.profile.iban}}</span> with
+                    BIC <span class="it-invoice-bic">{{invoice.profile.bic}}</span>,
+                    held by <span class="it-invoice-company">Nemerosa Sprl</span>.</p>
+         */
+
+        // OK
         return p;
     }
 
