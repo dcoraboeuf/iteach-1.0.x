@@ -28,7 +28,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
     private static final Font amountTotal = new Font(Font.FontFamily.COURIER, 14, Font.BOLD);
     public static final int TABLE_WIDTH = 75;
     public static final int AMOUNT_BORDER_WIDTH = 2;
-    public static final int AMOUNT_PADDING = 5;
+    public static final int PADDING = 5;
 
     @Override
     public String getType() {
@@ -81,7 +81,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         table.setWidthPercentage(TABLE_WIDTH);
 
         // Line 1
-        table.addCell(cell().withText("Total hours:").withPadding(AMOUNT_PADDING).done());
+        table.addCell(cell().withText("Total hours:").withPadding(PADDING).done());
         table.addCell(
                 cell()
                         .withText(
@@ -90,7 +90,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
                                         + data.getSchool().getHourlyRate().toString()
                         )
                         .withAlign(Element.ALIGN_RIGHT)
-                        .withPadding(AMOUNT_PADDING)
+                        .withPadding(PADDING)
                         .done()
         );
         table.addCell(amount(data.getReport().getIncome()).done());
@@ -101,7 +101,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
                 cell()
                         .withText(String.format(locale, "VAT %s%%", data.getSchool().getVatRate()))
                         .withAlign(Element.ALIGN_RIGHT)
-                        .withPadding(AMOUNT_PADDING)
+                        .withPadding(PADDING)
                         .done()
         );
         table.addCell(amount(data.getVat()).done());
@@ -112,7 +112,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
                 cell()
                         .withText("Total with VAT")
                         .withAlign(Element.ALIGN_RIGHT)
-                        .withPadding(AMOUNT_PADDING)
+                        .withPadding(PADDING)
                         .done()
         );
         table.addCell(
@@ -131,7 +131,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
                 .withText(amount.toString())
                 .withFont(PDFInvoiceGenerator.amount)
                 .withAlign(Element.ALIGN_RIGHT)
-                .withPadding(AMOUNT_PADDING);
+                .withPadding(PADDING);
     }
 
     private CellBuilder cell() {
@@ -153,8 +153,19 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         PdfPTable table = new PdfPTable(3);
         table.setWidthPercentage(TABLE_WIDTH);
         for (StudentReport student : data.getReport().getStudents()) {
-            table.addCell(cell(student.getName()));
-            table.addCell(cell(formatHours(student.getHours(), locale) + " hours", Element.ALIGN_RIGHT));
+            table.addCell(
+                    cell()
+                            .withText(student.getName())
+                            .withPadding(PADDING)
+                            .done()
+            );
+            table.addCell(
+                    cell()
+                            .withText(formatHours(student.getHours(), locale) + " hours")
+                            .withAlign(Element.ALIGN_RIGHT)
+                            .withPadding(PADDING)
+                            .done()
+            );
             filler(table, 1);
         }
         p.add(table);
