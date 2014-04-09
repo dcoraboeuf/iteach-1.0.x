@@ -11,7 +11,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.Arrays;
 import java.util.Locale;
 
 @Component
@@ -50,6 +49,8 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
 
             p.add(tabbedLine(tab1, "Invoice number:", String.valueOf(data.getNumber())));
             p.add(tabbedLine(tab1, "Invoice date:", DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale).format(data.getDate())));
+            p.add(tabbedLine(tab1, "Work carried out by:", data.getTeacherName()));
+            p.add(tabbedLine(tab1, "Period:", DateTimeFormatter.ofPattern("MMMM yyyy", locale).format(data.getPeriod())));
 
             document.add(p);
 
