@@ -363,13 +363,13 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     @Override
-    @RequestMapping(value = "/invoice/{schoolId}/{year}/{month}/{number}", method = RequestMethod.GET)
-    public UIInvoiceInfo generateInvoice(Locale locale, @PathVariable int schoolId, @PathVariable int year, @PathVariable int month, @PathVariable long number) {
+    @RequestMapping(value = "/invoice", method = RequestMethod.POST)
+    public UIInvoiceInfo generateInvoice(Locale locale, @RequestBody @Valid UIInvoiceForm form) {
         return toUIInvoiceInfo(invoiceService.generate(
                 new InvoiceForm(
-                        schoolId,
-                        YearMonth.of(year, month),
-                        number
+                        form.getSchoolId(),
+                        YearMonth.of(form.getYear(), form.getMonth()),
+                        form.getNumber()
                 ),
                 "application/pdf", // TODO Only PDF is supported right now
                 locale
