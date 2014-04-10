@@ -32,7 +32,7 @@ public class InvoiceServiceTest {
                 Collections.emptyList(),
                 invoiceRepository,
                 securityUtils,
-                null);
+                null, strings);
     }
 
     @Test

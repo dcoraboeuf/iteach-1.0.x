@@ -3,13 +3,17 @@ package net.nemerosa.iteach.service.impl;
 import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import net.nemerosa.iteach.common.AccountAuthentication;
+import net.nemerosa.iteach.common.InputException;
 import net.nemerosa.iteach.common.InvoiceStatus;
 import net.nemerosa.iteach.dao.InvoiceRepository;
 import net.nemerosa.iteach.dao.model.TInvoice;
 import net.nemerosa.iteach.service.*;
 import net.nemerosa.iteach.service.invoice.InvoiceGenerator;
 import net.nemerosa.iteach.service.model.*;
+import net.sf.jstring.Strings;
 import org.joda.money.Money;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -23,10 +27,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.ZoneOffset;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
@@ -37,12 +38,15 @@ import static net.nemerosa.iteach.service.impl.PeriodUtils.toPeriod;
 @Transactional
 public class InvoiceServiceImpl implements InvoiceService {
 
+    private final Logger logger = LoggerFactory.getLogger(InvoiceService.class);
+
     private final TeacherService teacherService;
     private final AccountService accountService;
     private final Map<String, InvoiceGenerator> generators;
     private final InvoiceRepository invoiceRepository;
     private final TransactionTemplate transactionTemplate;
     private final SecurityUtils securityUtils;
+    private final Strings strings;
     private final ExecutorService executorService = Executors.newFixedThreadPool(
             5,
             new ThreadFactoryBuilder()
@@ -51,11 +55,12 @@ public class InvoiceServiceImpl implements InvoiceService {
                     .build());
 
     @Autowired
-    public InvoiceServiceImpl(TeacherService teacherService, AccountService accountService, Collection<InvoiceGenerator> generators, InvoiceRepository invoiceRepository, SecurityUtils securityUtils, PlatformTransactionManager transactionManager) {
+    public InvoiceServiceImpl(TeacherService teacherService, AccountService accountService, Collection<InvoiceGenerator> generators, InvoiceRepository invoiceRepository, SecurityUtils securityUtils, PlatformTransactionManager transactionManager, Strings strings) {
         this.teacherService = teacherService;
         this.accountService = accountService;
         this.invoiceRepository = invoiceRepository;
         this.securityUtils = securityUtils;
+        this.strings = strings;
         this.generators = Maps.uniqueIndex(
                 generators,
                 InvoiceGenerator::getType
@@ -93,6 +98,7 @@ public class InvoiceServiceImpl implements InvoiceService {
                 type
         );
         // Asynchronous generation
+        logger.debug("[invoice] Scheduling generation for #{}", id);
         executorService.submit(() -> generate(id, data, generator, locale));
         // OK
         return info;
@@ -150,23 +156,41 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     protected void generate(int id, InvoiceData data, InvoiceGenerator generator, Locale locale) {
-        // Starts the generation
-        transactionTemplate.execute(status -> {
-            invoiceRepository.startGeneration(data.getTeacherId(), id);
-            return null;
-        });
-        // FIXME Generation error case. Status ==> error + error UUID and log
-        // Generation of the content
-        byte[] document = generator.generate(data, locale);
-        // Saving the document in the repository
-        transactionTemplate.execute(status -> {
-            invoiceRepository.save(
-                    data.getTeacherId(),
-                    id,
-                    document
-            );
-            return null;
-        });
+        try {
+            // Starts the generation
+            logger.debug("[invoice] Starting generation for #{}", id);
+            transactionTemplate.execute(status -> {
+                invoiceRepository.startGeneration(data.getTeacherId(), id);
+                return null;
+            });
+            // Generation of the content
+            logger.debug("[invoice] Generating document for #{}", id);
+            byte[] document = generator.generate(data, locale);
+            logger.debug("[invoice] Document for #{} has been generated", id);
+            // Saving the document in the repository
+            transactionTemplate.execute(status -> {
+                invoiceRepository.save(
+                        data.getTeacherId(),
+                        id,
+                        document
+                );
+                return null;
+            });
+            logger.debug("[invoice] Generation for #{} is done.", id);
+        } catch (InputException ex) {
+            // Gets the localized message
+            String message = ex.getLocalizedMessage(strings, locale);
+            logger.debug("[invoice] Input problem for #{}: {}", id, message);
+            // FIXME Sets the status to ERROR and this message
+        } catch (Exception ex) {
+            // UUID for the error
+            String uuid = UUID.randomUUID().toString();
+            // Generates an indexed stack trace in the logs
+            logger.error(String.format("[invoice] [error] id=%d, uuid=%s", id, uuid), ex);
+            // Message to store
+            String message = strings.get(locale, "net.nemerosa.iteach.service.InvoiceService.error.uuid", uuid);
+            // FIXME Marks the invoice in error together with its ID
+        }
     }
 
     protected InvoiceGenerator getInvoiceGenerator(String type) {

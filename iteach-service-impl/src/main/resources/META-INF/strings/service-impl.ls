@@ -49,3 +49,7 @@ net.nemerosa.iteach.service.InvoiceGeneratorTypeNotFoundException
 net.nemerosa.iteach.service.InvoiceGenerationException
     en -> Invoice generation problem.
     fr -> Problème lors de la génération de la facture.
+
+net.nemerosa.iteach.service.InvoiceService.error.uuid
+    en -> Technical error with ID={0}. Please contact the support for more information.
+    fr -> Erreur technique d'identifiant {0}. Veuillez contacter le support pour plus d'information.
