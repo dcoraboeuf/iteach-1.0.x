@@ -2,7 +2,7 @@ angular.module('iteach.dialog.invoice', [
         'iteach.service.core',
         'iteach.ui.teacher'
     ])
-    .controller('dialogInvoice', function ($log, $scope, $translate, $interval, $location, $modalInstance, calendarService, invoiceForm, notificationService, uiTeacher) {
+    .controller('dialogInvoice', function ($log, $scope, $translate, $interpolate, $location, $modalInstance, calendarService, invoiceForm, notificationService, uiTeacher) {
 
         $scope.invoice = invoiceForm;
         if (invoiceForm.period) {
@@ -41,6 +41,7 @@ angular.module('iteach.dialog.invoice', [
                             // Generation OK
                             $scope.generating = false;
                             $scope.ready = true;
+                            $scope.invoiceInfo = info;
                         } else if (info.status == 'ERROR') {
                             // Error during the generation
                             $scope.generating = false;
@@ -63,6 +64,13 @@ angular.module('iteach.dialog.invoice', [
             $scope.cancel();
             // Goes to the invoice mgt page
             $location.path('/invoices');
+        };
+
+        $scope.download = function () {
+            // Closes the dialog first
+            $scope.cancel();
+            // Download request
+            location.href = $interpolate('api/teacher/invoice/{{id}}/download')({id: $scope.invoiceInfo.id});
         };
 
         $modalInstance.opened.finally(function () {
