@@ -60,6 +60,18 @@
         <button class="btn btn-warning" type="button" ng-click="cancel()">{{'dialog.cancel' | translate}}</button>
 
         <div>&nbsp;</div>
+        <div class="alert alert-danger" ng-show="errorMessage && !errorUuid">
+            {{errorMessage}}
+        </div>
+        <div class="alert alert-danger" ng-show="errorUuid">
+            {{'invoice.error.general' | translate}}
+            <p ng-show="errorUuid">
+                {{'invoice.error.uuid' | translate}}
+                <span class="it-invoice-error-uuid">{{errorUuid}}</span>
+            </p>
+        </div>
+
+        <div>&nbsp;</div>
         <div class="alert alert-info" ng-show="launched">
             {{'invoice.generate.list.help' | translate}}
         </div>

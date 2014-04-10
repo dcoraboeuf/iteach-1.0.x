@@ -44,6 +44,9 @@ angular.module('iteach.dialog.invoice', [
                         } else if (info.status == 'ERROR') {
                             // Error during the generation
                             $scope.generating = false;
+                            // Error messaging
+                            $scope.errorMessage = info.errorMessage;
+                            $scope.errorUuid = info.errorUuid;
                         } else {
                             // Going on with the generation
                             if (!$scope.closed) window.setTimeout(controlFn, 500)
