@@ -8,6 +8,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
@@ -95,12 +96,16 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
                 new ResultSetExtractor<Void>() {
                     @Override
                     public Void extractData(ResultSet rs) throws SQLException, DataAccessException {
-                        try (InputStream in = rs.getBinaryStream("document")) {
-                            IOUtils.copy(in, out);
-                        } catch (IOException e) {
-                            throw new InvoiceCannotReadException(e);
+                        if (rs.next()) {
+                            try (InputStream in = rs.getBlob("document").getBinaryStream()) {
+                                IOUtils.copy(in, out);
+                            } catch (IOException e) {
+                                throw new InvoiceCannotReadException(e);
+                            }
+                            return null;
+                        } else {
+                            throw new EmptyResultDataAccessException("Cannot find any invoice for id = " + invoiceId, 1);
                         }
-                        return null;
                     }
                 });
     }
