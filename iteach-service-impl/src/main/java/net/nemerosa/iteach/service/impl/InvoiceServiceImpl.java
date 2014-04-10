@@ -90,6 +90,8 @@ public class InvoiceServiceImpl implements InvoiceService {
         InvoiceInfo info = new InvoiceInfo(
                 id,
                 InvoiceStatus.CREATED,
+                null,
+                null,
                 invoiceForm.getSchoolId(),
                 invoiceForm.getPeriod(),
                 invoiceForm.getNumber(),
@@ -123,6 +125,8 @@ public class InvoiceServiceImpl implements InvoiceService {
         return new InvoiceInfo(
                 t.getId(),
                 t.getStatus(),
+                t.getErrorMessage(),
+                t.getErrorUuid(),
                 t.getSchool(),
                 YearMonth.of(t.getYear(), t.getMonth()),
                 t.getNumber(),

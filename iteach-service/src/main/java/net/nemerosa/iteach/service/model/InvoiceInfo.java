@@ -11,6 +11,8 @@ public class InvoiceInfo {
 
     private final int id;
     private final InvoiceStatus status;
+    private final String errorMessage;
+    private final String errorUuid;
     private final int schoolId;
     private final YearMonth period;
     private final long number;

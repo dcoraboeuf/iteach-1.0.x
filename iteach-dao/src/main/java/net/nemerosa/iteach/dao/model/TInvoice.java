@@ -10,6 +10,8 @@ public class TInvoice {
 
     private final int id;
     private final InvoiceStatus status;
+    private final String errorMessage;
+    private final String errorUuid;
     private final int school;
     private final int year;
     private final int month;

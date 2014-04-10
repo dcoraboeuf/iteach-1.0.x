@@ -364,9 +364,8 @@ public class UITeacherAPIController implements UITeacherAPI {
 
     @Override
     @RequestMapping(value = "/invoice/{schoolId}/{year}/{month}/{number}", method = RequestMethod.GET)
-    public UIInvoiceInfo getInvoiceData(Locale locale, @PathVariable int schoolId, @PathVariable int year, @PathVariable int month, @PathVariable long number) {
-
-        InvoiceInfo data = invoiceService.generate(
+    public UIInvoiceInfo generateInvoice(Locale locale, @PathVariable int schoolId, @PathVariable int year, @PathVariable int month, @PathVariable long number) {
+        return toUIInvoiceInfo(invoiceService.generate(
                 new InvoiceForm(
                         schoolId,
                         YearMonth.of(year, month),
@@ -374,17 +373,28 @@ public class UITeacherAPIController implements UITeacherAPI {
                 ),
                 "application/pdf", // TODO Only PDF is supported right now
                 locale
-        );
+        ));
+    }
+
+    private UIInvoiceInfo toUIInvoiceInfo(InvoiceInfo info) {
         return new UIInvoiceInfo(
-                data.getId(),
-                data.getStatus(),
-                toUISchoolSummary(teacherService.getSchool(data.getSchoolId())),
-                data.getPeriod(),
-                data.getNumber(),
-                data.getGeneration(),
-                data.isDownloaded(),
-                data.getDocumentType()
+                info.getId(),
+                info.getStatus(),
+                info.getErrorMessage(),
+                info.getErrorUuid(),
+                toUISchoolSummary(teacherService.getSchool(info.getSchoolId())),
+                info.getPeriod(),
+                info.getNumber(),
+                info.getGeneration(),
+                info.isDownloaded(),
+                info.getDocumentType()
         );
+    }
+
+    @Override
+    @RequestMapping(value = "/invoice/{invoiceId}", method = RequestMethod.GET)
+    public UIInvoiceInfo getInvoiceInfo(Locale locale, @PathVariable int invoiceId) {
+        return toUIInvoiceInfo(invoiceService.getInvoiceInfo(invoiceId));
     }
 
     @Override
