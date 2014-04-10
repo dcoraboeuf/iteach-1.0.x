@@ -30,11 +30,11 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
     }
 
     @Override
-    public int create(int teacherId, int schoolId, int year, Month month, long number, String type, LocalDateTime generation) {
+    public int create(int teacherId, int schoolId, int year, int month, long number, String type, LocalDateTime generation) {
         return dbCreate(
                 SQL.INVOICE_CREATE,
                 params("teacher", teacherId)
-                        .addValue("status", InvoiceStatus.CREATED)
+                        .addValue("status", InvoiceStatus.CREATED.name())
                         .addValue("school", schoolId)
                         .addValue("year", year)
                         .addValue("month", month)
@@ -46,7 +46,7 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
 
     @Override
     public List<TInvoice> list(int teacherId, Integer schoolId, Integer year) {
-        StringBuilder sql = new StringBuilder("SELECT ID, SCHOOL, YEAR, MONTH, GENERATION, INVOICENB, DOCUMENTTYPE " +
+        StringBuilder sql = new StringBuilder("SELECT ID, STATUS, DOWNLOADED, SCHOOL, YEAR, MONTH, GENERATION, INVOICENB, DOCUMENTTYPE " +
                 "FROM INVOICE" +
                 "WHERE TEACHER = :teacher");
         MapSqlParameterSource params = params("teacher", teacherId);
@@ -127,7 +127,7 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
                 params("teacherId", teacherId)
                         .addValue("invoiceId", invoiceId)
                         .addValue("document", document)
-                        .addValue("status", InvoiceStatus.READY)
+                        .addValue("status", InvoiceStatus.READY.name())
         );
     }
 
@@ -147,7 +147,7 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
                 SQL.INVOICE_STARTED,
                 params("teacherId", teacherId)
                         .addValue("invoiceId", invoiceId)
-                        .addValue("status", InvoiceStatus.GENERATING)
+                        .addValue("status", InvoiceStatus.GENERATING.name())
         );
     }
 }

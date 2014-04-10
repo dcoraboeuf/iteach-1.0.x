@@ -76,7 +76,7 @@ public class InvoiceServiceImpl implements InvoiceService {
                 data.getTeacherId(),
                 data.getSchool().getId(),
                 data.getPeriod().getYear(),
-                data.getPeriod().getMonth(),
+                data.getPeriod().getMonthValue(),
                 data.getNumber(),
                 generator.getType(),
                 generation
@@ -109,7 +109,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public InvoiceInfo getInvoiceInfo(int id) {
         return toInvoiceInfo(
-          invoiceRepository.getById(securityUtils.checkTeacher(), id)
+                invoiceRepository.getById(securityUtils.checkTeacher(), id)
         );
     }
 
@@ -155,6 +155,7 @@ public class InvoiceServiceImpl implements InvoiceService {
             invoiceRepository.startGeneration(data.getTeacherId(), id);
             return null;
         });
+        // FIXME Generation error case. Status ==> error + error UUID and log
         // Generation of the content
         byte[] document = generator.generate(data, locale);
         // Saving the document in the repository

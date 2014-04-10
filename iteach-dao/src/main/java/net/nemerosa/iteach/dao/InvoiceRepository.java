@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface InvoiceRepository {
 
-    int create(int teacherId, int schoolId, int year, Month month, long number, String type, LocalDateTime generation);
+    int create(int teacherId, int schoolId, int year, int month, long number, String type, LocalDateTime generation);
 
     List<TInvoice> list(int teacherId, Integer schoolId, Integer year);
 

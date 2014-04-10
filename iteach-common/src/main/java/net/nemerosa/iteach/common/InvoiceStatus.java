@@ -5,16 +5,31 @@ public enum InvoiceStatus {
     /**
      * The invoice has been created, but no generation has taken place yet.
      */
-    CREATED,
+    CREATED(false),
 
     /**
      * The invoice is currently generated.
      */
-    GENERATING,
+    GENERATING(false),
 
     /**
      * The invoice is ready for download.
      */
-    READY
+    READY(true),
+
+    /**
+     * The invoice could not be generated
+     */
+    ERROR(true);
+
+    private final boolean finished;
+
+    private InvoiceStatus(boolean finished) {
+        this.finished = finished;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
 
 }

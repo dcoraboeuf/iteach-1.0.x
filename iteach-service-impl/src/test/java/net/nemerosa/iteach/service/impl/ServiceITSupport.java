@@ -23,4 +23,6 @@ public interface ServiceITSupport {
     int createSchool(int teacherId) throws Exception;
 
     Student createStudent() throws Exception;
+
+    Student createStudent(int teacherId, int schoolId) throws Exception;
 }
