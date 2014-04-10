@@ -30,6 +30,7 @@ angular.module('iteach.dialog.invoice', [
             };
             // Launching the generation
             $scope.generating = true;
+            $scope.launched = true;
             uiTeacher.generateInvoice(invoice).success(function () {
                 // TODO Controlling the generation
             });

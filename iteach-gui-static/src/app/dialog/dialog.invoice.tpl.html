@@ -47,16 +47,16 @@
             <span>{{message}}</span>
         </div>
 
-        <button class="btn btn-primary" type="button" ng-hide="generating" ng-disabled="invoiceForm.$invalid" ng-click="generate()">{{'invoice.generate.submit' | translate}}
+        <button class="btn btn-primary" type="button" ng-hide="launched" ng-disabled="invoiceForm.$invalid" ng-click="generate()">{{'invoice.generate.submit' | translate}}
         <button class="btn btn-default" type="button" ng-show="generating" ng-disabled="true">
             <img src="assets/loading.gif" />
             {{'invoice.generate.generating' | translate}}
         </button>
-        <button class="btn btn-info" type="button" ng-show="generating" ng-click="invoiceMgt()">{{'invoice.generate.list' | translate}}</button>
+        <button class="btn btn-info" type="button" ng-show="launched" ng-click="invoiceMgt()">{{'invoice.generate.list' | translate}}</button>
         <button class="btn btn-warning" type="button" ng-click="cancel()">{{'dialog.cancel' | translate}}</button>
 
         <div>&nbsp;</div>
-        <div class="alert alert-info" ng-show="generating">
+        <div class="alert alert-info" ng-show="launched">
             {{'invoice.generate.list.help' | translate}}
         </div>
     </div>
