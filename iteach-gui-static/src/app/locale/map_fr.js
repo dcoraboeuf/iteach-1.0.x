@@ -174,5 +174,8 @@ var map_fr = {
     'invoice.month': "Année & Mois",
     'invoice.number': "Numéro de facture",
     'invoice.generate.submit': "Générer",
-    'invoice.generate.generating': "Génération de la facture..."
+    'invoice.generate.generating': "Génération de la facture...",
+    'invoice.generate.list': "Gestion des factures",
+    'invoice.generate.list.help': "Vous pouvez vous rendre à tout moment sur la page de gestion des factures. Vous " +
+        "pourrez également y suivre la progression de la génération."
 };

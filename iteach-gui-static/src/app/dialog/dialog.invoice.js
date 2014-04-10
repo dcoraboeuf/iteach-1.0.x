@@ -2,7 +2,7 @@ angular.module('iteach.dialog.invoice', [
         'iteach.service.core',
         'iteach.ui.teacher'
     ])
-    .controller('dialogInvoice', function ($log, $scope, $translate, $modalInstance, calendarService, modalController, invoiceForm, notificationService, uiTeacher) {
+    .controller('dialogInvoice', function ($log, $scope, $translate, $location, $modalInstance, calendarService, modalController, invoiceForm, notificationService, uiTeacher) {
 
         $scope.invoice = invoiceForm;
         if (invoiceForm.period) {
@@ -33,6 +33,13 @@ angular.module('iteach.dialog.invoice', [
             uiTeacher.generateInvoice(invoice).success(function () {
                 // TODO Controlling the generation
             });
+        };
+
+        $scope.invoiceMgt = function () {
+            // Closes the dialog first
+            $modalInstance.dismiss('cancel');
+            // Goes to the invoice mgt page
+            $location.path('/invoices');
         };
 
         // TODO Not called any longer

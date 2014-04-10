@@ -176,5 +176,8 @@ var map_en = {
     'invoice.month': "Year & Month",
     'invoice.number': "Invoice number",
     'invoice.generate.submit': "Generate",
-    'invoice.generate.generating': "Generating the invoice..."
+    'invoice.generate.generating': "Generating the invoice...",
+    'invoice.generate.list': "List of invoices",
+    'invoice.generate.list.help': "You can access the list of invoices at any time in order to follow the progress " +
+        "of the generation of the invoices."
 };

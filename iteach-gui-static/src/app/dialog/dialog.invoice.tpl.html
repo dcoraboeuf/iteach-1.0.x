@@ -52,6 +52,12 @@
             <img src="assets/loading.gif" />
             {{'invoice.generate.generating' | translate}}
         </button>
+        <button class="btn btn-info" type="button" ng-show="generating" ng-click="invoiceMgt()">{{'invoice.generate.list' | translate}}</button>
         <button class="btn btn-warning" type="button" ng-click="cancel()">{{'dialog.cancel' | translate}}</button>
+
+        <div>&nbsp;</div>
+        <div class="alert alert-info" ng-show="generating">
+            {{'invoice.generate.list.help' | translate}}
+        </div>
     </div>
 </form>
