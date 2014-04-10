@@ -56,7 +56,8 @@ public interface SQL {
     String INVOICE_CREATE = "INSERT INTO INVOICE (TEACHER, STATUS, SCHOOL, YEAR, MONTH, GENERATION, INVOICENB, DOWNLOADED, DOCUMENTTYPE) " +
             "VALUES (:teacher, :status, :school, :year, :month, :generation, :invoiceNb, FALSE, :documentType)";
     String INVOICE_DOWNLOADED = "UPDATE INVOICE SET DOWNLOADED = :downloaded WHERE TEACHER = :teacher AND ID = :invoiceId";
-    String INVOICE_STARTED = "UPDATE INVOICE SET STATUS = :status WHERE TEACHER = :teacher AND ID = :invoiceId";
-    String INVOICE_SAVE = "UPDATE INVOICE SET STATUS = :status, DOCUMENT = :document WHERE TEACHER = :teacher AND ID = :invoiceId";
+    String INVOICE_STARTED = "UPDATE INVOICE SET STATUS = :status WHERE TEACHER = :teacherId AND ID = :invoiceId";
+    String INVOICE_SAVE = "UPDATE INVOICE SET STATUS = :status, DOCUMENT = :document WHERE TEACHER = :teacherId AND ID = :invoiceId";
     String INVOICE_BY_ID = "SELECT ID, STATUS, DOWNLOADED, SCHOOL, YEAR, MONTH, GENERATION, INVOICENB, DOCUMENTTYPE FROM INVOICE WHERE TEACHER = :teacherId AND ID = :invoiceId";
+    String INVOICE_ERROR = "UPDATE INVOICE SET STATUS = :status, ERRORMESSAGE = :message, ERRORUUID = :uuid  WHERE TEACHER = :teacherId AND ID = :invoiceId";
 }

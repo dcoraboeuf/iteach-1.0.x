@@ -181,7 +181,11 @@ public class InvoiceServiceImpl implements InvoiceService {
             // Gets the localized message
             String message = ex.getLocalizedMessage(strings, locale);
             logger.debug("[invoice] Input problem for #{}: {}", id, message);
-            // FIXME Sets the status to ERROR and this message
+            // Sets the status to ERROR and this message
+            transactionTemplate.execute(status -> {
+                invoiceRepository.error(data.getTeacherId(), id, message, null);
+                return null;
+            });
         } catch (Exception ex) {
             // UUID for the error
             String uuid = UUID.randomUUID().toString();
@@ -189,7 +193,11 @@ public class InvoiceServiceImpl implements InvoiceService {
             logger.error(String.format("[invoice] [error] id=%d, uuid=%s", id, uuid), ex);
             // Message to store
             String message = strings.get(locale, "net.nemerosa.iteach.service.InvoiceService.error.uuid", uuid);
-            // FIXME Marks the invoice in error together with its ID
+            // Marks the invoice in error together with its ID
+            transactionTemplate.execute(status -> {
+                invoiceRepository.error(data.getTeacherId(), id, message, uuid);
+                return null;
+            });
         }
     }
 

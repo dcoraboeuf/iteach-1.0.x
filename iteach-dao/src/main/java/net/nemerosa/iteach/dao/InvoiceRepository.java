@@ -24,4 +24,6 @@ public interface InvoiceRepository {
     void save(int teacherId, int id, byte[] document);
 
     TInvoice getById(int teacherId, int invoiceId);
+
+    void error(int teacherId, int invoiceId, String message, String uuid);
 }

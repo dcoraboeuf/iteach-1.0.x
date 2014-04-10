@@ -5,6 +5,7 @@ import net.nemerosa.iteach.dao.InvoiceCannotReadException;
 import net.nemerosa.iteach.dao.InvoiceRepository;
 import net.nemerosa.iteach.dao.model.TInvoice;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -18,11 +19,12 @@ import java.io.OutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.List;
 
 @Component
 public class InvoiceJdbcRepository extends AbstractJdbcRepository implements InvoiceRepository {
+
+    public static final int MAX_ERROR_MESSAGE = 300;
 
     @Autowired
     public InvoiceJdbcRepository(DataSource dataSource) {
@@ -148,6 +150,18 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
                 params("teacherId", teacherId)
                         .addValue("invoiceId", invoiceId)
                         .addValue("status", InvoiceStatus.GENERATING.name())
+        );
+    }
+
+    @Override
+    public void error(int teacherId, int invoiceId, String message, String uuid) {
+        getNamedParameterJdbcTemplate().update(
+                SQL.INVOICE_ERROR,
+                params("teacherId", teacherId)
+                        .addValue("invoiceId", invoiceId)
+                        .addValue("status", InvoiceStatus.ERROR.name())
+                        .addValue("message", StringUtils.left(message, MAX_ERROR_MESSAGE))
+                        .addValue("uuid", uuid)
         );
     }
 }
