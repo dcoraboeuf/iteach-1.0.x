@@ -173,5 +173,6 @@ var map_fr = {
     'invoice.generate': "Générer une facture",
     'invoice.month': "Année & Mois",
     'invoice.number': "Numéro de facture",
-    'invoice.print': "Imprimer"
+    'invoice.generate.submit': "Générer",
+    'invoice.generate.generating': "Génération de la facture..."
 };

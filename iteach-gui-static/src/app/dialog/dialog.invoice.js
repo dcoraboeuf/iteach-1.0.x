@@ -20,6 +20,22 @@ angular.module('iteach.dialog.invoice', [
             $modalInstance.dismiss('cancel')
         };
 
+        $scope.generate = function () {
+            // Invoice form
+            var invoice = {
+                schoolId: $scope.invoice.schoolId,
+                year: $scope.invoice.year,
+                month: $scope.invoice.month,
+                number: $scope.invoice.number
+            };
+            // Launching the generation
+            $scope.generating = true;
+            uiTeacher.generateInvoice(invoice).success(function () {
+                // TODO Controlling the generation
+            });
+        };
+
+        // TODO Not called any longer
         $scope.submit = function (isValid) {
             if (isValid) {
                 var invoice = {

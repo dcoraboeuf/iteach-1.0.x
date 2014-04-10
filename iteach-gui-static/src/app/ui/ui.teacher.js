@@ -141,13 +141,12 @@ angular.module('iteach.ui.teacher', [
             }));
         };
 
-        self.loadInvoice = function (schoolId, year, month, number) {
-            return $http.get(config.api('teacher/invoice/{{schoolId}}/{{year}}/{{month}}/{{number}}', {
-                schoolId: schoolId,
-                year: year,
-                month: month,
-                number: number
-            }))
+        self.generateInvoice = function (form) {
+            return $http.post(config.api('teacher/invoice'), form);
+        };
+
+        self.getInvoice = function (id) {
+            return $http.get(config.api('teacher/invoice/{{id}}', {id: id}));
         };
 
         self.getInvoiceFormData = function () {

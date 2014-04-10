@@ -1,7 +1,7 @@
 <div class="modal-header">
     <h3>{{'invoice.generate' | translate}}</h3>
 </div>
-<form name="invoiceForm" class="form-horizontal" ng-submit="submit(invoiceForm.$valid)" novalidate="novalidate">
+<form name="invoiceForm" class="form-horizontal" novalidate="novalidate">
     <div class="modal-body">
 
         <div class="form-group"
@@ -47,7 +47,10 @@
             <span>{{message}}</span>
         </div>
 
-        <button class="btn btn-primary" type="submit" ng-disabled="invoiceForm.$invalid">{{'dialog.ok' | translate}}
+        <button class="btn btn-primary" type="button" ng-hide="generating" ng-disabled="invoiceForm.$invalid" ng-click="generate()">{{'invoice.generate.submit' | translate}}
+        <button class="btn btn-default" type="button" ng-show="generating" ng-disabled="true">
+            <img src="assets/loading.gif" />
+            {{'invoice.generate.generating' | translate}}
         </button>
         <button class="btn btn-warning" type="button" ng-click="cancel()">{{'dialog.cancel' | translate}}</button>
     </div>
