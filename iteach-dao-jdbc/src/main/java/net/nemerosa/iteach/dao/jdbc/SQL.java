@@ -51,7 +51,7 @@ public interface SQL {
     String COMMENT_UPDATE = "UPDATE COMMENT SET EDITION = :edition, CONTENT = :content WHERE TEACHER = :teacherId AND ID = :commentId";
     String COMMENT_COUNT = "SELECT COUNT(ID) FROM COMMENT WHERE TEACHER = :teacherId AND %s = :entityId";
 
-    String INVOICE_DOWNLOAD = "SELECT DOCUMENT FROM INVOICE WHERE TEACHER = :teacherId AND ID = :invoiceId";
+    String INVOICE_DOWNLOAD = "SELECT DOCUMENTTYPE, DOCUMENT FROM INVOICE WHERE TEACHER = :teacherId AND ID = :invoiceId";
     String INVOICE_LAST_NB = "SELECT INVOICENB FROM INVOICE WHERE TEACHER = :teacherId ORDER BY INVOICENB DESC";
     String INVOICE_CREATE = "INSERT INTO INVOICE (TEACHER, STATUS, SCHOOL, YEAR, MONTH, GENERATION, INVOICENB, DOWNLOADED, DOCUMENTTYPE) " +
             "VALUES (:teacher, :status, :school, :year, :month, :generation, :invoiceNb, FALSE, :documentType)";

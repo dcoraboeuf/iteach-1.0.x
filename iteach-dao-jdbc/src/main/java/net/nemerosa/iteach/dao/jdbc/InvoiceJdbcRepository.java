@@ -1,22 +1,16 @@
 package net.nemerosa.iteach.dao.jdbc;
 
 import net.nemerosa.iteach.common.InvoiceStatus;
-import net.nemerosa.iteach.dao.InvoiceCannotReadException;
+import net.nemerosa.iteach.common.UntitledDocument;
 import net.nemerosa.iteach.dao.InvoiceRepository;
 import net.nemerosa.iteach.dao.model.TInvoice;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -90,26 +84,21 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
     }
 
     @Override
-    public void download(int teacherId, int invoiceId, OutputStream out) {
+    public UntitledDocument download(int teacherId, int invoiceId) {
         //noinspection Convert2Lambda
-        getNamedParameterJdbcTemplate().query(
+        return getNamedParameterJdbcTemplate().queryForObject(
                 SQL.INVOICE_DOWNLOAD,
                 params("teacherId", teacherId).addValue("invoiceId", invoiceId),
-                new ResultSetExtractor<Void>() {
+                new RowMapper<UntitledDocument>() {
                     @Override
-                    public Void extractData(ResultSet rs) throws SQLException, DataAccessException {
-                        if (rs.next()) {
-                            try (InputStream in = rs.getBlob("document").getBinaryStream()) {
-                                IOUtils.copy(in, out);
-                            } catch (IOException e) {
-                                throw new InvoiceCannotReadException(e);
-                            }
-                            return null;
-                        } else {
-                            throw new EmptyResultDataAccessException("Cannot find any invoice for id = " + invoiceId, 1);
-                        }
+                    public UntitledDocument mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        return new UntitledDocument(
+                                rs.getString("documentType"),
+                                rs.getBytes("document")
+                        );
                     }
-                });
+                }
+        );
     }
 
     @Override

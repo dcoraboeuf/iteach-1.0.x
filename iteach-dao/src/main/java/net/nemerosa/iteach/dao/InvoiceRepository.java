@@ -1,10 +1,9 @@
 package net.nemerosa.iteach.dao;
 
+import net.nemerosa.iteach.common.UntitledDocument;
 import net.nemerosa.iteach.dao.model.TInvoice;
 
-import java.io.OutputStream;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.List;
 
 public interface InvoiceRepository {
@@ -13,7 +12,7 @@ public interface InvoiceRepository {
 
     List<TInvoice> list(int teacherId, Integer schoolId, Integer year);
 
-    void download(int teacherId, int invoiceId, OutputStream out);
+    UntitledDocument download(int teacherId, int invoiceId);
 
     Long getLastInvoiceNumber(int teacherId);
 

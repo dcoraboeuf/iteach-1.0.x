@@ -70,7 +70,8 @@ angular.module('iteach.dialog.invoice', [
             // Closes the dialog first
             $scope.cancel();
             // Download request
-            location.href = $interpolate('api/teacher/invoice/{{id}}/download')({id: $scope.invoiceInfo.id});
+            // TODO Moves to service/ui
+            location.href = $interpolate('api/teacher/invoice/{{id}}/download/attached')({id: $scope.invoiceInfo.id});
         };
 
         $modalInstance.opened.finally(function () {

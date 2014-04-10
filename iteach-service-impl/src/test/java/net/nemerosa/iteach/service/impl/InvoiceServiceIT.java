@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.service.impl;
 
+import net.nemerosa.iteach.common.Document;
 import net.nemerosa.iteach.common.InvoiceStatus;
 import net.nemerosa.iteach.it.AbstractITTestSupport;
 import net.nemerosa.iteach.service.InvoiceService;
@@ -10,7 +11,6 @@ import org.joda.money.Money;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
@@ -93,13 +93,10 @@ public class InvoiceServiceIT extends AbstractITTestSupport {
         assertFalse("Invoice must not be marked as downloaded", info.isDownloaded());
 
         // Downloads the invoice document
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        serviceITSupport.asTeacher(teacherId, () -> {
-            invoiceService.downloadInvoice(invoiceId, out);
-            return null;
-        });
-        byte[] bytes = out.toByteArray();
-        assertTrue("The document must not be empty", bytes.length > 0);
+        Document doc = serviceITSupport.asTeacher(teacherId, () -> invoiceService.downloadInvoice(invoiceId));
+        assertEquals(String.format("%s-201404-2014007", school.getName()), doc.getTitle());
+        assertEquals("application/pdf", doc.getType());
+        assertTrue("The document must not be empty", doc.getContent().length > 0);
 
         // Marks the invoice as being downloaded
         serviceITSupport.asTeacher(teacherId, () -> {

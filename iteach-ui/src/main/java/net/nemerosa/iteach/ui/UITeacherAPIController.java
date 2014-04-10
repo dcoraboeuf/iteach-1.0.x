@@ -2,6 +2,7 @@ package net.nemerosa.iteach.ui;
 
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.CommentEntity;
+import net.nemerosa.iteach.common.Document;
 import net.nemerosa.iteach.common.Period;
 import net.nemerosa.iteach.service.CommentService;
 import net.nemerosa.iteach.service.InvoiceService;
@@ -12,7 +13,9 @@ import net.nemerosa.iteach.ui.support.UIFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.time.YearMonth;
 import java.util.List;
 import java.util.Locale;
@@ -403,5 +406,22 @@ public class UITeacherAPIController implements UITeacherAPI {
         return new UIInvoiceFormData(
                 invoiceService.getNextInvoiceNumber()
         );
+    }
+
+    @Override
+    @RequestMapping(value = "/invoice/{invoiceId}/download", method = RequestMethod.GET)
+    public Document downloadInvoice(Locale locale, @PathVariable int invoiceId) {
+        return invoiceService.downloadInvoice(invoiceId);
+    }
+
+    @RequestMapping(value = "/invoice/{invoiceId}/download/attached", method = RequestMethod.GET)
+    public void downloadInvoice(Locale locale, @PathVariable int invoiceId, HttpServletResponse response) throws IOException {
+        Document document = downloadInvoice(locale, invoiceId);
+        // Writes as a file
+        response.setContentType(document.getType());
+        response.addHeader("Content-Disposition", String.format("attachment; filename=%s.%s", document.getTitle(), document.getExtension()));
+        // Serializes
+        response.getOutputStream().write(document.getContent());
+        response.getOutputStream().flush();
     }
 }

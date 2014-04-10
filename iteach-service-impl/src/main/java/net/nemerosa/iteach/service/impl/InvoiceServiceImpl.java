@@ -2,9 +2,7 @@ package net.nemerosa.iteach.service.impl;
 
 import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import net.nemerosa.iteach.common.AccountAuthentication;
-import net.nemerosa.iteach.common.InputException;
-import net.nemerosa.iteach.common.InvoiceStatus;
+import net.nemerosa.iteach.common.*;
 import net.nemerosa.iteach.dao.InvoiceRepository;
 import net.nemerosa.iteach.dao.model.TInvoice;
 import net.nemerosa.iteach.service.*;
@@ -20,13 +18,13 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -137,9 +135,24 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public void downloadInvoice(int invoiceId, OutputStream out) {
+    public Document downloadInvoice(int invoiceId) {
         int teacherId = securityUtils.checkTeacher();
-        invoiceRepository.download(teacherId, invoiceId, out);
+        InvoiceInfo info = getInvoiceInfo(invoiceId);
+        UntitledDocument document = invoiceRepository.download(teacherId, invoiceId);
+        return new Document(
+                document,
+                computeDocumentTitle(info),
+                ".pdf" // TODO Support something else than PDF
+        );
+    }
+
+    private String computeDocumentTitle(InvoiceInfo info) {
+        return String.format(
+                "%s-%s-%d",
+                teacherService.getSchool(info.getSchoolId()).getName(),
+                DateTimeFormatter.ofPattern("yyyyMM").format(info.getPeriod()),
+                info.getNumber()
+        );
     }
 
     @Override

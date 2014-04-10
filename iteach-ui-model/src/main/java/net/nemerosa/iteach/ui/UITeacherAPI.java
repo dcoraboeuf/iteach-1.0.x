@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.ui;
 
 import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.Document;
 import net.nemerosa.iteach.common.Period;
 import net.nemerosa.iteach.ui.model.*;
 
@@ -127,5 +128,10 @@ public interface UITeacherAPI {
      * Invoice form data
      */
     UIInvoiceFormData getInvoiceFormData(Locale locale);
+
+    /**
+     * Downloads an invoice
+     */
+    Document downloadInvoice(Locale locale, int invoiceId);
 
 }

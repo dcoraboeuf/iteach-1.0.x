@@ -1,9 +1,9 @@
 package net.nemerosa.iteach.service;
 
+import net.nemerosa.iteach.common.Document;
 import net.nemerosa.iteach.service.model.InvoiceForm;
 import net.nemerosa.iteach.service.model.InvoiceInfo;
 
-import java.io.OutputStream;
 import java.util.List;
 import java.util.Locale;
 
@@ -37,7 +37,7 @@ public interface InvoiceService {
     /**
      * Downloads an invoice using its ID
      */
-    void downloadInvoice(int invoiceId, OutputStream out);
+    Document downloadInvoice(int invoiceId);
 
     /**
      * Notifies the download is OK
