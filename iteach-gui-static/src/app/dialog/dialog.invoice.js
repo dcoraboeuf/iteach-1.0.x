@@ -2,7 +2,7 @@ angular.module('iteach.dialog.invoice', [
         'iteach.service.core',
         'iteach.ui.teacher'
     ])
-    .controller('dialogInvoice', function ($log, $scope, $translate, $location, $modalInstance, calendarService, modalController, invoiceForm, notificationService, uiTeacher) {
+    .controller('dialogInvoice', function ($log, $scope, $translate, $interval, $location, $modalInstance, calendarService, modalController, invoiceForm, notificationService, uiTeacher) {
 
         $scope.invoice = invoiceForm;
         if (invoiceForm.period) {
@@ -17,7 +17,8 @@ angular.module('iteach.dialog.invoice', [
         $scope.months = calendarService.getMonths();
 
         $scope.cancel = function () {
-            $modalInstance.dismiss('cancel')
+            $scope.closed = true;
+            $modalInstance.dismiss('cancel');
         };
 
         $scope.generate = function () {
@@ -31,14 +32,31 @@ angular.module('iteach.dialog.invoice', [
             // Launching the generation
             $scope.generating = true;
             $scope.launched = true;
-            uiTeacher.generateInvoice(invoice).success(function () {
-                // TODO Controlling the generation
+            uiTeacher.generateInvoice(invoice).success(function (invoiceInfo) {
+                var invoiceId = invoiceInfo.id;
+                // Control function
+                var controlFn = function () {
+                    uiTeacher.getInvoice(invoiceId).success(function (info) {
+                        if (info.status == 'READY') {
+                            // Generation OK
+                            $scope.generating = false;
+                        } else if (info.status == 'ERROR') {
+                            // Error during the generation
+                            $scope.generating = false;
+                        } else {
+                            // Going on with the generation
+                            if (!$scope.closed) window.setTimeout(controlFn, 500)
+                        }
+                    });
+                };
+                // Launches the control
+                controlFn();
             });
         };
 
         $scope.invoiceMgt = function () {
             // Closes the dialog first
-            $modalInstance.dismiss('cancel');
+            $scope.cancel();
             // Goes to the invoice mgt page
             $location.path('/invoices');
         };
