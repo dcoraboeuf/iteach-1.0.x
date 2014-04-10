@@ -12,6 +12,5 @@ public class Profile {
     private final String vat;
     private final String iban;
     private final String bic;
-    private final Long invoiceLastNb;
 
 }

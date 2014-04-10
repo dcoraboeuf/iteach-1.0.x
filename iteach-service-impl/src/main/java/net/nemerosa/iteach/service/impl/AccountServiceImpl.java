@@ -155,8 +155,7 @@ public class AccountServiceImpl implements AccountService {
                 t.getPhone(),
                 t.getVat(),
                 t.getIban(),
-                t.getBic(),
-                t.getInvoiceLastNb()
+                t.getBic()
         );
     }
 
@@ -172,8 +171,7 @@ public class AccountServiceImpl implements AccountService {
                         profile.getPhone(),
                         profile.getVat(),
                         profile.getIban(),
-                        profile.getBic(),
-                        profile.getInvoiceLastNb()
+                        profile.getBic()
                 )
         );
     }

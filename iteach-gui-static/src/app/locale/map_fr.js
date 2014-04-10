@@ -153,8 +153,6 @@ var map_fr = {
     'account.profile.vat.help': "Numéro de TVA de l'entreprise, utilisé pour la génération des factures.",
     'account.profile.iban': "IBAN",
     'account.profile.bic': "BIC",
-    'account.profile.invoiceLastNb': "Dernier numéro de facture",
-    'account.profile.invoiceLastNb.help': "Le prochain numéro de facture sera égal à ce numéro, plus un.",
     // Account mgt
     'account.menu': 'Compte',
     'account.passwordChange': 'Changer de mot de passe',
@@ -175,5 +173,13 @@ var map_fr = {
     'invoice.generate': "Générer une facture",
     'invoice.month': "Année & Mois",
     'invoice.number': "Numéro de facture",
-    'invoice.print': "Imprimer"
+    'invoice.generate.submit': "Générer",
+    'invoice.generate.generating': "Génération de la facture...",
+    'invoice.generate.list': "Gestion des factures",
+    'invoice.generate.list.help': "Vous pouvez vous rendre à tout moment sur la page de gestion des factures. Vous " +
+        "pourrez également y suivre la progression de la génération.",
+    'invoice.download': "Télécharger la facture",
+    'invoice.error.general': "Une erreur s'est produite lors de la génération de la facture. Veuillez contacter le " +
+        "support pour plus d'information.",
+    'invoice.error.uuid': "Identifiant d'erreur à mentioner au support :"
 };

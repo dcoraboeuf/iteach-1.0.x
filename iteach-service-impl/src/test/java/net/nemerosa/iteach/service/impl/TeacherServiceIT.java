@@ -2,6 +2,7 @@ package net.nemerosa.iteach.service.impl;
 
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.it.AbstractITTestSupport;
+import net.nemerosa.iteach.service.InvoiceService;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.*;
 import org.joda.money.Money;
@@ -20,7 +21,10 @@ public class TeacherServiceIT extends AbstractITTestSupport {
     private ServiceITSupport serviceITSupport;
 
     @Autowired
-    public TeacherService teacherService;
+    private TeacherService teacherService;
+
+    @Autowired
+    private InvoiceService invoiceService;
 
     @Test
     public void create_school() throws Exception {
@@ -108,6 +112,17 @@ public class TeacherServiceIT extends AbstractITTestSupport {
         assertEquals("The location", lesson.getLocation());
         assertEquals(LocalDateTime.of(2014, 3, 20, 11, 0), lesson.getFrom());
         assertEquals(LocalDateTime.of(2014, 3, 20, 13, 30), lesson.getTo());
+    }
+
+    @Test
+    public void next_invoice_number_when_none() throws Exception {
+        // Creates a teacher
+        int teacherId = serviceITSupport.createTeacherAndCompleteRegistration();
+        // Gets next version number == 1
+        assertEquals(
+                1L,
+                (long) serviceITSupport.asTeacher(teacherId, invoiceService::getNextInvoiceNumber)
+        );
     }
 
 }

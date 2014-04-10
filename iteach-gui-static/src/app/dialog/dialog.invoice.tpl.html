@@ -1,7 +1,7 @@
 <div class="modal-header">
     <h3>{{'invoice.generate' | translate}}</h3>
 </div>
-<form name="invoiceForm" class="form-horizontal" ng-submit="submit(invoiceForm.$valid)" novalidate="novalidate">
+<form name="invoiceForm" class="form-horizontal" novalidate="novalidate">
     <div class="modal-body">
 
         <div class="form-group"
@@ -47,8 +47,33 @@
             <span>{{message}}</span>
         </div>
 
-        <button class="btn btn-primary" type="submit" ng-disabled="invoiceForm.$invalid">{{'dialog.ok' | translate}}
+        <button class="btn btn-primary" type="button" ng-hide="launched" ng-disabled="invoiceForm.$invalid" ng-click="generate()">{{'invoice.generate.submit' | translate}}
+        <button class="btn btn-default" type="button" ng-show="generating" ng-disabled="true">
+            <img src="assets/loading.gif" />
+            {{'invoice.generate.generating' | translate}}
         </button>
+        <button class="btn btn-primary" type="button" ng-show="ready" ng-click="download()">
+            <span class="glyphicon glyphicon-download"></span>
+            {{'invoice.download' | translate}}
+        </button>
+        <button class="btn btn-info" type="button" ng-show="launched" ng-click="invoiceMgt()">{{'invoice.generate.list' | translate}}</button>
         <button class="btn btn-warning" type="button" ng-click="cancel()">{{'dialog.cancel' | translate}}</button>
+
+        <div>&nbsp;</div>
+        <div class="alert alert-danger" ng-show="errorMessage && !errorUuid">
+            {{errorMessage}}
+        </div>
+        <div class="alert alert-danger" ng-show="errorUuid">
+            {{'invoice.error.general' | translate}}
+            <p ng-show="errorUuid">
+                {{'invoice.error.uuid' | translate}}
+                <span class="it-invoice-error-uuid">{{errorUuid}}</span>
+            </p>
+        </div>
+
+        <div>&nbsp;</div>
+        <div class="alert alert-info" ng-show="launched">
+            {{'invoice.generate.list.help' | translate}}
+        </div>
     </div>
 </form>

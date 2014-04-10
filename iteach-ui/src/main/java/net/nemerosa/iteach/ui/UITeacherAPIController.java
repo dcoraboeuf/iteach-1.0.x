@@ -2,8 +2,10 @@ package net.nemerosa.iteach.ui;
 
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.CommentEntity;
+import net.nemerosa.iteach.common.Document;
 import net.nemerosa.iteach.common.Period;
 import net.nemerosa.iteach.service.CommentService;
+import net.nemerosa.iteach.service.InvoiceService;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.*;
 import net.nemerosa.iteach.ui.model.*;
@@ -11,7 +13,9 @@ import net.nemerosa.iteach.ui.support.UIFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.time.YearMonth;
 import java.util.List;
 import java.util.Locale;
@@ -25,6 +29,7 @@ import java.util.stream.Collectors;
 public class UITeacherAPIController implements UITeacherAPI {
 
     private final TeacherService teacherService;
+    private final InvoiceService invoiceService;
     private final CommentService commentService;
     private final UIFormatter formatter;
 
@@ -55,8 +60,9 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     @Autowired
-    public UITeacherAPIController(TeacherService teacherService, CommentService commentService, UIFormatter formatter) {
+    public UITeacherAPIController(TeacherService teacherService, InvoiceService invoiceService, CommentService commentService, UIFormatter formatter) {
         this.teacherService = teacherService;
+        this.invoiceService = invoiceService;
         this.commentService = commentService;
         this.formatter = formatter;
     }
@@ -360,28 +366,62 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     @Override
-    @RequestMapping(value = "/invoice/{schoolId}/{year}/{month}/{number}", method = RequestMethod.GET)
-    public UIInvoiceData getInvoiceData(Locale locale, @PathVariable int schoolId, @PathVariable int year, @PathVariable int month, @PathVariable long number) {
-        InvoiceData data = teacherService.getInvoiceData(
+    @RequestMapping(value = "/invoice", method = RequestMethod.POST)
+    public UIInvoiceInfo generateInvoice(Locale locale, @RequestBody @Valid UIInvoiceForm form) {
+        return toUIInvoiceInfo(invoiceService.generate(
                 new InvoiceForm(
-                        schoolId,
-                        YearMonth.of(year, month),
-                        number
-                )
+                        form.getSchoolId(),
+                        YearMonth.of(form.getYear(), form.getMonth()),
+                        form.getNumber()
+                ),
+                "application/pdf", // TODO Only PDF is supported right now
+                locale
+        ));
+    }
+
+    private UIInvoiceInfo toUIInvoiceInfo(InvoiceInfo info) {
+        return new UIInvoiceInfo(
+                info.getId(),
+                info.getStatus(),
+                info.getErrorMessage(),
+                info.getErrorUuid(),
+                toUISchoolSummary(teacherService.getSchool(info.getSchoolId())),
+                info.getPeriod(),
+                info.getNumber(),
+                info.getGeneration(),
+                info.isDownloaded(),
+                info.getDocumentType()
         );
-        return new UIInvoiceData(
-                data.getPeriod(),
-                data.getDate(),
-                formatter.formatMonth(data.getPeriod(), locale),
-                formatter.formatDate(data.getDate(), locale),
-                data.getNumber(),
-                data.getTeacherName(),
-                data.getTeacherEmail(),
-                UIAccountAPIController.toUIProfile(data.getProfile()),
-                toUISchool(data.getSchool()),
-                toUISchoolReport(data.getReport()),
-                data.getVat(),
-                data.getVatTotal()
+    }
+
+    @Override
+    @RequestMapping(value = "/invoice/{invoiceId}", method = RequestMethod.GET)
+    public UIInvoiceInfo getInvoiceInfo(Locale locale, @PathVariable int invoiceId) {
+        return toUIInvoiceInfo(invoiceService.getInvoiceInfo(invoiceId));
+    }
+
+    @Override
+    @RequestMapping(value = "/invoice/form", method = RequestMethod.GET)
+    public UIInvoiceFormData getInvoiceFormData(Locale locale) {
+        return new UIInvoiceFormData(
+                invoiceService.getNextInvoiceNumber()
         );
+    }
+
+    @Override
+    @RequestMapping(value = "/invoice/{invoiceId}/download", method = RequestMethod.GET)
+    public Document downloadInvoice(Locale locale, @PathVariable int invoiceId) {
+        return invoiceService.downloadInvoice(invoiceId);
+    }
+
+    @RequestMapping(value = "/invoice/{invoiceId}/download/attached", method = RequestMethod.GET)
+    public void downloadInvoice(Locale locale, @PathVariable int invoiceId, HttpServletResponse response) throws IOException {
+        Document document = downloadInvoice(locale, invoiceId);
+        // Writes as a file
+        response.setContentType(document.getType());
+        response.addHeader("Content-Disposition", String.format("attachment; filename=%s.%s", document.getTitle(), document.getExtension()));
+        // Serializes
+        response.getOutputStream().write(document.getContent());
+        response.getOutputStream().flush();
     }
 }

@@ -41,3 +41,15 @@ net.nemerosa.iteach.service.impl.ImportException
 net.nemerosa.iteach.service.AccountPasswordCheckException
     en -> Password is incorrect.
     fr -> Le mot de passe est incorrect.
+
+net.nemerosa.iteach.service.InvoiceGeneratorTypeNotFoundException
+    en -> Invoice generator of type "{0}" cannot be found.
+    fr -> Aucun générateur de facture de type "{0}" ne peut être trouvé.
+
+net.nemerosa.iteach.service.InvoiceGenerationException
+    en -> Invoice generation problem.
+    fr -> Problème lors de la génération de la facture.
+
+net.nemerosa.iteach.service.InvoiceService.error.uuid
+    en -> Technical error with ID={0}. Please contact the support for more information.
+    fr -> Erreur technique d'identifiant {0}. Veuillez contacter le support pour plus d'information.

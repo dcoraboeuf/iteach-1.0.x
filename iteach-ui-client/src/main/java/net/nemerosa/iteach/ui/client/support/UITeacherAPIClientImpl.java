@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.ui.client.support;
 
 import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.Document;
 import net.nemerosa.iteach.common.Period;
 import net.nemerosa.iteach.ui.client.UITeacherAPIClient;
 import net.nemerosa.iteach.ui.model.*;
@@ -115,7 +116,22 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     }
 
     @Override
-    public UIInvoiceData getInvoiceData(Locale locale, int schoolId, int year, int month, long number) {
-        return get(locale, UIInvoiceData.class, "/api/teacher/invoice/%d/%d/%d/%d", schoolId, year, month, number);
+    public UIInvoiceInfo generateInvoice(Locale locale, UIInvoiceForm form) {
+        return post(locale, UIInvoiceInfo.class, form, "/api/teacher/invoice");
+    }
+
+    @Override
+    public UIInvoiceInfo getInvoiceInfo(Locale locale, int invoiceId) {
+        return get(locale, UIInvoiceInfo.class, "/api/teacher/invoice/%d", invoiceId);
+    }
+
+    @Override
+    public UIInvoiceFormData getInvoiceFormData(Locale locale) {
+        return get(locale, UIInvoiceFormData.class, "/api/teacher/invoice/form");
+    }
+
+    @Override
+    public Document downloadInvoice(Locale locale, int invoiceId) {
+        return get(locale, Document.class, "/api/teacher/invoice/%d/download", invoiceId);
     }
 }

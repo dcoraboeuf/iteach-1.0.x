@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.concurrent.Callable;
 
@@ -102,13 +103,13 @@ public class ServiceITSupportImpl implements ServiceITSupport {
                                 "#FFFF00",
                                 "A contact",
                                 Money.parse("EUR 56"),
-                                "",
-                                "",
-                                "",
-                                "",
-                                "",
-                                "",
-                                null
+                                "Rue de l'école 5\n1000 Brussels",
+                                "+32 1 23 45 67 89",
+                                "+32 4 23 45 67 89",
+                                "school@test.com",
+                                "http://school.com",
+                                "BE0123 456 789",
+                                BigDecimal.valueOf(21)
                         )
                 )
         );
@@ -119,10 +120,15 @@ public class ServiceITSupportImpl implements ServiceITSupport {
     public Student createStudent() throws Exception {
         int teacherId = createTeacherAndCompleteRegistration();
         int school = createSchool(teacherId);
+        return createStudent(teacherId, school);
+    }
+
+    @Override
+    public Student createStudent(int teacherId, int schoolId) throws Exception {
         return asTeacher(teacherId,
                 () -> teacherService.getStudent(teacherService.createStudent(
                         new StudentForm(
-                                school,
+                                schoolId,
                                 uid("ST"),
                                 "Any subject",
                                 "",

@@ -155,8 +155,6 @@ var map_en = {
     'account.profile.vat.help': "VAT number of the company, used for the generation of invoices.",
     'account.profile.iban': "IBAN",
     'account.profile.bic': "BIC",
-    'account.profile.invoiceLastNb': "Last invoice number",
-    'account.profile.invoiceLastNb.help': "The next invoice number will be equal to this number, plus one.",
     // Account mgt
     'account.menu': 'Account',
     'account.passwordChange': 'Change password',
@@ -177,5 +175,12 @@ var map_en = {
     'invoice.generate': "Generate invoice",
     'invoice.month': "Year & Month",
     'invoice.number': "Invoice number",
-    'invoice.print': "Print"
+    'invoice.generate.submit': "Generate",
+    'invoice.generate.generating': "Generating the invoice...",
+    'invoice.generate.list': "List of invoices",
+    'invoice.generate.list.help': "You can access the list of invoices at any time in order to follow the progress " +
+        "of the generation of the invoices.",
+    'invoice.download': "Download invoice",
+    'invoice.error.general': "An error occurred while generating the invoice. Please contact the support for more information",
+    'invoice.error.uuid': "Error id to mention for support:"
 };

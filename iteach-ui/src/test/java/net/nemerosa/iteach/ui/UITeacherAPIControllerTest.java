@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.ui;
 
 import net.nemerosa.iteach.service.CommentService;
+import net.nemerosa.iteach.service.InvoiceService;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.School;
 import net.nemerosa.iteach.service.model.Student;
@@ -25,6 +26,7 @@ public class UITeacherAPIControllerTest {
     public void before() {
         TeacherService teacherService = mock(TeacherService.class);
         CommentService commentService = mock(CommentService.class);
+        InvoiceService invoiceService = mock(InvoiceService.class);
         when(teacherService.getSchool(10)).thenReturn(
                 new School(10, 1, "The School", "#FFFFFF", "", null, "", "", "", "", "", "", null)
         );
@@ -34,7 +36,7 @@ public class UITeacherAPIControllerTest {
                         new Student(101, 1, 10, true, "B Name", "", "", "", "", "")
                 )
         );
-        controller = new UITeacherAPIController(teacherService, commentService, null);
+        controller = new UITeacherAPIController(teacherService, invoiceService, commentService, null);
     }
 
     @Test

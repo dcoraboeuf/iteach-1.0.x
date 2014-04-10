@@ -1,13 +1,12 @@
 angular.module('iteach.service.teacher', [
         'iteach.service.core',
-        'iteach.ui.account',
         'iteach.ui.teacher',
         'iteach.dialog.school',
         'iteach.dialog.student',
         'iteach.dialog.lesson',
         'iteach.dialog.invoice'
     ])
-    .service('teacherService', function ($q, $log, $modal, $translate, $interpolate, $location, alertService, uiTeacher, localDataService, uiAccount) {
+    .service('teacherService', function ($q, $log, $modal, $translate, $interpolate, $location, alertService, uiTeacher, localDataService) {
         var self = {};
 
         self.getSchools = function () {
@@ -279,11 +278,8 @@ angular.module('iteach.service.teacher', [
                 };
             }
             var d = $q.defer();
-            uiAccount.getAccountProfile().success(function (profile) {
-                var nb = 1;
-                if (profile.invoiceLastNb) {
-                    nb = profile.invoiceLastNb + 1;
-                }
+            uiTeacher.getInvoiceFormData().success(function (data) {
+                var nb = data.nextInvoiceNumber;
                 d.resolve($modal.open({
                     templateUrl: 'app/dialog/dialog.invoice.tpl.html',
                     controller: 'dialogInvoice',
@@ -294,19 +290,6 @@ angular.module('iteach.service.teacher', [
                                 period: thePeriod,
                                 number: nb
                             };
-                        },
-                        modalController: function () {
-                            return {
-                                onSubmit: function (invoiceForm) {
-                                    // The `modalController.onSubmit` is expected to return a promise.
-                                    var d = $q.defer();
-                                    $location.path(
-                                        $interpolate('/invoice/{{schoolId}}/{{period.year}}/{{period.month}}/{{number}}')(invoiceForm)
-                                    );
-                                    d.resolve();
-                                    return d.promise;
-                                }
-                            }
                         }
                     }
                 }).result);

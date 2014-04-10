@@ -24,6 +24,7 @@ public class InvoiceData {
     /**
      * Data for the teacher
      */
+    private final int teacherId;
     private final String teacherName;
     private final String teacherEmail;
     /**
