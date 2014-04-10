@@ -179,5 +179,6 @@ var map_en = {
     'invoice.generate.generating': "Generating the invoice...",
     'invoice.generate.list': "List of invoices",
     'invoice.generate.list.help': "You can access the list of invoices at any time in order to follow the progress " +
-        "of the generation of the invoices."
+        "of the generation of the invoices.",
+    'invoice.download': "Download invoice"
 };

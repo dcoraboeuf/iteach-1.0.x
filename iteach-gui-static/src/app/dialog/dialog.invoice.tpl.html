@@ -52,6 +52,10 @@
             <img src="assets/loading.gif" />
             {{'invoice.generate.generating' | translate}}
         </button>
+        <button class="btn btn-primary" type="button" ng-show="ready" ng-click="download()">
+            <span class="glyphicon glyphicon-download"></span>
+            {{'invoice.download' | translate}}
+        </button>
         <button class="btn btn-info" type="button" ng-show="launched" ng-click="invoiceMgt()">{{'invoice.generate.list' | translate}}</button>
         <button class="btn btn-warning" type="button" ng-click="cancel()">{{'dialog.cancel' | translate}}</button>
 

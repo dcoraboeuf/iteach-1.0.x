@@ -40,6 +40,7 @@ angular.module('iteach.dialog.invoice', [
                         if (info.status == 'READY') {
                             // Generation OK
                             $scope.generating = false;
+                            $scope.ready = true;
                         } else if (info.status == 'ERROR') {
                             // Error during the generation
                             $scope.generating = false;
