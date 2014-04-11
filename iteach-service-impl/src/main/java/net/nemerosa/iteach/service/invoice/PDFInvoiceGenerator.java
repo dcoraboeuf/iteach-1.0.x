@@ -63,8 +63,6 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
             document.add(total(data, locale));
             document.add(coordinates(data));
 
-            // TODO Message about the IBAN & BIC
-
             // End of the document
             document.close();
 
@@ -135,14 +133,25 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
 
         // Line 2
         filler(table, 1);
-        table.addCell(
-                cell()
-                        .withText(String.format(locale, "VAT %s%%", data.getSchool().getVatRate()))
-                        .withAlign(ALIGN_RIGHT)
-                        .withPadding(PADDING)
-                        .done()
-        );
-        table.addCell(amount(data.getVat()).done());
+        if (data.getSchool().getVatRate() != null) {
+            table.addCell(
+                    cell()
+                            .withText(String.format(locale, "VAT %s%%", data.getSchool().getVatRate()))
+                            .withAlign(ALIGN_RIGHT)
+                            .withPadding(PADDING)
+                            .done()
+            );
+            table.addCell(amount(data.getVat()).done());
+        } else {
+            table.addCell(
+                    cell()
+                            .withText("VAT n/a")
+                            .withAlign(ALIGN_RIGHT)
+                            .withPadding(PADDING)
+                            .done()
+            );
+            table.addCell(amount(Money.zero(data.getVatTotal().getCurrencyUnit())).done());
+        }
 
         // Line 3
         filler(table, 1);
