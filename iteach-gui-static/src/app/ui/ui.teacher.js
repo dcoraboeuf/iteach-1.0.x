@@ -153,6 +153,10 @@ angular.module('iteach.ui.teacher', [
             return $http.get(config.api('teacher/invoice/form'));
         };
 
+        self.downloadInvoice = function (id) {
+            location.href = config.api('teacher/invoice/{{id}}/download/attached', {id: id});
+        };
+
         /**
          * OK
          */

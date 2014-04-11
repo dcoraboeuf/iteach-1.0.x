@@ -2,7 +2,7 @@ angular.module('iteach.dialog.invoice', [
         'iteach.service.core',
         'iteach.ui.teacher'
     ])
-    .controller('dialogInvoice', function ($log, $scope, $translate, $interpolate, $location, $modalInstance, calendarService, invoiceForm, notificationService, uiTeacher) {
+    .controller('dialogInvoice', function ($log, $scope, $location, $modalInstance, calendarService, invoiceForm, notificationService, uiTeacher) {
 
         $scope.invoice = invoiceForm;
         if (invoiceForm.period) {
@@ -70,8 +70,7 @@ angular.module('iteach.dialog.invoice', [
             // Closes the dialog first
             $scope.cancel();
             // Download request
-            // TODO Moves to service/ui
-            location.href = $interpolate('api/teacher/invoice/{{id}}/download/attached')({id: $scope.invoiceInfo.id});
+            uiTeacher.downloadInvoice($scope.invoiceInfo.id);
         };
 
         $modalInstance.opened.finally(function () {
