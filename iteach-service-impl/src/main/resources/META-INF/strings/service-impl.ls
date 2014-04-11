@@ -53,3 +53,60 @@ net.nemerosa.iteach.service.InvoiceGenerationException
 net.nemerosa.iteach.service.InvoiceService.error.uuid
     en -> Technical error with ID={0}. Please contact the support for more information.
     fr -> Erreur technique d'identifiant {0}. Veuillez contacter le support pour plus d'information.
+
+net.nemerosa.iteach.service.impl.InvoiceControlException
+    en -> ...
+        The invoice cannot be generated because of the following problems:\n
+        \n{0}\n
+        \n
+        You can correct those problems by either editing your profile (accessible via the user menu) or
+        by modifying the school parameters.
+        ...
+    fr -> ...
+        La facture ne peut pas être générée à cause des problèmes suivants :\n
+        \n
+        {0}\n
+        \n
+        Vous pouvez corriger ces problèmes en modifiant votre profil (accessible depuis le menu utilisateur) ou
+        en modifiant les paramètres de l'école.
+        ...
+
+net.nemerosa.iteach.service.InvoiceService.control.profile.company
+    en -> Your company name must be filled in.
+    fr -> Le nom de votre entreprise doit être renseigné.
+
+net.nemerosa.iteach.service.InvoiceService.control.profile.bic
+    en -> The BIC must be filled in.
+    fr -> Le code BIC doit être renseigné.
+
+net.nemerosa.iteach.service.InvoiceService.control.profile.iban
+    en -> The IBAN must be filled in.
+    fr -> L'IBAN doit être renseigné.
+
+net.nemerosa.iteach.service.InvoiceService.control.profile.vat
+    en -> The VAT identifier of your company must be filled in.
+    fr -> Le numéro de TVA de votre entreprise doit être renseigné.
+
+net.nemerosa.iteach.service.InvoiceService.control.profile.postalAddress
+    en -> The postal address of your company must be filled in.
+    fr -> L'adresse de votre entreprise doit être renseignée.
+
+net.nemerosa.iteach.service.InvoiceService.control.profile.phone
+    en -> The phone of your company must be filled in.
+    fr -> Le numéro de téléphone de votre compagnie doit être renseigné.
+
+net.nemerosa.iteach.service.InvoiceService.control.school.postalAddress
+    en -> The postal address of the school must be filled in.
+    fr -> L'adresse de l'école doit être renseignée.
+
+net.nemerosa.iteach.service.InvoiceService.control.school.vat
+    en -> The VAT identifier of the school must be filled in.
+    fr -> Le numéro de TVA de l'école doit être renseigné.
+
+net.nemerosa.iteach.service.InvoiceService.control.school.hourlyRate
+    en -> No hourly rate is defined for the school.
+    fr -> Aucun taux horaire n'est associé à l'école.
+
+net.nemerosa.iteach.service.InvoiceService.control.hours
+    en -> No hours for this school and this period.
+    fr -> Aucune heure enregistrée pour cette école et cette période.

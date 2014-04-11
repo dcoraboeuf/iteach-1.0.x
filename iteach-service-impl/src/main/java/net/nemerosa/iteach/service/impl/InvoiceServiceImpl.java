@@ -8,7 +8,11 @@ import net.nemerosa.iteach.dao.model.TInvoice;
 import net.nemerosa.iteach.service.*;
 import net.nemerosa.iteach.service.invoice.InvoiceGenerator;
 import net.nemerosa.iteach.service.model.*;
+import net.sf.jstring.Localizable;
+import net.sf.jstring.LocalizableMessage;
+import net.sf.jstring.MultiLocalizable;
 import net.sf.jstring.Strings;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.money.Money;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,6 +74,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     public InvoiceInfo generate(InvoiceForm invoiceForm, String type, Locale locale) {
         // Gets the invoice data
         InvoiceData data = getInvoiceData(invoiceForm);
+        // Controls the data
+        controlInvoice(data);
         // Gets a generator for the type
         InvoiceGenerator generator = getInvoiceGenerator(type);
         // Generation date
@@ -102,6 +108,45 @@ public class InvoiceServiceImpl implements InvoiceService {
         executorService.submit(() -> generate(id, data, generator, locale));
         // OK
         return info;
+    }
+
+    protected void controlInvoice(InvoiceData data) {
+        List<Localizable> messages = new ArrayList<>();
+        // Profile controls
+        control(messages, data.getProfile().getBic(), "control.profile.bic");
+        control(messages, data.getProfile().getIban(), "control.profile.iban");
+        control(messages, data.getProfile().getVat(), "control.profile.vat");
+        control(messages, data.getProfile().getPostalAddress(), "control.profile.postalAddress");
+        control(messages, data.getProfile().getPhone(), "control.profile.phone");
+        control(messages, data.getProfile().getCompany(), "control.profile.company");
+        // School controls
+        control(messages, data.getSchool().getPostalAddress(), "control.school.postalAddress");
+        control(messages, data.getSchool().getVat(), "control.school.vat");
+        control(messages, data.getSchool().getHourlyRate() != null, "control.school.hourlyRate");
+        // Report
+        control(messages, data.getReport().getHours().compareTo(BigDecimal.ZERO) > 0, "control.hours");
+        // Final control
+        if (!messages.isEmpty()) {
+            throw new InvoiceControlException(
+                    new MultiLocalizable(
+                            messages
+                    )
+            );
+        }
+    }
+
+    protected void control(List<Localizable> messages, String value, String keySuffix) {
+        control(messages, StringUtils.isNotBlank(value), keySuffix);
+    }
+
+    protected void control(List<Localizable> messages, boolean test, String keySuffix) {
+        if (!test) {
+            messages.add(
+                    new LocalizableMessage(
+                            InvoiceService.class.getName() + "." + keySuffix
+                    )
+            );
+        }
     }
 
     @Override
