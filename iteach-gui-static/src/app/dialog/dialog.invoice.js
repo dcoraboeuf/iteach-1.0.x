@@ -1,7 +1,7 @@
 angular.module('iteach.dialog.invoice', [
-        'iteach.service.core',
-        'iteach.ui.teacher'
-    ])
+    'iteach.service.core',
+    'iteach.ui.teacher'
+])
     .controller('dialogInvoice', function ($log, $scope, $location, $modalInstance, calendarService, invoiceForm, notificationService, uiTeacher) {
 
         $scope.invoice = invoiceForm;
@@ -15,6 +15,22 @@ angular.module('iteach.dialog.invoice', [
         });
 
         $scope.months = calendarService.getMonths();
+
+        var changeAllowed = false;
+        var onChange = function () {
+            if (changeAllowed) {
+                $scope.generating = false;
+                $scope.ready = false;
+                $scope.launched = false;
+                $scope.errorMessage = false;
+                $scope.errorUuid = false;
+                $scope.invoice.number++;
+                notificationService.clear();
+            }
+        };
+        $scope.$watch('invoice.year', onChange);
+        $scope.$watch('invoice.month', onChange);
+        $scope.$watch('invoice.schoolId', onChange);
 
         $scope.cancel = function () {
             $scope.closed = true;
@@ -30,6 +46,7 @@ angular.module('iteach.dialog.invoice', [
                 number: $scope.invoice.number
             };
             // Launching the generation
+            changeAllowed = true;
             $scope.generating = true;
             $scope.launched = true;
             uiTeacher.generateInvoice(invoice).success(function (invoiceInfo) {
