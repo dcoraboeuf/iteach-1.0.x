@@ -37,6 +37,8 @@
                         <li>
                             <!-- Monthly report -->
                             <a id="user-monthly-report" href="#/report" ng-if="!account.teacher.administrator">{{'report.monthly' | translate}}</a>
+                            <!-- Management of invoices -->
+                            <a id="user-invoice-mgt" href="#/invoices" ng-if="!account.teacher.administrator">{{'invoice.mgt' | translate}}</a>
                             <!-- Invoice generation -->
                             <a id="user-invoice-generate" ng-click="createInvoice()" ng-if="!account.teacher.administrator">{{'invoice.generate' | translate}}</a>
                             <!-- Profile -->

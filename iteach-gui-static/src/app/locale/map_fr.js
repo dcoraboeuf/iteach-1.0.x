@@ -170,6 +170,7 @@ var map_fr = {
     'report.hours.period': "Nombre d'heure pour le mois",
     'report.income.total': "Revenu total",
     // Invoicing
+    'invoice.mgt': "Gestion des factures",
     'invoice.generate': "Générer une facture",
     'invoice.month': "Année & Mois",
     'invoice.number': "Numéro de facture",
