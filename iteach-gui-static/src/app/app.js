@@ -42,6 +42,7 @@ var iteach = angular.module('iteach', [
             'iteach.view.admin.accounts',
             'iteach.view.admin.account',
             'iteach.view.report',
+            'iteach.view.invoices',
             // Services
             'iteach.service.core',
             'iteach.service.account',
@@ -161,6 +162,11 @@ var iteach = angular.module('iteach', [
                 .when('/report', {
                     templateUrl: 'app/view/report.tpl.html',
                     controller: 'ReportCtrl'
+                })
+                // Management of invoices
+                .when('/invoices', {
+                    templateUrl: 'app/view/invoices.tpl.html',
+                    controller: 'InvoicesCtrl'
                 })
                 // Default
                 .otherwise({
