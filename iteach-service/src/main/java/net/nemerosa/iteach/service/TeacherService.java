@@ -62,10 +62,4 @@ public interface TeacherService {
 
     LessonReport getLessonReport(int studentId, YearMonth period);
 
-    /**
-     * @see InvoiceService#generate(net.nemerosa.iteach.service.model.InvoiceForm, String)
-     */
-    @Deprecated
-    InvoiceData getInvoiceData(InvoiceForm form);
-
 }

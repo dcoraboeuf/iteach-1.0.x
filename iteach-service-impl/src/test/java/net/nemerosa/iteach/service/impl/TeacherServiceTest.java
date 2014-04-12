@@ -4,7 +4,6 @@ import net.nemerosa.iteach.dao.LessonRepository;
 import net.nemerosa.iteach.dao.SchoolRepository;
 import net.nemerosa.iteach.dao.StudentRepository;
 import net.nemerosa.iteach.dao.model.TStudent;
-import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.LessonForm;
@@ -34,13 +33,12 @@ public class TeacherServiceTest {
         studentRepository = mock(StudentRepository.class);
         lessonRepository = mock(LessonRepository.class);
         securityUtils = mock(SecurityUtils.class);
-        AccountService accountService = mock(AccountService.class);
         service = new TeacherServiceImpl(
                 schoolRepository,
                 studentRepository,
                 lessonRepository,
-                securityUtils,
-                accountService);
+                securityUtils
+        );
         when(securityUtils.checkTeacher()).thenReturn(TEACHERID);
         when(studentRepository.getById(TEACHERID, STUDENT_ID)).thenReturn(new TStudent(STUDENT_ID, TEACHERID, SCHOOL_ID, false, "A student", "", "", "", "", ""));
     }

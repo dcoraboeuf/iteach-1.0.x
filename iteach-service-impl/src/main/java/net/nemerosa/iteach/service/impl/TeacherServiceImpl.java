@@ -1,6 +1,5 @@
 package net.nemerosa.iteach.service.impl;
 
-import net.nemerosa.iteach.common.AccountAuthentication;
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.Period;
 import net.nemerosa.iteach.dao.LessonRepository;
@@ -9,7 +8,6 @@ import net.nemerosa.iteach.dao.StudentRepository;
 import net.nemerosa.iteach.dao.model.TLesson;
 import net.nemerosa.iteach.dao.model.TSchool;
 import net.nemerosa.iteach.dao.model.TStudent;
-import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.*;
@@ -19,8 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.List;
@@ -37,7 +33,6 @@ public class TeacherServiceImpl implements TeacherService {
     private final StudentRepository studentRepository;
     private final LessonRepository lessonRepository;
     private final SecurityUtils securityUtils;
-    private final AccountService accountService;
     private final Function<? super TSchool, ? extends School> schoolFn = t -> new School(
             t.getId(),
             t.getTeacherId(),
@@ -75,12 +70,11 @@ public class TeacherServiceImpl implements TeacherService {
     );
 
     @Autowired
-    public TeacherServiceImpl(SchoolRepository schoolRepository, StudentRepository studentRepository, LessonRepository lessonRepository, SecurityUtils securityUtils, AccountService accountService) {
+    public TeacherServiceImpl(SchoolRepository schoolRepository, StudentRepository studentRepository, LessonRepository lessonRepository, SecurityUtils securityUtils) {
         this.schoolRepository = schoolRepository;
         this.studentRepository = studentRepository;
         this.lessonRepository = lessonRepository;
         this.securityUtils = securityUtils;
-        this.accountService = accountService;
     }
 
     @Override
@@ -426,39 +420,6 @@ public class TeacherServiceImpl implements TeacherService {
                 totalHours,
                 periodHours,
                 lessons
-        );
-    }
-
-    @Override
-    public InvoiceData getInvoiceData(InvoiceForm form) {
-        AccountAuthentication account = securityUtils.getCurrentAccount();
-        SchoolReport report = getSchoolReport(form.getSchoolId(), toPeriod(form.getPeriod()), true);
-        School school = getSchool(form.getSchoolId());
-        // VAT support
-        Money vat;
-        Money vatTotal;
-        BigDecimal vatRate = school.getVatRate();
-        if (vatRate != null) {
-            vatRate = vatRate.movePointLeft(2);
-            vat = report.getIncome().multipliedBy(vatRate, RoundingMode.HALF_UP);
-            vatTotal = report.getIncome().plus(vat);
-        } else {
-            vat = Money.zero(report.getIncome().getCurrencyUnit());
-            vatTotal = report.getIncome();
-        }
-        // OK
-        return new InvoiceData(
-                form.getPeriod(),
-                LocalDate.now(),
-                form.getNumber(),
-                account.getId(),
-                account.getName(),
-                account.getEmail(),
-                accountService.getProfile(),
-                school,
-                report,
-                vat,
-                vatTotal
         );
     }
 
