@@ -414,6 +414,21 @@ public class UITeacherAPIController implements UITeacherAPI {
         return invoiceService.downloadInvoice(invoiceId);
     }
 
+    @Override
+    @RequestMapping(value = "/invoice", method = RequestMethod.GET)
+    public UIInvoiceCollection getInvoices(Locale locale,
+                                           @RequestParam(required = false) Integer schoolId,
+                                           @RequestParam(required = false) Integer year) {
+        return new UIInvoiceCollection(
+                invoiceService.getInvoices(schoolId, year)
+                        .stream()
+                        .map(this::toUIInvoiceInfo)
+                        .collect(Collectors.toList()),
+                schoolId,
+                year
+        );
+    }
+
     @RequestMapping(value = "/invoice/{invoiceId}/download/attached", method = RequestMethod.GET)
     public void downloadInvoice(Locale locale, @PathVariable int invoiceId, HttpServletResponse response) throws IOException {
         Document document = downloadInvoice(locale, invoiceId);

@@ -134,4 +134,9 @@ public interface UITeacherAPI {
      */
     Document downloadInvoice(Locale locale, int invoiceId);
 
+    /**
+     * List of invoices
+     */
+    UIInvoiceCollection getInvoices(Locale locale, Integer schoolId, Integer year);
+
 }
