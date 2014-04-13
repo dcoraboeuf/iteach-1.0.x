@@ -3,6 +3,7 @@ package net.nemerosa.iteach.service.impl;
 import net.nemerosa.iteach.common.Document;
 import net.nemerosa.iteach.common.InvoiceStatus;
 import net.nemerosa.iteach.it.AbstractITTestSupport;
+import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.InvoiceService;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.*;
@@ -29,10 +30,26 @@ public class InvoiceServiceIT extends AbstractITTestSupport {
     @Autowired
     private InvoiceService invoiceService;
 
+    @Autowired
+    private AccountService accountService;
+
     @Test(timeout = 30 * 1000L) // Max 30s
     public void generate() throws Exception {
         // Gets a teacher
         int teacherId = serviceITSupport.createTeacherAndCompleteRegistration();
+        // Profile for the teacher
+        serviceITSupport.asTeacher(teacherId, () -> {
+            accountService.saveProfile(new Profile(
+                    "My Company",
+                    "",
+                    "Company Address",
+                    "01234",
+                    "BE1234",
+                    "BE56575757",
+                    "RTTRRTRT"
+            ));
+            return null;
+        });
 
         // Creates a school
         int schoolId = serviceITSupport.createSchool(teacherId);
@@ -73,11 +90,11 @@ public class InvoiceServiceIT extends AbstractITTestSupport {
         // Checks the initial invoice info
         assertNotNull(info);
         int invoiceId = info.getId();
-        assertTrue(invoiceId > 0);
+        assertEquals("Status of the invoice must be CREATED", InvoiceStatus.CREATED, info.getStatus());
+        assertTrue("ID of the invoice must be > 0", invoiceId > 0);
         assertEquals("application/pdf", info.getDocumentType());
         assertEquals(schoolId, info.getSchoolId());
         assertEquals(2014007, info.getNumber());
-        assertEquals(InvoiceStatus.CREATED, info.getStatus());
 
         // Waits until the invoice is actually generated
         while (!info.getStatus().isFinished()) {
