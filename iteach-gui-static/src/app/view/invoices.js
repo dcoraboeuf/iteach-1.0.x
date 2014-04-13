@@ -6,7 +6,7 @@ angular.module('iteach.view.invoices', [
     .controller('InvoicesCtrl', function ($scope, $modal, $translate, teacherService, calendarService, alertService) {
 
         function loadInvoices() {
-            teacherService.getInvoices().success(function (invoices) {
+            teacherService.getInvoices({}).success(function (invoices) {
                 $scope.invoices = invoices.resources;
 
                 angular.forEach($scope.invoices, function (invoice) {

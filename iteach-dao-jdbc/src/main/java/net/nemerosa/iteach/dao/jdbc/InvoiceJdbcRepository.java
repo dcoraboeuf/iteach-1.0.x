@@ -45,7 +45,7 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
     public int totalCount(int teacherId) {
         return getNamedParameterJdbcTemplate().queryForObject(
                 SQL.INVOICE_TOTAL,
-                params("teacher", teacherId),
+                params("teacherId", teacherId),
                 Integer.class
         );
     }

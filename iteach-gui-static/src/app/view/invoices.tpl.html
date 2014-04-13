@@ -48,10 +48,12 @@
         </div>
     </div>
     <div class="row">
-        <button type="button" class="btn btn-default" ng-click="selectAll()">{{'dialog.select.all' | translate}}</button>
-        <button type="button" class="btn btn-default" ng-click="selectNone()">{{'dialog.select.none' | translate}}</button>
-        <button type="button" class="btn btn-default" ng-click="selectInvert()">{{'dialog.select.invert' | translate}}</button>
         <button type="button" class="btn btn-danger" ng-click="deleteSelection()" ng-disabled="selectionEmpty()">{{'dialog.delete' | translate}}</button>
         <a id="close" href="#/" class="btn btn-link">{{'home.back' | translate}}</a>
+        <span class="pull-right">
+            <button type="button" class="btn btn-default" ng-click="selectAll()">{{'dialog.select.all' | translate}}</button>
+            <button type="button" class="btn btn-default" ng-click="selectNone()">{{'dialog.select.none' | translate}}</button>
+            <button type="button" class="btn btn-default" ng-click="selectInvert()">{{'dialog.select.invert' | translate}}</button>
+        </span>
     </div>
 </div>

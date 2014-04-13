@@ -157,8 +157,8 @@ angular.module('iteach.ui.teacher', [
             location.href = config.api('teacher/invoice/{{id}}/download/attached', {id: id});
         };
 
-        self.getInvoices = function (params) {
-            return $http.get(config.api('teacher/invoice'), params);
+        self.getInvoices = function (filter) {
+            return $http.post(config.api('teacher/invoice/filter'), filter);
         };
 
         self.deleteInvoices = function (ids) {
