@@ -24,4 +24,6 @@ public class UIInvoiceForm {
     @Min(1)
     private final long number;
 
+    private final String comment;
+
 }

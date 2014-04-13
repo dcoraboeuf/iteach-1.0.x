@@ -373,7 +373,8 @@ public class UITeacherAPIController implements UITeacherAPI {
                 new InvoiceForm(
                         form.getSchoolId(),
                         YearMonth.of(form.getYear(), form.getMonth()),
-                        form.getNumber()
+                        form.getNumber(),
+                        form.getComment()
                 ),
                 "application/pdf", // TODO Only PDF is supported right now
                 locale

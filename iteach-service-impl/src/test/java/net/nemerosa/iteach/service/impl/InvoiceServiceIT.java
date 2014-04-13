@@ -7,11 +7,13 @@ import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.InvoiceService;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.*;
+import org.apache.commons.io.FileUtils;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
@@ -81,7 +83,8 @@ public class InvoiceServiceIT extends AbstractITTestSupport {
                 new InvoiceForm(
                         schoolId,
                         YearMonth.of(2014, 4),
-                        2014007
+                        2014007,
+                        "A comment"
                 ),
                 "application/pdf",
                 Locale.ENGLISH
@@ -114,6 +117,12 @@ public class InvoiceServiceIT extends AbstractITTestSupport {
         assertEquals(String.format("%s-201404-2014007", school.getName()), doc.getTitle());
         assertEquals("application/pdf", doc.getType());
         assertTrue("The document must not be empty", doc.getContent().length > 0);
+
+        // Saves in a file
+        FileUtils.writeByteArrayToFile(
+                new File(new File("target/invoice"), doc.getTitle() + "." + doc.getExtension()),
+                doc.getContent()
+        );
 
         // Marks the invoice as being downloaded
         serviceITSupport.asTeacher(teacherId, () -> {

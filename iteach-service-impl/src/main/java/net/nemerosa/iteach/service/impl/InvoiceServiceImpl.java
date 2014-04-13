@@ -332,7 +332,8 @@ public class InvoiceServiceImpl implements InvoiceService {
                 school,
                 report,
                 vat,
-                vatTotal
+                vatTotal,
+                form.getComment()
         );
     }
 }

@@ -8,6 +8,7 @@ import com.itextpdf.text.pdf.draw.VerticalPositionMark;
 import net.nemerosa.iteach.service.InvoiceGenerationException;
 import net.nemerosa.iteach.service.model.InvoiceData;
 import net.nemerosa.iteach.service.model.StudentReport;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.money.Money;
 import org.springframework.stereotype.Component;
 
@@ -290,6 +291,10 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         p.add(tabbedLine(tab1, "Invoice date:", DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale).format(data.getDate())));
         p.add(tabbedLine(tab1, "Work carried out by:", data.getTeacherName()));
         p.add(tabbedLine(tab1, "Period:", DateTimeFormatter.ofPattern("MMMM yyyy", locale).format(data.getPeriod())));
+        if (StringUtils.isNotBlank(data.getComment())) {
+            p.add(new Paragraph(""));
+            p.add(new Paragraph(data.getComment()));
+        }
         return p;
     }
 

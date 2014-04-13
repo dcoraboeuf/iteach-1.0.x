@@ -44,5 +44,9 @@ public class InvoiceData {
      */
     private final Money vat;
     private final Money vatTotal;
+    /**
+     * Optional comment
+     */
+    private final String comment;
 
 }
