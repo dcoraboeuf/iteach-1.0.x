@@ -5,17 +5,19 @@ angular.module('iteach.view.invoices', [
 ])
     .controller('InvoicesCtrl', function ($scope, $modal, $translate, teacherService, calendarService, alertService) {
 
-        function loadInvoices() {
-            teacherService.getInvoices({}).success(function (invoices) {
+        function loadInvoices(filter) {
+            teacherService.getInvoices(filter).success(function (invoices) {
+                $scope.invoiceCollection = invoices;
                 $scope.invoices = invoices.resources;
 
                 angular.forEach($scope.invoices, function (invoice) {
                     invoice.period.monthName = calendarService.getMonthName(invoice.period.month);
+                    invoice.selected = false;
                 });
             })
         }
 
-        loadInvoices();
+        loadInvoices({});
 
         // Filter data
         $scope.filter = {};
@@ -57,6 +59,27 @@ angular.module('iteach.view.invoices', [
                 name: $translate.instant('invoice.downloadStatus.no')
             }
         ];
+
+        // Pagination
+        $scope.paging = {
+            pageIndex: 1,
+            pageSize: 10
+        };
+
+        // Filter watches
+        $scope.$watch('paging.pageIndex', reload);
+        $scope.$watch('filter.schoolId', reload);
+        $scope.$watch('filter.year', reload);
+        $scope.$watch('filter.status', reload);
+        $scope.$watch('filter.downloaded', reload);
+
+        // Reloads the filter
+        var reload = function () {
+            var filter = $scope.filter;
+            filter.pageOffset = $scope.pageIndex - 1;
+            filter.pageSize = $scope.pageSize;
+            loadInvoices(filter);
+        };
 
         $scope.selectInvert = function () {
             angular.forEach($scope.invoices, function (invoice) {
