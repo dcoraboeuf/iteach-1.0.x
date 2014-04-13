@@ -203,5 +203,6 @@ var map_fr = {
     'invoice.downloadStatus.yes': "Téléchargé",
     'invoice.downloadStatus.no': "Non téléchargé",
     'invoice.delete': "Suppression de factures",
-    'invoice.delete.prompt': "Voulez-vous vraiment supprimer les factures sélectionnées ?"
+    'invoice.delete.prompt': "Voulez-vous vraiment supprimer les factures sélectionnées ?",
+    'invoice.filter.clear': "Effacer le filtre"
 };

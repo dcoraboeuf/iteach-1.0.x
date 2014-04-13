@@ -204,5 +204,6 @@ var map_en = {
     'invoice.downloadStatus.yes': "Downloaded",
     'invoice.downloadStatus.no': "Not downloaded",
     'invoice.delete': "Deletion of invoices",
-    'invoice.delete.prompt': "Do you want to delete the selected invoice(s)?"
+    'invoice.delete.prompt': "Do you want to delete the selected invoice(s)?",
+    'invoice.filter.clear': "Clear filter"
 };

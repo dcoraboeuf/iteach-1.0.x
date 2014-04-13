@@ -70,6 +70,7 @@
     </div>
     <div class="row">
         <button type="button" class="btn btn-danger" ng-click="deleteSelection()" ng-hide="selectionEmpty()">{{'dialog.delete' | translate}}</button>
+        <button type="button" class="btn btn-default" ng-click="filter = {}">{{'invoice.filter.clear' | translate}}</button>
         <a id="close" href="#/" class="btn btn-link">{{'home.back' | translate}}</a>
         <span class="pull-right">
             <button type="button" class="btn btn-default" ng-click="selectAll()">{{'dialog.select.all' | translate}}</button>
