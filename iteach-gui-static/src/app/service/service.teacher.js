@@ -299,6 +299,8 @@ angular.module('iteach.service.teacher', [
 
         self.loadInvoice = uiTeacher.loadInvoice;
 
+        self.getInvoices = uiTeacher.getInvoices;
+
         return self;
     })
 ;
