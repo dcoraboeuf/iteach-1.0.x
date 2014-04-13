@@ -54,7 +54,8 @@ public class InvoiceServiceImpl implements InvoiceService {
             new ThreadFactoryBuilder()
                     .setNameFormat("invoice-generator-%d")
                     .setDaemon(true)
-                    .build());
+                    .build()
+    );
 
     @Autowired
     public InvoiceServiceImpl(TeacherService teacherService, AccountService accountService, Collection<InvoiceGenerator> generators, InvoiceRepository invoiceRepository, SecurityUtils securityUtils, PlatformTransactionManager transactionManager, Strings strings) {
@@ -75,7 +76,24 @@ public class InvoiceServiceImpl implements InvoiceService {
         // Gets the invoice data
         InvoiceData data = getInvoiceData(invoiceForm);
         // Controls the data
-        controlInvoice(data);
+        List<Localizable> messages = controlInvoice(data);
+        if (!messages.isEmpty()) {
+            return new InvoiceInfo(
+                    0,
+                    InvoiceStatus.ERROR,
+                    new LocalizableMessage(
+                            "net.nemerosa.iteach.service.InvoiceService.control",
+                            new MultiLocalizable(messages)
+                    ).getLocalizedMessage(strings, locale),
+                    null,
+                    invoiceForm.getSchoolId(),
+                    invoiceForm.getPeriod(),
+                    invoiceForm.getNumber(),
+                    LocalDateTime.now(),
+                    false,
+                    type
+            );
+        }
         // Gets a generator for the type
         InvoiceGenerator generator = getInvoiceGenerator(type);
         // Generation date
@@ -110,7 +128,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         return info;
     }
 
-    protected void controlInvoice(InvoiceData data) {
+    protected List<Localizable> controlInvoice(InvoiceData data) {
         List<Localizable> messages = new ArrayList<>();
         // Profile controls
         control(messages, data.getProfile().getBic(), "control.profile.bic");
@@ -125,14 +143,8 @@ public class InvoiceServiceImpl implements InvoiceService {
         control(messages, data.getSchool().getHourlyRate() != null, "control.school.hourlyRate");
         // Report
         control(messages, data.getReport().getHours().compareTo(BigDecimal.ZERO) > 0, "control.hours");
-        // Final control
-        if (!messages.isEmpty()) {
-            throw new InvoiceControlException(
-                    new MultiLocalizable(
-                            messages
-                    )
-            );
-        }
+        // End
+        return messages;
     }
 
     protected void control(List<Localizable> messages, String value, String keySuffix) {

@@ -8,6 +8,7 @@ import net.nemerosa.iteach.service.invoice.InvoiceFixtures;
 import net.nemerosa.iteach.service.model.InvoiceData;
 import net.sf.jstring.Localizable;
 import net.sf.jstring.LocalizableMessage;
+import net.sf.jstring.MultiLocalizable;
 import net.sf.jstring.Strings;
 import net.sf.jstring.support.StringsLoader;
 import org.junit.Before;
@@ -18,7 +19,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -100,33 +102,32 @@ public class InvoiceServiceTest {
     @Test
     public void controlInvoice_profile_ok() {
         InvoiceData data = InvoiceFixtures.invoiceData();
-        service.controlInvoice(data);
+        assertTrue(service.controlInvoice(data).isEmpty());
     }
 
     @Test
     public void controlInvoice_profile_nok() {
         InvoiceData data = InvoiceFixtures.invoiceIncompleteData();
-        try {
-            service.controlInvoice(data);
-            fail("Should have failed.");
-        } catch (InvoiceControlException ex) {
-            String message = ex.getLocalizedMessage(strings, Locale.ENGLISH);
-            assertEquals("The invoice cannot be generated because of the following problems:\n" +
-                    " \n" +
-                    " - The BIC must be filled in.\n" +
-                    " - The IBAN must be filled in.\n" +
-                    " - The VAT identifier of your company must be filled in.\n" +
-                    " - The postal address of your company must be filled in.\n" +
-                    " - The phone of your company must be filled in.\n" +
-                    " - Your company name must be filled in.\n" +
-                    " - The postal address of the school must be filled in.\n" +
-                    " - The VAT identifier of the school must be filled in.\n" +
-                    " - No hourly rate is defined for the school.\n" +
-                    " - No hours for this school and this period.\n" +
-                    "\n" +
-                    " \n" +
-                    " You can correct those problems by either editing your profile (accessible via the user menu) or by modifying the school parameters.", message);
-        }
+        List<Localizable> messages = service.controlInvoice(data);
+        String message = new LocalizableMessage(
+                "net.nemerosa.iteach.service.InvoiceService.control",
+                new MultiLocalizable(messages)
+        ).getLocalizedMessage(strings, Locale.ENGLISH);
+        assertEquals("The invoice cannot be generated because of the following problems:\n" +
+                " \n" +
+                " - The BIC must be filled in.\n" +
+                " - The IBAN must be filled in.\n" +
+                " - The VAT identifier of your company must be filled in.\n" +
+                " - The postal address of your company must be filled in.\n" +
+                " - The phone of your company must be filled in.\n" +
+                " - Your company name must be filled in.\n" +
+                " - The postal address of the school must be filled in.\n" +
+                " - The VAT identifier of the school must be filled in.\n" +
+                " - No hourly rate is defined for the school.\n" +
+                " - No hours for this school and this period.\n" +
+                "\n" +
+                " \n" +
+                " You can correct those problems by either editing your profile (accessible via the user menu) or by modifying the school parameters.", message);
     }
 
 }

@@ -54,7 +54,7 @@ net.nemerosa.iteach.service.InvoiceService.error.uuid
     en -> Technical error with ID={0}. Please contact the support for more information.
     fr -> Erreur technique d'identifiant {0}. Veuillez contacter le support pour plus d'information.
 
-net.nemerosa.iteach.service.impl.InvoiceControlException
+net.nemerosa.iteach.service.InvoiceService.control
     en -> ...
         The invoice cannot be generated because of the following problems:\n
         \n{0}\n
