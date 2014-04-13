@@ -5,6 +5,7 @@ import net.nemerosa.iteach.common.Document;
 import net.nemerosa.iteach.common.Period;
 import net.nemerosa.iteach.ui.model.*;
 
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -138,5 +139,15 @@ public interface UITeacherAPI {
      * List of invoices
      */
     UIInvoiceCollection getInvoices(Locale locale, Integer schoolId, Integer year);
+
+    /**
+     * Deletes a list of invoices
+     */
+    Ack deleteInvoices(Locale locale, UISelection selection);
+
+    /**
+     * Deletes one invoice by ID
+     */
+    Ack deleteInvoice(Locale locale, int invoiceId);
 
 }

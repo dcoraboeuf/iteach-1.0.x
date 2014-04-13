@@ -25,4 +25,6 @@ public interface InvoiceRepository {
     TInvoice getById(int teacherId, int invoiceId);
 
     void error(int teacherId, int invoiceId, String message, String uuid);
+
+    void delete(int teacherId, int invoiceId);
 }

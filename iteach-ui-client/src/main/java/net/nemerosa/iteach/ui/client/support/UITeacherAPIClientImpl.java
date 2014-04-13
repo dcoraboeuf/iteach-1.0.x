@@ -155,4 +155,14 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
         }
         return get(locale, UIInvoiceCollection.class, path);
     }
+
+    @Override
+    public Ack deleteInvoices(Locale locale, UISelection selection) {
+        return put(locale, Ack.class, selection, "/api/teacher/invoice/delete");
+    }
+
+    @Override
+    public Ack deleteInvoice(Locale locale, int invoiceId) {
+        return delete(locale, Ack.class, "/api/teacher/invoice/%d", invoiceId);
+    }
 }

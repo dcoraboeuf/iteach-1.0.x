@@ -160,4 +160,13 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
                         .addValue("uuid", uuid)
         );
     }
+
+    @Override
+    public void delete(int teacherId, int invoiceId) {
+        getNamedParameterJdbcTemplate().update(
+                SQL.INVOICE_DELETE,
+                params("teacherId", teacherId)
+                        .addValue("invoiceId", invoiceId)
+        );
+    }
 }

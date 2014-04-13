@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.time.YearMonth;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -427,6 +428,18 @@ public class UITeacherAPIController implements UITeacherAPI {
                 schoolId,
                 year
         );
+    }
+
+    @Override
+    @RequestMapping(value = "/invoice/delete", method = RequestMethod.PUT)
+    public Ack deleteInvoices(Locale locale, @RequestBody UISelection selection) {
+        return invoiceService.deleteInvoices(selection.getIds());
+    }
+
+    @Override
+    @RequestMapping(value = "/invoice/{invoiceId}", method = RequestMethod.DELETE)
+    public Ack deleteInvoice(Locale locale, @PathVariable int invoiceId) {
+        return invoiceService.deleteInvoices(Collections.singletonList(invoiceId));
     }
 
     @RequestMapping(value = "/invoice/{invoiceId}/download/attached", method = RequestMethod.GET)

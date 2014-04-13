@@ -229,6 +229,15 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
     }
 
+    @Override
+    public Ack deleteInvoices(List<Integer> ids) {
+        int teacherId = securityUtils.checkTeacher();
+        for (int id : ids) {
+            invoiceRepository.delete(teacherId, id);
+        }
+        return Ack.OK;
+    }
+
     protected void generate(int id, InvoiceData data, InvoiceGenerator generator, Locale locale) {
         try {
             // Starts the generation

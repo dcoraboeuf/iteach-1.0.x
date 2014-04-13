@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.service;
 
+import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.Document;
 import net.nemerosa.iteach.service.model.InvoiceForm;
 import net.nemerosa.iteach.service.model.InvoiceInfo;
@@ -49,4 +50,8 @@ public interface InvoiceService {
      */
     long getNextInvoiceNumber();
 
+    /**
+     * Deletes a list of invoices
+     */
+    Ack deleteInvoices(List<Integer> ids);
 }
