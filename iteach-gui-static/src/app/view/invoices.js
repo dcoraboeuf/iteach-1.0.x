@@ -35,6 +35,14 @@ angular.module('iteach.view.invoices', [
             });
         };
 
+        $scope.selectionEmpty = function () {
+            var count = 0;
+            angular.forEach($scope.invoices, function (invoice) {
+                if (invoice.selected) count++;
+            });
+            return count == 0;
+        };
+
         $scope.displayError = function (invoice) {
             if (invoice.errorMessage || invoice.errorUuid) {
                 return $modal.open({
