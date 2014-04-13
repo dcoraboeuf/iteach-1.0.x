@@ -180,6 +180,7 @@ var map_fr = {
     'invoice.generate.list.help': "Vous pouvez vous rendre à tout moment sur la page de gestion des factures. Vous " +
         "pourrez également y suivre la progression de la génération.",
     'invoice.download': "Télécharger la facture",
+    'invoice.error': "Erreur de facture",
     'invoice.error.general': "Une erreur s'est produite lors de la génération de la facture. Veuillez contacter le " +
         "support pour plus d'information.",
     'invoice.error.uuid': "Identifiant d'erreur à mentioner au support :",

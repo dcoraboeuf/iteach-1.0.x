@@ -1,0 +1,11 @@
+<div class="modal-header">
+    <h3>{{'invoice.error' | translate}}</h3>
+</div>
+<div class="modal-body">
+    <p class="text-danger" ng-if="!invoice.errorUuid">{{invoice.errorMessage}}</p>
+    <p class="text-danger" ng-if="invoice.errorUuid">{{'invoice.error.uuid' | translate}}</p>
+    <span class="label label-danger" ng-if="invoice.errorUuid">{{invoice.errorUuid}}</span>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$close('cancel')">{{'dialog.ok' | translate}}</button>
+</div>

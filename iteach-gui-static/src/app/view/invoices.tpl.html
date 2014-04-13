@@ -28,8 +28,8 @@
                         {{invoice.generation | date:'longDate'}}
                     </td>
                     <td>
-                        <span class="it-invoice-status-{{invoice.status | lowercase}}" title="{{'invoice.status.' + invoice.status | translate}}"></span>
-                        <!-- TODO Displays the error message -->
+                        <span ng-if="invoice.status != 'ERROR'" class="it-invoice-status-{{invoice.status | lowercase}}" title="{{'invoice.status.' + invoice.status | translate}}"></span>
+                        <a ng-if="invoice.status == 'ERROR'" ng-click="displayError(invoice)" class="it-invoice-status-{{invoice.status | lowercase}}" title="{{'invoice.status.ERROR' | translate}} {{'invoice.status.ERROR.plus' | translate}}"></a>
                     </td>
                     <td>
                         <a

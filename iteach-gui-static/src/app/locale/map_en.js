@@ -182,6 +182,7 @@ var map_en = {
     'invoice.generate.list.help': "You can access the list of invoices at any time in order to follow the progress " +
         "of the generation of the invoices.",
     'invoice.download': "Download invoice",
+    'invoice.error': "Invoice error",
     'invoice.error.general': "An error occurred while generating the invoice. Please contact the support for more information",
     'invoice.error.uuid': "Error id to mention for support:",
     'invoice.school': "School",
