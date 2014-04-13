@@ -50,29 +50,39 @@ angular.module('iteach.dialog.invoice', [
             $scope.generating = true;
             $scope.launched = true;
             uiTeacher.generateInvoice(invoice).success(function (invoiceInfo) {
-                var invoiceId = invoiceInfo.id;
-                // Control function
-                var controlFn = function () {
-                    uiTeacher.getInvoice(invoiceId).success(function (info) {
-                        if (info.status == 'READY') {
-                            // Generation OK
-                            $scope.generating = false;
-                            $scope.ready = true;
-                            $scope.invoiceInfo = info;
-                        } else if (info.status == 'ERROR') {
-                            // Error during the generation
-                            $scope.generating = false;
-                            // Error messaging
-                            $scope.errorMessage = info.errorMessage;
-                            $scope.errorUuid = info.errorUuid;
-                        } else {
-                            // Going on with the generation
-                            if (!$scope.closed) window.setTimeout(controlFn, 500)
-                        }
-                    });
-                };
-                // Launches the control
-                controlFn();
+                // Error at generation?
+                if (invoiceInfo.status == 'ERROR') {
+                    // Error during the generation
+                    $scope.generating = false;
+                    // Error messaging
+                    $scope.errorMessage = invoiceInfo.errorMessage;
+                    $scope.errorUuid = invoiceInfo.errorUuid;
+                } else {
+                    // Going on with the generation
+                    var invoiceId = invoiceInfo.id;
+                    // Control function
+                    var controlFn = function () {
+                        uiTeacher.getInvoice(invoiceId).success(function (info) {
+                            if (info.status == 'READY') {
+                                // Generation OK
+                                $scope.generating = false;
+                                $scope.ready = true;
+                                $scope.invoiceInfo = info;
+                            } else if (info.status == 'ERROR') {
+                                // Error during the generation
+                                $scope.generating = false;
+                                // Error messaging
+                                $scope.errorMessage = info.errorMessage;
+                                $scope.errorUuid = info.errorUuid;
+                            } else {
+                                // Going on with the generation
+                                if (!$scope.closed) window.setTimeout(controlFn, 500)
+                            }
+                        });
+                    };
+                    // Launches the control
+                    controlFn();
+                }
             });
         };
 

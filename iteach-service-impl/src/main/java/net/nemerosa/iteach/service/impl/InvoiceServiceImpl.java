@@ -84,7 +84,7 @@ public class InvoiceServiceImpl implements InvoiceService {
                     new LocalizableMessage(
                             "net.nemerosa.iteach.service.InvoiceService.control",
                             new MultiLocalizable(messages)
-                    ).getLocalizedMessage(strings, locale),
+                    ).getLocalizedMessage(strings, locale).trim(),
                     null,
                     invoiceForm.getSchoolId(),
                     invoiceForm.getPeriod(),
