@@ -63,7 +63,7 @@ angular.module('iteach.view.invoices', [
         // Pagination
         $scope.paging = {
             pageIndex: 1,
-            pageSize: 10
+            pageSize: 12
         };
 
         // Reloads the filter
