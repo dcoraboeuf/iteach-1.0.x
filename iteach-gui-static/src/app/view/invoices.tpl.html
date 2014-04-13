@@ -28,9 +28,8 @@
                         {{invoice.generation | date:'longDate'}}
                     </td>
                     <td>
-                        <span class="it-invoice-status-{{invoice.status | lowercase}}"></span>
+                        <span class="it-invoice-status-{{invoice.status | lowercase}}" title="{{'invoice.status.' + invoice.status | translate}}"></span>
                         <!-- TODO Displays the error message -->
-                        <!-- TODO Help title -->
                     </td>
                     <td>
                         <a

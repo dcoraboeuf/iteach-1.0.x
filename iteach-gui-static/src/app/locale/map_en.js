@@ -186,6 +186,11 @@ var map_en = {
     'invoice.error.uuid': "Error id to mention for support:",
     'invoice.school': "School",
     'invoice.status': "Status",
+    'invoice.status.CREATED': "The invoice generation has been requested.",
+    'invoice.status.GENERATING': "The invoice is currently generated.",
+    'invoice.status.READY': "The invoice has been generated and is available for download.",
+    'invoice.status.ERROR': "The invoice could not be generated.",
+    'invoice.status.ERROR.plus': "Click on the icon to get more information.",
     'invoice.generation': "Generation date",
     'invoice.downloadStatus': "Download status"
 };

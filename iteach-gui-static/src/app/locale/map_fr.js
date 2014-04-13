@@ -185,6 +185,11 @@ var map_fr = {
     'invoice.error.uuid': "Identifiant d'erreur à mentioner au support :",
     'invoice.school': "Ecole",
     'invoice.status': "Statut",
+    'invoice.status.CREATED': "La génération de la facture a été demandée.",
+    'invoice.status.GENERATING': "La facture est en train d'être générée.",
+    'invoice.status.READY': "La facture a été générée et est disponible pour téléchargement.",
+    'invoice.status.ERROR': "La facture n'a pas pu être générée.",
+    'invoice.status.ERROR.plus': "Cliquez sur l'icône pour plus d'information.",
     'invoice.generation': "Date de génération",
     'invoice.downloadStatus': "Téléchargement"
 };
