@@ -66,20 +66,20 @@ angular.module('iteach.view.invoices', [
             pageSize: 10
         };
 
+        // Reloads the filter
+        var reload = function () {
+            var filter = $scope.filter;
+            filter.pageOffset = $scope.paging.pageIndex - 1;
+            filter.pageSize = $scope.paging.pageSize;
+            loadInvoices(filter);
+        };
+
         // Filter watches
         $scope.$watch('paging.pageIndex', reload);
         $scope.$watch('filter.schoolId', reload);
         $scope.$watch('filter.year', reload);
         $scope.$watch('filter.status', reload);
         $scope.$watch('filter.downloaded', reload);
-
-        // Reloads the filter
-        var reload = function () {
-            var filter = $scope.filter;
-            filter.pageOffset = $scope.pageIndex - 1;
-            filter.pageSize = $scope.pageSize;
-            loadInvoices(filter);
-        };
 
         $scope.selectInvert = function () {
             angular.forEach($scope.invoices, function (invoice) {
