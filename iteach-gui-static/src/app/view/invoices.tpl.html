@@ -6,11 +6,32 @@
                 <thead>
                     <tr>
                         <th>{{'invoice.number' | translate}}</th>
-                        <th>{{'invoice.school' | translate}}</th>
-                        <th>{{'invoice.month' | translate}}</th>
+                        <th>
+                            {{'invoice.school' | translate}}<br/>
+                            <select ng-model="filter.schoolId" ng-options="school.id as school.name for school in schools"
+                                    name="schoolId">
+                                <option value="">&nbsp;</option>
+                            </select>
+                        </th>
+                        <th>
+                            {{'invoice.month' | translate}}<br/>
+                            <select ng-model="filter.year" ng-options="y for y in years" name="year">
+                                <option value="">&nbsp;</option>
+                            </select>
+                        </th>
                         <th>{{'invoice.generation' | translate}}</th>
-                        <th>{{'invoice.status' | translate}}</th>
-                        <th>{{'invoice.downloadStatus' | translate}}</th>
+                        <th>
+                            {{'invoice.status' | translate}}<br/>
+                            <select ng-model="filter.status" name="status" ng-options="s.id as s.name for s in statuses">
+                                <option value="">&nbsp;</option>
+                            </select>
+                        </th>
+                        <th>
+                            {{'invoice.downloadStatus' | translate}}<br/>
+                            <select ng-model="filter.downloaded" name="downloaded" ng-options="s.id as s.name for s in downloadStatuses">
+                                <option value="">&nbsp;</option>
+                            </select>
+                        </th>
                         <td>
                             <span class="glyphicon glyphicon-check"></span>
                         </td>
@@ -30,8 +51,8 @@
                         {{invoice.generation | date:'longDate'}}
                     </td>
                     <td>
-                        <span ng-if="invoice.status != 'ERROR'" class="it-invoice-status-{{invoice.status | lowercase}}" title="{{'invoice.status.' + invoice.status | translate}}"></span>
-                        <a ng-if="invoice.status == 'ERROR'" ng-click="displayError(invoice)" class="it-invoice-status-{{invoice.status | lowercase}}" title="{{'invoice.status.ERROR' | translate}} {{'invoice.status.ERROR.plus' | translate}}"></a>
+                        <span ng-if="invoice.status != 'ERROR'" class="it-invoice-status-{{invoice.status | lowercase}}" title="{{'invoice.status.' + invoice.status + '.long' | translate}}"></span>
+                        <a ng-if="invoice.status == 'ERROR'" ng-click="displayError(invoice)" class="it-invoice-status-{{invoice.status | lowercase}}" title="{{'invoice.status.ERROR.long' | translate}} {{'invoice.status.ERROR.plus' | translate}}"></a>
                     </td>
                     <td>
                         <a

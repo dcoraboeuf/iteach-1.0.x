@@ -17,6 +17,47 @@ angular.module('iteach.view.invoices', [
 
         loadInvoices();
 
+        // Filter data
+        $scope.filter = {};
+        // Filter > school
+        teacherService.getSchools().then(function (schools) {
+            $scope.schools = schools.resources;
+        });
+        // Filter > year
+        var years = [];
+        for (var i = 2014; i < 2050; i++) years.push(i);
+        $scope.years = years;
+        // Filter > status
+        $scope.statuses = [
+            {
+                id: 'CREATED',
+                name: $translate.instant('invoice.status.CREATED')
+            },
+            {
+                id: 'GENERATING',
+                name: $translate.instant('invoice.status.GENERATING')
+            },
+            {
+                id: 'READY',
+                name: $translate.instant('invoice.status.READY')
+            },
+            {
+                id: 'ERROR',
+                name: $translate.instant('invoice.status.ERROR')
+            }
+        ];
+        // Filter > downloaded
+        $scope.downloadStatuses = [
+            {
+                id: true,
+                name: $translate.instant('invoice.downloadStatus.yes')
+            },
+            {
+                id: false,
+                name: $translate.instant('invoice.downloadStatus.no')
+            }
+        ];
+
         $scope.selectInvert = function () {
             angular.forEach($scope.invoices, function (invoice) {
                 invoice.selected = !invoice.selected;
