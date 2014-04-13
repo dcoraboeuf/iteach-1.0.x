@@ -199,7 +199,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         return new Document(
                 document,
                 computeDocumentTitle(info),
-                ".pdf" // TODO Support something else than PDF
+                "pdf" // TODO Support something else than PDF
         );
     }
 

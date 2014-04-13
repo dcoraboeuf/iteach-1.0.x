@@ -438,5 +438,7 @@ public class UITeacherAPIController implements UITeacherAPI {
         // Serializes
         response.getOutputStream().write(document.getContent());
         response.getOutputStream().flush();
+        // Marks the document as downloaded
+        invoiceService.invoiceIsDownloaded(invoiceId);
     }
 }
