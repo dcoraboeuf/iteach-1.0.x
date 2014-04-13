@@ -301,6 +301,8 @@ angular.module('iteach.service.teacher', [
 
         self.getInvoices = uiTeacher.getInvoices;
 
+        self.deleteInvoices = uiTeacher.deleteInvoices;
+
         return self;
     })
 ;

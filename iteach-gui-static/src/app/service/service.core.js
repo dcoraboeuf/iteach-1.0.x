@@ -1,6 +1,6 @@
 angular.module('iteach.service.core', [
-        'iteach.alert.confirm'
-    ])
+    'iteach.alert.confirm'
+])
     .service('calendarService', function ($translate) {
         var self = {};
         self.calendarI18n = function () {
@@ -107,6 +107,12 @@ angular.module('iteach.service.core', [
     })
     .service('alertService', function ($modal) {
         var self = {};
+        /**
+         * Displays a confirmation box.
+         * @param config.title Title for the alert
+         * @param config.message Message content for the alert
+         * @returns Promise on the confirmation result.
+         */
         self.confirm = function (config) {
             //noinspection JSUnusedGlobalSymbols
             return $modal.open({

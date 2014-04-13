@@ -3,7 +3,7 @@ angular.module('iteach.view.invoices', [
     'iteach.service.teacher',
     'iteach.dialog.invoice.error'
 ])
-    .controller('InvoicesCtrl', function ($scope, $modal, teacherService, calendarService) {
+    .controller('InvoicesCtrl', function ($scope, $modal, $translate, teacherService, calendarService, alertService) {
 
         function loadInvoices() {
             teacherService.getInvoices().success(function (invoices) {
@@ -41,6 +41,25 @@ angular.module('iteach.view.invoices', [
                 if (invoice.selected) count++;
             });
             return count == 0;
+        };
+
+        function getSelection() {
+            var selection = [];
+            angular.forEach($scope.invoices, function (invoice) {
+                if (invoice.selected) {
+                    selection.push(invoice.id);
+                }
+            });
+            return selection;
+        }
+
+        $scope.deleteSelection = function () {
+            alertService.confirm({
+                title: $translate.instant('invoice.delete'),
+                message: $translate.instant('invoice.delete.prompt')
+            }).then(function () {
+                teacherService.deleteInvoices(getSelection()).success(loadInvoices);
+            });
         };
 
         $scope.displayError = function (invoice) {

@@ -1,6 +1,6 @@
 angular.module('iteach.ui.teacher', [
-        'iteach.config'
-    ])
+    'iteach.config'
+])
     .service('uiTeacher', function ($q, $http, config) {
         var self = {};
 
@@ -159,6 +159,10 @@ angular.module('iteach.ui.teacher', [
 
         self.getInvoices = function (params) {
             return $http.get(config.api('teacher/invoice'), params);
+        };
+
+        self.deleteInvoices = function (ids) {
+            return $http.put(config.api('teacher/invoice/delete'), {ids: ids});
         };
 
         /**

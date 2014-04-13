@@ -195,5 +195,7 @@ var map_fr = {
     'invoice.status.ERROR': "La facture n'a pas pu être générée.",
     'invoice.status.ERROR.plus': "Cliquez sur l'icône pour plus d'information.",
     'invoice.generation': "Date de génération",
-    'invoice.downloadStatus': "Téléchargement"
+    'invoice.downloadStatus': "Téléchargement",
+    'invoice.delete': "Suppression de factures",
+    'invoice.delete.prompt': "Voulez-vous vraiment supprimer les factures sélectionnées ?"
 };

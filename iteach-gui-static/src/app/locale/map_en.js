@@ -196,5 +196,7 @@ var map_en = {
     'invoice.status.ERROR': "The invoice could not be generated.",
     'invoice.status.ERROR.plus': "Click on the icon to get more information.",
     'invoice.generation': "Generation date",
-    'invoice.downloadStatus': "Download status"
+    'invoice.downloadStatus': "Download status",
+    'invoice.delete': "Deletion of invoices",
+    'invoice.delete.prompt': "Do you want to delete the selected invoice(s)?"
 };
