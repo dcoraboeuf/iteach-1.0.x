@@ -23,12 +23,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.Locale;
-import java.util.Map;
 
 import static java.lang.String.format;
 
@@ -99,25 +96,6 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
 
     protected <T> T get(Locale locale, Class<T> returnType, String path, Object... parameters) {
         return request(locale, new HttpGet(getUrl(path, parameters)), returnType);
-    }
-
-    protected <T> T get(Locale locale, Class<T> returnType, Map<String, String> params, String path, Object... parameters) {
-        String uri = getUrl(path, parameters);
-        int count = 0;
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            if (count > 0) {
-                uri += "&";
-            } else {
-                uri += "?";
-            }
-            try {
-                uri += entry.getKey() + "=" + URLEncoder.encode(entry.getValue(), "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                throw new IllegalStateException("Cannot encode URL parameter: " + entry, e);
-            }
-            count++;
-        }
-        return request(locale, new HttpGet(uri), returnType);
     }
 
     protected <T> T delete(Locale locale, Class<T> returnType, String path, Object... parameters) {

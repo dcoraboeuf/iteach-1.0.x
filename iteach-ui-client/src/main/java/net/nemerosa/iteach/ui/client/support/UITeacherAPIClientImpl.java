@@ -138,14 +138,7 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
 
     @Override
     public UIInvoiceCollection getInvoices(Locale locale, UIInvoiceFilter filter) {
-        String path = "/api/teacher/invoice";
-        Map<String, String> params = Params.create()
-                .with("schoolId", filter.getSchoolId())
-                .with("year", filter.getYear())
-                .with("downloaded", filter.getDownloaded())
-                .with("status", filter.getStatus())
-                .build();
-        return get(locale, UIInvoiceCollection.class, params, path);
+        return post(locale, UIInvoiceCollection.class, filter, "/api/teacher/invoice/filter");
     }
 
     @Override

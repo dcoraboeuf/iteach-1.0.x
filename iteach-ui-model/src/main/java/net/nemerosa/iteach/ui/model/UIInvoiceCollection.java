@@ -19,8 +19,7 @@ public class UIInvoiceCollection extends UIResourceCollection<UIInvoiceInfo> {
         super(resources);
         this.filter = filter;
         this.totalCount = totalCount;
-        // TODO Have the list of parameters for the filter
-        this.href = "api/teacher/invoice";
+        this.href = "api/teacher/invoice/filter";
     }
 
 }

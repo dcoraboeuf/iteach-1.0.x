@@ -416,8 +416,8 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     @Override
-    @RequestMapping(value = "/invoice", method = RequestMethod.GET)
-    public UIInvoiceCollection getInvoices(Locale locale, @RequestParam UIInvoiceFilter filter) {
+    @RequestMapping(value = "/invoice/filter", method = RequestMethod.POST)
+    public UIInvoiceCollection getInvoices(Locale locale, @RequestBody UIInvoiceFilter filter) {
         int totalCount = invoiceService.getTotalCount();
         return new UIInvoiceCollection(
                 invoiceService.getInvoices(new InvoiceFilter(
