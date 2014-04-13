@@ -28,10 +28,15 @@
                         {{invoice.generation | date:'longDate'}}
                     </td>
                     <td>
-                        {{invoice.status}}
+                        <span class="it-invoice-status-{{invoice.status | lowercase}}"></span>
+                        <!-- TODO Displays the error message -->
+                        <!-- TODO Help title -->
                     </td>
                     <td>
-                        {{invoice.downloaded}}
+                        <a
+                                class="it-invoice-download-link"
+                                ng-class="{'text-muted': invoice.downloaded}"
+                                href="api/teacher/invoice/{{invoice.id}}/download/attached"></a>
                     </td>
                     <td>
 
