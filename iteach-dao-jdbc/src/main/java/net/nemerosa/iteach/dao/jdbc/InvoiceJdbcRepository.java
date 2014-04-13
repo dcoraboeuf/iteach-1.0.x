@@ -44,7 +44,7 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
     @Override
     public List<TInvoice> list(int teacherId, Integer schoolId, Integer year) {
         StringBuilder sql = new StringBuilder("SELECT ID, STATUS, ERRORMESSAGE, ERRORUUID, DOWNLOADED, SCHOOL, YEAR, MONTH, GENERATION, INVOICENB, DOCUMENTTYPE " +
-                "FROM INVOICE" +
+                "FROM INVOICE " +
                 "WHERE TEACHER = :teacher");
         MapSqlParameterSource params = params("teacher", teacherId);
         // School
