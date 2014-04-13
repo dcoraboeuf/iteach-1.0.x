@@ -168,9 +168,7 @@ public class InvoiceServiceImpl implements InvoiceService {
                 filter.getSchoolId(),
                 filter.getYear(),
                 filter.getDownloaded(),
-                filter.getStatus(),
-                filter.getPageOffset(),
-                filter.getPageSize()
+                filter.getStatus()
         )
                 .stream()
                 .map(this::toInvoiceInfo)

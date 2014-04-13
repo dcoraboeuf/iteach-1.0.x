@@ -10,7 +10,5 @@ public class UIInvoiceFilter {
     private Integer year;
     private Boolean downloaded;
     private InvoiceStatus status;
-    private int pageOffset = 0;
-    private int pageSize = 10;
 
 }

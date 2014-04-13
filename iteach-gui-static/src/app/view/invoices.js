@@ -60,22 +60,12 @@ angular.module('iteach.view.invoices', [
             }
         ];
 
-        // Pagination
-        $scope.paging = {
-            pageIndex: 1,
-            pageSize: 12
-        };
-
         // Reloads the filter
         var reload = function () {
-            var filter = $scope.filter;
-            filter.pageOffset = $scope.paging.pageIndex - 1;
-            filter.pageSize = $scope.paging.pageSize;
-            loadInvoices(filter);
+            loadInvoices($scope.filter);
         };
 
         // Filter watches
-        $scope.$watch('paging.pageIndex', reload);
         $scope.$watch('filter.schoolId', reload);
         $scope.$watch('filter.year', reload);
         $scope.$watch('filter.status', reload);
@@ -122,7 +112,7 @@ angular.module('iteach.view.invoices', [
                 title: $translate.instant('invoice.delete'),
                 message: $translate.instant('invoice.delete.prompt')
             }).then(function () {
-                teacherService.deleteInvoices(getSelection()).success(loadInvoices);
+                teacherService.deleteInvoices(getSelection()).success(reload);
             });
         };
 

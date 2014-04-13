@@ -27,7 +27,7 @@ public interface InvoiceRepository {
 
     void delete(int teacherId, int invoiceId);
 
-    List<TInvoice> list(int teacherId, Integer schoolId, Integer year, Boolean downloaded, InvoiceStatus status, int pageOffset, int pageSize);
+    List<TInvoice> list(int teacherId, Integer schoolId, Integer year, Boolean downloaded, InvoiceStatus status);
 
     int totalCount(int teacherId);
 }

@@ -51,7 +51,7 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
     }
 
     @Override
-    public List<TInvoice> list(int teacherId, Integer schoolId, Integer year, Boolean downloaded, InvoiceStatus status, int pageOffset, int pageSize) {
+    public List<TInvoice> list(int teacherId, Integer schoolId, Integer year, Boolean downloaded, InvoiceStatus status) {
         StringBuilder sql = new StringBuilder("SELECT ID, STATUS, ERRORMESSAGE, ERRORUUID, DOWNLOADED, SCHOOL, YEAR, MONTH, GENERATION, INVOICENB, DOCUMENTTYPE " +
                 "FROM INVOICE " +
                 "WHERE TEACHER = :teacher");
@@ -78,10 +78,6 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
         }
         // Ordering
         sql.append(" ORDER BY INVOICENB DESC");
-        // Limits
-        sql.append(" LIMIT :limit OFFSET :offset");
-        params.addValue("limit", pageSize);
-        params.addValue("offset", pageSize * pageOffset);
         // Query
         return getNamedParameterJdbcTemplate().query(
                 sql.toString(),
