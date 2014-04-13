@@ -11,7 +11,9 @@
                         <th>{{'invoice.generation' | translate}}</th>
                         <th>{{'invoice.status' | translate}}</th>
                         <th>{{'invoice.downloadStatus' | translate}}</th>
-                        <td>&nbsp;</td>
+                        <td>
+                            <span class="glyphicon glyphicon-check"></span>
+                        </td>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,7 +40,7 @@
                                 href="api/teacher/invoice/{{invoice.id}}/download/attached"></a>
                     </td>
                     <td>
-
+                        <input type="checkbox" ng-model="invoice.selected" />
                     </td>
                 </tr>
                 </tbody>
@@ -46,6 +48,9 @@
         </div>
     </div>
     <div class="row">
-        <a id="close" href="#/" class="btn btn-default">{{'home.back' | translate}}</a>
+        <button type="button" class="btn btn-default" ng-click="selectAll()">{{'dialog.select.all' | translate}}</button>
+        <button type="button" class="btn btn-default" ng-click="selectNone()">{{'dialog.select.none' | translate}}</button>
+        <button type="button" class="btn btn-default" ng-click="selectInvert()">{{'dialog.select.invert' | translate}}</button>
+        <a id="close" href="#/" class="btn btn-link">{{'home.back' | translate}}</a>
     </div>
 </div>

@@ -17,6 +17,24 @@ angular.module('iteach.view.invoices', [
 
         loadInvoices();
 
+        $scope.selectInvert = function () {
+            angular.forEach($scope.invoices, function (invoice) {
+                invoice.selected = !invoice.selected;
+            });
+        };
+
+        $scope.selectAll = function () {
+            angular.forEach($scope.invoices, function (invoice) {
+                invoice.selected = true;
+            });
+        };
+
+        $scope.selectNone = function () {
+            angular.forEach($scope.invoices, function (invoice) {
+                invoice.selected = false;
+            });
+        };
+
         $scope.displayError = function (invoice) {
             if (invoice.errorMessage || invoice.errorUuid) {
                 return $modal.open({

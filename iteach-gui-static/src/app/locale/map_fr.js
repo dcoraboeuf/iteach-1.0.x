@@ -10,6 +10,9 @@ var map_fr = {
     'dialog.update': "Modifier",
     'dialog.delete': "Supprimer",
     'dialog.save': "Enregistrer",
+    'dialog.select.invert': "Inverser la sélection",
+    'dialog.select.all': "Tout sélectionner",
+    'dialog.select.none': "Tout désélectionner",
     'logout': "Se déconnecter",
     // Home page
     'home.back': "Fermer",
