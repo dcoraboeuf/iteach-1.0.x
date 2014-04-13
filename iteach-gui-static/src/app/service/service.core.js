@@ -17,6 +17,10 @@ angular.module('iteach.service.core', [
             }
             return months;
         };
+        self.getMonthName = function (i) {
+            var monthNames = self.calendarI18n().monthNames;
+            return monthNames[i - 1];
+        };
         return self;
     })
     .service('routeService', function ($rootScope, $location, notificationService) {

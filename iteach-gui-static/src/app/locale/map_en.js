@@ -183,5 +183,9 @@ var map_en = {
         "of the generation of the invoices.",
     'invoice.download': "Download invoice",
     'invoice.error.general': "An error occurred while generating the invoice. Please contact the support for more information",
-    'invoice.error.uuid': "Error id to mention for support:"
+    'invoice.error.uuid': "Error id to mention for support:",
+    'invoice.school': "School",
+    'invoice.status': "Status",
+    'invoice.generation': "Generation date",
+    'invoice.downloadStatus': "Download status"
 };
