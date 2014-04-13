@@ -7,7 +7,6 @@ import net.nemerosa.iteach.ui.client.UITeacherAPIClient;
 import net.nemerosa.iteach.ui.model.*;
 
 import java.net.MalformedURLException;
-import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -138,22 +137,15 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     }
 
     @Override
-    public UIInvoiceCollection getInvoices(Locale locale, Integer schoolId, Integer year) {
+    public UIInvoiceCollection getInvoices(Locale locale, UIInvoiceFilter filter) {
         String path = "/api/teacher/invoice";
-        Map<String, Integer> params = new LinkedHashMap<>();
-        if (schoolId != null) params.put("schoolId", schoolId);
-        if (year != null) params.put("year", year);
-        int count = 0;
-        for (Map.Entry<String, Integer> entry : params.entrySet()) {
-            if (count > 0) {
-                path += "&";
-            } else {
-                path += "?";
-            }
-            path += entry.getKey() + "=" + entry.getValue();
-            count++;
-        }
-        return get(locale, UIInvoiceCollection.class, path);
+        Map<String, String> params = Params.create()
+                .with("schoolId", filter.getSchoolId())
+                .with("year", filter.getYear())
+                .with("downloaded", filter.getDownloaded())
+                .with("status", filter.getStatus())
+                .build();
+        return get(locale, UIInvoiceCollection.class, params, path);
     }
 
     @Override

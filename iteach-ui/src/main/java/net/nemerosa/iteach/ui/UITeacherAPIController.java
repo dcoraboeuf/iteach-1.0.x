@@ -417,16 +417,21 @@ public class UITeacherAPIController implements UITeacherAPI {
 
     @Override
     @RequestMapping(value = "/invoice", method = RequestMethod.GET)
-    public UIInvoiceCollection getInvoices(Locale locale,
-                                           @RequestParam(required = false) Integer schoolId,
-                                           @RequestParam(required = false) Integer year) {
+    public UIInvoiceCollection getInvoices(Locale locale, @RequestParam UIInvoiceFilter filter) {
+        int totalCount = invoiceService.getTotalCount();
         return new UIInvoiceCollection(
-                invoiceService.getInvoices(schoolId, year)
+                invoiceService.getInvoices(new InvoiceFilter(
+                        filter.getSchoolId(),
+                        filter.getYear(),
+                        filter.getDownloaded(),
+                        filter.getStatus(),
+                        filter.getPageOffset(),
+                        filter.getPageSize()))
                         .stream()
                         .map(this::toUIInvoiceInfo)
                         .collect(Collectors.toList()),
-                schoolId,
-                year
+                filter,
+                totalCount
         );
     }
 

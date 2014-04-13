@@ -162,11 +162,24 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public List<InvoiceInfo> getInvoices(Integer school, Integer year) {
-        return invoiceRepository.list(securityUtils.checkTeacher(), school, year)
+    public List<InvoiceInfo> getInvoices(InvoiceFilter filter) {
+        return invoiceRepository.list(
+                securityUtils.checkTeacher(),
+                filter.getSchoolId(),
+                filter.getYear(),
+                filter.getDownloaded(),
+                filter.getStatus(),
+                filter.getPageOffset(),
+                filter.getPageSize()
+        )
                 .stream()
                 .map(this::toInvoiceInfo)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public int getTotalCount() {
+        return invoiceRepository.totalCount(securityUtils.checkTeacher());
     }
 
     @Override

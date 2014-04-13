@@ -42,7 +42,16 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
     }
 
     @Override
-    public List<TInvoice> list(int teacherId, Integer schoolId, Integer year) {
+    public int totalCount(int teacherId) {
+        return getNamedParameterJdbcTemplate().queryForObject(
+                SQL.INVOICE_TOTAL,
+                params("teacher", teacherId),
+                Integer.class
+        );
+    }
+
+    @Override
+    public List<TInvoice> list(int teacherId, Integer schoolId, Integer year, Boolean downloaded, InvoiceStatus status, int pageOffset, int pageSize) {
         StringBuilder sql = new StringBuilder("SELECT ID, STATUS, ERRORMESSAGE, ERRORUUID, DOWNLOADED, SCHOOL, YEAR, MONTH, GENERATION, INVOICENB, DOCUMENTTYPE " +
                 "FROM INVOICE " +
                 "WHERE TEACHER = :teacher");
@@ -57,8 +66,22 @@ public class InvoiceJdbcRepository extends AbstractJdbcRepository implements Inv
             sql.append(" AND YEAR = :year");
             params.addValue("year", year);
         }
+        // Downloaded
+        if (downloaded != null) {
+            sql.append(" AND DOWNLOADED = :downloaded");
+            params.addValue("downloaded", downloaded);
+        }
+        // Status
+        if (status != null) {
+            sql.append(" AND STATUS = :status");
+            params.addValue("status", status.name());
+        }
         // Ordering
         sql.append(" ORDER BY INVOICENB DESC");
+        // Limits
+        sql.append(" LIMIT :limit OFFSET :offset");
+        params.addValue("limit", pageSize);
+        params.addValue("offset", pageSize * pageOffset);
         // Query
         return getNamedParameterJdbcTemplate().query(
                 sql.toString(),

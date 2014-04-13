@@ -138,7 +138,7 @@ public interface UITeacherAPI {
     /**
      * List of invoices
      */
-    UIInvoiceCollection getInvoices(Locale locale, Integer schoolId, Integer year);
+    UIInvoiceCollection getInvoices(Locale locale, UIInvoiceFilter filter);
 
     /**
      * Deletes a list of invoices

@@ -2,6 +2,7 @@ package net.nemerosa.iteach.service;
 
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.Document;
+import net.nemerosa.iteach.service.model.InvoiceFilter;
 import net.nemerosa.iteach.service.model.InvoiceForm;
 import net.nemerosa.iteach.service.model.InvoiceInfo;
 
@@ -29,11 +30,8 @@ public interface InvoiceService {
 
     /**
      * Gets the list of invoices.
-     *
-     * @param school Optional school ID used to filter
-     * @param year   Optional year used to filter
      */
-    List<InvoiceInfo> getInvoices(Integer school, Integer year);
+    List<InvoiceInfo> getInvoices(InvoiceFilter filter);
 
     /**
      * Downloads an invoice using its ID
@@ -54,4 +52,9 @@ public interface InvoiceService {
      * Deletes a list of invoices
      */
     Ack deleteInvoices(List<Integer> ids);
+
+    /**
+     * Gets the total number of invoices
+     */
+    int getTotalCount();
 }

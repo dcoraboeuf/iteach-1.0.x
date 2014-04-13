@@ -11,14 +11,15 @@ import java.util.List;
 public class UIInvoiceCollection extends UIResourceCollection<UIInvoiceInfo> {
 
     private final String href;
-    private final Integer schoolId;
-    private final Integer year;
+    private final UIInvoiceFilter filter;
+    private final int totalCount;
 
-    @ConstructorProperties({"resources", "schoolId", "year"})
-    public UIInvoiceCollection(List<UIInvoiceInfo> resources, Integer schoolId, Integer year) {
+    @ConstructorProperties({"resources", "filter", "totalCount"})
+    public UIInvoiceCollection(List<UIInvoiceInfo> resources, UIInvoiceFilter filter, int totalCount) {
         super(resources);
-        this.schoolId = schoolId;
-        this.year = year;
+        this.filter = filter;
+        this.totalCount = totalCount;
+        // TODO Have the list of parameters for the filter
         this.href = "api/teacher/invoice";
     }
 
