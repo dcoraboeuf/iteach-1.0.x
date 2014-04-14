@@ -60,7 +60,9 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
             // TODO Company logo
             document.add(header(data));
             document.add(getInvoicePara(data, locale, tab1));
-            document.add(studentDetail(data, locale));
+            if (data.isDetailPerStudent()) {
+                document.add(studentDetail(data, locale));
+            }
             document.add(total(data, locale));
             document.add(coordinates(data));
 

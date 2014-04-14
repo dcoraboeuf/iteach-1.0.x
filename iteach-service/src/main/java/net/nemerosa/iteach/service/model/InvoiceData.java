@@ -48,5 +48,9 @@ public class InvoiceData {
      * Optional comment
      */
     private final String comment;
+    /**
+     * Detail per student
+     */
+    private final boolean detailPerStudent;
 
 }
