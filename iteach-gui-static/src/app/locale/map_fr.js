@@ -205,5 +205,6 @@ var map_fr = {
     'invoice.delete': "Suppression de factures",
     'invoice.delete.prompt': "Voulez-vous vraiment supprimer les factures sélectionnées ?",
     'invoice.filter.clear': "Effacer le filtre",
-    'invoice.comment': "Commentaire"
+    'invoice.comment': "Commentaire",
+    'invoice.detailPerStudent': "Détail par étudiant"
 };

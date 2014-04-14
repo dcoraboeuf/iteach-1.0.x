@@ -13,6 +13,7 @@ public class InvoiceForm {
     private final int schoolId;
     private final YearMonth period;
     private final long number;
+    private final boolean detailPerStudent;
     private final String comment;
 
 }

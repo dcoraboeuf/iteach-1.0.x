@@ -84,6 +84,7 @@ public class InvoiceServiceIT extends AbstractITTestSupport {
                         schoolId,
                         YearMonth.of(2014, 4),
                         2014007,
+                        true,
                         "A comment"
                 ),
                 "application/pdf",

@@ -206,5 +206,6 @@ var map_en = {
     'invoice.delete': "Deletion of invoices",
     'invoice.delete.prompt': "Do you want to delete the selected invoice(s)?",
     'invoice.filter.clear': "Clear filter",
-    'invoice.comment': "Comment"
+    'invoice.comment': "Comment",
+    'invoice.detailPerStudent': "Detail per student"
 };

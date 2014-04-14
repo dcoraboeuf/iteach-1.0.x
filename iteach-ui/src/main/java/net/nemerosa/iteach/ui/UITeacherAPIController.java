@@ -374,6 +374,7 @@ public class UITeacherAPIController implements UITeacherAPI {
                         form.getSchoolId(),
                         YearMonth.of(form.getYear(), form.getMonth()),
                         form.getNumber(),
+                        form.isDetailPerStudent(),
                         form.getComment()
                 ),
                 "application/pdf", // TODO Only PDF is supported right now

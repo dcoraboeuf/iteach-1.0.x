@@ -24,6 +24,7 @@ public class UIInvoiceForm {
     @Min(1)
     private final long number;
 
+    private final boolean detailPerStudent;
     private final String comment;
 
 }

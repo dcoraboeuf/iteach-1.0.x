@@ -44,7 +44,8 @@ angular.module('iteach.dialog.invoice', [
                 year: $scope.invoice.year,
                 month: $scope.invoice.month,
                 number: $scope.invoice.number,
-                comment: $scope.invoice.comment
+                comment: $scope.invoice.comment,
+                detailPerStudent: $scope.invoice.detailPerStudent
             };
             // Launching the generation
             changeAllowed = true;
