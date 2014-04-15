@@ -6,6 +6,7 @@ import net.nemerosa.iteach.common.Document;
 import net.nemerosa.iteach.common.Period;
 import net.nemerosa.iteach.service.CommentService;
 import net.nemerosa.iteach.service.InvoiceService;
+import net.nemerosa.iteach.service.PreferencesService;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.*;
 import net.nemerosa.iteach.ui.model.*;
@@ -32,6 +33,7 @@ public class UITeacherAPIController implements UITeacherAPI {
     private final TeacherService teacherService;
     private final InvoiceService invoiceService;
     private final CommentService commentService;
+    private final PreferencesService preferencesService;
     private final UIFormatter formatter;
 
     private UISchoolSummary toUISchoolSummary(School school) {
@@ -61,10 +63,11 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     @Autowired
-    public UITeacherAPIController(TeacherService teacherService, InvoiceService invoiceService, CommentService commentService, UIFormatter formatter) {
+    public UITeacherAPIController(TeacherService teacherService, InvoiceService invoiceService, CommentService commentService, PreferencesService preferencesService, UIFormatter formatter) {
         this.teacherService = teacherService;
         this.invoiceService = invoiceService;
         this.commentService = commentService;
+        this.preferencesService = preferencesService;
         this.formatter = formatter;
     }
 
@@ -407,7 +410,8 @@ public class UITeacherAPIController implements UITeacherAPI {
     @RequestMapping(value = "/invoice/form", method = RequestMethod.GET)
     public UIInvoiceFormData getInvoiceFormData(Locale locale) {
         return new UIInvoiceFormData(
-                invoiceService.getNextInvoiceNumber()
+                invoiceService.getNextInvoiceNumber(),
+                preferencesService.getInvoiceStudentDetail()
         );
     }
 
