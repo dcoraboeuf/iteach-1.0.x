@@ -3,6 +3,7 @@ package net.nemerosa.iteach.service.impl;
 import net.nemerosa.iteach.common.Message;
 import net.nemerosa.iteach.common.RunProfile;
 import net.nemerosa.iteach.service.MessagePost;
+import net.nemerosa.iteach.service.config.MailSetup;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,16 +26,17 @@ public class MailMessagePost implements MessagePost {
     private final Logger logger = LoggerFactory.getLogger(MailMessagePost.class);
 
     private final JavaMailSender mailSender;
+    private final MailSetup mailSetup;
 
     @Autowired
-    public MailMessagePost(JavaMailSender mailSender) {
+    public MailMessagePost(JavaMailSender mailSender, MailSetup mailSetup) {
         this.mailSender = mailSender;
+        this.mailSetup = mailSetup;
     }
 
     @Override
     public void post(final Message message, final String email) {
-        // FIXME Reply-to address
-        final String replyToAddress = "info@iteach.net";
+        final String replyToAddress = mailSetup.getReplyTo();
         logger.debug("[mail] Sending message from: {}", replyToAddress);
 
         MimeMessagePreparator preparator = new MimeMessagePreparator() {

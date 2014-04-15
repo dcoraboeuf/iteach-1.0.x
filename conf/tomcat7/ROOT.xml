@@ -34,6 +34,12 @@
               mail.user="youraccount@gmail.com"
               password="yourpassword" />
 
+    <!-- Reply-to address -->
+    <Environment name="value/replyto"
+                 value="youraccount+iteach@gmail.com"
+                 type="java.lang.String"
+            />
+
 </Context>
 
 

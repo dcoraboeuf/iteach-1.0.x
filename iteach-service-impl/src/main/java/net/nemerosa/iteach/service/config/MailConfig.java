@@ -31,4 +31,16 @@ public class MailConfig {
         return sender;
     }
 
+    @Bean
+    public MailSetup mailSetup() throws NamingException {
+        // Mail session @ JNDI
+        JndiObjectFactoryBean factory = new JndiObjectFactoryBean();
+        factory.setExpectedType(String.class);
+        factory.setJndiName("java:comp/env/value/replyto");
+        factory.afterPropertiesSet();
+        // OK
+        String replyTo = (String) factory.getObject();
+        return new MailSetup(replyTo);
+    }
+
 }
