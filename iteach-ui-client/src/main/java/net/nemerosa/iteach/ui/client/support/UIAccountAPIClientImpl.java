@@ -53,8 +53,13 @@ public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> i
 
     @Override
     public UIAccount importAccount(Locale locale, int accountId, JsonNode data) {
-        // FIXME Method net.nemerosa.iteach.ui.client.support.UIAccountAPIClientImpl.importAccount
-        return null;
+        return upload(
+                locale,
+                UIAccount.class,
+                "file",
+                data,
+                "/api/account/%d/import", accountId
+        );
     }
 
     @Override

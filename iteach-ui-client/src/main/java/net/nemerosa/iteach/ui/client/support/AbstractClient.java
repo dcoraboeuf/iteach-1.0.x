@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.ui.client.support;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.json.ObjectMapperFactory;
@@ -15,6 +16,7 @@ import org.apache.http.client.methods.*;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.*;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -125,6 +127,27 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
         } catch (IOException e) {
             throw new ClientGeneralException(put, e);
         }
+    }
+
+    protected <T> T upload(Locale locale, Class<T> returnType, String fileName, JsonNode node, String path, Object... parameters) {
+        HttpPost post = new HttpPost(getUrl(path, parameters));
+        // Sets the content
+        try {
+            post.setEntity(
+                    MultipartEntityBuilder.create()
+                            .addBinaryBody(
+                                    fileName,
+                                    mapper.writeValueAsBytes(node),
+                                    ContentType.APPLICATION_JSON,
+                                    fileName
+                            )
+                            .build()
+            );
+        } catch (IOException e) {
+            throw new ClientGeneralException(post, e);
+        }
+        // OK
+        return request(locale, post, returnType);
     }
 
     protected <T> T request(Locale locale, HttpRequestBase request, Class<T> returnType) {
