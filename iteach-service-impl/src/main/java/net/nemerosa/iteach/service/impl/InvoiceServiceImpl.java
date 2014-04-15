@@ -44,6 +44,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     private final TeacherService teacherService;
     private final AccountService accountService;
+    private final PreferencesService preferencesService;
     private final Map<String, InvoiceGenerator> generators;
     private final InvoiceRepository invoiceRepository;
     private final TransactionTemplate transactionTemplate;
@@ -58,11 +59,12 @@ public class InvoiceServiceImpl implements InvoiceService {
     );
 
     @Autowired
-    public InvoiceServiceImpl(TeacherService teacherService, AccountService accountService, Collection<InvoiceGenerator> generators, InvoiceRepository invoiceRepository, SecurityUtils securityUtils, PlatformTransactionManager transactionManager, Strings strings) {
+    public InvoiceServiceImpl(TeacherService teacherService, AccountService accountService, Collection<InvoiceGenerator> generators, InvoiceRepository invoiceRepository, SecurityUtils securityUtils, PlatformTransactionManager transactionManager, PreferencesService preferencesService, Strings strings) {
         this.teacherService = teacherService;
         this.accountService = accountService;
         this.invoiceRepository = invoiceRepository;
         this.securityUtils = securityUtils;
+        this.preferencesService = preferencesService;
         this.strings = strings;
         this.generators = Maps.uniqueIndex(
                 generators,
@@ -73,6 +75,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public InvoiceInfo generate(InvoiceForm invoiceForm, String type, Locale locale) {
+        // Saves in preferences
+        preferencesService.setInvoiceStudentDetail(invoiceForm.isDetailPerStudent());
         // Gets the invoice data
         InvoiceData data = getInvoiceData(invoiceForm);
         // Controls the data

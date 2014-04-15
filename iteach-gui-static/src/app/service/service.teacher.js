@@ -279,7 +279,6 @@ angular.module('iteach.service.teacher', [
             }
             var d = $q.defer();
             uiTeacher.getInvoiceFormData().success(function (data) {
-                var nb = data.nextInvoiceNumber;
                 d.resolve($modal.open({
                     templateUrl: 'app/dialog/dialog.invoice.tpl.html',
                     controller: 'dialogInvoice',
@@ -288,7 +287,8 @@ angular.module('iteach.service.teacher', [
                             return {
                                 schoolId: schoolId,
                                 period: thePeriod,
-                                number: nb
+                                number: data.nextInvoiceNumber,
+                                detailPerStudent: data.detailPerStudent
                             };
                         }
                     }

@@ -44,6 +44,7 @@ public class InvoiceServiceTest {
                 invoiceRepository,
                 securityUtils,
                 null,
+                null,
                 null);
     }
 
