@@ -219,11 +219,19 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     private String computeDocumentTitle(InvoiceInfo info) {
+        return computeInvoiceTitle(
+                teacherService.getSchool(info.getSchoolId()),
+                info.getPeriod(),
+                info.getNumber()
+        );
+    }
+
+    private String computeInvoiceTitle(School school, YearMonth period, long number) {
         return String.format(
                 "%s-%s-%d",
-                teacherService.getSchool(info.getSchoolId()).getName(),
-                DateTimeFormatter.ofPattern("yyyyMM").format(info.getPeriod()),
-                info.getNumber()
+                school.getName(),
+                DateTimeFormatter.ofPattern("yyyyMM").format(period),
+                number
         );
     }
 
@@ -338,6 +346,7 @@ public class InvoiceServiceImpl implements InvoiceService {
                 report,
                 vat,
                 vatTotal,
+                computeInvoiceTitle(school, form.getPeriod(), form.getNumber()),
                 form.getComment(),
                 form.isDetailPerStudent()
         );

@@ -54,6 +54,7 @@ public final class InvoiceFixtures {
                 ),
                 Money.of(CurrencyUnit.EUR, 42.0),
                 Money.of(CurrencyUnit.EUR, 242.0),
+                "Some title",
                 "Some comments",
                 true
         );
@@ -95,6 +96,7 @@ public final class InvoiceFixtures {
                 ),
                 Money.zero(CurrencyUnit.EUR),
                 Money.zero(CurrencyUnit.EUR),
+                "Some title",
                 "",
                 false
         );

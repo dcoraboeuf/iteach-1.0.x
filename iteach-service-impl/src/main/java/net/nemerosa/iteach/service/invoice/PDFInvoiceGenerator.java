@@ -53,7 +53,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
             // Meta-information
             document.addAuthor(data.getTeacherName());
             document.addCreator("iTeach");
-            document.addTitle(String.format("Invoice")); // TODO Complete title
+            document.addTitle(data.getTitle());
 
             int margin = 20;
             document.setMargins(margin, margin, margin, margin);

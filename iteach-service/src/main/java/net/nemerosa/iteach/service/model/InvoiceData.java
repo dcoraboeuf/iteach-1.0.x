@@ -50,6 +50,10 @@ public class InvoiceData {
     private final Money vat;
     private final Money vatTotal;
     /**
+     * Title of the invoice
+     */
+    private final String title;
+    /**
      * Optional comment
      */
     private final String comment;
