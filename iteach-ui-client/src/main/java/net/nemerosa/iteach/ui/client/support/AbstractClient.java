@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.nemerosa.iteach.common.Ack;
-import net.nemerosa.iteach.common.Document;
+import net.nemerosa.iteach.common.UntitledDocument;
 import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import net.nemerosa.iteach.ui.client.UIClient;
 import org.apache.commons.lang3.StringUtils;
@@ -136,10 +136,8 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
             return upload(
                     locale,
                     returnType,
-                    new Document(
-                            fileName,
+                    new UntitledDocument(
                             ContentType.APPLICATION_JSON.getMimeType(),
-                            "json",
                             mapper.writeValueAsBytes(node)
                     ),
                     path, parameters
@@ -149,16 +147,16 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
         }
     }
 
-    protected <T> T upload(Locale locale, Class<T> returnType, Document document, String path, Object... parameters) {
+    protected <T> T upload(Locale locale, Class<T> returnType, UntitledDocument document, String path, Object... parameters) {
         HttpPost post = new HttpPost(getUrl(path, parameters));
         // Sets the content
         post.setEntity(
                 MultipartEntityBuilder.create()
                         .addBinaryBody(
-                                document.getTitle(),
+                                "file",
                                 document.getContent(),
                                 ContentType.create(document.getType()),
-                                document.getTitle()
+                                "file"
                         )
                         .build()
         );

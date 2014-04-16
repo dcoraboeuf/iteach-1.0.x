@@ -77,7 +77,7 @@ public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> i
     }
 
     @Override
-    public Ack updateProfileCompanyLogo(Locale locale, Document file) {
+    public Ack updateProfileCompanyLogo(Locale locale, UntitledDocument file) {
         return upload(
                 locale,
                 Ack.class,

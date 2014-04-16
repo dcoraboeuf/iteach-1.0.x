@@ -1,7 +1,10 @@
 package net.nemerosa.iteach.ui;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import net.nemerosa.iteach.common.*;
+import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.ID;
+import net.nemerosa.iteach.common.TokenType;
+import net.nemerosa.iteach.common.UntitledDocument;
 import net.nemerosa.iteach.ui.model.*;
 
 import java.util.Locale;
@@ -30,7 +33,7 @@ public interface UIAccountAPI {
 
     Ack saveProfile(Locale locale, UIProfile profile);
 
-    Ack updateProfileCompanyLogo(Locale locale, Document file);
+    Ack updateProfileCompanyLogo(Locale locale, UntitledDocument file);
 
     UntitledDocument getProfileCompanyLogo(Locale locale);
 

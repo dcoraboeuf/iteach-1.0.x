@@ -9,7 +9,6 @@ import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.ValidationTokenTypeNotManagedException;
 import net.nemerosa.iteach.service.model.*;
 import net.nemerosa.iteach.ui.model.*;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
@@ -213,17 +212,15 @@ public class UIAccountAPIController implements UIAccountAPI {
     public Ack updateProfileCompanyLogo(Locale locale, @RequestParam MultipartFile file) throws IOException {
         return updateProfileCompanyLogo(
                 locale,
-                new Document(
-                        file.getName(),
+                new UntitledDocument(
                         file.getContentType(),
-                        StringUtils.substringBeforeLast(file.getOriginalFilename(), "."),
                         file.getBytes()
                 )
         );
     }
 
     @Override
-    public Ack updateProfileCompanyLogo(Locale locale, Document file) {
+    public Ack updateProfileCompanyLogo(Locale locale, UntitledDocument file) {
         return accountService.updateProfileCompanyLogo(file);
     }
 
