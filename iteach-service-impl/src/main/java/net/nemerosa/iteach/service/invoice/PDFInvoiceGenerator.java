@@ -220,7 +220,6 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
 
     private Paragraph studentDetail(InvoiceData data, Locale locale) {
         // Details of students
-        // TODO Details of student is optional
         Paragraph p = new Paragraph();
         p.add(new Paragraph("Detail per student", section));
 
