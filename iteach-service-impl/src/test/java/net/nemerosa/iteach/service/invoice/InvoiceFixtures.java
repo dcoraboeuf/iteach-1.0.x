@@ -26,6 +26,7 @@ public final class InvoiceFixtures {
                 2014001L,
                 teacherId, "Teacher Name", "teacher@test.com",
                 new Profile("Company", "Rue de la Ville\n1000 Brussels", "01234", "BE56789", "BE567", "BBGGRR"),
+                null, // TODO Test with a company logo
                 new School(schoolId, teacherId, schoolName, schoolColour, "", hourlyRate, "Avenue du Village\n3000 Labas", "", "", "", "", "BE09876", BigDecimal.valueOf(21)),
                 new SchoolReport(
                         schoolId,
@@ -65,6 +66,7 @@ public final class InvoiceFixtures {
                 2014001L,
                 teacherId, "Teacher Name", "teacher@test.com",
                 new Profile("", "", "", "", "", ""),
+                null,
                 new School(schoolId, teacherId, schoolName, schoolColour, "", null, "", "", "", "", "", "", null),
                 new SchoolReport(
                         schoolId,

@@ -333,6 +333,7 @@ public class InvoiceServiceImpl implements InvoiceService {
                 account.getName(),
                 account.getEmail(),
                 accountService.getProfile(),
+                accountService.getProfileCompanyLogo(),
                 school,
                 report,
                 vat,

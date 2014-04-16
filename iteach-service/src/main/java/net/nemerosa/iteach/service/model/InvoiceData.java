@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.service.model;
 
 import lombok.Data;
+import net.nemerosa.iteach.common.UntitledDocument;
 import org.joda.money.Money;
 
 import java.time.LocalDate;
@@ -31,6 +32,10 @@ public class InvoiceData {
      * Profile used for the invoice
      */
     private final Profile profile;
+    /**
+     * Logo of the company
+     */
+    private final UntitledDocument companyLogo;
     /**
      * School data
      */
