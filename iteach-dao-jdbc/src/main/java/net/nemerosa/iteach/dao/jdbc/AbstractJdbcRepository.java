@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.nemerosa.iteach.common.json.ObjectMapperFactory;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -48,6 +49,15 @@ public abstract class AbstractJdbcRepository extends NamedParameterJdbcDaoSuppor
 
     protected <T> T getFirstItem(String sql, MapSqlParameterSource criteria, Class<T> type) {
         List<T> items = getNamedParameterJdbcTemplate().queryForList(sql, criteria, type);
+        if (items.isEmpty()) {
+            return null;
+        } else {
+            return items.get(0);
+        }
+    }
+
+    protected <T> T getFirstItem(String sql, MapSqlParameterSource criteria, RowMapper<T> rowMapper) {
+        List<T> items = getNamedParameterJdbcTemplate().query(sql, criteria, rowMapper);
         if (items.isEmpty()) {
             return null;
         } else {

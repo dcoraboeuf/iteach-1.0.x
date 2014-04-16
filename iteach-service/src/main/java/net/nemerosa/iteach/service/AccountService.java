@@ -3,6 +3,7 @@ package net.nemerosa.iteach.service;
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.Document;
 import net.nemerosa.iteach.common.ID;
+import net.nemerosa.iteach.common.UntitledDocument;
 import net.nemerosa.iteach.service.model.*;
 
 import java.util.Locale;
@@ -42,4 +43,6 @@ public interface AccountService {
     Ack passwordChange(String token, String oldPassword, String newPassword);
 
     Ack updateProfileCompanyLogo(Document file);
+
+    UntitledDocument getProfileCompanyLogo();
 }

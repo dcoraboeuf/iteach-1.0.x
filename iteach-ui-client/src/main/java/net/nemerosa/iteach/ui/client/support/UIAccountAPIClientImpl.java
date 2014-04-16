@@ -87,6 +87,12 @@ public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> i
     }
 
     @Override
+    public UntitledDocument getProfileCompanyLogo(Locale locale) {
+        // FIXME Method net.nemerosa.iteach.ui.client.support.UIAccountAPIClientImpl.getProfileCompanyLogo
+        return null;
+    }
+
+    @Override
     public UISetup getSetup(Locale locale) {
         return get(locale, UISetup.class, "/api/account/setup");
     }

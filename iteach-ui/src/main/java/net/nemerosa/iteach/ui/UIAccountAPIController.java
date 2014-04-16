@@ -227,6 +227,22 @@ public class UIAccountAPIController implements UIAccountAPI {
         return accountService.updateProfileCompanyLogo(file);
     }
 
+    @RequestMapping(value = "/profile/companyLogo", method = RequestMethod.GET)
+    public void getProfileCompanyLogo(Locale locale, HttpServletResponse response) throws IOException {
+        // Gets the file
+        UntitledDocument file = getProfileCompanyLogo(locale);
+        // Writes as a file
+        response.setContentType(file.getType());
+        // Outputs a file
+        response.getOutputStream().write(file.getContent());
+        response.getOutputStream().flush();
+    }
+
+    @Override
+    public UntitledDocument getProfileCompanyLogo(Locale locale) {
+        return accountService.getProfileCompanyLogo();
+    }
+
     @Override
     @RequestMapping(value = "/setup", method = RequestMethod.GET)
     public UISetup getSetup(Locale locale) {

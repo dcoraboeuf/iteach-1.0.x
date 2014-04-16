@@ -233,4 +233,16 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
                 )
         );
     }
+
+    @Override
+    public UntitledDocument getProfileCompanyLogo(int accountId) {
+        return getFirstItem(
+                SQL.ACCOUNT_PROFILE_COMPANY_LOGO,
+                params("id", accountId),
+                (rs, rowNum) -> new UntitledDocument(
+                        rs.getString("companyLogo_type"),
+                        rs.getBytes("companyLogo_content")
+                )
+        );
+    }
 }

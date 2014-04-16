@@ -42,4 +42,6 @@ public interface AccountRepository {
     void disable(int accountId, boolean disabled);
 
     Ack saveProfileCompanyLogo(int accountId, UntitledDocument file);
+
+    UntitledDocument getProfileCompanyLogo(int accountId);
 }

@@ -128,6 +128,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public UntitledDocument getProfileCompanyLogo() {
+        return accountRepository.getProfileCompanyLogo(securityUtils.checkTeacher());
+    }
+
+    @Override
     public Ack completeRegistration(Locale locale, String token) {
         // User email
         TokenKey key = tokenService.checkToken(token, TokenType.REGISTRATION);
