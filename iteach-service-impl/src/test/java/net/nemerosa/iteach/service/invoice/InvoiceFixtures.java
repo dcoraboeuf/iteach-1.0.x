@@ -25,7 +25,7 @@ public final class InvoiceFixtures {
                 LocalDate.now(),
                 2014001L,
                 teacherId, "Teacher Name", "teacher@test.com",
-                new Profile("Company", "", "Rue de la Ville\n1000 Brussels", "01234", "BE56789", "BE567", "BBGGRR"),
+                new Profile("Company", "Rue de la Ville\n1000 Brussels", "01234", "BE56789", "BE567", "BBGGRR"),
                 new School(schoolId, teacherId, schoolName, schoolColour, "", hourlyRate, "Avenue du Village\n3000 Labas", "", "", "", "", "BE09876", BigDecimal.valueOf(21)),
                 new SchoolReport(
                         schoolId,
@@ -55,7 +55,6 @@ public final class InvoiceFixtures {
     }
 
     public static InvoiceData invoiceIncompleteData() {
-        final Money hourlyRate = null;
         final int teacherId = 1;
         final int schoolId = 1;
         final String schoolColour = "#FF0000";
@@ -65,13 +64,13 @@ public final class InvoiceFixtures {
                 LocalDate.now(),
                 2014001L,
                 teacherId, "Teacher Name", "teacher@test.com",
-                new Profile("", "", "", "", "", "", ""),
-                new School(schoolId, teacherId, schoolName, schoolColour, "", hourlyRate, "", "", "", "", "", "", null),
+                new Profile("", "", "", "", "", ""),
+                new School(schoolId, teacherId, schoolName, schoolColour, "", null, "", "", "", "", "", "", null),
                 new SchoolReport(
                         schoolId,
                         schoolName,
                         schoolColour,
-                        hourlyRate,
+                        null,
                         BigDecimal.ZERO,
                         Money.of(CurrencyUnit.EUR, 0),
                         Arrays.asList(

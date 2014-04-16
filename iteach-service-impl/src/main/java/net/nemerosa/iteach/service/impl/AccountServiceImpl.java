@@ -150,7 +150,6 @@ public class AccountServiceImpl implements AccountService {
         TProfile t = accountRepository.getProfile(id);
         return new Profile(
                 t.getCompany(),
-                t.getCompanyLogo(),
                 t.getPostalAddress(),
                 t.getPhone(),
                 t.getVat(),
@@ -166,7 +165,6 @@ public class AccountServiceImpl implements AccountService {
                 id,
                 new TProfile(
                         profile.getCompany(),
-                        profile.getCompanyLogo(),
                         profile.getPostalAddress(),
                         profile.getPhone(),
                         profile.getVat(),

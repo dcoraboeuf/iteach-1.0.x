@@ -148,8 +148,6 @@ var map_fr = {
     // Profile
     'account.profile': "Profil",
     'account.profile.company': "Entreprise",
-    'account.profile.company.logo': "Logo de l'entreprise",
-    'account.profile.company.logo.help': "Lien vers le logo de l'entreprise (doit pointer vers une image)",
     'account.profile.postalAddress': "Adresse",
     'account.profile.phone': "Téléphone",
     'account.profile.vat': "Numéro de TVA",

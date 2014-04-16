@@ -149,7 +149,6 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
                 params("id", accountId),
                 (rs, rowNum) -> new TProfile(
                         rs.getString("company"),
-                        rs.getString("companyLogo"),
                         rs.getString("postalAddress"),
                         rs.getString("phone"),
                         rs.getString("vat"),
@@ -165,7 +164,6 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
                 SQL.ACCOUNT_UPDATE_PROFILE,
                 params("id", accountId)
                         .addValue("company", profile.getCompany())
-                        .addValue("companyLogo", profile.getCompanyLogo())
                         .addValue("postalAddress", profile.getPostalAddress())
                         .addValue("phone", profile.getPhone())
                         .addValue("vat", profile.getVat())

@@ -11,9 +11,6 @@ public class UIProfile {
     @Size(max = 80)
     private final String company;
     @Size(max = 200)
-    @URL
-    private final String companyLogo;
-    @Size(max = 200)
     private final String postalAddress;
     @Size(max = 40)
     private final String phone;

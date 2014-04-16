@@ -43,7 +43,6 @@ public class InvoiceServiceIT extends AbstractITTestSupport {
         serviceITSupport.asTeacher(teacherId, () -> {
             accountService.saveProfile(new Profile(
                     "My Company",
-                    "",
                     "Company Address",
                     "01234",
                     "BE1234",
