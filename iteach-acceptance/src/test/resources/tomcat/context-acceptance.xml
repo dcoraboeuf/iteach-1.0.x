@@ -20,7 +20,7 @@
               username="iteach"
               password="iteach"
               driverClassName="org.h2.Driver"
-              url="jdbc:h2:file:target/iteach-acceptance/db/data;AUTOCOMMIT=OFF;MVCC=true;MODE=MySQL"
+              url="jdbc:h2:./target/iteach-acceptance/db/data;AUTOCOMMIT=OFF;MODE=MySQL"
             />
 
 </Context>
