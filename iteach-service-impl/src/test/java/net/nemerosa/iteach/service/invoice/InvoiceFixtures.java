@@ -1,9 +1,13 @@
 package net.nemerosa.iteach.service.invoice;
 
+import net.nemerosa.iteach.common.UntitledDocument;
 import net.nemerosa.iteach.service.model.*;
+import org.apache.commons.io.IOUtils;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -26,7 +30,7 @@ public final class InvoiceFixtures {
                 2014001L,
                 teacherId, "Teacher Name", "teacher@test.com",
                 new Profile("Company", "Rue de la Ville\n1000 Brussels", "01234", "BE56789", "BE567", "BBGGRR"),
-                null, // TODO Test with a company logo
+                companyLogo(),
                 new School(schoolId, teacherId, schoolName, schoolColour, "", hourlyRate, "Avenue du Village\n3000 Labas", "", "", "", "", "BE09876", BigDecimal.valueOf(21)),
                 new SchoolReport(
                         schoolId,
@@ -53,6 +57,17 @@ public final class InvoiceFixtures {
                 "Some comments",
                 true
         );
+    }
+
+    public static UntitledDocument companyLogo() {
+        try (InputStream in = InvoiceFixtures.class.getResourceAsStream("/logo.png")) {
+            return new UntitledDocument(
+                    "image/png",
+                    IOUtils.toByteArray(in)
+            );
+        } catch (IOException e) {
+            throw new IllegalStateException("Cannot read image", e);
+        }
     }
 
     public static InvoiceData invoiceIncompleteData() {

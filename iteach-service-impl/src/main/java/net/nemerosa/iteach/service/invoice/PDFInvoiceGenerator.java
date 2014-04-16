@@ -5,6 +5,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.VerticalPositionMark;
+import net.nemerosa.iteach.common.UntitledDocument;
 import net.nemerosa.iteach.service.InvoiceGenerationException;
 import net.nemerosa.iteach.service.model.InvoiceData;
 import net.nemerosa.iteach.service.model.StudentReport;
@@ -54,10 +55,29 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
             document.addCreator("iTeach");
             document.addTitle(String.format("Invoice")); // TODO Complete title
 
+            int margin = 20;
+            document.setMargins(margin, margin, margin, margin);
+
             @SuppressWarnings("deprecation")
             Chunk tab1 = new Chunk(new VerticalPositionMark(), 150, false);
 
-            // TODO Company logo
+            // Company logo
+            UntitledDocument logo = data.getCompanyLogo();
+            if (logo != null) {
+                Image image = Image.getInstance(logo.getContent());
+                float width = image.getWidth();
+                float height = image.getHeight();
+                if (width > 400) {
+                    height = height * 400f / width;
+                    image.scaleToFit(400f, height);
+                }
+                Paragraph p = new Paragraph();
+                p.add(image);
+                p.setSpacingBefore(50);
+                p.setSpacingAfter(20);
+                document.add(p);
+            }
+
             document.add(header(data));
             document.add(getInvoicePara(data, locale, tab1));
             if (data.isDetailPerStudent()) {
