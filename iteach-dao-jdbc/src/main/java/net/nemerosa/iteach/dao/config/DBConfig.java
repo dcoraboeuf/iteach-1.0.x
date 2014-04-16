@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 @Configuration
 public class DBConfig {
 
-    public static final int VERSION = 2;
+    public static final int VERSION = 3;
 
     @Autowired
     private DataSource dataSource;
