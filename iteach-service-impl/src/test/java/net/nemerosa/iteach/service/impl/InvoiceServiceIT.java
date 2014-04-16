@@ -6,6 +6,7 @@ import net.nemerosa.iteach.it.AbstractITTestSupport;
 import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.InvoiceService;
 import net.nemerosa.iteach.service.TeacherService;
+import net.nemerosa.iteach.service.invoice.InvoiceFixtures;
 import net.nemerosa.iteach.service.model.*;
 import org.apache.commons.io.FileUtils;
 import org.joda.money.CurrencyUnit;
@@ -49,6 +50,7 @@ public class InvoiceServiceIT extends AbstractITTestSupport {
                     "BE56575757",
                     "RTTRRTRT"
             ));
+            accountService.updateProfileCompanyLogo(InvoiceFixtures.companyLogo());
             return null;
         });
 

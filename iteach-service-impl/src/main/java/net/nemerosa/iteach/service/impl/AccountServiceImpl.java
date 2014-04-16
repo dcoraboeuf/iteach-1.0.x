@@ -112,7 +112,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Ack updateProfileCompanyLogo(Document file) {
+    public Ack updateProfileCompanyLogo(UntitledDocument file) {
         int teacherId = securityUtils.checkTeacher();
         // Control of the file type
         if (!ArrayUtils.contains(ACCEPTED_IMAGE_TYPES, file.getType())) {
@@ -124,7 +124,7 @@ public class AccountServiceImpl implements AccountService {
             throw new ProfileCompanyLogoFileSizeException(AccountRepository.COMPANY_LOGO_MAX_SIZE / 1000);
         }
         // Stores the image
-        return accountRepository.saveProfileCompanyLogo(teacherId, file.toUntitledDocument());
+        return accountRepository.saveProfileCompanyLogo(teacherId, file);
     }
 
     @Override
