@@ -156,6 +156,11 @@ angular.module('iteach.service.account', [
                     modalController: function () {
                         return {
                             onSubmit: function (profile) {
+                                // Upload of the logo?
+                                if (profile.companyLogoFile) {
+                                    uiAccount.updateAccountCompanyLogo(profile.companyLogoFile);
+                                }
+                                // Normal profile update
                                 delete profile.companyLogoFile;
                                 return uiAccount.updateAccountProfile(profile);
                             }

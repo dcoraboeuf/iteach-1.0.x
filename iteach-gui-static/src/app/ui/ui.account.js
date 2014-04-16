@@ -90,6 +90,18 @@ angular.module('iteach.ui.account', [
             return $http.get(config.api('account/profile'));
         };
 
+        self.updateAccountCompanyLogo = function (file) {
+            var fd = new FormData();
+            fd.append('file', file);
+            return $http.post(
+                config.api('account/profile/companyLogo'),
+                fd, {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                }
+            );
+        };
+
         self.updateAccountProfile = function (profile) {
             return $http.put(config.api('account/profile'), profile);
         };
