@@ -1,8 +1,10 @@
 package net.nemerosa.iteach.ui.client.support;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.Document;
 import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import net.nemerosa.iteach.ui.client.UIClient;
 import org.apache.commons.lang3.StringUtils;
@@ -130,22 +132,36 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
     }
 
     protected <T> T upload(Locale locale, Class<T> returnType, String fileName, JsonNode node, String path, Object... parameters) {
+        try {
+            return upload(
+                    locale,
+                    returnType,
+                    new Document(
+                            fileName,
+                            ContentType.APPLICATION_JSON.getMimeType(),
+                            "json",
+                            mapper.writeValueAsBytes(node)
+                    ),
+                    path, parameters
+            );
+        } catch (JsonProcessingException e) {
+            throw new ClientException(e);
+        }
+    }
+
+    protected <T> T upload(Locale locale, Class<T> returnType, Document document, String path, Object... parameters) {
         HttpPost post = new HttpPost(getUrl(path, parameters));
         // Sets the content
-        try {
-            post.setEntity(
-                    MultipartEntityBuilder.create()
-                            .addBinaryBody(
-                                    fileName,
-                                    mapper.writeValueAsBytes(node),
-                                    ContentType.APPLICATION_JSON,
-                                    fileName
-                            )
-                            .build()
-            );
-        } catch (IOException e) {
-            throw new ClientGeneralException(post, e);
-        }
+        post.setEntity(
+                MultipartEntityBuilder.create()
+                        .addBinaryBody(
+                                document.getTitle(),
+                                document.getContent(),
+                                ContentType.create(document.getType()),
+                                document.getTitle()
+                        )
+                        .build()
+        );
         // OK
         return request(locale, post, returnType);
     }
