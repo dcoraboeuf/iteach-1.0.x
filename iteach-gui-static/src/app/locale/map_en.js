@@ -156,6 +156,10 @@ var map_en = {
     'account.profile.vat.help': "VAT number of the company, used for the generation of invoices.",
     'account.profile.iban': "IBAN",
     'account.profile.bic': "BIC",
+    'account.profile.companyLogo': "Company logo",
+    'account.profile.companyLogo.help': "Upload a JPEG or PNG image that will be used as the logo of your company in " +
+        "the generated invoices. This file size must not be bigger than 8K, and the image will be optionally resized " +
+        "to fit in a frame of 100 pixels height or 600 pixels width.",
     // Account mgt
     'account.menu': 'Account',
     'account.passwordChange': 'Change password',

@@ -156,6 +156,7 @@ angular.module('iteach.service.account', [
                     modalController: function () {
                         return {
                             onSubmit: function (profile) {
+                                delete profile.companyLogoFile;
                                 return uiAccount.updateAccountProfile(profile);
                             }
                         }
