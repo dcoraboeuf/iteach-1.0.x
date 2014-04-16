@@ -2,6 +2,7 @@ package net.nemerosa.iteach.dao.jdbc;
 
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.AuthenticationMode;
+import net.nemerosa.iteach.common.UntitledDocument;
 import net.nemerosa.iteach.dao.AccountEmailAlreadyExistsException;
 import net.nemerosa.iteach.dao.AccountIdentifierAlreadyExistsException;
 import net.nemerosa.iteach.dao.AccountRepository;
@@ -218,6 +219,18 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
         getNamedParameterJdbcTemplate().update(
                 SQL.ACCOUNT_DISABLE,
                 params("id", accountId).addValue("disabled", disabled)
+        );
+    }
+
+    @Override
+    public Ack saveProfileCompanyLogo(int accountId, UntitledDocument file) {
+        return Ack.one(
+                getNamedParameterJdbcTemplate().update(
+                        SQL.ACCOUNT_SAVE_PROFILE_COMPANY_LOGO,
+                        params("id", accountId)
+                                .addValue("companyLogo_type", file.getType())
+                                .addValue("companyLogo_content", file.getContent())
+                )
         );
     }
 }

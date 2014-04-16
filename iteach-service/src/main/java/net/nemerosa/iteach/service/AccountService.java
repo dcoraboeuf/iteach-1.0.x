@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.service;
 
 import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.Document;
 import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.service.model.*;
 
@@ -8,6 +9,11 @@ import java.util.Locale;
 import java.util.stream.Stream;
 
 public interface AccountService {
+
+    String[] ACCEPTED_IMAGE_TYPES = {
+            "image/jpeg",
+            "image/png"
+    };
 
     ID register(Locale locale, TeacherRegistrationForm form);
 
@@ -34,4 +40,6 @@ public interface AccountService {
     Ack passwordChangeRequest(Locale locale);
 
     Ack passwordChange(String token, String oldPassword, String newPassword);
+
+    Ack updateProfileCompanyLogo(Document file);
 }

@@ -156,7 +156,7 @@ var map_fr = {
     'account.profile.bic': "BIC",
     'account.profile.companyLogo': "Logo de l'entreprise",
     'account.profile.companyLogo.help': "Téléchargez une image JPEG ou PNG. Elle sera utilisée en tant que logo " +
-        "pour votre entreprise sur les factures générées. La taille du fichier ne doit pas excéder 8K, et l'image " +
+        "pour votre entreprise sur les factures générées. La taille du fichier ne doit pas excéder 64K, et l'image " +
         "sera si nécessaire modifiée pour tenir dans un cadre de hauteur maximale 100 pixels et de largeur " +
         "maximale 600 pixels.",
     // Account mgt

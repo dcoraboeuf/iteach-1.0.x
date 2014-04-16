@@ -2,6 +2,7 @@ package net.nemerosa.iteach.dao;
 
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.AuthenticationMode;
+import net.nemerosa.iteach.common.UntitledDocument;
 import net.nemerosa.iteach.dao.model.TAccount;
 import net.nemerosa.iteach.dao.model.TProfile;
 
@@ -9,6 +10,8 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public interface AccountRepository {
+
+    int COMPANY_LOGO_MAX_SIZE = 64 * 1000;
 
     int createAccount(AuthenticationMode mode, String identifier, String email, String name, String encodedPassword);
 
@@ -37,4 +40,6 @@ public interface AccountRepository {
     void changePassword(int accountId, String encodedPassword);
 
     void disable(int accountId, boolean disabled);
+
+    Ack saveProfileCompanyLogo(int accountId, UntitledDocument file);
 }

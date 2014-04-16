@@ -16,4 +16,8 @@ public class Document {
         this(title, doc.getType(), extension, doc.getContent());
     }
 
+    public UntitledDocument toUntitledDocument() {
+        return new UntitledDocument(type, content);
+    }
+
 }

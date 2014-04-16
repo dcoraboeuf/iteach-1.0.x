@@ -8,6 +8,7 @@ import net.nemerosa.iteach.service.*;
 import net.nemerosa.iteach.service.model.*;
 import net.nemerosa.iteach.service.support.EnvService;
 import net.sf.jstring.Strings;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -108,6 +109,22 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.changePassword(account.getId(), passwordEncoder.encode(newPassword));
         // OK
         return Ack.OK;
+    }
+
+    @Override
+    public Ack updateProfileCompanyLogo(Document file) {
+        int teacherId = securityUtils.checkTeacher();
+        // Control of the file type
+        if (!ArrayUtils.contains(ACCEPTED_IMAGE_TYPES, file.getType())) {
+            throw new ProfileCompanyLogoImageTypeException(file.getType(), StringUtils.join(ACCEPTED_IMAGE_TYPES, ", "));
+        }
+        // TODO Reduction of the image size using a service
+        // Control of the file size
+        if (file.getContent().length > AccountRepository.COMPANY_LOGO_MAX_SIZE) {
+            throw new ProfileCompanyLogoFileSizeException(AccountRepository.COMPANY_LOGO_MAX_SIZE / 1000);
+        }
+        // Stores the image
+        return accountRepository.saveProfileCompanyLogo(teacherId, file.toUntitledDocument());
     }
 
     @Override

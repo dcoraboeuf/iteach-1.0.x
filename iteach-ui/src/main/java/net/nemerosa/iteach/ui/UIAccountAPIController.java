@@ -1,10 +1,7 @@
 package net.nemerosa.iteach.ui;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import net.nemerosa.iteach.common.AccountAuthentication;
-import net.nemerosa.iteach.common.Ack;
-import net.nemerosa.iteach.common.ID;
-import net.nemerosa.iteach.common.TokenType;
+import net.nemerosa.iteach.common.*;
 import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import net.nemerosa.iteach.service.AccountService;
 import net.nemerosa.iteach.service.ImportExportService;
@@ -12,6 +9,7 @@ import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.ValidationTokenTypeNotManagedException;
 import net.nemerosa.iteach.service.model.*;
 import net.nemerosa.iteach.ui.model.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
@@ -168,7 +166,8 @@ public class UIAccountAPIController implements UIAccountAPI {
                 new OutputStreamWriter(
                         response.getOutputStream(),
                         "UTF-8"),
-                jsonNode);
+                jsonNode
+        );
     }
 
     @Override
@@ -208,6 +207,24 @@ public class UIAccountAPIController implements UIAccountAPI {
                 )
         );
         return Ack.OK;
+    }
+
+    @RequestMapping(value = "/profile/companyLogo", method = RequestMethod.POST)
+    public Ack updateProfileCompanyLogo(Locale locale, @RequestParam MultipartFile file) throws IOException {
+        return updateProfileCompanyLogo(
+                locale,
+                new Document(
+                        file.getName(),
+                        file.getContentType(),
+                        StringUtils.substringBeforeLast(file.getOriginalFilename(), "."),
+                        file.getBytes()
+                )
+        );
+    }
+
+    @Override
+    public Ack updateProfileCompanyLogo(Locale locale, Document file) {
+        return accountService.updateProfileCompanyLogo(file);
     }
 
     @Override

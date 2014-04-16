@@ -42,6 +42,14 @@ net.nemerosa.iteach.service.AccountPasswordCheckException
     en -> Password is incorrect.
     fr -> Le mot de passe est incorrect.
 
+net.nemerosa.iteach.service.impl.ProfileCompanyLogoFileSizeException
+    en -> The size of the file exceeds {0}K.
+    fr -> La taille du fichier dépasse {0}K.
+
+net.nemerosa.iteach.service.impl.ProfileCompanyLogoImageTypeException
+    en -> The type of the image ({0}) must be one of: {1}
+    fr -> Le type de l'image ({0}) doit être l'un des suivants : {1}
+
 net.nemerosa.iteach.service.InvoiceGeneratorTypeNotFoundException
     en -> Invoice generator of type "{0}" cannot be found.
     fr -> Aucun générateur de facture de type "{0}" ne peut être trouvé.
