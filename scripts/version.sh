@@ -29,7 +29,7 @@ mvn versions:set -DnewVersion=$NEXT_VERSION-SNAPSHOT -DgenerateBackupPoms=false 
 git commit -am "Prepare for version $NEXT_VERSION"
 
 # Release property file
-echo RELEASE=$CURRENT_VERSION > .release
+echo $CURRENT_VERSION > .release
 
 # End
 echo Tag created.
