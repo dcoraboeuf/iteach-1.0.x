@@ -368,28 +368,21 @@
 				<artifactId>maven-enforcer-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>enforce-java</id>
-						<goals>
-							<goal>enforce</goal>
-						</goals>
-						<configuration>
-							<rules>
-								<requireJavaVersion>
-									<version>1.8.0</version>
-								</requireJavaVersion>
-							</rules>
-						</configuration>
-					</execution>
-					<execution>
-						<id>enforce-maven</id>
+						<id>enforce-rules</id>
 						<goals>
 							<goal>enforce</goal>
 						</goals>
 						<configuration>
 							<rules>
 								<requireMavenVersion>
-									<version>[3.0.5,)</version>
+									<version>[3.1.1,)</version>
 								</requireMavenVersion>
+								<requireJavaVersion>
+									<version>1.8.0</version>
+								</requireJavaVersion>
+								<requirePluginVersions>
+									<phases>clean,compile,test,install,verify,deploy</phases>
+								</requirePluginVersions>
 							</rules>
 						</configuration>
 					</execution>
