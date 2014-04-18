@@ -38,5 +38,6 @@ echo git reset --hard HEAD
 echo git push
 echo git push --tags
 echo ** Rolling back the version
+echo git tag -d $CURRENT_VERSION
 echo git reset --hard HEAD~2
 
