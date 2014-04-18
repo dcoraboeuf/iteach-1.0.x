@@ -30,14 +30,14 @@ git commit -am "Prepare for version $NEXT_VERSION"
 
 # End
 echo Tag created.
-echo ** Perform the following commands to build and push:
+echo Perform the following commands to build and push:
 echo git checkout $CURRENT_VERSION
 echo mvn clean install -P release -P acceptance -P acceptance-local
 echo git checkout release_${MAJOR}.${MINOR}
 echo git reset --hard HEAD
 echo git push
 echo git push --tags
-echo ** Rolling back the version
+echo Rolling back the version
 echo git tag -d $CURRENT_VERSION
 echo git reset --hard HEAD~2
 
