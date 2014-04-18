@@ -28,6 +28,9 @@ mvn versions:set -DnewVersion=$NEXT_VERSION-SNAPSHOT -DgenerateBackupPoms=false 
 # Commit
 git commit -am "Prepare for version $NEXT_VERSION"
 
+# Release property file
+echo RELEASE=$CURRENT_VERSION > .release
+
 # End
 echo Tag created.
 echo Perform the following commands to build and push:
