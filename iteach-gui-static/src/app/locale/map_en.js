@@ -16,6 +16,7 @@ var map_en = {
     'logout': "Sign out",
     // Home page
     'home.back': "Close",
+    'version.help': "Goes to the iTeach pages",
     // Error page
     'error': "Error",
     'error.message': "The page you have requested cannot be displayed.",
