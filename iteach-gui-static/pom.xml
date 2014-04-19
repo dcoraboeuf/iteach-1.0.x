@@ -116,6 +116,15 @@
                                                 >
                                             <fileset dir="${basedir}" includes="*.json" />
                                         </replaceregexp>
+                                        <echo>Replacing versions in config.js file</echo>
+                                        <replaceregexp
+                                                match="'DEV'"
+                                                replace="'${project.version}'"
+                                                byline="true"
+                                                encoding="UTF-8"
+                                                >
+                                            <fileset dir="${basedir}/src/app" includes="config.js" />
+                                        </replaceregexp>
                                     </target>
                                 </configuration>
                             </execution>
