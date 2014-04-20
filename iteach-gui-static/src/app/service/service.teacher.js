@@ -85,15 +85,20 @@ angular.module('iteach.service.teacher', [
                     modalController: function () {
                         return {
                             onSubmit: function (studentForm) {
-                                return uiTeacher.createStudent({
+                                var form = {
                                     schoolId: studentForm.schoolId,
+                                    contractId: studentForm.contractId,
                                     name: studentForm.name,
                                     subject: studentForm.subject,
                                     postalAddress: studentForm.postalAddress,
                                     phone: studentForm.phone,
                                     mobilePhone: studentForm.mobilePhone,
                                     email: studentForm.email
-                                })
+                                };
+                                if (studentForm.contractId) {
+                                    form.contractId = studentForm.contractId;
+                                }
+                                return uiTeacher.createStudent(form);
                             }
                         }
                     }
@@ -114,7 +119,7 @@ angular.module('iteach.service.teacher', [
                     modalController: function () {
                         return {
                             onSubmit: function (studentForm) {
-                                return uiTeacher.updateStudent(student.id, {
+                                var form = {
                                     schoolId: studentForm.schoolId,
                                     name: studentForm.name,
                                     subject: studentForm.subject,
@@ -122,7 +127,11 @@ angular.module('iteach.service.teacher', [
                                     phone: studentForm.phone,
                                     mobilePhone: studentForm.mobilePhone,
                                     email: studentForm.email
-                                })
+                                };
+                                if (studentForm.contractId) {
+                                    form.contractId = studentForm.contractId;
+                                }
+                                return uiTeacher.updateStudent(student.id, form)
                             }
                         }
                     }

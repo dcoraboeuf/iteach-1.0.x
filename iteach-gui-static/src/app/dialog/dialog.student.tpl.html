@@ -24,7 +24,7 @@
         <div class="form-group" ng-class="{ 'has-error' : studentForm.contract.$invalid && !studentForm.contract.$pristine }">
             <label class="control-label col-md-3">{{'student.contract' | translate}}</label>
             <div class="col-md-9">
-                <select ng-model="student.contract.id" ng-options="contract.id as contract.name for contract in contracts" name="contractId" required="required" class="form-control">
+                <select ng-model="student.contract.id" ng-options="contract.id as contract.name for contract in contracts" name="contractId" class="form-control">
                     <option value="">&nbsp;</option>
                 </select>
             </div>

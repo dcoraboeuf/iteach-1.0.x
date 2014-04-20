@@ -33,6 +33,7 @@ angular.module('iteach.dialog.student', [
         $scope.submit = function (isValid) {
             if (isValid) {
                 $scope.student.schoolId = $scope.student.school.id;
+                $scope.student.contractId = $scope.student.contract && $scope.student.contract.id;
                 modalController.onSubmit($scope.student).then(
                     function () {
                         $modalInstance.close('ok')
