@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h3>{{'contract' | translate}}</h3>
+</div>
+<form name="contractForm" class="form-horizontal" ng-submit="submit(contractForm.$valid)" novalidate="novalidate">
+    <div class="modal-body">
+
+        <div class="form-group" ng-class="{ 'has-error' : contractForm.name.$invalid && !contractForm.name.$pristine }">
+            <label class="control-label col-md-3">{{'contract.name' | translate}}</label>
+            <div class="col-md-9">
+                <input ng-model="contract.name" name="name" maxlength="80" type="text" class="form-control" required="required" />
+                <p ng-show="contractForm.name.$invalid && !contractForm.name.$pristine" class="help-block">{{'contract.name.error' | translate}}</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+
+        <div class="alert alert-{{messageType}} alert-dismissable" ng-show="message">
+            <span>{{message}}</span>
+        </div>
+
+        <button class="btn btn-primary" type="submit" ng-disabled="contractForm.$invalid">{{'dialog.ok' | translate}}</button>
+        <button class="btn btn-link" type="button" ng-click="cancel()">{{'dialog.cancel' | translate}}</button>
+    </div>
+</form>

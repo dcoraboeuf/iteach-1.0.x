@@ -213,5 +213,15 @@ var map_en = {
     'invoice.comment': "Comment",
     'invoice.detailPerStudent': "Detail per student",
     // Contracts
-    'contract.create': "Create a contract"
+    'contract': "Contract",
+    'contract.create': "Create a contract",
+    'contract.name': "Contract name",
+    'contract.name.error': "Name is required",
+    'contract.hourlyRate': "Hourly rate",
+    'contract.hourlyRate.school': "Hourly rate of the school",
+    'contract.hourlyRate.help': "If you do not specify any hourly rate, the one of the school will be used.",
+    'contract.vatRate': "VAT rate",
+    'contract.vatRate.school': "VAT rate of the school",
+    'contract.vatRate.help': "If you do not specify any VAT rate, the one of the school will be used. To make it " +
+        "non applicable, set it to 0."
 };

@@ -1,6 +1,6 @@
 angular.module('iteach.view.school', [
-        'iteach.service.teacher'
-    ])
+    'iteach.service.teacher'
+])
     .controller('SchoolCtrl', function ($scope, $routeParams, teacherService) {
 
         var schoolId = $routeParams.schoolId;
@@ -34,6 +34,11 @@ angular.module('iteach.view.school', [
         // Deleting the school
         $scope.delete = function () {
             teacherService.deleteSchool(schoolId)
+        };
+
+        // Creating a contract
+        $scope.createContract = function () {
+            teacherService.createContract(schoolId).success(loadContracts);
         };
 
     })

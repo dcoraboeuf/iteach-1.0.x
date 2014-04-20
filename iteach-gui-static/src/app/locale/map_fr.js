@@ -213,5 +213,15 @@ var map_fr = {
     'invoice.comment': "Commentaire",
     'invoice.detailPerStudent': "Détail par étudiant",
     // Contracts
-    'contract.create': "Créer un contrat"
+    'contract': "Contrat",
+    'contract.create': "Créer un contrat",
+    'contract.name': "Nom du contrat",
+    'contract.name.error': "Le nom est obligatoire.",
+    'contract.hourlyRate': "Taux horaire",
+    'contract.hourlyRate.school': "Taux horaire de l'école",
+    'contract.hourlyRate.help': "Si vous ne spécifiez aucun taux horaire, celui de l'école sera appliqué.",
+    'contract.vatRate': "Taux de TVA",
+    'contract.vatRate.school': "Taux de TVA de l'école",
+    'contract.vatRate.help': "Si vous ne spécifiez aucun taux de TVA, celui de l'école sera appliqué. Pour le " +
+        "rendre non applicable, mettez le à 0."
 };

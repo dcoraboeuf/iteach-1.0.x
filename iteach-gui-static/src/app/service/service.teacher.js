@@ -1,11 +1,12 @@
 angular.module('iteach.service.teacher', [
-        'iteach.service.core',
-        'iteach.ui.teacher',
-        'iteach.dialog.school',
-        'iteach.dialog.student',
-        'iteach.dialog.lesson',
-        'iteach.dialog.invoice'
-    ])
+    'iteach.service.core',
+    'iteach.ui.teacher',
+    'iteach.dialog.school',
+    'iteach.dialog.student',
+    'iteach.dialog.lesson',
+    'iteach.dialog.invoice',
+    'iteach.dialog.contract'
+])
     .service('teacherService', function ($q, $log, $modal, $translate, $interpolate, $location, alertService, uiTeacher, localDataService) {
         var self = {};
 
@@ -60,10 +61,10 @@ angular.module('iteach.service.teacher', [
                     title: school.name,
                     message: $translate.instant('school.delete.prompt')
                 }).then(function () {
-                        return uiTeacher.deleteSchool(schoolId).success(function () {
-                            $location.path('/');
-                        });
+                    return uiTeacher.deleteSchool(schoolId).success(function () {
+                        $location.path('/');
                     });
+                });
             });
         };
 
@@ -162,10 +163,10 @@ angular.module('iteach.service.teacher', [
                     title: student.name,
                     message: $translate.instant('student.delete.prompt')
                 }).then(function () {
-                        return uiTeacher.deleteStudent(studentId).success(function () {
-                            $location.path('/');
-                        });
+                    return uiTeacher.deleteStudent(studentId).success(function () {
+                        $location.path('/');
                     });
+                });
             });
         };
 
@@ -179,10 +180,10 @@ angular.module('iteach.service.teacher', [
                         title: student.name,
                         message: $translate.instant('student.disable.prompt')
                     }).then(function () {
-                            uiTeacher.disableStudent(studentId).success(function () {
-                                d.resolve()
-                            })
+                        uiTeacher.disableStudent(studentId).success(function () {
+                            d.resolve()
                         })
+                    })
                 }
             });
             return d.promise;
@@ -202,10 +203,10 @@ angular.module('iteach.service.teacher', [
                     title: lesson.title,
                     message: $translate.instant('lesson.delete.prompt')
                 }).then(function () {
-                        uiTeacher.deleteLesson(lessonId).success(function () {
-                            $location.path('/');
-                        })
+                    uiTeacher.deleteLesson(lessonId).success(function () {
+                        $location.path('/');
                     })
+                })
             })
         };
 
@@ -306,6 +307,27 @@ angular.module('iteach.service.teacher', [
         // Contracts
 
         self.getContracts = uiTeacher.getContracts;
+
+        self.createContract = function (schoolId) {
+            return $modal.open({
+                templateUrl: 'app/dialog/dialog.contract.tpl.html',
+                controller: 'dialogContract',
+                resolve: {
+                    school: function () {
+                        return self.getSchool(schoolId)
+                    },
+                    contract: function () {
+                        return {};
+                    },
+                    modalController: function () {
+                        return {
+                            onSubmit: function (contractForm) {
+                            }
+                        }
+                    }
+                }
+            }).result
+        };
 
         // OK
 
