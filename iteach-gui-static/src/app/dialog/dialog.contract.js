@@ -3,7 +3,10 @@ angular.module('iteach.dialog.contract', [
     ])
     .controller('dialogContract', function ($log, $scope, $modalInstance, modalController, school, contract, notificationService) {
 
-        $scope.school = school;
+        // TODO hourlyRatePattern and vatRatePattern are also declared in dialog.school.js
+        $scope.hourlyRatePattern = /^([A-Z]{3} )?\d+(\.\d+)?$/;
+        $scope.vatRatePattern = /^([0-9]+([\.,][0-9]+)?)$/;
+        $scope.school = school.data;
         $scope.contract = contract;
 
         $scope.cancel = function () {

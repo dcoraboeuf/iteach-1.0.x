@@ -60,6 +60,7 @@ var map_en = {
     'school.colour.error': "Selection of the colour is not correct.",
     'school.contact': "Contact",
     'school.hourlyRate': "Hourly rate",
+    'school.hourlyRate.none': "None",
     'school.hourlyRate.help': 'Invoicing amount per hour (VAT excl.). For example, EUR 45.00 or 45.00 (defaults to EUR)',
     'school.hourlyRate.error.format': "The hourly rate must look like EUR 45.00 or 45.00.",
     'school.phone': 'Phone',
@@ -220,6 +221,7 @@ var map_en = {
     'contract.hourlyRate': "Hourly rate",
     'contract.hourlyRate.school': "Hourly rate of the school",
     'contract.hourlyRate.help': "If you do not specify any hourly rate, the one of the school will be used.",
+    'contract.hourlyRate.error.format': "The hourly rate must look like EUR 45.00 or 45.00.",
     'contract.vatRate': "VAT rate",
     'contract.vatRate.school': "VAT rate of the school",
     'contract.vatRate.help': "If you do not specify any VAT rate, the one of the school will be used. To make it " +

@@ -61,6 +61,7 @@ var map_fr = {
     'school.colour.error': "La couleur sélectionnée n'est pas correcte.",
     'school.contact': "Contact",
     'school.hourlyRate': "Taux horaire",
+    'school.hourlyRate.none': "Aucun",
     'school.hourlyRate.help': 'Taux horaire (HTVA). Par exemple, EUR 45.00 ou 45.00 (EUR par défaut)',
     'school.hourlyRate.error.format': "Le format du taux horaire doit être EUR 45.00 ou 45.00.",
     'school.phone': 'Téléphone',
@@ -220,6 +221,7 @@ var map_fr = {
     'contract.hourlyRate': "Taux horaire",
     'contract.hourlyRate.school': "Taux horaire de l'école",
     'contract.hourlyRate.help': "Si vous ne spécifiez aucun taux horaire, celui de l'école sera appliqué.",
+    'contract.hourlyRate.error.format': "Le format du taux horaire doit être EUR 45.00 ou 45.00.",
     'contract.vatRate': "Taux de TVA",
     'contract.vatRate.school': "Taux de TVA de l'école",
     'contract.vatRate.help': "Si vous ne spécifiez aucun taux de TVA, celui de l'école sera appliqué. Pour le " +

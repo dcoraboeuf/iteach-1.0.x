@@ -38,7 +38,7 @@ angular.module('iteach.view.school', [
 
         // Creating a contract
         $scope.createContract = function () {
-            teacherService.createContract(schoolId).success(loadContracts);
+            teacherService.createContract(schoolId).then(loadContracts);
         };
 
     })

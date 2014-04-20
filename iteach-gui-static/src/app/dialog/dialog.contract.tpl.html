@@ -12,6 +12,20 @@
             </div>
         </div>
 
+        <div class="form-group" ng-class="{ 'has-error' : contractForm.hourlyRate.$invalid && !contractForm.hourlyRate.$pristine }">
+            <label class="control-label col-md-3">{{'contract.hourlyRate' | translate}}</label>
+            <div class="col-md-9">
+                <input ng-model="contract.hourlyRate" name="hourlyRate" maxlength="16" type="text" class="form-control" ng-pattern="hourlyRatePattern" />
+                <p>
+                    {{'contract.hourlyRate.school' | translate}}
+                    <b ng-if="school.hourlyRate">{{school.hourlyRate}}</b>
+                    <b ng-if="!school.hourlyRate">{{'school.hourlyRate.none' | translate}}</b>
+                </p>
+                <p ng-hide="contractForm.hourlyRate.$invalid && !contractForm.hourlyRate.$pristine" class="help-block">{{'contract.hourlyRate.help' | translate}}</p>
+                <p ng-show="contractForm.hourlyRate.$invalid && !contractForm.hourlyRate.$pristine" class="help-block">{{'contract.hourlyRate.error.format' | translate}}</p>
+            </div>
+        </div>
+
     </div>
     <div class="modal-footer">
 
