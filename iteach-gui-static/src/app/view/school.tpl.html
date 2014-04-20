@@ -100,6 +100,7 @@
                     <td>
                         <a href="#/student/{{student.id}}" ng-class="student.disabled ? 'text-muted' : ''">{{student.name}}</a>
                         <span class="label it-label-description">{{student.subject}}</span>
+                        <span class="label it-label-student-contract">{{student.contract.name}}</span>
                     </td>
                     <td class="it-hours">
                         {{student.hours}}h

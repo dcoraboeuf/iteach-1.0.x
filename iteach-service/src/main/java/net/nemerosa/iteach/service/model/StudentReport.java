@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 public class StudentReport {
     private final int id;
     private final boolean disabled;
+    private final Contract contract;
     private final String name;
     private final String subject;
     private final BigDecimal hours;

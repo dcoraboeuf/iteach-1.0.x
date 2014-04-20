@@ -182,6 +182,7 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     private UIContract toUIContract(Contract contract) {
+        if (contract == null) return null;
         School school = teacherService.getSchool(contract.getSchoolId());
         return new UIContract(
                 contract.getId(),
@@ -237,6 +238,7 @@ public class UITeacherAPIController implements UITeacherAPI {
                         .map(s -> new UIStudentReport(
                                 s.getId(),
                                 s.isDisabled(),
+                                toUIContract(s.getContract()),
                                 s.getName(),
                                 s.getSubject(),
                                 s.getHours(),

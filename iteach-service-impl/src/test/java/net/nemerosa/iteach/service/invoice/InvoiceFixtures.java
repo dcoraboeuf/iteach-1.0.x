@@ -41,12 +41,12 @@ public final class InvoiceFixtures {
                         Money.of(CurrencyUnit.EUR, 200),
                         Arrays.asList(
                                 new StudentReport(
-                                        1, false, "Student 1", "Subject 1",
+                                        1, false, null, "Student 1", "Subject 1",
                                         BigDecimal.valueOf(6.5),
                                         Money.of(CurrencyUnit.EUR, 120)
                                 ),
                                 new StudentReport(
-                                        2, false, "Student 2", "Subject 2",
+                                        2, false, null, "Student 2", "Subject 2",
                                         BigDecimal.valueOf(3.5),
                                         Money.of(CurrencyUnit.EUR, 80)
                                 )

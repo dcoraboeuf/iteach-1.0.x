@@ -399,11 +399,16 @@ public class TeacherServiceImpl implements TeacherService {
         return new StudentReport(
                 student.getId(),
                 student.isDisabled(),
+                getStudentContract(student.getContractId()),
                 student.getName(),
                 student.getSubject(),
                 hours,
                 income
         );
+    }
+
+    private Contract getStudentContract(Integer contractId) {
+        return contractId != null ? getContract(contractId) : null;
     }
 
     @Override
