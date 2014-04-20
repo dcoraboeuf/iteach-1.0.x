@@ -8,13 +8,13 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class UIContractCollection extends UIResourceCollection<UISchoolSummary> {
+public class UIContractCollection extends UIResourceCollection<UIContract> {
 
     private final String href;
     private final int schoolId;
 
     @ConstructorProperties({"schoolId", "resources"})
-    public UIContractCollection(int schoolId, List<UISchoolSummary> resources) {
+    public UIContractCollection(int schoolId, List<UIContract> resources) {
         super(resources);
         this.schoolId = schoolId;
         this.href = UILink.href("api/teacher/school/%d/contract", schoolId);

@@ -62,4 +62,15 @@ public interface TeacherService {
 
     LessonReport getLessonReport(int studentId, YearMonth period);
 
+    // Contracts
+
+    List<Contract> getContracts(int schoolId);
+
+    Contract createContract(int schoolId, ContractForm form);
+
+    Contract getContract(int contractId);
+
+    Ack deleteContract(int contractId);
+
+    Contract updateContract(int contractId, ContractForm form);
 }

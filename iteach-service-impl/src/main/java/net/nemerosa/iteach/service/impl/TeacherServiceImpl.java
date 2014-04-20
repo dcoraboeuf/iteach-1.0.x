@@ -1,10 +1,13 @@
 package net.nemerosa.iteach.service.impl;
 
 import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.MoneyUtils;
 import net.nemerosa.iteach.common.Period;
+import net.nemerosa.iteach.dao.ContractRepository;
 import net.nemerosa.iteach.dao.LessonRepository;
 import net.nemerosa.iteach.dao.SchoolRepository;
 import net.nemerosa.iteach.dao.StudentRepository;
+import net.nemerosa.iteach.dao.model.TContract;
 import net.nemerosa.iteach.dao.model.TLesson;
 import net.nemerosa.iteach.dao.model.TSchool;
 import net.nemerosa.iteach.dao.model.TStudent;
@@ -30,6 +33,7 @@ import static net.nemerosa.iteach.service.impl.PeriodUtils.toPeriod;
 public class TeacherServiceImpl implements TeacherService {
 
     private final SchoolRepository schoolRepository;
+    private final ContractRepository contractRepository;
     private final StudentRepository studentRepository;
     private final LessonRepository lessonRepository;
     private final SecurityUtils securityUtils;
@@ -70,8 +74,9 @@ public class TeacherServiceImpl implements TeacherService {
     );
 
     @Autowired
-    public TeacherServiceImpl(SchoolRepository schoolRepository, StudentRepository studentRepository, LessonRepository lessonRepository, SecurityUtils securityUtils) {
+    public TeacherServiceImpl(SchoolRepository schoolRepository, ContractRepository contractRepository, StudentRepository studentRepository, LessonRepository lessonRepository, SecurityUtils securityUtils) {
         this.schoolRepository = schoolRepository;
+        this.contractRepository = contractRepository;
         this.studentRepository = studentRepository;
         this.lessonRepository = lessonRepository;
         this.securityUtils = securityUtils;
@@ -360,7 +365,7 @@ public class TeacherServiceImpl implements TeacherService {
             hours = hours.add(studentReport.getHours());
         }
         // Global income
-        Money income = MoneyUtils.computeIncome(school, hours);
+        Money income = MoneyUtils.computeIncome(school.getHourlyRate(), hours);
         // OK
         return new SchoolReport(
                 school.getId(),
@@ -388,7 +393,7 @@ public class TeacherServiceImpl implements TeacherService {
             hours = hours.add(lessonDuration);
         }
         // Income
-        Money income = MoneyUtils.computeIncome(school, hours);
+        Money income = MoneyUtils.computeIncome(school.getHourlyRate(), hours);
         // OK
         return new StudentReport(
                 student.getId(),
@@ -423,4 +428,60 @@ public class TeacherServiceImpl implements TeacherService {
         );
     }
 
+    protected Contract toContract(TContract t) {
+        return new Contract(
+                t.getId(),
+                t.getSchoolId(),
+                t.getName(),
+                t.getHourlyRate(),
+                t.getVatRate()
+        );
+    }
+
+    @Override
+    public List<Contract> getContracts(int schoolId) {
+        // Teacher
+        int teacherId = securityUtils.checkTeacher();
+        // Repository
+        return contractRepository.findBySchool(teacherId, schoolId)
+                .stream()
+                .map(this::toContract)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Contract createContract(int schoolId, ContractForm form) {
+        int teacherId = securityUtils.checkTeacher();
+        return getContract(
+                contractRepository.create(
+                        teacherId,
+                        schoolId,
+                        form.getName(),
+                        form.getHourlyRate(),
+                        form.getVatRate()
+                )
+        );
+    }
+
+    @Override
+    public Contract getContract(int contractId) {
+        return toContract(contractRepository.getById(securityUtils.checkTeacher(), contractId));
+    }
+
+    @Override
+    public Ack deleteContract(int contractId) {
+        return contractRepository.delete(securityUtils.checkTeacher(), contractId);
+    }
+
+    @Override
+    public Contract updateContract(int contractId, ContractForm form) {
+        contractRepository.update(
+                securityUtils.checkTeacher(),
+                contractId,
+                form.getName(),
+                form.getHourlyRate(),
+                form.getVatRate()
+        );
+        return getContract(contractId);
+    }
 }

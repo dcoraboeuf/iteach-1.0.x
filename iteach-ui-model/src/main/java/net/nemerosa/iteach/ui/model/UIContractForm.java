@@ -1,6 +1,8 @@
 package net.nemerosa.iteach.ui.model;
 
 import lombok.Data;
+import net.nemerosa.iteach.common.MoneyUtils;
+import org.joda.money.Money;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -19,4 +21,7 @@ public class UIContractForm {
     private final String hourlyRate;
     private final BigDecimal vatRate;
 
+    public Money toHourlyRate() {
+        return MoneyUtils.fromString(hourlyRate);
+    }
 }

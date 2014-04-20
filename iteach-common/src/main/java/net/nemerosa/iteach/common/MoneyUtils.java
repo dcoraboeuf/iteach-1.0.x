@@ -1,6 +1,6 @@
-package net.nemerosa.iteach.service.impl;
+package net.nemerosa.iteach.common;
 
-import net.nemerosa.iteach.service.model.School;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
@@ -12,8 +12,7 @@ public final class MoneyUtils {
     private MoneyUtils() {
     }
 
-    public static Money computeIncome(School school, BigDecimal hours) {
-        Money hourlyRate = school.getHourlyRate();
+    public static Money computeIncome(Money hourlyRate, BigDecimal hours) {
         if (hourlyRate != null) {
             return hourlyRate.multipliedBy(hours, RoundingMode.HALF_UP);
         } else {
@@ -28,6 +27,18 @@ public final class MoneyUtils {
             return old.plus(m);
         } else {
             return Money.zero(CurrencyUnit.of("XXX"));
+        }
+    }
+
+    public static Money fromString(String value) {
+        if (StringUtils.isNotBlank(value)) {
+            if (StringUtils.containsOnly(value, "0123456789.")) {
+                return Money.of(CurrencyUnit.EUR, new BigDecimal(value));
+            } else {
+                return Money.parse(value);
+            }
+        } else {
+            return null;
         }
     }
 }

@@ -4,13 +4,11 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.Builder;
-import org.apache.commons.lang3.StringUtils;
+import net.nemerosa.iteach.common.MoneyUtils;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.URL;
-import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -48,14 +46,6 @@ public class UISchoolForm {
     private final BigDecimal vatRate;
 
     public Money toHourlyRate() {
-        if (StringUtils.isNotBlank(hourlyRate)) {
-            if (StringUtils.containsOnly(hourlyRate, "0123456789.")) {
-                return Money.of(CurrencyUnit.EUR, new BigDecimal(hourlyRate));
-            } else {
-                return Money.parse(hourlyRate);
-            }
-        } else {
-            return null;
-        }
+        return MoneyUtils.fromString(hourlyRate);
     }
 }

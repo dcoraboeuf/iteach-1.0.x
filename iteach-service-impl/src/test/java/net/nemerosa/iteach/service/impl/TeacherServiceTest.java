@@ -1,5 +1,6 @@
 package net.nemerosa.iteach.service.impl;
 
+import net.nemerosa.iteach.dao.ContractRepository;
 import net.nemerosa.iteach.dao.LessonRepository;
 import net.nemerosa.iteach.dao.SchoolRepository;
 import net.nemerosa.iteach.dao.StudentRepository;
@@ -22,19 +23,18 @@ public class TeacherServiceTest {
     public static final int STUDENT_ID = 100;
     public static final int SCHOOL_ID = 50;
     private TeacherService service;
-    private SchoolRepository schoolRepository;
-    private StudentRepository studentRepository;
     private LessonRepository lessonRepository;
-    private SecurityUtils securityUtils;
 
     @Before
     public void init() {
-        schoolRepository = mock(SchoolRepository.class);
-        studentRepository = mock(StudentRepository.class);
+        SchoolRepository schoolRepository = mock(SchoolRepository.class);
+        ContractRepository contractRepository = mock(ContractRepository.class);
+        StudentRepository studentRepository = mock(StudentRepository.class);
         lessonRepository = mock(LessonRepository.class);
-        securityUtils = mock(SecurityUtils.class);
+        SecurityUtils securityUtils = mock(SecurityUtils.class);
         service = new TeacherServiceImpl(
                 schoolRepository,
+                contractRepository,
                 studentRepository,
                 lessonRepository,
                 securityUtils
