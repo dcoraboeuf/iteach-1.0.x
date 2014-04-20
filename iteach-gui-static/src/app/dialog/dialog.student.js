@@ -1,11 +1,29 @@
 angular.module('iteach.dialog.student', [
-        'iteach.ui.teacher'
-    ])
+    'iteach.ui.teacher'
+])
     .controller('dialogStudent', function ($log, $scope, $modalInstance, modalController, initialStudent, notificationService, uiTeacher) {
 
         $scope.student = initialStudent;
+        $scope.contracts = [];
         uiTeacher.getSchools().then(function (schools) {
-            $scope.schools = schools
+            $scope.schools = schools;
+            if ($scope.student.school && $scope.student.school.id) {
+                loadContracts($scope.student.school.id);
+            }
+        });
+
+        function loadContracts(schoolId) {
+            uiTeacher.getContracts(schoolId).success(function (contractCollection) {
+                $scope.contracts = contractCollection.resources;
+            });
+        }
+
+        $scope.$watch('student.school.id', function (schoolId) {
+            if (schoolId) {
+                loadContracts(schoolId);
+            } else {
+                $scope.contracts = [];
+            }
         });
 
         $scope.cancel = function () {
@@ -24,7 +42,7 @@ angular.module('iteach.dialog.student', [
                     }
                 )
             }
-        }
+        };
 
         $modalInstance.opened.finally(function () {
             notificationService.pushScope($scope)

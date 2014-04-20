@@ -84,6 +84,7 @@ var map_en = {
     // Student
     'student': "Student",
     'student.school': "School",
+    'student.contract': "Contract",
     'student.name': "Name",
     'student.name.error': "Name is required",
     'student.subject': "Subject",

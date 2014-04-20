@@ -85,6 +85,7 @@ var map_fr = {
     // Student
     'student': "Etudiant",
     'student.school': "Ecole",
+    'student.contract': "Contrat",
     'student.name': "Nom",
     'student.name.error': "Le nom de l'étudiant est obligatoire.",
     'student.subject': "Sujet / Matière",
