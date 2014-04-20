@@ -6,7 +6,6 @@ import org.joda.money.Money;
 
 import java.beans.ConstructorProperties;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -20,8 +19,6 @@ public class UIContract extends UIResource {
     private final BigDecimal vatRate;
     private final Money schoolHourlyRate;
     private final BigDecimal schoolVatRate;
-    private final boolean sameHourlyRate;
-    private final boolean sameVatRate;
 
     @ConstructorProperties({"id", "school", "name", "hourlyRate", "vatRate", "schoolHourlyRate", "schoolVatRate"})
     public UIContract(int id, UISchoolSummary school, String name, Money hourlyRate, BigDecimal vatRate, Money schoolHourlyRate, BigDecimal schoolVatRate) {
@@ -33,7 +30,5 @@ public class UIContract extends UIResource {
         this.vatRate = vatRate;
         this.schoolHourlyRate = schoolHourlyRate;
         this.schoolVatRate = schoolVatRate;
-        this.sameHourlyRate = Objects.equals(schoolHourlyRate, hourlyRate);
-        this.sameVatRate = Objects.equals(schoolVatRate, vatRate);
     }
 }

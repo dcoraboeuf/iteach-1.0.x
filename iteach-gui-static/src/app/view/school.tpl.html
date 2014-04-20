@@ -134,19 +134,39 @@
                     <td>
                         <a href="#/contract/{{contract.id}}">{{contract.name}}</a>
                     </td>
-                    <td ng-if="contract.sameHourlyRate">
-                        {{contract.hourlyRate}}
-                    </td>
-                    <td ng-if="!contract.sameHourlyRate">
-                        <span class="text-muted">{{contract.schoolHourlyRate}}</span>
+                    <!-- Hourly rate -->
+                    <td ng-if="contract.schoolHourlyRate && contract.hourlyRate">
+                        <span class="it-contract-school">{{contract.schoolHourlyRate}}</span>
                         <b>{{contract.hourlyRate}}</b>
                     </td>
-                    <td ng-if="contract.sameVatRate">
-                        <span ng-if="contract.vatRate">{{contract.vatRate}}%</span>
+                    <td ng-if="contract.schoolHourlyRate && !contract.hourlyRate">
+                        <span class="it-contract-school">{{contract.schoolHourlyRate}}</span>
                     </td>
-                    <td ng-if="!contract.sameVatRate">
-                        <span ng-if="contract.schoolVatRate" class="text-muted">{{contract.schoolVatRate}}%</span>
-                        <span ng-if="contract.vatRate"><b>{{contract.vatRate}}%</b></span>
+                    <td ng-if="!contract.schoolHourlyRate && contract.hourlyRate">
+                        <span class="it-contract-school">{{'school.hourlyRate.none.short' | translate}}</span>
+                        <b>{{contract.hourlyRate}}</b>
+                    </td>
+                    <td ng-if="!contract.schoolHourlyRate && !contract.hourlyRate">
+                        <span class="it-contract-school">{{'school.hourlyRate.none.short' | translate}}</span>
+                    </td>
+                    <!-- VAT rate -->
+                    <td ng-if="contract.schoolVatRate && contract.vatRate && contract.vatRate > 0">
+                        <span class="it-contract-school">{{contract.schoolVatRate}}%</span>
+                        <b>{{contract.vatRate}}%</b>
+                    </td>
+                    <td ng-if="contract.schoolVatRate && contract.vatRate == 0">
+                        <span class="it-contract-school">{{contract.schoolVatRate}}%</span>
+                        <b>{{'school.vatRate.none.short' | translate}}</b>
+                    </td>
+                    <td ng-if="contract.schoolVatRate && !contract.vatRate && contract.vatRate != 0">
+                        <span class="it-contract-school">{{contract.schoolVatRate}}%</span>
+                    </td>
+                    <td ng-if="!contract.schoolVatRate && contract.vatRate && contract.vatRate > 0">
+                        <span class="it-contract-school">{{'school.vatRate.none.short' | translate}}</span>
+                        <b>{{contract.vatRate}}%</b>
+                    </td>
+                    <td ng-if="!contract.schoolVatRate && !contract.vatRate">
+                        <span class="it-contract-school">{{'school.vatRate.none.short' | translate}}</span>
                     </td>
                 </tr>
                 </tbody>
