@@ -12,7 +12,7 @@ angular.module('iteach.dialog.lesson', [
             to: input.end
         };
 
-        uiTeacher.getStudents(false).success(function (students) {
+        uiTeacher.getStudents(true).success(function (students) {
             $scope.students = students.resources;
         });
 
