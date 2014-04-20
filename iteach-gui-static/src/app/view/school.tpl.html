@@ -127,6 +127,21 @@
             </table>
 
             <h3>{{'school.contracts' | translate}}</h3>
+            <table class="table table-condensed">
+                <tbody>
+                <tr ng-repeat="contract in contracts">
+                    <td>
+                        <a href="#/contract/{{contract.id}}">{{contract.name}}</a>
+                    </td>
+                    <td>
+                        {{contract.hourlyRate}}
+                    </td>
+                    <td>
+                        <span ng-if="contract.vatRate">{{contract.vatRate}}%</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
             <button id="contract-create" class="btn btn-default" ng-click="createContract()">{{'contract.create' | translate}}</button>
 
         </div>

@@ -303,6 +303,12 @@ angular.module('iteach.service.teacher', [
 
         self.deleteInvoices = uiTeacher.deleteInvoices;
 
+        // Contracts
+
+        self.getContracts = uiTeacher.getContracts;
+
+        // OK
+
         return self;
     })
 ;

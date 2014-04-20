@@ -18,6 +18,14 @@ angular.module('iteach.view.school', [
         // Loads the school
         loadSchool();
 
+        // Loads the contracts for the school
+        function loadContracts() {
+            teacherService.getContracts(schoolId).success(function (contractCollection) {
+                $scope.contracts = contractCollection.resources;
+            })
+        }
+        loadContracts();
+
         // Updating the school
         $scope.update = function () {
             teacherService.updateSchool($scope.school).then(loadSchool)

@@ -166,6 +166,14 @@ angular.module('iteach.ui.teacher', [
         };
 
         /**
+         * Contracts
+         */
+
+        self.getContracts = function (schoolId) {
+            return $http.get(config.api('teacher/school/{{schoolId}}/contract', {schoolId: schoolId}));
+        };
+
+        /**
          * OK
          */
 
