@@ -2,3 +2,5 @@
 their schools and their students, including the generation of monthly invoices.
 
 Go to https://nemerosa.github.io/iteach to know how to use it.
+
+Go to https://nemerosa.atlassian.net/browse/ITEACH to manage issues.
