@@ -71,6 +71,7 @@ var map_en = {
     'school.vat': "VAT number",
     'school.vat.help': "VAT number used to generated invoices for this school",
     'school.vatRate': "VAT rate (%)",
+    'school.vatRate.none': "Non applicable",
     'school.vatRate.help': "VAT rate to apply for this school (leave blank if VAT non applicable)",
     'school.vatRate.error': "The VAT rate must be a valid decimal number.",
     'school.email': 'Email',

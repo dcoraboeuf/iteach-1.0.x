@@ -70,6 +70,7 @@ var map_fr = {
     'school.webSite': 'Site internet',
     'school.webSite.error': "L'adresse du site Web n'est pas valide.",
     'school.vat': "Numéro de TVA",
+    'school.vat.none': "Non applicable",
     'school.vat.help': "Numéro de TVA utilisé pour la génération de factures pour cette école.",
     'school.vatRate': "Taux de TVA (%)",
     'school.vatRate.help': "Taux de TVA à appliquer pour cette école (laisser à blanc si la TVA n'est pas applicable)",
