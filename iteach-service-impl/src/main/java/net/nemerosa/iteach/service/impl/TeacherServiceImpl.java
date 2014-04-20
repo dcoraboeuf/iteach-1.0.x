@@ -56,6 +56,7 @@ public class TeacherServiceImpl implements TeacherService {
             t.getId(),
             t.getTeacherId(),
             t.getSchoolId(),
+            t.getContractId(),
             t.isDisabled(),
             t.getName(),
             t.getSubject(),

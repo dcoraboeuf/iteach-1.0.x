@@ -67,4 +67,10 @@ public final class SQLUtils {
             return null;
         }
     }
+
+    public static Integer getInteger(ResultSet rs, String column) throws SQLException {
+        int value = rs.getInt(column);
+        return rs.wasNull() ? null : value;
+    }
+
 }

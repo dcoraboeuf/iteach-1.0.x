@@ -40,7 +40,9 @@ public class TeacherServiceTest {
                 securityUtils
         );
         when(securityUtils.checkTeacher()).thenReturn(TEACHERID);
-        when(studentRepository.getById(TEACHERID, STUDENT_ID)).thenReturn(new TStudent(STUDENT_ID, TEACHERID, SCHOOL_ID, false, "A student", "", "", "", "", ""));
+        when(studentRepository.getById(TEACHERID, STUDENT_ID)).thenReturn(
+                new TStudent(STUDENT_ID, TEACHERID, SCHOOL_ID, null, false, "A student", "", "", "", "", "")
+        );
     }
 
     @Test

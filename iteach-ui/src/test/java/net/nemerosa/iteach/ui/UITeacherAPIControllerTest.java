@@ -34,8 +34,8 @@ public class UITeacherAPIControllerTest {
         );
         when(teacherService.getStudents()).thenReturn(
                 Arrays.asList(
-                        new Student(100, 1, 10, false, "A Name", "", "", "", "", ""),
-                        new Student(101, 1, 10, true, "B Name", "", "", "", "", "")
+                        new Student(100, 1, 10, null, false, "A Name", "", "", "", "", ""),
+                        new Student(101, 1, 10, null, true, "B Name", "", "", "", "", "")
                 )
         );
         controller = new UITeacherAPIController(teacherService, invoiceService, commentService, preferencesService, null);

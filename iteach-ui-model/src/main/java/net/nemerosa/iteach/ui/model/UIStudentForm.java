@@ -17,6 +17,7 @@ public class UIStudentForm {
 
     @Min(1)
     private final int schoolId;
+    private final Integer contractId;
     @NotNull
     @Size(min = 1, max = 80)
     private final String name;

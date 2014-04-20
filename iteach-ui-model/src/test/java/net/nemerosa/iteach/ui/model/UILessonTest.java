@@ -32,7 +32,9 @@ public class UILessonTest {
                                 false),
                         "The student",
                         "My subject",
-                        false),
+                        null,
+                        false
+                ),
                 location,
                 LocalDateTime.now(),
                 LocalDateTime.now().plusHours(1),

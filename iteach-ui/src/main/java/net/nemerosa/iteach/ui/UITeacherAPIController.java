@@ -51,7 +51,16 @@ public class UITeacherAPIController implements UITeacherAPI {
                 getSchoolSummary(student),
                 student.getName(),
                 student.getSubject(),
+                getUIContract(student.getContractId()),
                 commentService.hasComments(CommentEntity.student, student.getId()));
+    }
+
+    private UIContract getUIContract(Integer contractId) {
+        if (contractId != null) {
+            return toUIContract(teacherService.getContract(contractId));
+        } else {
+            return null;
+        }
     }
 
     private UISchoolSummary getSchoolSummary(Student student) {
@@ -283,7 +292,8 @@ public class UITeacherAPIController implements UITeacherAPI {
                 o.getPostalAddress(),
                 o.getPhone(),
                 o.getMobilePhone(),
-                o.getEmail()
+                o.getEmail(),
+                getUIContract(o.getContractId())
         );
     }
 

@@ -19,12 +19,14 @@ public class UIStudent extends UIResource {
     private final String mobilePhone;
     private final String email;
     private final UISchoolSummary school;
+    private final UIContract contract;
 
-    @ConstructorProperties({"id", "disabled", "school", "name", "subject", "postalAddress", "phone", "mobilePhone", "email"})
-    public UIStudent(int id, boolean disabled, UISchoolSummary school, String name, String subject, String postalAddress, String phone, String mobilePhone, String email) {
+    @ConstructorProperties({"id", "disabled", "school", "name", "subject", "postalAddress", "phone", "mobilePhone", "email", "contract"})
+    public UIStudent(int id, boolean disabled, UISchoolSummary school, String name, String subject, String postalAddress, String phone, String mobilePhone, String email, UIContract contract) {
         this.id = id;
         this.disabled = disabled;
         this.school = school;
+        this.contract = contract;
         this.href = UILink.href("api/teacher/student/%d", id);
         this.name = name;
         this.subject = subject;

@@ -9,6 +9,7 @@ public class TStudent {
     private final int id;
     private final int teacherId;
     private final int schoolId;
+    private final Integer contractId;
     private final boolean disabled;
     private final String name;
     private final String subject;
