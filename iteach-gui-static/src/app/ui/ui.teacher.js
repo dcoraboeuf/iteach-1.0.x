@@ -173,6 +173,10 @@ angular.module('iteach.ui.teacher', [
             return $http.get(config.api('teacher/school/{{schoolId}}/contract', {schoolId: schoolId}));
         };
 
+        self.createContract = function (schoolId, contractForm) {
+            return $http.post(config.api('teacher/school/{{schoolId}}/contract', {schoolId: schoolId}), contractForm);
+        };
+
         /**
          * OK
          */

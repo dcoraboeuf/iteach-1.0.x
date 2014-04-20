@@ -15,8 +15,7 @@ public class UIContractForm {
     @NotNull
     @Size(min = 1, max = 80)
     private final String name;
-    @NotNull
-    @Size(min = 1, max = 20)
+    @Size(min = 0, max = 20)
     @Pattern(regexp = "^(([A-Z]{3} )?\\d+(\\.\\d+)?)?$")
     private final String hourlyRate;
     private final BigDecimal vatRate;

@@ -322,6 +322,7 @@ angular.module('iteach.service.teacher', [
                     modalController: function () {
                         return {
                             onSubmit: function (contractForm) {
+                                return uiTeacher.createContract(schoolId, contractForm);
                             }
                         }
                     }

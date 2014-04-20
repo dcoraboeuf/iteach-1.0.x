@@ -138,14 +138,14 @@
                         {{contract.hourlyRate}}
                     </td>
                     <td ng-if="!contract.sameHourlyRate">
-                        <del>{{contract.schoolHourlyRate}}</del>
+                        <span class="text-muted">{{contract.schoolHourlyRate}}</span>
                         <b>{{contract.hourlyRate}}</b>
                     </td>
                     <td ng-if="contract.sameVatRate">
                         <span ng-if="contract.vatRate">{{contract.vatRate}}%</span>
                     </td>
                     <td ng-if="!contract.sameVatRate">
-                        <del ng-if="contract.schoolVatRate">{{contract.schoolVatRate}}%</del>
+                        <span ng-if="contract.schoolVatRate" class="text-muted">{{contract.schoolVatRate}}%</span>
                         <span ng-if="contract.vatRate"><b>{{contract.vatRate}}%</b></span>
                     </td>
                 </tr>
