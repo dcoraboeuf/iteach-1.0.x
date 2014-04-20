@@ -44,6 +44,31 @@ public interface UITeacherAPI {
     UISchoolReport getSchoolReport(Locale locale, int schoolId, Period period);
 
     /**
+     * List of contracts for a school
+     */
+    UIContractCollection getContracts(Locale locale, int schoolId);
+
+    /**
+     * Creates a contract for a school
+     */
+    UIContract createContract(Locale locale, int schoolId, UIContractForm form);
+
+    /**
+     * Gets a contract by ID
+     */
+    UIContract getContract(Locale locale, int contractId);
+
+    /**
+     * Deletes a contract
+     */
+    Ack deleteContract(Locale locale, int contractId);
+
+    /**
+     * Updates a contract
+     */
+    UIContract updateContract(Locale locale, int contractId, UIContractForm form);
+
+    /**
      * Gets the list of students for a teacher
      *
      * @param filtered <code>true</code> if only the non-disabled students must be retained

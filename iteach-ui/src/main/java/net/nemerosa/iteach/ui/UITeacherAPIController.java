@@ -149,6 +149,41 @@ public class UITeacherAPIController implements UITeacherAPI {
         return toUISchoolReport(report);
     }
 
+    @Override
+    @RequestMapping(value = "/school/{schoolId}/contract", method = RequestMethod.GET)
+    public UIContractCollection getContracts(Locale locale, @PathVariable int schoolId) {
+        // FIXME Method net.nemerosa.iteach.ui.UITeacherAPIController.getContracts
+        return null;
+    }
+
+    @Override
+    @RequestMapping(value = "/school/{schoolId}/contract", method = RequestMethod.POST)
+    public UIContract createContract(Locale locale, @PathVariable int schoolId, @RequestBody @Valid UIContractForm form) {
+        // FIXME Method net.nemerosa.iteach.ui.UITeacherAPIController.createContract
+        return null;
+    }
+
+    @Override
+    @RequestMapping(value = "/contract/{contractId}", method = RequestMethod.GET)
+    public UIContract getContract(Locale locale, @PathVariable int contractId) {
+        // FIXME Method net.nemerosa.iteach.ui.UITeacherAPIController.getContract
+        return null;
+    }
+
+    @Override
+    @RequestMapping(value = "/contract/{contractId}", method = RequestMethod.DELETE)
+    public Ack deleteContract(Locale locale, @PathVariable int contractId) {
+        // FIXME Method net.nemerosa.iteach.ui.UITeacherAPIController.deleteContract
+        return null;
+    }
+
+    @Override
+    @RequestMapping(value = "/contract/{contractId}", method = RequestMethod.PUT)
+    public UIContract updateContract(Locale locale, @PathVariable int contractId, @RequestBody @Valid UIContractForm form) {
+        // FIXME Method net.nemerosa.iteach.ui.UITeacherAPIController.updateContract
+        return null;
+    }
+
     private UISchoolReport toUISchoolReport(SchoolReport report) {
         return new UISchoolReport(
                 report.getId(),

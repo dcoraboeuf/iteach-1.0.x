@@ -8,7 +8,6 @@ import net.nemerosa.iteach.ui.model.*;
 
 import java.net.MalformedURLException;
 import java.util.Locale;
-import java.util.Map;
 
 public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> implements UITeacherAPIClient {
 
@@ -44,6 +43,31 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     @Override
     public UISchoolReport getSchoolReport(Locale locale, int schoolId, Period period) {
         return post(locale, UISchoolReport.class, period, "/api/teacher/school/%d/report", schoolId);
+    }
+
+    @Override
+    public UIContractCollection getContracts(Locale locale, int schoolId) {
+        return get(locale, UIContractCollection.class, "/api/teacher/school/%d/contract", schoolId);
+    }
+
+    @Override
+    public UIContract createContract(Locale locale, int schoolId, UIContractForm form) {
+        return post(locale, UIContract.class, form, "/api/teacher/school/%d/contract", schoolId);
+    }
+
+    @Override
+    public UIContract getContract(Locale locale, int contractId) {
+        return get(locale, UIContract.class, "/api/teacher/contract/%d", contractId);
+    }
+
+    @Override
+    public Ack deleteContract(Locale locale, int contractId) {
+        return delete(locale, Ack.class, "/api/teacher/contract/%d", contractId);
+    }
+
+    @Override
+    public UIContract updateContract(Locale locale, int contractId, UIContractForm form) {
+        return put(locale, UIContract.class, form, "/api/teacher/contract/%d", contractId);
     }
 
     @Override
