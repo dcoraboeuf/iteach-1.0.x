@@ -76,6 +76,7 @@ var map_en = {
     'school.email.error': "Email is not valid.",
     'school.delete.prompt': "Do you want really to delete this school? The associated students and lessons will be lost.",
     'school.students': "Its students",
+    'school.contracts': "Its contracts",
     // Student
     'student': "Student",
     'student.school': "School",
@@ -210,5 +211,7 @@ var map_en = {
     'invoice.delete.prompt': "Do you want to delete the selected invoice(s)?",
     'invoice.filter.clear': "Clear filter",
     'invoice.comment': "Comment",
-    'invoice.detailPerStudent': "Detail per student"
+    'invoice.detailPerStudent': "Detail per student",
+    // Contracts
+    'contract.create': "Create a contract"
 };

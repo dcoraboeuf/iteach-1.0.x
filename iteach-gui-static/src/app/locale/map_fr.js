@@ -77,6 +77,7 @@ var map_fr = {
     'school.email.error': "L'adresse email n'est pas valide.",
     'school.delete.prompt': "Voulez-vous vraiment supprimer cette école ? Les étudiants et leçons associés seront également effacés.",
     'school.students': "Ses étudiants",
+    'school.contracts': "Ses contrats",
     // Student
     'student': "Etudiant",
     'student.school': "Ecole",
@@ -210,5 +211,7 @@ var map_fr = {
     'invoice.delete.prompt': "Voulez-vous vraiment supprimer les factures sélectionnées ?",
     'invoice.filter.clear': "Effacer le filtre",
     'invoice.comment': "Commentaire",
-    'invoice.detailPerStudent': "Détail par étudiant"
+    'invoice.detailPerStudent': "Détail par étudiant",
+    // Contracts
+    'contract.create': "Créer un contrat"
 };
