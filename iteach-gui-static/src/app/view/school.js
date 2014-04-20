@@ -13,6 +13,7 @@ angular.module('iteach.view.school', [
             teacherService.getSchoolReport(schoolId, {}).success(function (report) {
                 $scope.report = report;
             });
+            loadContracts();
         }
 
         // Loads the school
@@ -24,7 +25,6 @@ angular.module('iteach.view.school', [
                 $scope.contracts = contractCollection.resources;
             })
         }
-        loadContracts();
 
         // Updating the school
         $scope.update = function () {

@@ -182,13 +182,15 @@ public class UITeacherAPIController implements UITeacherAPI {
     }
 
     private UIContract toUIContract(Contract contract) {
+        School school = teacherService.getSchool(contract.getSchoolId());
         return new UIContract(
                 contract.getId(),
-                toUISchoolSummary(teacherService.getSchool(contract.getSchoolId())),
+                toUISchoolSummary(school),
                 contract.getName(),
                 contract.getHourlyRate(),
-                contract.getVatRate()
-        );
+                contract.getVatRate(),
+                school.getHourlyRate(),
+                school.getVatRate());
     }
 
     private ContractForm toContractForm(UIContractForm form) {

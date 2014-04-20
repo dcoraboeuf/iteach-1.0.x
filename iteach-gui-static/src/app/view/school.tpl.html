@@ -133,11 +133,19 @@
                     <td>
                         <a href="#/contract/{{contract.id}}">{{contract.name}}</a>
                     </td>
-                    <td>
+                    <td ng-if="contract.sameHourlyRate">
                         {{contract.hourlyRate}}
                     </td>
-                    <td>
+                    <td ng-if="!contract.sameHourlyRate">
+                        <del>{{contract.schoolHourlyRate}}</del>
+                        <b>{{contract.hourlyRate}}</b>
+                    </td>
+                    <td ng-if="contract.sameVatRate">
                         <span ng-if="contract.vatRate">{{contract.vatRate}}%</span>
+                    </td>
+                    <td ng-if="!contract.sameVatRate">
+                        <del ng-if="contract.schoolVatRate">{{contract.schoolVatRate}}%</del>
+                        <span ng-if="contract.vatRate"><b>{{contract.vatRate}}%</b></span>
                     </td>
                 </tr>
                 </tbody>
