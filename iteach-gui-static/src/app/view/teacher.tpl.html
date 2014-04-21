@@ -19,7 +19,11 @@
                                 <a href="#/student/{{student.id}}">{{student.name}}</a>
                                 <span ng-if="student.hasComments" class="it-student-with-comments"></span>
                                 <br/>
-                                <span class="it-student-summary">{{student.subject}} @ {{student.school.name}}</span>
+                                <span class="it-student-summary">
+                                    {{student.subject}}
+                                    @ {{student.school.name}}
+                                    <span ng-if="student.contract">({{student.contract.name}})</span>
+                                </span>
                             </td>
                         </tr>
                     </tbody>
