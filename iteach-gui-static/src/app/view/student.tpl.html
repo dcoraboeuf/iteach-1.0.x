@@ -25,6 +25,14 @@
                         <a href="#/school/{{student.school.id}}">{{student.school.name}}</a>
                     </td>
                 </tr>
+                <tr ng-if="student.contract">
+                    <td class="it-form-label">
+                        {{'student.contract' | translate}}
+                    </td>
+                    <td class="it-form-value">
+                        <a href="#/school/{{student.school.id}}">{{student.contract.name}}</a>
+                    </td>
+                </tr>
                 <tr ng-if="student.phone">
                     <td class="it-form-label">
                         <span title="{{'student.phone' | translate}}" class="glyphicon glyphicon-earphone"></span>
