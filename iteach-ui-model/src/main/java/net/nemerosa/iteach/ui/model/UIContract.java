@@ -17,18 +17,14 @@ public class UIContract extends UIResource {
     private final String name;
     private final Money hourlyRate;
     private final BigDecimal vatRate;
-    private final Money schoolHourlyRate;
-    private final BigDecimal schoolVatRate;
 
-    @ConstructorProperties({"id", "school", "name", "hourlyRate", "vatRate", "schoolHourlyRate", "schoolVatRate"})
-    public UIContract(int id, UISchoolSummary school, String name, Money hourlyRate, BigDecimal vatRate, Money schoolHourlyRate, BigDecimal schoolVatRate) {
+    @ConstructorProperties({"id", "school", "name", "hourlyRate", "vatRate"})
+    public UIContract(int id, UISchoolSummary school, String name, Money hourlyRate, BigDecimal vatRate) {
         this.id = id;
         this.school = school;
         this.href = UILink.href("api/teacher/contract/%d", id);
         this.name = name;
         this.hourlyRate = hourlyRate;
         this.vatRate = vatRate;
-        this.schoolHourlyRate = schoolHourlyRate;
-        this.schoolVatRate = schoolVatRate;
     }
 }

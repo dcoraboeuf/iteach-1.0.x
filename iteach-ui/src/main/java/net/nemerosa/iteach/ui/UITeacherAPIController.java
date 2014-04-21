@@ -189,9 +189,8 @@ public class UITeacherAPIController implements UITeacherAPI {
                 toUISchoolSummary(school),
                 contract.getName(),
                 contract.getHourlyRate(),
-                contract.getVatRate(),
-                school.getHourlyRate(),
-                school.getVatRate());
+                contract.getVatRate()
+        );
     }
 
     private ContractForm toContractForm(UIContractForm form) {
