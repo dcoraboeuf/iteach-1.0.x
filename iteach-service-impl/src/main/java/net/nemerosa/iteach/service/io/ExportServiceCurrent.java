@@ -82,6 +82,7 @@ public class ExportServiceCurrent implements ExportService {
 
     protected XStudent exportStudent(Student student) {
         return new XStudent(
+                student.getContractId(),
                 student.isDisabled(),
                 student.getName(),
                 student.getSubject(),

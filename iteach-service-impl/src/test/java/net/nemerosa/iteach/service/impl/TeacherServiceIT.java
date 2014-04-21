@@ -74,6 +74,7 @@ public class TeacherServiceIT extends AbstractITTestSupport {
                 teacherService.updateStudent(student.getId(),
                         new StudentForm(
                                 student.getSchoolId(),
+                                null,
                                 student.getName(),
                                 student.getSubject(),
                                 student.getPostalAddress(),

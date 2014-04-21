@@ -77,6 +77,7 @@ public class ImportServiceV2 implements ImportService {
         int studentId = teacherService.createStudent(
                 new StudentForm(
                         schoolId,
+                        x.getContractId(),
                         x.getName(),
                         x.getSubject(),
                         x.getPostalAddress(),

@@ -274,6 +274,7 @@ public class UITeacherAPIController implements UITeacherAPI {
     private StudentForm toStudentForm(UIStudentForm form) {
         return new StudentForm(
                 form.getSchoolId(),
+                form.getContractId(),
                 form.getName(),
                 form.getSubject(),
                 form.getPostalAddress(),

@@ -72,6 +72,7 @@ public class ImportServiceV1 implements ImportService {
         int studentId = teacherService.createStudent(
                 new StudentForm(
                         schoolId,
+                        null,
                         getName(node),
                         getString(node, "subject", false, ""),
                         getPostalAddress(node),

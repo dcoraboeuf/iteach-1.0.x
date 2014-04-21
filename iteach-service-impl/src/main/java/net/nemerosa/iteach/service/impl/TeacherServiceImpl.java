@@ -158,6 +158,7 @@ public class TeacherServiceImpl implements TeacherService {
         return studentRepository.create(
                 school.getTeacherId(),
                 form.getSchoolId(),
+                form.getContractId(),
                 form.getName(),
                 form.getSubject(),
                 form.getPostalAddress(),
@@ -240,6 +241,7 @@ public class TeacherServiceImpl implements TeacherService {
                 student.getTeacherId(),
                 studentId,
                 form.getSchoolId(),
+                form.getContractId(),
                 form.getName(),
                 form.getSubject(),
                 form.getPostalAddress(),

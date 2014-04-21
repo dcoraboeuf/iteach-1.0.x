@@ -35,12 +35,13 @@ public class StudentJdbcRepository extends AbstractJdbcRepository implements Stu
     }
 
     @Override
-    public int create(int teacherId, int schoolId, String name, String subject, String postalAddress, String phone, String mobilePhone, String email) {
+    public int create(int teacherId, int schoolId, Integer contractId, String name, String subject, String postalAddress, String phone, String mobilePhone, String email) {
         try {
             return dbCreate(
                     SQL.STUDENT_CREATE,
                     params("teacherId", teacherId)
                             .addValue("schoolId", schoolId)
+                            .addValue("contractId", contractId)
                             .addValue("name", name)
                             .addValue("subject", subject)
                             .addValue("email", email)
@@ -93,12 +94,13 @@ public class StudentJdbcRepository extends AbstractJdbcRepository implements Stu
     }
 
     @Override
-    public Ack update(int teacherId, int studentId, int schoolId, String name, String subject, String postalAddress, String phone, String mobilePhone, String email) {
+    public Ack update(int teacherId, int studentId, int schoolId, Integer contractId, String name, String subject, String postalAddress, String phone, String mobilePhone, String email) {
         try {
             return Ack.one(getNamedParameterJdbcTemplate().update(
                     SQL.STUDENT_UPDATE,
                     params("teacherId", teacherId)
                             .addValue("studentId", studentId)
+                            .addValue("contractId", contractId)
                             .addValue("schoolId", schoolId)
                             .addValue("name", name)
                             .addValue("subject", subject)

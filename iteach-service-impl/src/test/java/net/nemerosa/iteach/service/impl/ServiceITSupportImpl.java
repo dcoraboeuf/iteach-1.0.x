@@ -129,6 +129,7 @@ public class ServiceITSupportImpl implements ServiceITSupport {
                 () -> teacherService.getStudent(teacherService.createStudent(
                         new StudentForm(
                                 schoolId,
+                                null,
                                 uid("ST"),
                                 "Any subject",
                                 "",

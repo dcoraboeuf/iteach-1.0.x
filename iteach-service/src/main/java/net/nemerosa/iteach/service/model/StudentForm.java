@@ -6,6 +6,7 @@ import lombok.Data;
 public class StudentForm {
 
     private final int schoolId;
+    private final Integer contractId;
     private final String name;
     private final String subject;
     private final String postalAddress;
