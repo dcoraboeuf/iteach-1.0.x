@@ -91,6 +91,65 @@
                 </tr>
                 </tfoot>
             </table>
+
+            <h3>{{'school.contracts' | translate}}</h3>
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <th>{{'contract' | translate}}</th>
+                    <th>{{'contract.hourlyRate' | translate}}</th>
+                    <th>{{'contract.vatRate' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><i>{{'school' | translate}}</i></td>
+                    <td>
+                        <span ng-if="school.hourlyRate">{{school.hourlyRate}}</span>
+                        <span ng-if="!school.hourlyRate">{{'school.hourlyRate.none.short' | translate}}</span>
+                    </td>
+                    <td>
+                        <span ng-if="school.vatRate">{{school.vatRate}}%</span>
+                        <span ng-if="!school.vatRate">{{'school.vatRate.none.short' | translate}}</span>
+                    </td>
+                </tr>
+                <tr ng-repeat="contract in contracts">
+                    <td>
+                        <a href="#/contract/{{contract.id}}">{{contract.name}}</a>
+                    </td>
+                    <!-- Hourly rate -->
+                    <td ng-if="school.hourlyRate && contract.hourlyRate">
+                        <span class="it-contract-hourlyRate-set">{{contract.hourlyRate}}</span>
+                    </td>
+                    <td ng-if="school.hourlyRate && !contract.hourlyRate">
+                        <span class="it-contract-hourlyRate-unset">{{school.hourlyRate}}</span>
+                    </td>
+                    <td ng-if="!school.hourlyRate && contract.hourlyRate">
+                        <span class="it-contract-hourlyRate-set">{{contract.hourlyRate}}</span>
+                    </td>
+                    <td ng-if="!school.hourlyRate && !contract.hourlyRate">
+                        <span class="it-contract-hourlyRate-unset">{{'school.hourlyRate.none.short' | translate}}</span>
+                    </td>
+                    <!-- VAT rate -->
+                    <td ng-if="school.vatRate && contract.vatRate && contract.vatRate > 0">
+                        <span class="it-contract-vatRate-set">{{contract.vatRate}}%</span>
+                    </td>
+                    <td ng-if="school.vatRate && contract.vatRate == 0">
+                        <span class="it-contract-vatRate-set">{{'school.vatRate.none.short' | translate}}</span>
+                    </td>
+                    <td ng-if="school.vatRate && !contract.vatRate && contract.vatRate != 0">
+                        <span class="it-contract-vatRate-unset">{{school.vatRate}}%</span>
+                    </td>
+                    <td ng-if="!school.vatRate && contract.vatRate && contract.vatRate > 0">
+                        <span class="it-contract-vatRate-set">{{contract.vatRate}}%</span>
+                    </td>
+                    <td ng-if="!school.vatRate && !contract.vatRate">
+                        <span class="it-contract-vatRate-unset">{{'school.vatRate.none.short' | translate}}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <button id="contract-create" class="btn btn-default" ng-click="createContract()">{{'contract.create' | translate}}</button>
         </div>
         <div class="col-md-4">
             <h3>{{'school.students' | translate}}</h3>
@@ -126,53 +185,6 @@
                 </tr>
                 </tfoot>
             </table>
-
-            <h3>{{'school.contracts' | translate}}</h3>
-            <table class="table table-condensed">
-                <tbody>
-                <tr ng-repeat="contract in contracts">
-                    <td>
-                        <a href="#/contract/{{contract.id}}">{{contract.name}}</a>
-                    </td>
-                    <!-- Hourly rate -->
-                    <td ng-if="contract.schoolHourlyRate && contract.hourlyRate">
-                        <span class="it-contract-school">{{contract.schoolHourlyRate}}</span>
-                        <b>{{contract.hourlyRate}}</b>
-                    </td>
-                    <td ng-if="contract.schoolHourlyRate && !contract.hourlyRate">
-                        <span class="it-contract-school">{{contract.schoolHourlyRate}}</span>
-                    </td>
-                    <td ng-if="!contract.schoolHourlyRate && contract.hourlyRate">
-                        <span class="it-contract-school">{{'school.hourlyRate.none.short' | translate}}</span>
-                        <b>{{contract.hourlyRate}}</b>
-                    </td>
-                    <td ng-if="!contract.schoolHourlyRate && !contract.hourlyRate">
-                        <span class="it-contract-school">{{'school.hourlyRate.none.short' | translate}}</span>
-                    </td>
-                    <!-- VAT rate -->
-                    <td ng-if="contract.schoolVatRate && contract.vatRate && contract.vatRate > 0">
-                        <span class="it-contract-school">{{contract.schoolVatRate}}%</span>
-                        <b>{{contract.vatRate}}%</b>
-                    </td>
-                    <td ng-if="contract.schoolVatRate && contract.vatRate == 0">
-                        <span class="it-contract-school">{{contract.schoolVatRate}}%</span>
-                        <b>{{'school.vatRate.none.short' | translate}}</b>
-                    </td>
-                    <td ng-if="contract.schoolVatRate && !contract.vatRate && contract.vatRate != 0">
-                        <span class="it-contract-school">{{contract.schoolVatRate}}%</span>
-                    </td>
-                    <td ng-if="!contract.schoolVatRate && contract.vatRate && contract.vatRate > 0">
-                        <span class="it-contract-school">{{'school.vatRate.none.short' | translate}}</span>
-                        <b>{{contract.vatRate}}%</b>
-                    </td>
-                    <td ng-if="!contract.schoolVatRate && !contract.vatRate">
-                        <span class="it-contract-school">{{'school.vatRate.none.short' | translate}}</span>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <button id="contract-create" class="btn btn-default" ng-click="createContract()">{{'contract.create' | translate}}</button>
-
         </div>
         <div class="col-md-4">
             <h3>{{'comments' | translate}}</h3>
