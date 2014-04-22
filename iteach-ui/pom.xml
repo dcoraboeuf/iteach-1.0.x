@@ -147,7 +147,7 @@
                                     <!-- Spring profile -->
                                     <spring.profiles.active>dev</spring.profiles.active>
                                     <!-- Base URL -->
-                                    <iteach.url>http://localhost:8080/iteach</iteach.url>
+                                    <iteach.url>http://localhost:8080</iteach.url>
                                 </systemProperties>
                             </configuration>
                             <dependencies>
