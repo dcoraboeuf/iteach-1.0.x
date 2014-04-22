@@ -22,9 +22,7 @@
                 </td>
                 <td>
                     <a href="#/school/{{school.id}}">{{school.name}}</a>
-                    <span class="text-muted" ng-if="school.hourlyRate">({{school.hourlyRate}})</span>
                     <a
-                            ng-if="school.hourlyRate"
                             ng-click="createInvoice(school.id, report.period)"
                             class="glyphicon glyphicon-file"
                             title="{{'invoice.generate' | translate}}"></a>
@@ -42,6 +40,12 @@
                 <td colspan="2">&nbsp;</td>
                 <td>
                     <a href="#/student/{{student.id}}" ng-class="student.disabled ? 'text-muted' : ''">{{student.name}}</a>
+                    <span class="text-muted" ng-if="!student.contract">({{school.hourlyRate}})</span>
+                    <span class="text-muted" ng-if="student.contract">(
+                        {{student.contract.name}}
+                        -
+                        {{student.contract.hourlyRate ? student.contract.hourlyRate : school.hourlyRate}}
+                        )</span>
                 </td>
                 <td class="it-hours">
                     {{student.hours}}h
