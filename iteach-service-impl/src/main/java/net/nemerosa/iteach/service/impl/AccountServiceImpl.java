@@ -147,6 +147,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account getAccount(int id) {
+        // FIXME Must be protected as admin (but careful with regressions in tests)
         return accountMapper.apply(accountRepository.getById(id));
     }
 

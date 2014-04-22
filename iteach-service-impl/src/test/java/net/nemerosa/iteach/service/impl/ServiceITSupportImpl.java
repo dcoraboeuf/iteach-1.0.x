@@ -141,6 +141,11 @@ public class ServiceITSupportImpl implements ServiceITSupport {
         );
     }
 
+    @Override
+    public <T> T asAdmin(Callable<T> call) throws Exception {
+        return asTeacher(1, call);
+    }
+
     private <T> T asAccount(Account account, Callable<T> call) throws Exception {
         SecurityContext context = new SecurityContextImpl();
         Authentication authentication = new AccountAuthenticationToken(

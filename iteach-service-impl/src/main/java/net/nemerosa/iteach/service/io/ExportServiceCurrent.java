@@ -7,10 +7,7 @@ import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import net.nemerosa.iteach.service.CommentService;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.io.model.*;
-import net.nemerosa.iteach.service.model.Comment;
-import net.nemerosa.iteach.service.model.Lesson;
-import net.nemerosa.iteach.service.model.School;
-import net.nemerosa.iteach.service.model.Student;
+import net.nemerosa.iteach.service.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -57,6 +54,10 @@ public class ExportServiceCurrent implements ExportService {
                 school.getWebSite(),
                 school.getVat(),
                 school.getVatRate(),
+                teacherService.getContracts(school.getId())
+                        .stream()
+                        .map(this::exportContract)
+                        .collect(Collectors.toList()),
                 teacherService.getStudentsForSchool(school.getId())
                         .stream()
                         .map(this::exportStudent)
@@ -77,6 +78,15 @@ public class ExportServiceCurrent implements ExportService {
                 comment.getCreation(),
                 comment.getUpdate(),
                 comment.getRawContent()
+        );
+    }
+
+    protected XContract exportContract(Contract contract) {
+        return new XContract(
+                contract.getId(),
+                contract.getName(),
+                contract.getHourlyRate(),
+                contract.getVatRate()
         );
     }
 

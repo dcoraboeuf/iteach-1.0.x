@@ -19,6 +19,7 @@ public class XSchool {
     private final String webSite;
     private final String vat;
     private final BigDecimal vatRate;
+    private final List<XContract> contracts;
     private final List<XStudent> students;
     private final List<XComment> comments;
 }

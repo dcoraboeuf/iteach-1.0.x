@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 public class XStudent {
-    private final Integer contractId;
+    private final Integer contractRefId;
     private final boolean disabled;
     private final String name;
     private final String subject;

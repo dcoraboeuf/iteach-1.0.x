@@ -10,14 +10,15 @@ import net.nemerosa.iteach.service.SecurityUtils;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.impl.ImportException;
 import net.nemerosa.iteach.service.io.model.*;
-import net.nemerosa.iteach.service.model.LessonForm;
-import net.nemerosa.iteach.service.model.SchoolForm;
-import net.nemerosa.iteach.service.model.StudentForm;
+import net.nemerosa.iteach.service.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Component
 @Qualifier("v2")
@@ -66,18 +67,41 @@ public class ImportServiceV2 implements ImportService {
                         x.getVatRate()
                 )
         );
+        // School contracts
+        Map<Integer, RefContract> contracts = x.getContracts()
+                .stream()
+                .map(s -> importContract(schoolId, s))
+                .collect(Collectors.toMap(RefContract::getRefId, Function.identity()));
         // School comments
         importComments(CommentEntity.school, schoolId, x.getComments());
         // School students
-        x.getStudents().stream().forEach(s -> importStudent(schoolId, s));
+        x.getStudents().stream().forEach(s -> importStudent(schoolId, contracts, s));
     }
 
-    protected void importStudent(int schoolId, XStudent x) {
+    protected RefContract importContract(int schoolId, XContract x) {
+        Contract contract = teacherService.createContract(
+                schoolId,
+                new ContractForm(
+                        x.getName(),
+                        x.getHourlyRate(),
+                        x.getVatRate()
+                )
+        );
+        return new RefContract(x.getRefId(), contract);
+    }
+
+    protected void importStudent(int schoolId, Map<Integer, RefContract> contracts, XStudent x) {
+        // Contract id
+        Integer contractId = null;
+        RefContract refContract = contracts.get(x.getContractRefId());
+        if (refContract != null) {
+            contractId = refContract.getContract().getId();
+        }
         // Creates the student
         int studentId = teacherService.createStudent(
                 new StudentForm(
                         schoolId,
-                        x.getContractId(),
+                        contractId,
                         x.getName(),
                         x.getSubject(),
                         x.getPostalAddress(),
@@ -112,14 +136,14 @@ public class ImportServiceV2 implements ImportService {
 
     private void importComments(CommentEntity entity, int entityId, List<XComment> comments) {
         comments.stream().forEach(c ->
-                commentRepository.importComment(
-                        securityUtils.getCurrentAccount().getId(),
-                        entity,
-                        entityId,
-                        c.getCreation(),
-                        c.getUpdate(),
-                        c.getRawContent()
-                )
+                        commentRepository.importComment(
+                                securityUtils.getCurrentAccount().getId(),
+                                entity,
+                                entityId,
+                                c.getCreation(),
+                                c.getUpdate(),
+                                c.getRawContent()
+                        )
         );
     }
 

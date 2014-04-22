@@ -25,4 +25,6 @@ public interface ServiceITSupport {
     Student createStudent() throws Exception;
 
     Student createStudent(int teacherId, int schoolId) throws Exception;
+
+    <T> T asAdmin(Callable<T> call) throws Exception;
 }
