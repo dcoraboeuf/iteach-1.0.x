@@ -11,6 +11,7 @@ public class Report {
 
     private final BigDecimal hours;
     private final Money income;
+    private final Money incomeTotal;
     private final List<SchoolReport> schools;
 
 }

@@ -230,6 +230,7 @@ public class UITeacherAPIController implements UITeacherAPI {
                 report.getName(),
                 report.getColour(),
                 report.getHours(),
+                report.getIncome(),
                 report.getIncomeTotal(),
                 report.getContracts()
                         .stream()
@@ -452,6 +453,7 @@ public class UITeacherAPIController implements UITeacherAPI {
                 period.plusMonths(1),
                 report.getHours(),
                 report.getIncome(),
+                report.getIncomeTotal(),
                 report.getSchools()
                         .stream()
                         .map(this::toUISchoolReport)

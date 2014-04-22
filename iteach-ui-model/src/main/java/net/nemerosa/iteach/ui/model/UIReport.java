@@ -18,10 +18,12 @@ public class UIReport extends UIResource {
     private final YearMonth periodAfter;
     private final BigDecimal hours;
     private final Money income;
+    private final Money incomeTotal;
     private final List<UISchoolReport> schools;
 
-    @ConstructorProperties({"period", "formattedPeriod", "periodBefore", "periodAfter", "hours", "income", "schools"})
-    public UIReport(YearMonth period, String formattedPeriod, YearMonth periodBefore, YearMonth periodAfter, BigDecimal hours, Money income, List<UISchoolReport> schools) {
+    @ConstructorProperties({"period", "formattedPeriod", "periodBefore", "periodAfter", "hours", "income", "incomeTotal", "schools"})
+    public UIReport(YearMonth period, String formattedPeriod, YearMonth periodBefore, YearMonth periodAfter, BigDecimal hours, Money income, Money incomeTotal, List<UISchoolReport> schools) {
+        this.incomeTotal = incomeTotal;
         this.href = UILink.href("api/teacher/report/%d/%d", period.getYear(), period.getMonthValue());
         this.period = period;
         this.formattedPeriod = formattedPeriod;

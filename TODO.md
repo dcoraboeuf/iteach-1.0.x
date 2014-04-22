@@ -2,4 +2,3 @@
 
 * Update of a contract
 * Deletion of a contract
-* Invoicing

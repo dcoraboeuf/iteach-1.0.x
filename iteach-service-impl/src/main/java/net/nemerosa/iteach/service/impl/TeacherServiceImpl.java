@@ -342,12 +342,18 @@ public class TeacherServiceImpl implements TeacherService {
         // Income
         Money income = reports
                 .stream()
+                .map(SchoolReport::getIncome)
+                .reduce(null, MoneyUtils::addIncome);
+        // Income total
+        Money incomeTotal = reports
+                .stream()
                 .map(SchoolReport::getIncomeTotal)
                 .reduce(null, MoneyUtils::addIncome);
         // OK
         return new Report(
                 hours,
                 income,
+                incomeTotal,
                 reports
         );
     }
@@ -397,6 +403,11 @@ public class TeacherServiceImpl implements TeacherService {
                 .stream()
                 .map(ContractReport::getHours)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+        // Raw income
+        Money income = filteredContractReports
+                .stream()
+                .map(ContractReport::getIncome)
+                .reduce(null, MoneyUtils::addIncome);
         // Global income
         Money incomeTotal = filteredContractReports
                 .stream()
@@ -408,6 +419,7 @@ public class TeacherServiceImpl implements TeacherService {
                 school.getName(),
                 school.getColour(),
                 hours,
+                income,
                 incomeTotal,
                 filteredContractReports
         );

@@ -13,6 +13,7 @@ public class SchoolReport {
     private final String name;
     private final String colour;
     private final BigDecimal hours;
+    private final Money income;
     private final Money incomeTotal;
     private final List<ContractReport> contracts;
 
