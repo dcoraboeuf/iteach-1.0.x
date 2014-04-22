@@ -1,6 +1,7 @@
 package net.nemerosa.iteach.service.impl;
 
 import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.AuthenticationMode;
 import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.common.Message;
 import net.nemerosa.iteach.service.AccountService;
@@ -75,7 +76,7 @@ public class ServiceITSupportImpl implements ServiceITSupport {
 
     @Override
     public <T> T asTeacher(int teacherId, Callable<T> call) throws Exception {
-        Account account = accountService.getAccount(teacherId);
+        Account account = asAdmin(() -> accountService.getAccount(teacherId));
         return asAccount(account, call);
     }
 
@@ -143,7 +144,18 @@ public class ServiceITSupportImpl implements ServiceITSupport {
 
     @Override
     public <T> T asAdmin(Callable<T> call) throws Exception {
-        return asTeacher(1, call);
+        return asAccount(
+                new Account(
+                        1,
+                        "admin",
+                        "noemail@test.com",
+                        true,
+                        AuthenticationMode.PASSWORD,
+                        true,
+                        false
+                ),
+                call
+        );
     }
 
     private <T> T asAccount(Account account, Callable<T> call) throws Exception {
