@@ -363,12 +363,15 @@ public class TeacherServiceImpl implements TeacherService {
                 .filter(report -> !filter || BigDecimal.ZERO.compareTo(report.getHours()) != 0)
                 .collect(Collectors.toList());
         // Consolidation at school level
-        BigDecimal hours = BigDecimal.ZERO;
-        for (StudentReport studentReport : studentReports) {
-            hours = hours.add(studentReport.getHours());
-        }
+        BigDecimal hours = studentReports
+                .stream()
+                .map(StudentReport::getHours)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
         // Global income
-        Money income = MoneyUtils.computeIncome(school.getHourlyRate(), hours);
+        Money income = studentReports
+                .stream()
+                .map(StudentReport::getIncome)
+                .reduce(null, MoneyUtils::addIncome);
         // OK
         return new SchoolReport(
                 school.getId(),
@@ -387,6 +390,7 @@ public class TeacherServiceImpl implements TeacherService {
         Student student = getStudent(studentId);
         // Gets the school
         School school = getSchool(student.getSchoolId());
+        Contract contract = getStudentContract(student.getContractId());
         // Gets all the student lessons for the given period
         List<Lesson> lessons = getLessons(studentId, period.getFrom(), period.getTo());
         // Hours
@@ -395,18 +399,28 @@ public class TeacherServiceImpl implements TeacherService {
             BigDecimal lessonDuration = lesson.getHours();
             hours = hours.add(lessonDuration);
         }
+        // Hourly rate (depends on contract & school)
+        Money hourlyRate = getStudentHourlyRate(school, contract);
         // Income
-        Money income = MoneyUtils.computeIncome(school.getHourlyRate(), hours);
+        Money income = MoneyUtils.computeIncome(hourlyRate, hours);
         // OK
         return new StudentReport(
                 student.getId(),
                 student.isDisabled(),
-                getStudentContract(student.getContractId()),
+                contract,
                 student.getName(),
                 student.getSubject(),
                 hours,
                 income
         );
+    }
+
+    private Money getStudentHourlyRate(School school, Contract contract) {
+        if (contract != null && contract.getHourlyRate() != null) {
+            return contract.getHourlyRate();
+        } else {
+            return school.getHourlyRate();
+        }
     }
 
     private Contract getStudentContract(Integer contractId) {
