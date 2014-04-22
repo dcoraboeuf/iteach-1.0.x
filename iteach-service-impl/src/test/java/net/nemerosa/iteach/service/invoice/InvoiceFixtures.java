@@ -37,7 +37,7 @@ public final class InvoiceFixtures {
                         schoolName,
                         schoolColour,
                         BigDecimal.valueOf(10),
-                        Money.of(CurrencyUnit.EUR, 200),
+                        Money.of(CurrencyUnit.EUR, 3500),
                         Arrays.asList(
                                 new ContractReport(
                                         0,

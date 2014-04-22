@@ -29,9 +29,9 @@ import static java.lang.String.format;
 @Component
 public class PDFInvoiceGenerator implements InvoiceGenerator {
 
-    private static final Font section = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
-    private static final Font amount = new Font(Font.FontFamily.COURIER, 14, Font.NORMAL);
-    private static final Font amountTotal = new Font(Font.FontFamily.COURIER, 14, Font.BOLD);
+    private static final Font section = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
+    private static final Font amount = new Font(Font.FontFamily.COURIER, 10, Font.NORMAL);
+    private static final Font amountTotal = new Font(Font.FontFamily.COURIER, 10, Font.BOLD);
     public static final int TABLE_WIDTH = 75;
     public static final int AMOUNT_BORDER_WIDTH = 2;
     public static final int PADDING = 5;
@@ -138,28 +138,35 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         Paragraph p = new Paragraph();
         p.add(new Paragraph("Total", section));
 
-        PdfPTable table = new PdfPTable(6);
+        PdfPTable table = new PdfPTable(7);
         table.setWidthPercentage(100.0f);
 
         // Header line
         table.addCell(cell().withText("").done());
-        table.addCell(cell().withText("Hours").done());
-        table.addCell(cell().withText("Total").done());
-        table.addCell(cell().withText("VAT%").done());
-        table.addCell(cell().withText("VAT").done());
-        table.addCell(cell().withText("Total w/ VAT").done());
+        table.addCell(cell().withText("Hours").withAlign(Element.ALIGN_RIGHT).done());
+        table.addCell(cell().withText("Hourly rate").withAlign(Element.ALIGN_RIGHT).done());
+        table.addCell(cell().withText("Total").withAlign(Element.ALIGN_RIGHT).done());
+        table.addCell(cell().withText("VAT%").withAlign(Element.ALIGN_RIGHT).done());
+        table.addCell(cell().withText("VAT").withAlign(Element.ALIGN_RIGHT).done());
+        table.addCell(cell().withText("Total w/ VAT").withAlign(Element.ALIGN_RIGHT).done());
 
         // One line per contract
         for (ContractReport contractReport : data.getReport().getContracts()) {
             // Name
             table.addCell(cell().withText(contractReport.getName()).withAlign(Element.ALIGN_RIGHT).withPadding(PADDING).done());
-            // Hours x rate
+            // Hours
             table.addCell(cell()
-                            .withText(
-                                    formatHours(contractReport.getHours(), locale)
-                                            + " \u00D7 "
-                                            + contractReport.getHourlyRate()
-                            )
+                            .withText(formatHours(contractReport.getHours(), locale))
+                            .withFont(amount)
+                            .withAlign(Element.ALIGN_RIGHT)
+                            .withPadding(PADDING)
+                            .done()
+            );
+            // Hourly rate
+            table.addCell(cell()
+                            .withText("" + contractReport.getHourlyRate())
+                            .withFont(amount)
+                            .withAlign(Element.ALIGN_RIGHT)
                             .withPadding(PADDING)
                             .done()
             );
@@ -167,10 +174,10 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
             table.addCell(amount(contractReport.getIncome()).done());
             // VAT rate & VAT
             if (contractReport.getVatRate() != null) {
-                table.addCell(cell().withText(format(locale, "%s%%", contractReport.getVatRate())).withAlign(Element.ALIGN_RIGHT).withPadding(PADDING).done());
+                table.addCell(cell().withFont(amount).withText(format(locale, "%s%%", contractReport.getVatRate())).withAlign(Element.ALIGN_RIGHT).withPadding(PADDING).done());
                 table.addCell(amount(contractReport.getIncomeVat()).done());
             } else {
-                table.addCell(cell().withText("-").withAlign(Element.ALIGN_RIGHT).withPadding(PADDING).done());
+                table.addCell(cell().withFont(amount).withText("-").withAlign(Element.ALIGN_RIGHT).withPadding(PADDING).done());
                 table.addCell(cell().withText("-").withFont(PDFInvoiceGenerator.amount).withAlign(ALIGN_RIGHT).withPadding(PADDING).done());
             }
             // Total
@@ -178,7 +185,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         }
 
         // Last line: overall total
-        filler(table, 5);
+        filler(table, 6);
         table.addCell(amount(data.getReport().getIncomeTotal()).withFont(amountTotal).withBorderWidth(AMOUNT_BORDER_WIDTH).done());
 
         p.add(table);
