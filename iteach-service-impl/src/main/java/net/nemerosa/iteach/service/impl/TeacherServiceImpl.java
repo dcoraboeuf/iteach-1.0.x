@@ -390,7 +390,7 @@ public class TeacherServiceImpl implements TeacherService {
         // Filters the empty contracts out
         List<ContractReport> filteredContractReports = contractReports
                 .stream()
-                .filter(c -> !filter || c.getHours().compareTo(BigDecimal.ZERO) > 0)
+                .filter(c -> c.getIncome() != null && (!filter || c.getHours().compareTo(BigDecimal.ZERO) > 0))
                 .collect(Collectors.toList());
         // Consolidation at school level
         BigDecimal hours = filteredContractReports
@@ -440,13 +440,15 @@ public class TeacherServiceImpl implements TeacherService {
                 studentReports.stream().map(StudentReport::getHours).reduce(BigDecimal.ZERO, BigDecimal::add),
                 income,
                 incomeVat,
-                income.plus(incomeVat),
+                incomeVat != null ? income.plus(incomeVat) : income,
                 studentReports
         );
     }
 
     private Money getVat(Money income, BigDecimal vatRate) {
-        if (vatRate != null) {
+        if (income == null) {
+            return null;
+        } else if (vatRate != null) {
             return income.multipliedBy(vatRate.movePointLeft(2), RoundingMode.HALF_UP);
         } else {
             return Money.zero(income.getCurrencyUnit());

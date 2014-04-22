@@ -23,6 +23,8 @@ public final class MoneyUtils {
     public static Money addIncome(Money old, Money m) {
         if (old == null) {
             return m;
+        } else if (m == null) {
+            return old;
         } else if (old.getCurrencyUnit().equals(m.getCurrencyUnit())) {
             return old.plus(m);
         } else {

@@ -1,10 +1,12 @@
 package net.nemerosa.iteach.service.impl;
 
 import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.Period;
 import net.nemerosa.iteach.it.AbstractITTestSupport;
 import net.nemerosa.iteach.service.InvoiceService;
 import net.nemerosa.iteach.service.TeacherService;
 import net.nemerosa.iteach.service.model.*;
+import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,36 @@ public class TeacherServiceIT extends AbstractITTestSupport {
 
     @Autowired
     private InvoiceService invoiceService;
+
+    @Test
+    public void getSchoolReport() throws Exception {
+        int teacherId = serviceITSupport.createTeacherAndCompleteRegistration();
+        int schoolId = serviceITSupport.createSchool(teacherId);
+        Student student = serviceITSupport.createStudent(teacherId, schoolId);
+        // 5 hours for this student
+        serviceITSupport.asTeacher(teacherId, () -> {
+            teacherService.createLesson(new LessonForm(
+                    student.getId(),
+                    "The location",
+                    LocalDateTime.of(2014, 3, 20, 11, 0),
+                    LocalDateTime.of(2014, 3, 20, 13, 30)));
+            teacherService.createLesson(new LessonForm(
+                    student.getId(),
+                    "The location",
+                    LocalDateTime.of(2014, 3, 21, 11, 0),
+                    LocalDateTime.of(2014, 3, 21, 13, 30)));
+            return null;
+        });
+        // Gets the school report
+        SchoolReport report = serviceITSupport.asTeacher(teacherId, () -> teacherService.getSchoolReport(
+                schoolId,
+                new Period(),
+                false
+        ));
+        // Checks
+        assertEquals(new BigDecimal("5.00"), report.getHours()); // 5
+        assertEquals(Money.of(CurrencyUnit.EUR, 338.8), report.getIncomeTotal()); // 56 * 5 + 21% VAT
+    }
 
     @Test
     public void create_school() throws Exception {
@@ -48,7 +80,8 @@ public class TeacherServiceIT extends AbstractITTestSupport {
                             "http://school.test.com",
                             "BE0123456789",
                             new BigDecimal("21")
-                    ));
+                    )
+            );
             // Gets the school back and checks its fields
             return teacherService.getSchool(schoolId);
         });
@@ -71,23 +104,23 @@ public class TeacherServiceIT extends AbstractITTestSupport {
         Student student = serviceITSupport.createStudent();
         // Updates the student
         Ack ack = serviceITSupport.asTeacher(student.getTeacherId(), () ->
-                teacherService.updateStudent(student.getId(),
-                        new StudentForm(
-                                student.getSchoolId(),
-                                null,
-                                student.getName(),
-                                student.getSubject(),
-                                student.getPostalAddress(),
-                                "012345",
-                                student.getMobilePhone(),
-                                student.getEmail()
+                        teacherService.updateStudent(student.getId(),
+                                new StudentForm(
+                                        student.getSchoolId(),
+                                        null,
+                                        student.getName(),
+                                        student.getSubject(),
+                                        student.getPostalAddress(),
+                                        "012345",
+                                        student.getMobilePhone(),
+                                        student.getEmail()
+                                )
                         )
-                )
         );
         assertTrue(ack.isSuccess());
         // Gets the new student
         Student newStudent = serviceITSupport.asTeacher(student.getTeacherId(), () ->
-                teacherService.getStudent(student.getId())
+                        teacherService.getStudent(student.getId())
         );
         assertEquals(student.getId(), newStudent.getId());
         assertEquals("012345", newStudent.getPhone());
