@@ -1,72 +1,70 @@
 <div class="container">
     <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th colspan="2">{{'school' | translate}}</th>
-                <th>{{'student' | translate}}</th>
-                <th colspan="2">
-                    <a class="glyphicon glyphicon-arrow-left" ng-click="periodBefore()"></a>
-                    {{report.formattedPeriod}}
-                    <a class="glyphicon glyphicon-arrow-right" ng-click="periodAfter()"></a>
-                </th>
-            </tr>
-            </thead>
-            <!-- Schools -->
-            <tbody ng-repeat="school in report.schools">
+
+        <!-- Header -->
+        <a class="glyphicon glyphicon-arrow-left" ng-click="periodBefore()"></a>
+        {{report.formattedPeriod}}
+        <a class="glyphicon glyphicon-arrow-right" ng-click="periodAfter()"></a>
+
+        <!-- Schools -->
+        <table class="table it-monthly-report" ng-repeat="school in report.schools">
             <tr class="info">
-                <td class="it-colour">
+                <td class="it-colour" width="32">
                     <div class="it-colour" style="background-color: {{school.colour}}">
                         &nbsp;
                     </div>
                 </td>
-                <td>
+                <td width="20%">
                     <a href="#/school/{{school.id}}">{{school.name}}</a>
                     <a
                             ng-click="createInvoice(school.id, report.period)"
                             class="glyphicon glyphicon-file"
                             title="{{'invoice.generate' | translate}}"></a>
                 </td>
-                <td>&nbsp;</td>
-                <td class="it-hours">
+                <td colspan="2">&nbsp;</td>
+                <td class="it-hours" width="100">
                     {{school.hours}}h
                 </td>
-                <td class="it-income">
-                    {{school.income}}
+                <td class="it-income" width="100">
+                    {{school.incomeTotal}}
                 </td>
             </tr>
-            <!-- Students -->
-            <tr ng-repeat="student in school.students">
-                <td colspan="2">&nbsp;</td>
-                <td>
-                    <a href="#/student/{{student.id}}" ng-class="student.disabled ? 'text-muted' : ''">{{student.name}}</a>
-                    <span class="text-muted" ng-if="!student.contract">({{school.hourlyRate}})</span>
-                    <span class="text-muted" ng-if="student.contract">(
-                        {{student.contract.name}}
-                        -
-                        {{student.contract.hourlyRate ? student.contract.hourlyRate : school.hourlyRate}}
-                        )</span>
-                </td>
-                <td class="it-hours">
-                    {{student.hours}}h
-                </td>
-                <td class="it-income">
-                    {{student.income}}
-                </td>
-            </tr>
+            <tbody ng-repeat="contract in school.contracts">
+                <tr ng-repeat="student in contract.students">
+                    <td colspan="2">&nbsp;</td>
+                    <td width="20%">
+                        <a href="#/student/{{student.id}}"
+                           ng-class="student.disabled ? 'text-muted' : ''">{{student.name}}</a>
+                    </td>
+                    <td width="20%">
+                        {{contract.hourlyRate}}
+                        <span class="text-muted" ng-if="contract.name">({{contract.name}})</span>
+                    </td>
+                    <td class="it-hours">
+                        {{student.hours}}h
+                    </td>
+                    <td class="it-income">
+                        {{student.income}}
+                    </td>
+                </tr>
             </tbody>
-            <tfoot>
+        </table>
+
+        <table class="table">
             <tr class="success">
-                <td colspan="3">&nbsp;</td>
-                <td class="it-hours">
+                <td width="32">&nbsp;</td>
+                <td width="20%">&nbsp;</td>
+                <td width="20%">&nbsp;</td>
+                <td width="20%">&nbsp;</td>
+                <td class="it-hours" width="100">
                     {{report.hours}}h
                 </td>
-                <td class="it-income">
+                <td class="it-income" width="100">
                     {{report.income}}
                 </td>
             </tr>
-            </tfoot>
         </table>
+
     </div>
     <div class="row">
         <a id="user-invoice-mgt" href="#/invoices" class="btn btn-info">{{'invoice.mgt' | translate}}</a>
