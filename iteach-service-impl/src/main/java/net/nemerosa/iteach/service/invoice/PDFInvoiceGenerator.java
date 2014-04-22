@@ -7,6 +7,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.VerticalPositionMark;
 import net.nemerosa.iteach.common.UntitledDocument;
 import net.nemerosa.iteach.service.InvoiceGenerationException;
+import net.nemerosa.iteach.service.model.ContractReport;
 import net.nemerosa.iteach.service.model.InvoiceData;
 import net.nemerosa.iteach.service.model.StudentReport;
 import org.apache.commons.lang3.StringUtils;
@@ -23,6 +24,7 @@ import java.time.format.FormatStyle;
 import java.util.Locale;
 
 import static com.itextpdf.text.Element.ALIGN_RIGHT;
+import static java.lang.String.format;
 
 @Component
 public class PDFInvoiceGenerator implements InvoiceGenerator {
@@ -136,61 +138,48 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         Paragraph p = new Paragraph();
         p.add(new Paragraph("Total", section));
 
-        PdfPTable table = new PdfPTable(3);
-        table.setWidthPercentage(TABLE_WIDTH);
+        PdfPTable table = new PdfPTable(6);
+        table.setWidthPercentage(100.0f);
 
-        // Line 1
-        table.addCell(cell().withText("Total hours:").withPadding(PADDING).done());
-        table.addCell(
-                cell()
-                        .withText(
-                                formatHours(data.getReport().getHours(), locale) + " hours"
-                                        + " \u00D7 "
-                                        + data.getSchool().getHourlyRate().toString()
-                        )
-                        .withAlign(ALIGN_RIGHT)
-                        .withPadding(PADDING)
-                        .done()
-        );
-        table.addCell(amount(data.getReport().getIncome()).done());
+        // Header line
+        table.addCell(cell().withText("").done());
+        table.addCell(cell().withText("Hours").done());
+        table.addCell(cell().withText("Total").done());
+        table.addCell(cell().withText("VAT%").done());
+        table.addCell(cell().withText("VAT").done());
+        table.addCell(cell().withText("Total w/ VAT").done());
 
-        // Line 2
-        filler(table, 1);
-        if (data.getSchool().getVatRate() != null) {
-            table.addCell(
-                    cell()
-                            .withText(String.format(locale, "VAT %s%%", data.getSchool().getVatRate()))
-                            .withAlign(ALIGN_RIGHT)
+        // One line per contract
+        for (ContractReport contractReport : data.getReport().getContracts()) {
+            // Name
+            table.addCell(cell().withText(contractReport.getName()).withAlign(Element.ALIGN_RIGHT).withPadding(PADDING).done());
+            // Hours x rate
+            table.addCell(cell()
+                            .withText(
+                                    formatHours(contractReport.getHours(), locale)
+                                            + " \u00D7 "
+                                            + contractReport.getHourlyRate()
+                            )
                             .withPadding(PADDING)
                             .done()
             );
-            table.addCell(amount(data.getVat()).done());
-        } else {
-            table.addCell(
-                    cell()
-                            .withText("VAT n/a")
-                            .withAlign(ALIGN_RIGHT)
-                            .withPadding(PADDING)
-                            .done()
-            );
-            table.addCell(amount(Money.zero(data.getVatTotal().getCurrencyUnit())).done());
+            // Total
+            table.addCell(amount(contractReport.getIncome()).done());
+            // VAT rate & VAT
+            if (contractReport.getVatRate() != null) {
+                table.addCell(cell().withText(format(locale, "%s%%", contractReport.getVatRate())).withAlign(Element.ALIGN_RIGHT).withPadding(PADDING).done());
+                table.addCell(amount(contractReport.getIncomeVat()).done());
+            } else {
+                table.addCell(cell().withText("-").withAlign(Element.ALIGN_RIGHT).withPadding(PADDING).done());
+                table.addCell(cell().withText("-").withFont(PDFInvoiceGenerator.amount).withAlign(ALIGN_RIGHT).withPadding(PADDING).done());
+            }
+            // Total
+            table.addCell(amount(contractReport.getIncomeTotal()).done());
         }
 
-        // Line 3
-        filler(table, 1);
-        table.addCell(
-                cell()
-                        .withText("Total with VAT")
-                        .withAlign(ALIGN_RIGHT)
-                        .withPadding(PADDING)
-                        .done()
-        );
-        table.addCell(
-                amount(data.getVatTotal())
-                        .withFont(amountTotal)
-                        .withBorderWidth(AMOUNT_BORDER_WIDTH)
-                        .done()
-        );
+        // Last line: overall total
+        filler(table, 5);
+        table.addCell(amount(data.getReport().getIncomeTotal()).withFont(amountTotal).withBorderWidth(AMOUNT_BORDER_WIDTH).done());
 
         p.add(table);
 
@@ -198,7 +187,7 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
         p.add(new Paragraph("The payment is to be made to the following account:"));
         p.add(
                 new Paragraph(
-                        String.format(
+                        format(
                                 "IBAN %s (BIC %s) held by %s",
                                 data.getProfile().getIban(),
                                 data.getProfile().getBic(),
@@ -245,21 +234,27 @@ public class PDFInvoiceGenerator implements InvoiceGenerator {
 
         PdfPTable table = new PdfPTable(3);
         table.setWidthPercentage(TABLE_WIDTH);
-        for (StudentReport student : data.getReport().getStudents()) {
-            table.addCell(
-                    cell()
-                            .withText(student.getName())
-                            .withPadding(PADDING)
-                            .done()
-            );
-            table.addCell(
-                    cell()
-                            .withText(formatHours(student.getHours(), locale) + " hours")
-                            .withAlign(ALIGN_RIGHT)
-                            .withPadding(PADDING)
-                            .done()
-            );
-            filler(table, 1);
+        for (ContractReport contractReport : data.getReport().getContracts()) {
+            for (StudentReport student : contractReport.getStudents()) {
+                String name = student.getName();
+                if (StringUtils.isNotBlank(contractReport.getName())) {
+                    name += format(" (%s)", contractReport.getName());
+                }
+                table.addCell(
+                        cell()
+                                .withText(name)
+                                .withPadding(PADDING)
+                                .done()
+                );
+                table.addCell(
+                        cell()
+                                .withText(formatHours(student.getHours(), locale) + " hours")
+                                .withAlign(ALIGN_RIGHT)
+                                .withPadding(PADDING)
+                                .done()
+                );
+                filler(table, 1);
+            }
         }
         p.add(table);
         return p;

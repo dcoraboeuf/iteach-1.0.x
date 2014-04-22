@@ -13,10 +13,10 @@ public class UIStudentReport {
 
     private final int id;
     private final boolean disabled;
-    private final UIContract contract;
     private final String name;
     private final String subject;
     private final BigDecimal hours;
+    private final Money hourlyRate;
     private final Money income;
 
     public String getHref() {

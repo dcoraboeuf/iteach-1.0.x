@@ -15,10 +15,9 @@ public class UISchoolReport {
     private final int id;
     private final String name;
     private final String colour;
-    private final Money hourlyRate;
     private final BigDecimal hours;
-    private final Money income;
-    private final List<UIStudentReport> students;
+    private final Money incomeTotal;
+    private final List<UIContractReport> contracts;
 
     public String getHref() {
         return UILink.href("api/teacher/school/%d/report", id);

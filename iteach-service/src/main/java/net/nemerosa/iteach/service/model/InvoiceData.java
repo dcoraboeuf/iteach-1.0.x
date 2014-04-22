@@ -45,11 +45,6 @@ public class InvoiceData {
      */
     private final SchoolReport report;
     /**
-     * VAT support
-     */
-    private final Money vat;
-    private final Money vatTotal;
-    /**
      * Title of the invoice
      */
     private final String title;

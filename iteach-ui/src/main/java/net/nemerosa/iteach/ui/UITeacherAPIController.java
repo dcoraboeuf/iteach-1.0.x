@@ -229,19 +229,31 @@ public class UITeacherAPIController implements UITeacherAPI {
                 report.getId(),
                 report.getName(),
                 report.getColour(),
-                report.getHourlyRate(),
                 report.getHours(),
-                report.getIncome(),
-                report.getStudents()
+                report.getIncomeTotal(),
+                report.getContracts()
                         .stream()
-                        .map(s -> new UIStudentReport(
-                                s.getId(),
-                                s.isDisabled(),
-                                toUIContract(s.getContract()),
-                                s.getName(),
-                                s.getSubject(),
-                                s.getHours(),
-                                s.getIncome()
+                        .map(c -> new UIContractReport(
+                                c.getId(),
+                                c.getName(),
+                                c.getHourlyRate(),
+                                c.getVatRate(),
+                                c.getHours(),
+                                c.getIncome(),
+                                c.getIncomeVat(),
+                                c.getIncomeTotal(),
+                                c.getStudents()
+                                        .stream()
+                                        .map(s -> new UIStudentReport(
+                                                s.getId(),
+                                                s.isDisabled(),
+                                                s.getName(),
+                                                s.getSubject(),
+                                                s.getHours(),
+                                                s.getHourlyRate(),
+                                                s.getIncome()
+                                        ))
+                                        .collect(Collectors.toList())
                         ))
                         .collect(Collectors.toList())
         );

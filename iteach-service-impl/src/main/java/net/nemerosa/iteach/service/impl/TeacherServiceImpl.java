@@ -20,8 +20,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -340,7 +342,7 @@ public class TeacherServiceImpl implements TeacherService {
         // Income
         Money income = reports
                 .stream()
-                .map(SchoolReport::getIncome)
+                .map(SchoolReport::getIncomeTotal)
                 .reduce(null, MoneyUtils::addIncome);
         // OK
         return new Report(
@@ -362,26 +364,93 @@ public class TeacherServiceImpl implements TeacherService {
                 .map(student -> getStudentReport(student.getId(), period))
                 .filter(report -> !filter || BigDecimal.ZERO.compareTo(report.getHours()) != 0)
                 .collect(Collectors.toList());
-        // Consolidation at school level
-        BigDecimal hours = studentReports
+        // Contract reports
+        List<ContractReport> contractReports = new ArrayList<>();
+        // Students without a specific contract
+        contractReports.add(
+                getContractReport(
+                        0,
+                        "",
+                        studentReports.stream().filter(s -> s.getContract() == null).collect(Collectors.toList()),
+                        school.getHourlyRate(),
+                        school.getVatRate()
+                )
+        );
+        // Other contracts
+        getContracts(schoolId).forEach(c -> contractReports.add(
+                        getContractReport(
+                                c.getId(),
+                                c.getName(),
+                                studentReports.stream().filter(s -> s.getContract() != null && s.getContract().getId() == c.getId()).collect(Collectors.toList()),
+                                getActualHourlyRate(school.getHourlyRate(), c.getHourlyRate()),
+                                getActualVatRate(school.getVatRate(), c.getVatRate())
+                        )
+                )
+        );
+        // Filters the empty contracts out
+        List<ContractReport> filteredContractReports = contractReports
                 .stream()
-                .map(StudentReport::getHours)
+                .filter(c -> !filter || c.getHours().compareTo(BigDecimal.ZERO) > 0)
+                .collect(Collectors.toList());
+        // Consolidation at school level
+        BigDecimal hours = filteredContractReports
+                .stream()
+                .map(ContractReport::getHours)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         // Global income
-        Money income = studentReports
+        Money incomeTotal = filteredContractReports
                 .stream()
-                .map(StudentReport::getIncome)
+                .map(ContractReport::getIncomeTotal)
                 .reduce(null, MoneyUtils::addIncome);
         // OK
         return new SchoolReport(
                 school.getId(),
                 school.getName(),
                 school.getColour(),
-                school.getHourlyRate(),
                 hours,
+                incomeTotal,
+                filteredContractReports
+        );
+    }
+
+    private BigDecimal getActualVatRate(BigDecimal school, BigDecimal contract) {
+        if (contract != null) {
+            if (contract.compareTo(BigDecimal.ZERO) == 0) {
+                return null;
+            } else {
+                return contract;
+            }
+        } else {
+            return school;
+        }
+    }
+
+    private Money getActualHourlyRate(Money school, Money contract) {
+        return contract != null ? contract : school;
+    }
+
+    private ContractReport getContractReport(int contractId, String contractName, List<StudentReport> studentReports, Money hourlyRate, BigDecimal vatRate) {
+        Money income = studentReports.stream().map(StudentReport::getIncome).reduce(null, MoneyUtils::addIncome);
+        Money incomeVat = getVat(income, vatRate);
+        return new ContractReport(
+                contractId,
+                contractName,
+                hourlyRate,
+                vatRate,
+                studentReports.stream().map(StudentReport::getHours).reduce(BigDecimal.ZERO, BigDecimal::add),
                 income,
+                incomeVat,
+                income.plus(incomeVat),
                 studentReports
         );
+    }
+
+    private Money getVat(Money income, BigDecimal vatRate) {
+        if (vatRate != null) {
+            return income.multipliedBy(vatRate.movePointLeft(2), RoundingMode.HALF_UP);
+        } else {
+            return Money.zero(income.getCurrencyUnit());
+        }
     }
 
     @Override
@@ -407,10 +476,11 @@ public class TeacherServiceImpl implements TeacherService {
         return new StudentReport(
                 student.getId(),
                 student.isDisabled(),
-                contract,
                 student.getName(),
                 student.getSubject(),
                 hours,
+                contract,
+                hourlyRate,
                 income
         );
     }

@@ -13,7 +13,6 @@ import net.sf.jstring.LocalizableMessage;
 import net.sf.jstring.MultiLocalizable;
 import net.sf.jstring.Strings;
 import org.apache.commons.lang3.StringUtils;
-import org.joda.money.Money;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
@@ -320,18 +318,6 @@ public class InvoiceServiceImpl implements InvoiceService {
         AccountAuthentication account = securityUtils.getCurrentAccount();
         SchoolReport report = teacherService.getSchoolReport(form.getSchoolId(), toPeriod(form.getPeriod()), true);
         School school = teacherService.getSchool(form.getSchoolId());
-        // VAT support
-        Money vat;
-        Money vatTotal;
-        BigDecimal vatRate = school.getVatRate();
-        if (vatRate != null) {
-            vatRate = vatRate.movePointLeft(2);
-            vat = report.getIncome().multipliedBy(vatRate, RoundingMode.HALF_UP);
-            vatTotal = report.getIncome().plus(vat);
-        } else {
-            vat = Money.zero(report.getIncome().getCurrencyUnit());
-            vatTotal = report.getIncome();
-        }
         // OK
         return new InvoiceData(
                 form.getPeriod(),
@@ -344,8 +330,6 @@ public class InvoiceServiceImpl implements InvoiceService {
                 accountService.getProfileCompanyLogo(),
                 school,
                 report,
-                vat,
-                vatTotal,
                 computeInvoiceTitle(school, form.getPeriod(), form.getNumber()),
                 form.getComment(),
                 form.isDetailPerStudent()

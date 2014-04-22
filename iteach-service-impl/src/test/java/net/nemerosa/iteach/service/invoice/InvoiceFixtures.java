@@ -36,24 +36,75 @@ public final class InvoiceFixtures {
                         schoolId,
                         schoolName,
                         schoolColour,
-                        hourlyRate,
                         BigDecimal.valueOf(10),
                         Money.of(CurrencyUnit.EUR, 200),
                         Arrays.asList(
-                                new StudentReport(
-                                        1, false, null, "Student 1", "Subject 1",
-                                        BigDecimal.valueOf(6.5),
-                                        Money.of(CurrencyUnit.EUR, 120)
+                                new ContractReport(
+                                        0,
+                                        "",
+                                        Money.of(CurrencyUnit.EUR, 10),
+                                        BigDecimal.valueOf(10),
+                                        BigDecimal.valueOf(100),
+                                        Money.of(CurrencyUnit.EUR, 1000),
+                                        Money.of(CurrencyUnit.EUR, 100),
+                                        Money.of(CurrencyUnit.EUR, 1100),
+                                        Arrays.asList(
+                                                new StudentReport(
+                                                        1, false, "Student 1", "Subject 1",
+                                                        BigDecimal.valueOf(40),
+                                                        null, // No contract
+                                                        Money.of(CurrencyUnit.EUR, 10),
+                                                        Money.of(CurrencyUnit.EUR, 400)
+                                                ),
+                                                new StudentReport(
+                                                        2, false, "Student 2", "Subject 2",
+                                                        BigDecimal.valueOf(60),
+                                                        null, // No contract
+                                                        Money.of(CurrencyUnit.EUR, 10),
+                                                        Money.of(CurrencyUnit.EUR, 600)
+                                                )
+                                        )
                                 ),
-                                new StudentReport(
-                                        2, false, null, "Student 2", "Subject 2",
-                                        BigDecimal.valueOf(3.5),
-                                        Money.of(CurrencyUnit.EUR, 80)
+                                new ContractReport(
+                                        1,
+                                        "Contract 1",
+                                        Money.of(CurrencyUnit.EUR, 20),
+                                        BigDecimal.valueOf(20),
+                                        BigDecimal.valueOf(100),
+                                        Money.of(CurrencyUnit.EUR, 2000),
+                                        Money.of(CurrencyUnit.EUR, 400),
+                                        Money.of(CurrencyUnit.EUR, 2400),
+                                        Arrays.asList(
+                                                new StudentReport(
+                                                        3, false, "Student 3", "Subject 3",
+                                                        BigDecimal.valueOf(40),
+                                                        new Contract(
+                                                                1,
+                                                                schoolId,
+                                                                "Contract 1",
+                                                                Money.of(CurrencyUnit.EUR, 20),
+                                                                BigDecimal.valueOf(20)
+                                                        ),
+                                                        Money.of(CurrencyUnit.EUR, 20),
+                                                        Money.of(CurrencyUnit.EUR, 800)
+                                                ),
+                                                new StudentReport(
+                                                        4, false, "Student 4", "Subject 4",
+                                                        BigDecimal.valueOf(60),
+                                                        new Contract(
+                                                                1,
+                                                                schoolId,
+                                                                "Contract 1",
+                                                                Money.of(CurrencyUnit.EUR, 20),
+                                                                BigDecimal.valueOf(20)
+                                                        ),
+                                                        Money.of(CurrencyUnit.EUR, 20),
+                                                        Money.of(CurrencyUnit.EUR, 1200)
+                                                )
+                                        )
                                 )
                         )
                 ),
-                Money.of(CurrencyUnit.EUR, 42.0),
-                Money.of(CurrencyUnit.EUR, 242.0),
                 "Some title",
                 "Some comments",
                 true
@@ -88,14 +139,11 @@ public final class InvoiceFixtures {
                         schoolId,
                         schoolName,
                         schoolColour,
-                        null,
                         BigDecimal.ZERO,
                         Money.of(CurrencyUnit.EUR, 0),
                         Arrays.asList(
                         )
                 ),
-                Money.zero(CurrencyUnit.EUR),
-                Money.zero(CurrencyUnit.EUR),
                 "Some title",
                 "",
                 false
