@@ -1,0 +1,5 @@
+<span ng-if="school.vatRate && contract.vatRate && contract.vatRate > 0" class="it-contract-vatRate-set">{{contract.vatRate}}%</span>
+<span ng-if="school.vatRate && contract.vatRate == 0" class="it-contract-vatRate-set">{{'school.vatRate.none.short' | translate}}</span>
+<span ng-if="school.vatRate && !contract.vatRate && contract.vatRate != 0" class="it-contract-vatRate-unset">{{school.vatRate}}%</span>
+<span ng-if="!school.vatRate && contract.vatRate && contract.vatRate > 0" class="it-contract-vatRate-set">{{contract.vatRate}}%</span>
+<span ng-if="!school.vatRate && !contract.vatRate" class="it-contract-vatRate-unset">{{'school.vatRate.none.short' | translate}}</span>
