@@ -5,6 +5,7 @@ import net.nemerosa.iteach.dao.ContractRepository;
 import net.nemerosa.iteach.dao.model.TContract;
 import org.joda.money.Money;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -64,10 +65,15 @@ public class ContractJdbcRepository extends AbstractJdbcRepository implements Co
 
     @Override
     public Ack delete(int teacherId, int contractId) {
+        MapSqlParameterSource params = params("teacherId", teacherId).addValue("id", contractId);
+        getNamedParameterJdbcTemplate().update(
+                SQL.CONTRACT_RESET_STUDENTS,
+                params
+        );
         return Ack.one(
                 getNamedParameterJdbcTemplate().update(
                         SQL.CONTRACT_DELETE,
-                        params("teacherId", teacherId).addValue("id", contractId)
+                        params
                 )
         );
     }
