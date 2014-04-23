@@ -181,6 +181,10 @@ angular.module('iteach.ui.teacher', [
             return $http.get(config.api('teacher/contract/{{id}}', {id: contractId}));
         };
 
+        self.deleteContract = function (contractId) {
+            return $http.delete(config.api('teacher/contract/{{id}}', {id: contractId}));
+        };
+
         /**
          * OK
          */

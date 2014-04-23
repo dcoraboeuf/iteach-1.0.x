@@ -229,5 +229,7 @@ var map_en = {
     'contract.vatRate': "VAT rate",
     'contract.vatRate.school': "VAT rate of the school",
     'contract.vatRate.help': "If you do not specify any VAT rate, the one of the school will be used. To make it " +
-        "non applicable, set it to 0."
+        "non applicable, set it to 0.",
+    'contract.delete.prompt': "Do you really want to delete this contract? All students which were associated to it " +
+        "will be reassigned to the school, without any specific contract."
 };

@@ -229,5 +229,7 @@ var map_fr = {
     'contract.vatRate': "Taux de TVA",
     'contract.vatRate.school': "Taux de TVA de l'école",
     'contract.vatRate.help': "Si vous ne spécifiez aucun taux de TVA, celui de l'école sera appliqué. Pour le " +
-        "rendre non applicable, mettez le à 0."
+        "rendre non applicable, mettez le à 0.",
+    'contract.delete.prompt': "Voulez-vous vraiment supprimer ce contrat ? Tous les étudiants qui étaient associés à " +
+        "ce contrat seront réaffectés directement à l'école, sans aucun contrat spécifique."
 };

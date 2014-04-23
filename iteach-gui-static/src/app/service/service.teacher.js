@@ -341,6 +341,19 @@ angular.module('iteach.service.teacher', [
 
         self.getContract = uiTeacher.getContract;
 
+        self.deleteContract = function (contractId) {
+            return self.getContract(contractId).success(function (contract) {
+                alertService.confirm({
+                    title: contract.name,
+                    message: $translate.instant('contract.delete.prompt')
+                }).then(function () {
+                    return uiTeacher.deleteContract(contractId).success(function () {
+                        $location.path('/school/' + contract.school.id);
+                    });
+                });
+            });
+        };
+
         // OK
 
         return self;

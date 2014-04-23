@@ -38,11 +38,16 @@
                     </td>
                 </tr>
                 </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <button type="button" class="btn btn-warning" ng-click="modifyContract()">{{'dialog.update' | translate}}</button>
+                        <button type="button" class="btn btn-danger" ng-click="deleteContract()">{{'dialog.delete' | translate}}</button>
+                        <a class="btn btn-link" href="#/school/{{contract.school.id}}">{{'home.back' | translate}}</a>
+                    </td>
+                </tr>
+                </tfoot>
             </table>
-
-            <div class="row">
-                <a class="btn btn-link" href="#/school/{{contract.school.id}}">{{'home.back' | translate}}</a>
-            </div>
         </div>
     </div>
 </div>
