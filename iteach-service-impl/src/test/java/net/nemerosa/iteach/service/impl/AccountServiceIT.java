@@ -5,9 +5,13 @@ import net.nemerosa.iteach.common.ID;
 import net.nemerosa.iteach.dao.AccountRepository;
 import net.nemerosa.iteach.dao.model.TAccount;
 import net.nemerosa.iteach.it.AbstractITTestSupport;
+import net.nemerosa.iteach.service.AccountService;
+import net.nemerosa.iteach.service.model.SetupForm;
 import net.nemerosa.iteach.test.TestUtils;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 
 import static org.junit.Assert.*;
 
@@ -18,6 +22,9 @@ public class AccountServiceIT extends AbstractITTestSupport {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private AccountService accountService;
 
     @Test
     public void register() {
@@ -35,6 +42,66 @@ public class AccountServiceIT extends AbstractITTestSupport {
         assertNotNull("The user can be authenticated now", account);
         assertEquals(email, account.getEmail());
         assertEquals(name, account.getName());
+    }
+
+    @Test(expected = AccessDeniedException.class)
+    public void delete_account_denied() throws Exception {
+        int teacherId = serviceITSupport.createTeacherAndCompleteRegistration();
+        int teacherIdAnyOther = serviceITSupport.createTeacherAndCompleteRegistration();
+        serviceITSupport.asTeacher(teacherIdAnyOther, () -> accountService.deleteAccount(teacherId));
+    }
+
+    @Test(expected = AccessDeniedException.class)
+    public void get_account_denied() throws Exception {
+        int teacherId = serviceITSupport.createTeacherAndCompleteRegistration();
+        int teacherIdAnyOther = serviceITSupport.createTeacherAndCompleteRegistration();
+        serviceITSupport.asTeacher(teacherIdAnyOther, () -> accountService.getAccount(teacherId));
+    }
+
+    @Test(expected = AccessDeniedException.class)
+    public void disable_account_denied() throws Exception {
+        int teacherId = serviceITSupport.createTeacherAndCompleteRegistration();
+        int teacherIdAnyOther = serviceITSupport.createTeacherAndCompleteRegistration();
+        serviceITSupport.asTeacher(teacherIdAnyOther, () -> accountService.disableAccount(teacherId));
+    }
+
+    @Test(expected = AccessDeniedException.class)
+    public void enable_account_denied() throws Exception {
+        int teacherId = serviceITSupport.createTeacherAndCompleteRegistration();
+        int teacherIdAnyOther = serviceITSupport.createTeacherAndCompleteRegistration();
+        serviceITSupport.asTeacher(teacherIdAnyOther, () -> accountService.enableAccount(teacherId));
+    }
+
+    @Test(expected = AccessDeniedException.class)
+    public void all_accounts_denied() throws Exception {
+        int teacherIdAnyOther = serviceITSupport.createTeacherAndCompleteRegistration();
+        serviceITSupport.asTeacher(teacherIdAnyOther, accountService::getAccounts);
+    }
+
+    @Test(expected = AccessDeniedException.class)
+    public void setup_denied() throws Exception {
+        int teacherIdAnyOther = serviceITSupport.createTeacherAndCompleteRegistration();
+        serviceITSupport.asTeacher(teacherIdAnyOther, accountService::getSetup);
+    }
+
+    @Test(expected = AccessDeniedException.class)
+    public void save_setup_denied() throws Exception {
+        int teacherIdAnyOther = serviceITSupport.createTeacherAndCompleteRegistration();
+        serviceITSupport.asTeacher(teacherIdAnyOther, () -> accountService.saveSetup(new SetupForm("xxx", "x", "x")));
+    }
+
+    @Test
+    public void disable_enable() throws Exception {
+        int teacherId = serviceITSupport.createTeacherAndCompleteRegistration();
+        serviceITSupport.asAdmin(() -> {
+            assertFalse("Account is enabled", accountService.getAccount(teacherId).isDisabled());
+            accountService.disableAccount(teacherId);
+            assertTrue("Account is disabled", accountService.getAccount(teacherId).isDisabled());
+            accountService.enableAccount(teacherId);
+            assertFalse("Account is enabled", accountService.getAccount(teacherId).isDisabled());
+            // End
+            return null;
+        });
     }
 
 }
