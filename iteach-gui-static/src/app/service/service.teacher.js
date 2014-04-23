@@ -339,6 +339,8 @@ angular.module('iteach.service.teacher', [
             }).result
         };
 
+        self.getContract = uiTeacher.getContract;
+
         // OK
 
         return self;

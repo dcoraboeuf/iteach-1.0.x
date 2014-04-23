@@ -15,6 +15,16 @@ angular.module('iteach.directive.misc', [])
             templateUrl: 'app/directive/directive.yesno.tpl.html'
         }
     })
+    .directive('itContractHourlyRate', function () {
+        return {
+            restrict: 'E',
+            scope: {
+                school: '=',
+                contract: '='
+            },
+            templateUrl: 'app/directive/directive.contract.hourlyRate.tpl.html'
+        }
+    })
     .directive('fileModel', function ($parse) {
         return {
             restrict: 'A',

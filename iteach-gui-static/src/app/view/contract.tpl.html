@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>{{'contract' | translate}}</h3>
+
+            <table class="it-form">
+                <tbody>
+                <tr>
+                    <td class="it-form-label">
+                        {{'contract.name' | translate}}
+                    </td>
+                    <td class="it-form-value">
+                        {{contract.name}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="it-form-label">
+                        {{'school' | translate}}
+                    </td>
+                    <td class="it-form-value">
+                        <a href="#/school/{{contract.school.id}}">{{contract.school.name}}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="it-form-label">
+                        {{'contract.hourlyRate' | translate}}
+                    </td>
+                    <td class="it-form-value">
+                        <it-contract-hourly-rate school="school" contract="contract"></it-contract-hourly-rate>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="it-form-label">
+                        {{'contract.vatRate' | translate}}
+                    </td>
+                    <td class="it-form-value">
+                        {{contract.name}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="row">
+                <a class="btn btn-link" href="#/school/{{contract.school.id}}">{{'home.back' | translate}}</a>
+            </div>
+        </div>
+    </div>
+</div>

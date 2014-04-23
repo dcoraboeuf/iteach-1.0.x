@@ -1,0 +1,4 @@
+<span ng-if="school.hourlyRate && contract.hourlyRate" class="it-contract-hourlyRate-set">{{contract.hourlyRate}}</span>
+<span ng-if="school.hourlyRate && !contract.hourlyRate" class="it-contract-hourlyRate-unset">{{school.hourlyRate}}</span>
+<span ng-if="!school.hourlyRate && contract.hourlyRate" class="it-contract-hourlyRate-set">{{contract.hourlyRate}}</span>
+<span ng-if="!school.hourlyRate && !contract.hourlyRate" class="it-contract-hourlyRate-unset">{{'school.hourlyRate.none.short' | translate}}</span>
