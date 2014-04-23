@@ -159,4 +159,50 @@ public class TeacherServiceIT extends AbstractITTestSupport {
         );
     }
 
+    @Test
+    public void delete_contract_and_student_reallocated() throws Exception {
+        // Creates a student
+        Student student = serviceITSupport.createStudent();
+        int teacherId = student.getTeacherId();
+        int schoolId = student.getSchoolId();
+        int studentId = student.getId();
+        // As this teacher...
+        serviceITSupport.asTeacher(teacherId, () -> {
+            // Creates a contract for the school
+            Contract contract = teacherService.createContract(
+                    schoolId,
+                    new ContractForm(
+                            "My contract",
+                            Money.of(CurrencyUnit.EUR, 25),
+                            null
+                    )
+            );
+            int contractId = contract.getId();
+            // Associates the student to this contract
+            teacherService.updateStudent(
+                    studentId,
+                    new StudentForm(
+                            schoolId,
+                            contractId,
+                            student.getName(),
+                            student.getSubject(),
+                            student.getPostalAddress(),
+                            student.getPhone(),
+                            student.getMobilePhone(),
+                            student.getEmail()
+                    )
+            );
+            // Gets the student back & controls its contract
+            assertEquals(
+                    Integer.valueOf(contractId),
+                    teacherService.getStudent(studentId).getContractId());
+            // Now, deletes the contract...
+            teacherService.deleteContract(contractId);
+            // ... and checks that the student is no longer associated with any contract
+            assertNull("The student has no contract", teacherService.getStudent(studentId).getContractId());
+            // End of the test
+            return null;
+        });
+    }
+
 }
