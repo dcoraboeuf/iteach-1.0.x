@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-4">
             <h3>{{'contract' | translate}}</h3>
 
             <table class="it-form">
@@ -41,12 +41,29 @@
                 <tfoot>
                 <tr>
                     <td colspan="2">
-                        <button type="button" class="btn btn-warning" ng-click="modifyContract()">{{'dialog.update' | translate}}</button>
-                        <button type="button" class="btn btn-danger" ng-click="deleteContract()">{{'dialog.delete' | translate}}</button>
+                        <button type="button" class="btn btn-warning" ng-click="modifyContract()">{{'dialog.update' |
+                            translate}}
+                        </button>
+                        <button type="button" class="btn btn-danger" ng-click="deleteContract()">{{'dialog.delete' |
+                            translate}}
+                        </button>
                         <a class="btn btn-link" href="#/school/{{contract.school.id}}">{{'home.back' | translate}}</a>
                     </td>
                 </tr>
                 </tfoot>
+            </table>
+        </div>
+        <div class="col-md-8">
+            <h3>{{'contract.students' | translate}}</h3>
+            <table class="table table-condensed">
+                <tbody>
+                <tr ng-repeat="student in students">
+                    <td>
+                        <a href="#/student/{{student.id}}" ng-class="student.disabled ? 'text-muted' : ''">{{student.name}}</a>
+                        <span class="label it-label-description">{{student.subject}}</span>
+                    </td>
+                </tr>
+                </tbody>
             </table>
         </div>
     </div>

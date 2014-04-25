@@ -376,6 +376,8 @@ angular.module('iteach.service.teacher', [
             });
         };
 
+        self.getStudentsInContract = uiTeacher.getStudentsInContract;
+
         // OK
 
         return self;

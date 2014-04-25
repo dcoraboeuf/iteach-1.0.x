@@ -219,6 +219,7 @@ var map_en = {
     'invoice.detailPerStudent': "Detail per student",
     // Contracts
     'contract': "Contract",
+    'contract.students': "Students in the contract",
     'contract.create': "Create a contract",
     'contract.name': "Contract name",
     'contract.name.error': "Name is required",

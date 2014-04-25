@@ -219,6 +219,7 @@ var map_fr = {
     'invoice.detailPerStudent': "Détail par étudiant",
     // Contracts
     'contract': "Contrat",
+    'contract.students': "Etudiants dans le contrat",
     'contract.create': "Créer un contrat",
     'contract.name': "Nom du contrat",
     'contract.name.error': "Le nom est obligatoire.",

@@ -12,6 +12,10 @@ angular.module('iteach.view.contract', [
                 teacherService.getSchool(contract.school.id).success(function (school) {
                     $scope.school = school;
                 });
+                // Loads the students in the contract
+                teacherService.getStudentsInContract(contractId).success(function (studentCollection) {
+                    $scope.students = studentCollection.resources;
+                });
             })
         }
 

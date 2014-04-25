@@ -193,6 +193,10 @@ angular.module('iteach.ui.teacher', [
             });
         };
 
+        self.getStudentsInContract = function (contractId) {
+            return $http.get(config.api('teacher/contract/{{id}}/student', {id: contractId}));
+        };
+
         /**
          * OK
          */
