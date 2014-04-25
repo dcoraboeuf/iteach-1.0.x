@@ -185,6 +185,14 @@ angular.module('iteach.ui.teacher', [
             return $http.delete(config.api('teacher/contract/{{id}}', {id: contractId}));
         };
 
+        self.updateContract = function (contractId, contractForm) {
+            return $http.put(config.api('teacher/contract/{{id}}', {id: contractId}), {
+                name: contractForm.name,
+                hourlyRate: contractForm.hourlyRate,
+                vatRate: contractForm.vatRate
+            });
+        };
+
         /**
          * OK
          */

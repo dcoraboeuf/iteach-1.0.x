@@ -17,6 +17,10 @@ angular.module('iteach.view.contract', [
 
         loadContract();
 
+        $scope.modifyContract = function () {
+            teacherService.modifyContract($scope.contract).then(loadContract);
+        };
+
         $scope.deleteContract = function () {
             teacherService.deleteContract(contractId);
         };

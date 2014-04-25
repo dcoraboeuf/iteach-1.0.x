@@ -339,6 +339,28 @@ angular.module('iteach.service.teacher', [
             }).result
         };
 
+        self.modifyContract = function (contract) {
+            return $modal.open({
+                templateUrl: 'app/dialog/dialog.contract.tpl.html',
+                controller: 'dialogContract',
+                resolve: {
+                    school: function () {
+                        return self.getSchool(contract.school.id);
+                    },
+                    contract: function () {
+                        return  angular.copy(contract);
+                    },
+                    modalController: function () {
+                        return {
+                            onSubmit: function (contractForm) {
+                                return uiTeacher.updateContract(contract.id, contractForm)
+                            }
+                        }
+                    }
+                }
+            }).result
+        };
+
         self.getContract = uiTeacher.getContract;
 
         self.deleteContract = function (contractId) {
