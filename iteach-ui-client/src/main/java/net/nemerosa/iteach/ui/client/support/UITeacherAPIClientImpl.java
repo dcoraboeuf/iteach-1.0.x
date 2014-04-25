@@ -71,6 +71,11 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     }
 
     @Override
+    public UIStudentCollection getStudentsForContract(Locale locale, int contractId) {
+        return get(locale, UIStudentCollection.class, "/api/teacher/contract/%d/student", contractId);
+    }
+
+    @Override
     public UIStudentCollection getStudents(Locale locale, boolean filtered) {
         return get(locale, UIStudentCollection.class, "/api/teacher/student?filtered=%s", filtered);
     }

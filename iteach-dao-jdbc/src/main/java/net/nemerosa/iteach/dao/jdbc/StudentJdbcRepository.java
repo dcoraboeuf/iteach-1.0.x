@@ -122,4 +122,13 @@ public class StudentJdbcRepository extends AbstractJdbcRepository implements Stu
                 studentRowMapper
         );
     }
+
+    @Override
+    public List<TStudent> findByContract(int teacherId, int contractId) {
+        return getNamedParameterJdbcTemplate().query(
+                SQL.STUDENT_BY_CONTRACT,
+                params("teacherId", teacherId).addValue("contractId", contractId),
+                studentRowMapper
+        );
+    }
 }

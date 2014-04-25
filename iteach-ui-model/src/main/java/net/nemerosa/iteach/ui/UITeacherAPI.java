@@ -69,6 +69,11 @@ public interface UITeacherAPI {
     UIContract updateContract(Locale locale, int contractId, UIContractForm form);
 
     /**
+     * List of students for a contract
+     */
+    UIStudentCollection getStudentsForContract(Locale locale, int contractId);
+
+    /**
      * Gets the list of students for a teacher
      *
      * @param filtered <code>true</code> if only the non-disabled students must be retained

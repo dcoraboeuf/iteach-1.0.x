@@ -590,4 +590,13 @@ public class TeacherServiceImpl implements TeacherService {
         );
         return getContract(contractId);
     }
+
+    @Override
+    public List<Student> getStudentsForContract(int contractId) {
+        int teacherId = securityUtils.checkTeacher();
+        return studentRepository.findByContract(teacherId, contractId)
+                .stream()
+                .map(studentFn)
+                .collect(Collectors.toList());
+    }
 }

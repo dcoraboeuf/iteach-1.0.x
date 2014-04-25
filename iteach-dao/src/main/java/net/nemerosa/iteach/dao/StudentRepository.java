@@ -20,4 +20,6 @@ public interface StudentRepository {
     Ack update(int teacherId, int studentId, int schoolId, Integer contractId, String name, String subject, String postalAddress, String phone, String mobilePhone, String email);
 
     List<TStudent> findBySchool(int teacherId, int schoolId);
+
+    List<TStudent> findByContract(int teacherId, int contractId);
 }

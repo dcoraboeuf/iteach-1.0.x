@@ -73,4 +73,6 @@ public interface TeacherService {
     Ack deleteContract(int contractId);
 
     Contract updateContract(int contractId, ContractForm form);
+
+    List<Student> getStudentsForContract(int contractId);
 }

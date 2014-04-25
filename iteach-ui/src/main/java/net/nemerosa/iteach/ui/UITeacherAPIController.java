@@ -224,6 +224,17 @@ public class UITeacherAPIController implements UITeacherAPI {
         );
     }
 
+    @Override
+    @RequestMapping(value = "/contract/{contractId}/student", method = RequestMethod.PUT)
+    public UIStudentCollection getStudentsForContract(Locale locale, @PathVariable int contractId) {
+        return new UIStudentCollection(
+                teacherService.getStudentsForContract(contractId)
+                        .stream()
+                        .map(this::toUIStudentSummary)
+                        .collect(Collectors.toList())
+        );
+    }
+
     private UISchoolReport toUISchoolReport(SchoolReport report) {
         return new UISchoolReport(
                 report.getId(),
