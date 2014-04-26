@@ -15,6 +15,10 @@ The basic set-up to operate on the server is:
 * Having `git` installed: `sudo apt-get install git`
 * Having `puppet-common` installed: `sudo apt-get install puppet-common`
 
+Additionally, the `LC_ALL` environment variable must be set, typically in the `.bash_profile`:
+
+	export LC_ALL=en_GB.UTF-8
+
 #### Puppet configuration
 
 Connect the Puppet configuration directory to Git:
