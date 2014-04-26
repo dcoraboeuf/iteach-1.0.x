@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-md-12">
+                <div class="col-md-12 it-comment-update-field">
                     <button class="btn btn-primary" type="submit">
                         <span class="glyphicon glyphicon-comment"></span>
                         {{'comment.update' | translate}}
@@ -52,7 +52,9 @@
                     </button>
                 </div>
             </div>
-            <div class="col-md-12 it-comment-help" ng-include="commentHelpUrl()">
+            <div class="form-group">
+                <div class="col-md-12 it-comment-help" ng-include="commentHelpUrl()">
+                </div>
             </div>
         </form>
 
