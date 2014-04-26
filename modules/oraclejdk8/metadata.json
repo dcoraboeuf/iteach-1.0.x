@@ -1,0 +1,33 @@
+{
+  "name": "zuinnote-oraclejdk8",
+  "version": "1.0.0",
+  "source": "https://github.com/ZuInnoTe/puppet-oraclejdk8",
+  "author": "ZuInnoTe (Jorn Franke)",
+  "license": "MIT",
+  "summary": "ZuInnoTe Oracle JDK 8 Module",
+  "description": "ZuInnoTe Oracle JDK 8 Module",
+  "project_page": "https://github.com/ZuInnoTe/puppet-oraclejdk8",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 2.2.1"
+    },
+    {
+      "name": "puppetlabs/apt",
+      "version_requirement": ">= 1.4.2"
+    }
+  ],
+  "types": [
+
+  ],
+  "checksums": {
+    "LICENSE": "f09c569966941f0693e0da1064845ecc",
+    "Modulefile": "66754138ac274c3ee0f9b052ab481aff",
+    "README": "28ed9e15be8e0e823feb02884f179a4d",
+    "README.md": "e3c7efdc6806d162ba220bd937349e93",
+    "manifests/init.pp": "a8bd85591fa7d5973e6894e57ca2eb86",
+    "manifests/install.pp": "703c8e3aa3f6f43132d4f3c875519150",
+    "spec/spec_helper.rb": "a55d1e6483344f8ec6963fcb2c220372",
+    "tests/init.pp": "8c93e4c603ee9956cea4712aad343191"
+  }
+}
