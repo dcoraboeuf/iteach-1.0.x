@@ -1,7 +1,7 @@
 angular.module('iteach.directive.comments', [
         'iteach.ui.comment'
     ])
-    .directive('itComments', function (uiComment) {
+    .directive('itComments', function ($translate, uiComment) {
         return {
             restrict: 'E',
             scope: {
@@ -10,6 +10,11 @@ angular.module('iteach.directive.comments', [
             },
             templateUrl: 'app/directive/directive.comments.tpl.html',
             controller: function ($scope) {
+                // Help
+                $scope.commentHelpUrl = function () {
+                    var language = $translate.use();
+                    return 'assets/text/comment.help.' + language + '.html';
+                };
                 // Getting the list of comments
                 uiComment.getComments($scope.entity, $scope.entityId).success(function (comments) {
                     $scope.comments = comments.resources;
