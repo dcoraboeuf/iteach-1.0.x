@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h3>{{'calendar.preferences' | translate}}</h3>
+</div>
+<form name="calendarPreferencesForm" class="form-horizontal" ng-submit="submit()">
+    <div class="modal-body">
+
+    </div>
+    <div class="modal-footer">
+
+        <div class="alert alert-{{messageType}} alert-dismissable" ng-show="message">
+            <span>{{message}}</span>
+        </div>
+
+        <button class="btn btn-primary" type="submit">{{'dialog.ok' | translate}}</button>
+        <button class="btn btn-link" type="button" ng-click="cancel()">{{'dialog.cancel' | translate}}</button>
+    </div>
+</form>

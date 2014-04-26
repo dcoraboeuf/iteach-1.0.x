@@ -5,7 +5,8 @@ angular.module('iteach.service.teacher', [
     'iteach.dialog.student',
     'iteach.dialog.lesson',
     'iteach.dialog.invoice',
-    'iteach.dialog.contract'
+    'iteach.dialog.contract',
+    'iteach.dialog.calendar.preferences'
 ])
     .service('teacherService', function ($q, $log, $modal, $translate, $interpolate, $location, alertService, uiTeacher, localDataService) {
         var self = {};
@@ -377,6 +378,26 @@ angular.module('iteach.service.teacher', [
         };
 
         self.getStudentsInContract = uiTeacher.getStudentsInContract;
+
+        /**
+         * Calendar preferences
+         */
+
+        self.calendarPreferences = function () {
+            return $modal.open({
+                templateUrl: 'app/dialog/dialog.calendar.preferences.tpl.html',
+                controller: 'dialogCalendarPreferences',
+                resolve: {
+                    modalController: function () {
+                        return {
+                            onSubmit: function (calendarPreferences) {
+                                return uiTeacher.setCalendarPreferences(calendarPreferences)
+                            }
+                        }
+                    }
+                }
+            }).result;
+        };
 
         // OK
 

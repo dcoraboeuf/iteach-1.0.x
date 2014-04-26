@@ -166,6 +166,11 @@ angular.module('iteach.view.teacher', [
         };
         $scope.lessons = [];
 
-        // TODO Loads the planning
+        // Calendar preferences
+        $scope.calendarPreferences = function () {
+            teacherService.calendarPreferences().then(function () {
+                location.reload();
+            });
+        };
     })
 ;
