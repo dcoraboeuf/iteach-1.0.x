@@ -3,4 +3,9 @@ class iteach {
         path => '/etc/iteach',
         ensure => directory,
     }
+
+    package { 'tomcat7':
+        name => 'tomcat7',
+        ensure => installed,
+    }
 }
