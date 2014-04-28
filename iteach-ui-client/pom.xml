@@ -6,7 +6,7 @@
     <parent>
         <groupId>net.nemerosa.iteach</groupId>
         <artifactId>iteach-parent</artifactId>
-        <version>1.2.1</version>
+        <version>1.2.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>iteach-ui-client</artifactId>
