@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.joda.money.Money;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.YearMonth;
 
 public final class ObjectMapperFactory {
@@ -35,6 +36,9 @@ public final class ObjectMapperFactory {
         // LocalDateTime
         jdkTimeModule.addSerializer(LocalDateTime.class, new JDKLocalDateTimeSerializer());
         jdkTimeModule.addDeserializer(LocalDateTime.class, new JDKLocalDateTimeDeserializer());
+        // LocalTime
+        jdkTimeModule.addSerializer(LocalTime.class, new JDKLocalTimeSerializer());
+        jdkTimeModule.addDeserializer(LocalTime.class, new JDKLocalTimeDeserializer());
         // YearMonth
         jdkTimeModule.addSerializer(YearMonth.class, new JDKYearMonthSerializer());
         jdkTimeModule.addDeserializer(YearMonth.class, new JDKYearMonthDeserializer());
