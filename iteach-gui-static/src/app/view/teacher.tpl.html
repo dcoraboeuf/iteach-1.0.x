@@ -2,8 +2,8 @@
     <div class="row">
         <div class="col-md-8">
             <h3>{{'teacher.planning' | translate}}</h3>
-            <div ui-calendar="calendarConfig.calendar" ng-model="calendar.lessons" calendar="mainCalendar"></div>
-            <button id="calendar-preferences" type="button" class="btn btn-default" ng-click="calendarPreferences()">
+            <div ui-calendar="calendarConfig.calendar" ng-model="eventSources" calendar="mainCalendar"></div>
+            <button id="calendar-preferences" type="button" class="btn btn-default" ng-click="displayCalendarPreferences()">
                 <span class="glyphicon glyphicon-cog"></span>
                 {{'calendar.preferences' | translate}}
             </button>

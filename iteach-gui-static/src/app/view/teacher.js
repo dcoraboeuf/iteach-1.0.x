@@ -85,20 +85,6 @@ angular.module('iteach.view.teacher', [
             }
         }
 
-        $scope.fetchEvents = function fetchEvents(start, end, callback) {
-            $log.debug('Getting lessons');
-            teacherService.getLessons({from: start, to: end}).then(
-                function (collection) {
-                    var lessons = collection.resources;
-                    for (var i = 0; i < lessons.length; i++) {
-                        var lesson = lessons[i];
-                        adaptLesson(lesson);
-                    }
-                    callback(lessons);
-                }
-            )
-        };
-
         $scope.onLessonResize = function (lesson, dayDelta, minuteDelta, revertFunc) {
             teacherService.updateLessonWithDelta(lesson, true, dayDelta, minuteDelta).error(revertFunc);
         };
@@ -115,10 +101,10 @@ angular.module('iteach.view.teacher', [
         // Current date from the local storage
         $scope.currentDate = localDataService.getCurrentDate();
 
-        teacherService.getCalendarPreferences().success(function (calendarPreferences) {
-            $scope.calendarConfig.calendar.minTime = calendarPreferences.minTime;
-            $scope.calendarConfig.calendar.maxTime = calendarPreferences.maxTime;
-        });
+        // teacherService.getCalendarPreferences().success(function (calendarPreferences) {
+            // $scope.calendarConfig.calendar.minTime = calendarPreferences.minTime;
+            // $scope.calendarConfig.calendar.maxTime = calendarPreferences.maxTime;
+        // });
 
         $scope.calendarConfig = {
             calendar: {
@@ -151,7 +137,7 @@ angular.module('iteach.view.teacher', [
                 // General appearance
                 allDaySlot: false,
                 allDayDefault: false,
-                // Configurable min/max time
+                // TODO Configurable min/max time
                 minTime: '07:00',
                 maxTime: '21:00',
                 // TODO Configurable week-ends
@@ -162,18 +148,33 @@ angular.module('iteach.view.teacher', [
                 selectable: true,
                 selectHelper: true,
                 select: $scope.onCalendarSelect,
-                // Loading of events
-                events: $scope.fetchEvents,
                 // Resizing of an event
                 editable: true,
                 eventResize: $scope.onLessonResize,
                 eventDrop: $scope.onLessonDrop
             }
         };
-        $scope.lessons = [];
+
+        // Event sources
+
+        $scope.eventSourceFn = function fetchEvents(start, end, callback) {
+            $log.debug('Getting lessons');
+            teacherService.getLessons({from: start, to: end}).then(
+                function (collection) {
+                    var lessons = collection.resources;
+                    for (var i = 0; i < lessons.length; i++) {
+                        var lesson = lessons[i];
+                        adaptLesson(lesson);
+                    }
+                    callback(lessons);
+                }
+            )
+        };
+
+        $scope.eventSources = [$scope.eventSourceFn];
 
         // Calendar preferences
-        $scope.calendarPreferences = function () {
+        $scope.displayCalendarPreferences = function () {
             teacherService.calendarPreferences().then(function () {
                 location.reload();
             });
