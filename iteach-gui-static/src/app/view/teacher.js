@@ -101,10 +101,14 @@ angular.module('iteach.view.teacher', [
         // Current date from the local storage
         $scope.currentDate = localDataService.getCurrentDate();
 
-        teacherService.getCalendarPreferences().success(function (calendarPreferences) {
-            $scope.calendarConfig.calendar.minTime = calendarPreferences.minTime;
-            $scope.calendarConfig.calendar.maxTime = calendarPreferences.maxTime;
-        });
+        function loadCalendarPreferences() {
+            teacherService.getCalendarPreferences().success(function (calendarPreferences) {
+                $scope.calendarConfig.calendar.minTime = calendarPreferences.minTime;
+                $scope.calendarConfig.calendar.maxTime = calendarPreferences.maxTime;
+            });
+        }
+        loadCalendarPreferences();
+
 
         $scope.calendarConfig = {
             calendar: {
@@ -175,9 +179,7 @@ angular.module('iteach.view.teacher', [
 
         // Calendar preferences
         $scope.displayCalendarPreferences = function () {
-            teacherService.calendarPreferences().then(function () {
-                location.reload();
-            });
+            teacherService.calendarPreferences().then(loadCalendarPreferences);
         };
     })
 ;
