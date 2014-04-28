@@ -14,8 +14,22 @@ angular.module('iteach.dialog.calendar.preferences', [
             $modalInstance.dismiss('cancel')
         };
 
+        function toTime(hour) {
+            var time = '';
+            if (hour < 10) {
+                time += '0' + hour;
+            } else {
+                time += hour;
+            }
+            return time + ':00';
+        }
+
         $scope.submit = function () {
-            modalController.onSubmit($scope.profile).then(
+            var preferences = {
+                minTime: toTime($scope.calendarPreferences.minHour),
+                maxTime: toTime($scope.calendarPreferences.maxHour)
+            };
+            modalController.onSubmit(preferences).then(
                 function () {
                     $modalInstance.close('ok')
                 },
