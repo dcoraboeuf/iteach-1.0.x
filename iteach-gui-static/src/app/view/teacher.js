@@ -165,8 +165,8 @@ angular.module('iteach.view.teacher', [
                     eventDrop: $scope.onLessonDrop
                 }
             };
+            $scope.lessons = [];
         });
-        $scope.lessons = [];
 
         // Calendar preferences
         $scope.calendarPreferences = function () {
