@@ -50,8 +50,15 @@ public class PreferencesServiceImpl implements PreferencesService {
     @Override
     public Ack setCalendarPreferences(CalendarPreferences preferences) {
         int teacherId = securityUtils.checkTeacher();
-        preferencesRepository.setTime(teacherId, CALENDAR_MIN_TIME, preferences.getMinTime());
-        preferencesRepository.setTime(teacherId, CALENDAR_MAX_TIME, preferences.getMaxTime());
+        LocalTime minTime = preferences.getMinTime();
+        LocalTime maxTime = preferences.getMaxTime();
+        if (maxTime.isBefore(minTime)) {
+            LocalTime t = minTime;
+            minTime = maxTime;
+            maxTime = t;
+        }
+        preferencesRepository.setTime(teacherId, CALENDAR_MIN_TIME, minTime);
+        preferencesRepository.setTime(teacherId, CALENDAR_MAX_TIME, maxTime);
         return Ack.OK;
     }
 }
