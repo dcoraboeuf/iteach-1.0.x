@@ -101,10 +101,10 @@ angular.module('iteach.view.teacher', [
         // Current date from the local storage
         $scope.currentDate = localDataService.getCurrentDate();
 
-        // teacherService.getCalendarPreferences().success(function (calendarPreferences) {
-            // $scope.calendarConfig.calendar.minTime = calendarPreferences.minTime;
-            // $scope.calendarConfig.calendar.maxTime = calendarPreferences.maxTime;
-        // });
+        teacherService.getCalendarPreferences().success(function (calendarPreferences) {
+            $scope.calendarConfig.calendar.minTime = calendarPreferences.minTime;
+            $scope.calendarConfig.calendar.maxTime = calendarPreferences.maxTime;
+        });
 
         $scope.calendarConfig = {
             calendar: {
@@ -137,7 +137,7 @@ angular.module('iteach.view.teacher', [
                 // General appearance
                 allDaySlot: false,
                 allDayDefault: false,
-                // TODO Configurable min/max time
+                // Configurable min/max time (see above)
                 minTime: '07:00',
                 maxTime: '21:00',
                 // TODO Configurable week-ends
