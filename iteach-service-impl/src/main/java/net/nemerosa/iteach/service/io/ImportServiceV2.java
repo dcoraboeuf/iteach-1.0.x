@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -68,10 +69,16 @@ public class ImportServiceV2 implements ImportService {
                 )
         );
         // School contracts
-        Map<Integer, RefContract> contracts = x.getContracts()
-                .stream()
-                .map(s -> importContract(schoolId, s))
-                .collect(Collectors.toMap(RefContract::getRefId, Function.identity()));
+        List<XContract> xContracts = x.getContracts();
+        Map<Integer, RefContract> contracts;
+        if (xContracts != null) {
+            contracts = xContracts
+                    .stream()
+                    .map(s -> importContract(schoolId, s))
+                    .collect(Collectors.toMap(RefContract::getRefId, Function.identity()));
+        } else {
+            contracts = new HashMap<>();
+        }
         // School comments
         importComments(CommentEntity.school, schoolId, x.getComments());
         // School students
