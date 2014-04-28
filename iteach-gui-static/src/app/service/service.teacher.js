@@ -267,7 +267,7 @@ angular.module('iteach.service.teacher', [
                 to = adjustTime(lesson.to, dayDelta, minuteDelta);
             }
             return uiTeacher.updateLesson(lesson.id, {
-                studentId: lesson.student.id,
+                studentId: lesson.studentId,
                 location: lesson.location,
                 from: from,
                 to: to

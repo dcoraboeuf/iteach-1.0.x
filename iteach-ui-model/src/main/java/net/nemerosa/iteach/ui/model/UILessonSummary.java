@@ -13,6 +13,7 @@ public class UILessonSummary extends UIResource {
 
     private final int id;
     private final String href;
+    private final int studentId;
     private final String studentName;
     private final String schoolName;
     private final String schoolColour;
@@ -21,9 +22,10 @@ public class UILessonSummary extends UIResource {
     private final LocalDateTime to;
     private final boolean hasComments;
 
-    @ConstructorProperties({"id", "studentName", "schoolColour", "schoolName", "location", "from", "to", "hasComments"})
-    public UILessonSummary(int id, String studentName, String schoolName, String schoolColour, String location, LocalDateTime from, LocalDateTime to, boolean hasComments) {
+    @ConstructorProperties({"id", "studentId", "studentName", "schoolColour", "schoolName", "location", "from", "to", "hasComments"})
+    public UILessonSummary(int id, int studentId, String studentName, String schoolName, String schoolColour, String location, LocalDateTime from, LocalDateTime to, boolean hasComments) {
         this.id = id;
+        this.studentId = studentId;
         this.studentName = studentName;
         this.schoolName = schoolName;
         this.schoolColour = schoolColour;

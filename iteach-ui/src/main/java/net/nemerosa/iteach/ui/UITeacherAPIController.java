@@ -389,6 +389,7 @@ public class UITeacherAPIController implements UITeacherAPI {
         School school = teacherService.getSchool(student.getSchoolId());
         return new UILessonSummary(
                 lesson.getId(),
+                student.getId(),
                 student.getName(),
                 school.getName(),
                 school.getColour(),
