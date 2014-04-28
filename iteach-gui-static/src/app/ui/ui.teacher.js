@@ -205,6 +205,10 @@ angular.module('iteach.ui.teacher', [
             return $http.get(config.api('teacher/preferences/calendar'));
         };
 
+        self.setCalendarPreferences = function (preferences) {
+            return $http.put(config.api('teacher/preferences/calendar'), preferences);
+        };
+
         /**
          * OK
          */
