@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Component
 public class PreferencesJdbcRepository extends AbstractJdbcRepository implements PreferencesRepository {
@@ -24,6 +26,21 @@ public class PreferencesJdbcRepository extends AbstractJdbcRepository implements
     @Override
     public void setBoolean(int teacherId, String name, boolean value) {
         setValue(teacherId, name, String.valueOf(value));
+    }
+
+    @Override
+    public LocalTime getTime(int teacherId, String name, LocalTime value) {
+        String store = getValue(teacherId, name, null);
+        if (StringUtils.isBlank(store)) {
+            return value;
+        } else {
+            return LocalTime.parse(store);
+        }
+    }
+
+    @Override
+    public void setTime(int teacherId, String name, LocalTime value) {
+        setValue(teacherId, name, value.format(DateTimeFormatter.ofPattern("HH:mm")));
     }
 
     private String getValue(int teacherId, String name, String defaultValue) {

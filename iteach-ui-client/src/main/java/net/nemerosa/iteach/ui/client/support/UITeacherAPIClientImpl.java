@@ -179,4 +179,14 @@ public class UITeacherAPIClientImpl extends AbstractClient<UITeacherAPIClient> i
     public Ack deleteInvoice(Locale locale, int invoiceId) {
         return delete(locale, Ack.class, "/api/teacher/invoice/%d", invoiceId);
     }
+
+    @Override
+    public UICalendarPreferences getCalendarPreferences(Locale locale) {
+        return get(locale, UICalendarPreferences.class, "/api/teacher/preferences/calendar");
+    }
+
+    @Override
+    public Ack setCalendarPreferences(Locale locale, UICalendarPreferences preferences) {
+        return put(locale, Ack.class, preferences, "/api/teacher/preferences/calendar");
+    }
 }

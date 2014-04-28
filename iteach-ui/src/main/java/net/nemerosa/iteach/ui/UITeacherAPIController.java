@@ -552,6 +552,27 @@ public class UITeacherAPIController implements UITeacherAPI {
         return invoiceService.deleteInvoices(Collections.singletonList(invoiceId));
     }
 
+    @Override
+    @RequestMapping(value = "/preferences/calendar", method = RequestMethod.GET)
+    public UICalendarPreferences getCalendarPreferences(Locale locale) {
+        CalendarPreferences preferences = preferencesService.getCalendarPreferences();
+        return new UICalendarPreferences(
+                preferences.getMinTime(),
+                preferences.getMaxTime()
+        );
+    }
+
+    @Override
+    @RequestMapping(value = "/preferences/calendar", method = RequestMethod.PUT)
+    public Ack setCalendarPreferences(Locale locale, @RequestBody @Valid UICalendarPreferences preferences) {
+        return preferencesService.setCalendarPreferences(
+                new CalendarPreferences(
+                        preferences.getMinTime(),
+                        preferences.getMaxTime()
+                )
+        );
+    }
+
     @RequestMapping(value = "/invoice/{invoiceId}/download/attached", method = RequestMethod.GET)
     public void downloadInvoice(Locale locale, @PathVariable int invoiceId, HttpServletResponse response) throws IOException {
         Document document = downloadInvoice(locale, invoiceId);

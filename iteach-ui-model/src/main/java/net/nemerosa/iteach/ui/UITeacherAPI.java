@@ -180,4 +180,14 @@ public interface UITeacherAPI {
      */
     Ack deleteInvoice(Locale locale, int invoiceId);
 
+    /**
+     * Calendar preferences
+     */
+    UICalendarPreferences getCalendarPreferences(Locale locale);
+
+    /**
+     * Updates the calendar preferences
+     */
+    Ack setCalendarPreferences(Locale locale, UICalendarPreferences preferences);
+
 }
