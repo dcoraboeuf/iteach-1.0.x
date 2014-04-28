@@ -1,7 +1,14 @@
 angular.module('iteach.dialog.calendar.preferences', [
-        'iteach.ui.teacher'
-    ])
-    .controller('dialogCalendarPreferences', function ($scope, $modalInstance, modalController, notificationService, uiTeacher) {
+])
+    .controller('dialogCalendarPreferences', function ($scope, $modalInstance, calendarPreferences, modalController, notificationService) {
+
+        // Hours only
+        $scope.calendarPreferences = {
+            minHour: Number.parseInt(calendarPreferences.data.minTime.substring(0, 2), 10),
+            maxHour: Number.parseInt(calendarPreferences.data.maxTime.substring(0, 2), 10)
+        };
+
+        console.log('calendarPreferences=', $scope.calendarPreferences);
 
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel')

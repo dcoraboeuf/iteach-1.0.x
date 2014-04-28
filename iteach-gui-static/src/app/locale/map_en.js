@@ -234,5 +234,7 @@ var map_en = {
     'contract.delete.prompt': "Do you really want to delete this contract? All students which were associated to it " +
         "will be reassigned to the school, without any specific contract.",
     // Calendar preferences
-    'calendar.preferences': "Calendar preferences"
+    'calendar.preferences': "Calendar preferences",
+    'calendar.preferences.minTime': "Minimum time",
+    'calendar.preferences.maxTime': "Maximum time"
 };

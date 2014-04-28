@@ -198,6 +198,14 @@ angular.module('iteach.ui.teacher', [
         };
 
         /**
+         * Calendar preferences
+         */
+
+        self.getCalendarPreferences = function () {
+            return $http.get(config.api('teacher/preferences/calendar'));
+        };
+
+        /**
          * OK
          */
 

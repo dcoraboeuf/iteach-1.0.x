@@ -234,5 +234,7 @@ var map_fr = {
     'contract.delete.prompt': "Voulez-vous vraiment supprimer ce contrat ? Tous les étudiants qui étaient associés à " +
         "ce contrat seront réaffectés directement à l'école, sans aucun contrat spécifique.",
     // Calendar preferences
-    'calendar.preferences': "Préférences pour le calendrier"
+    'calendar.preferences': "Préférences pour le calendrier",
+    'calendar.preferences.minTime': "Heure minimale",
+    'calendar.preferences.maxTime': "Heure maximale"
 };

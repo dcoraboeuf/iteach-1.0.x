@@ -388,6 +388,9 @@ angular.module('iteach.service.teacher', [
                 templateUrl: 'app/dialog/dialog.calendar.preferences.tpl.html',
                 controller: 'dialogCalendarPreferences',
                 resolve: {
+                    calendarPreferences: function () {
+                        return uiTeacher.getCalendarPreferences();
+                    },
                     modalController: function () {
                         return {
                             onSubmit: function (calendarPreferences) {
