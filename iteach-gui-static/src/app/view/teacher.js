@@ -1,7 +1,7 @@
 angular.module('iteach.view.teacher', [
-        'iteach.service.core',
-        'iteach.service.teacher'
-    ])
+    'iteach.service.core',
+    'iteach.service.teacher'
+])
     .controller('TeacherCtrl', function ($log, $scope, $translate, teacherService, localDataService, calendarService) {
 
         /**
@@ -44,7 +44,7 @@ angular.module('iteach.view.teacher', [
          * Planning
          */
 
-        // Calendar - selection
+            // Calendar - selection
         $scope.onCalendarSelect = function (start, end, allDay) {
             if (allDay) {
                 $scope.mainCalendar.fullCalendar('unselect');
@@ -114,56 +114,58 @@ angular.module('iteach.view.teacher', [
         // Current date from the local storage
         $scope.currentDate = localDataService.getCurrentDate();
 
-        $scope.calendarConfig = {
-            calendar: {
-                height: 600,
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                // Dimensions
-                aspectRatio: 0.5,
-                viewDisplay: $scope.onViewDisplay,
-                // Current date
-                year: $scope.currentDate.getFullYear(),
-                month: $scope.currentDate.getMonth(),
-                date: $scope.currentDate.getDate(),
-                // Date change
-                viewRender: $scope.onViewRender,
-                // i18n
-                firstDay: calendarService.calendarI18n().firstDay,
-                dayNames: calendarService.calendarI18n().dayNames,
-                dayNamesShort: calendarService.calendarI18n().dayNamesShort,
-                monthNames: calendarService.calendarI18n().monthNames,
-                monthNamesShort: calendarService.calendarI18n().monthNamesShort,
-                buttonText: calendarService.calendarI18n().buttonText,
-                timeFormat: calendarService.calendarI18n().timeFormat,
-                columnFormat: calendarService.calendarI18n().columnFormat,
-                titleFormat: calendarService.calendarI18n().titleFormat,
-                axisFormat: calendarService.calendarI18n().axisFormat,
-                // General appearance
-                allDaySlot: false,
-                allDayDefault: false,
-                // TODO Configurable min/max time
-                minTime: '07:00',
-                maxTime: '21:00',
-                // TODO Configurable week-ends
-                weekends: false,
-                // Default view
-                defaultView: localDataService.getCurrentPlanningViewMode(),
-                // Allowing selection (-> creation)
-                selectable: true,
-                selectHelper: true,
-                select: $scope.onCalendarSelect,
-                // Loading of events
-                events: $scope.fetchEvents,
-                // Resizing of an event
-                editable: true,
-                eventResize: $scope.onLessonResize,
-                eventDrop: $scope.onLessonDrop
-            }
-        };
+        teacherService.getCalendarPreferences().success(function (calendarPreferences) {
+            $scope.calendarConfig = {
+                calendar: {
+                    height: 600,
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    // Dimensions
+                    aspectRatio: 0.5,
+                    viewDisplay: $scope.onViewDisplay,
+                    // Current date
+                    year: $scope.currentDate.getFullYear(),
+                    month: $scope.currentDate.getMonth(),
+                    date: $scope.currentDate.getDate(),
+                    // Date change
+                    viewRender: $scope.onViewRender,
+                    // i18n
+                    firstDay: calendarService.calendarI18n().firstDay,
+                    dayNames: calendarService.calendarI18n().dayNames,
+                    dayNamesShort: calendarService.calendarI18n().dayNamesShort,
+                    monthNames: calendarService.calendarI18n().monthNames,
+                    monthNamesShort: calendarService.calendarI18n().monthNamesShort,
+                    buttonText: calendarService.calendarI18n().buttonText,
+                    timeFormat: calendarService.calendarI18n().timeFormat,
+                    columnFormat: calendarService.calendarI18n().columnFormat,
+                    titleFormat: calendarService.calendarI18n().titleFormat,
+                    axisFormat: calendarService.calendarI18n().axisFormat,
+                    // General appearance
+                    allDaySlot: false,
+                    allDayDefault: false,
+                    // Configurable min/max time
+                    minTime: calendarPreferences.minTime,
+                    maxTime: calendarPreferences.maxTime,
+                    // TODO Configurable week-ends
+                    weekends: false,
+                    // Default view
+                    defaultView: localDataService.getCurrentPlanningViewMode(),
+                    // Allowing selection (-> creation)
+                    selectable: true,
+                    selectHelper: true,
+                    select: $scope.onCalendarSelect,
+                    // Loading of events
+                    events: $scope.fetchEvents,
+                    // Resizing of an event
+                    editable: true,
+                    eventResize: $scope.onLessonResize,
+                    eventDrop: $scope.onLessonDrop
+                }
+            };
+        });
         $scope.lessons = [];
 
         // Calendar preferences

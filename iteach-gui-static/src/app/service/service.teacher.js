@@ -402,6 +402,8 @@ angular.module('iteach.service.teacher', [
             }).result;
         };
 
+        self.getCalendarPreferences = uiTeacher.getCalendarPreferences;
+
         // OK
 
         return self;
