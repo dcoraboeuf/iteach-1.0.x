@@ -1,9 +1,12 @@
 package net.nemerosa.iteach.acceptance;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import net.nemerosa.iteach.acceptance.support.AbstractACCSupport;
 import net.nemerosa.iteach.acceptance.support.TeacherContext;
 import net.nemerosa.iteach.common.AuthenticationMode;
 import net.nemerosa.iteach.common.UntitledDocument;
+import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import net.nemerosa.iteach.ui.model.UITeacher;
 import org.junit.Test;
 
@@ -53,6 +56,19 @@ public class ACCAccount extends AbstractACCSupport {
             // End
             return null;
         });
+    }
+
+    @Test
+    public void export_account() throws JsonProcessingException {
+        TeacherContext teacherContext = support.doCreateTeacher();
+        JsonNode data = support.client().account().asAdmin().call(client ->
+                        client.exportAccount(Locale.ENGLISH, teacherContext.getTeacher().getId())
+        );
+        assertNotNull("Returned data", data);
+        assertEquals(
+                ObjectMapperFactory.create().writeValueAsString(data),
+                "{\"version\":2,\"schools\":[]}"
+        );
     }
 
 }

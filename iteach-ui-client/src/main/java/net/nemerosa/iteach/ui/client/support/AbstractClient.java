@@ -102,7 +102,15 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
         return request(locale, new HttpGet(getUrl(path, parameters)), returnType);
     }
 
-    protected UntitledDocument download(Locale locale, String path, Object... parameters) {
+    protected JsonNode downloadJson(Locale locale, String path, Object... parameters) {
+        return request(
+                locale,
+                new HttpGet(getUrl(path, parameters)),
+                (ResponseParser<JsonNode>) mapper::readTree
+        );
+    }
+
+    protected UntitledDocument downloadDocument(Locale locale, String path, Object... parameters) {
         return request(
                 locale,
                 new HttpGet(getUrl(path, parameters)),

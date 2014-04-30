@@ -1,7 +1,10 @@
 package net.nemerosa.iteach.ui.client.support;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import net.nemerosa.iteach.common.*;
+import net.nemerosa.iteach.common.Ack;
+import net.nemerosa.iteach.common.ID;
+import net.nemerosa.iteach.common.TokenType;
+import net.nemerosa.iteach.common.UntitledDocument;
 import net.nemerosa.iteach.ui.client.UIAccountAPIClient;
 import net.nemerosa.iteach.ui.model.*;
 
@@ -61,8 +64,7 @@ public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> i
 
     @Override
     public JsonNode exportAccount(Locale locale, int accountId) {
-        // FIXME Method net.nemerosa.iteach.ui.client.support.UIAccountAPIClientImpl.exportAccount
-        return null;
+        return downloadJson(locale, "/api/account/%d/export", accountId);
     }
 
     @Override
@@ -87,7 +89,7 @@ public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> i
 
     @Override
     public UntitledDocument getProfileCompanyLogo(Locale locale) {
-        return download(locale, "/api/account/profile/companyLogo");
+        return downloadDocument(locale, "/api/account/profile/companyLogo");
     }
 
     @Override
