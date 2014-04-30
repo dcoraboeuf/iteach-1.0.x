@@ -23,7 +23,6 @@ var iteach = angular.module('iteach', [
             'iteach.templates',
             'iteach.config',
             // Directives
-            'iteach.directive.view',
             'iteach.directive.comments',
             'iteach.directive.misc',
             // Views
