@@ -7,6 +7,7 @@ import net.nemerosa.iteach.acceptance.support.TeacherContext;
 import net.nemerosa.iteach.common.AuthenticationMode;
 import net.nemerosa.iteach.common.UntitledDocument;
 import net.nemerosa.iteach.common.json.ObjectMapperFactory;
+import net.nemerosa.iteach.ui.client.support.ClientForbiddenException;
 import net.nemerosa.iteach.ui.model.UITeacher;
 import org.junit.Test;
 
@@ -68,6 +69,15 @@ public class ACCAccount extends AbstractACCSupport {
         assertEquals(
                 ObjectMapperFactory.create().writeValueAsString(data),
                 "{\"version\":2,\"schools\":[]}"
+        );
+    }
+
+    @Test(expected = ClientForbiddenException.class)
+    public void export_account_denied() throws JsonProcessingException {
+        TeacherContext teacherContext1 = support.doCreateTeacher();
+        TeacherContext teacherContext2 = support.doCreateTeacher();
+        support.client().account().asTeacher(teacherContext2).call(client ->
+                        client.exportAccount(Locale.ENGLISH, teacherContext1.getTeacher().getId())
         );
     }
 
