@@ -236,7 +236,7 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
 
     @Override
     public UntitledDocument getProfileCompanyLogo(int accountId) {
-        return getFirstItem(
+        UntitledDocument document = getFirstItem(
                 SQL.ACCOUNT_PROFILE_COMPANY_LOGO,
                 params("id", accountId),
                 (rs, rowNum) -> new UntitledDocument(
@@ -244,5 +244,6 @@ public class AccountJdbcRepository extends AbstractJdbcRepository implements Acc
                         rs.getBytes("companyLogo_content")
                 )
         );
+        return document != null && document.getType() != null ? document : null;
     }
 }

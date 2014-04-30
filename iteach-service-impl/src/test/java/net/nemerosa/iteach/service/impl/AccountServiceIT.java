@@ -2,10 +2,12 @@ package net.nemerosa.iteach.service.impl;
 
 import net.nemerosa.iteach.common.Ack;
 import net.nemerosa.iteach.common.ID;
+import net.nemerosa.iteach.common.UntitledDocument;
 import net.nemerosa.iteach.dao.AccountRepository;
 import net.nemerosa.iteach.dao.model.TAccount;
 import net.nemerosa.iteach.it.AbstractITTestSupport;
 import net.nemerosa.iteach.service.AccountService;
+import net.nemerosa.iteach.service.invoice.InvoiceFixtures;
 import net.nemerosa.iteach.service.model.SetupForm;
 import net.nemerosa.iteach.test.TestUtils;
 import org.junit.Before;
@@ -13,6 +15,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 
+import static net.nemerosa.iteach.service.invoice.InvoiceFixtures.companyLogo;
 import static org.junit.Assert.*;
 
 public class AccountServiceIT extends AbstractITTestSupport {
@@ -102,6 +105,22 @@ public class AccountServiceIT extends AbstractITTestSupport {
             // End
             return null;
         });
+    }
+
+    @Test
+    public void company_logo_none() throws Exception {
+        int teacherId = serviceITSupport.createTeacherAndCompleteRegistration();
+        UntitledDocument logo = serviceITSupport.asTeacher(teacherId, accountService::getProfileCompanyLogo);
+        assertNull("No logo", logo);
+    }
+
+    @Test
+    public void company_logo() throws Exception {
+        int teacherId = serviceITSupport.createTeacherAndCompleteRegistration();
+        serviceITSupport.asTeacher(teacherId, () -> accountService.updateProfileCompanyLogo(companyLogo()));
+        UntitledDocument logo = serviceITSupport.asTeacher(teacherId, accountService::getProfileCompanyLogo);
+        assertNotNull("Logo", logo);
+        assertEquals("PNG Logo", "image/png", logo.getType());
     }
 
 }

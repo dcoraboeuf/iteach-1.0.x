@@ -54,7 +54,6 @@ public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> i
         return upload(
                 locale,
                 UIAccount.class,
-                "file",
                 data,
                 "/api/account/%d/import", accountId
         );
@@ -88,8 +87,7 @@ public class UIAccountAPIClientImpl extends AbstractClient<UIAccountAPIClient> i
 
     @Override
     public UntitledDocument getProfileCompanyLogo(Locale locale) {
-        // FIXME Method net.nemerosa.iteach.ui.client.support.UIAccountAPIClientImpl.getProfileCompanyLogo
-        return null;
+        return download(locale, "/api/account/profile/companyLogo");
     }
 
     @Override

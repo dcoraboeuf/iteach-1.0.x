@@ -8,7 +8,9 @@ import net.nemerosa.iteach.ui.client.UIAccountAPIClient;
 import net.nemerosa.iteach.ui.client.UITestAPIClient;
 import net.nemerosa.iteach.ui.model.UITeacher;
 import net.nemerosa.iteach.ui.model.UITeacherPasswordForm;
+import org.apache.commons.io.IOUtils;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Locale;
 
@@ -27,6 +29,14 @@ public class UISupport {
             client = new ClientSupport(url);
         } catch (MalformedURLException e) {
             throw new UIMalformedURLException(url, e);
+        }
+    }
+
+    public byte[] getTestDataAsBytes(String path) {
+        try {
+            return IOUtils.toByteArray(getClass().getResourceAsStream(path));
+        } catch (IOException e) {
+            throw new RuntimeException("Cannot get bytes from resource at " + path, e);
         }
     }
 

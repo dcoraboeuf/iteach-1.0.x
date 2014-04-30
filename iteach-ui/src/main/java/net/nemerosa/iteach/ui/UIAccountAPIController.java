@@ -228,6 +228,10 @@ public class UIAccountAPIController implements UIAccountAPI {
     public void getProfileCompanyLogo(Locale locale, HttpServletResponse response) throws IOException {
         // Gets the file
         UntitledDocument file = getProfileCompanyLogo(locale);
+        if (file == null) {
+            response.sendError(HttpServletResponse.SC_NO_CONTENT);
+            return;
+        }
         // Writes as a file
         response.setContentType(file.getType());
         // Outputs a file

@@ -102,6 +102,22 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
         return request(locale, new HttpGet(getUrl(path, parameters)), returnType);
     }
 
+    protected UntitledDocument download(Locale locale, String path, Object... parameters) {
+        return request(
+                locale,
+                new HttpGet(getUrl(path, parameters)),
+                new BaseResponseHandler<UntitledDocument>() {
+                    @Override
+                    protected UntitledDocument handleEntity(HttpEntity entity) throws ParseException, IOException {
+                        return new UntitledDocument(
+                                entity.getContentType().getValue(),
+                                EntityUtils.toByteArray(entity)
+                        );
+                    }
+                }
+        );
+    }
+
     protected <T> T delete(Locale locale, Class<T> returnType, String path, Object... parameters) {
         return request(locale, new HttpDelete(getUrl(path, parameters)), returnType);
     }
@@ -131,7 +147,7 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
         }
     }
 
-    protected <T> T upload(Locale locale, Class<T> returnType, String fileName, JsonNode node, String path, Object... parameters) {
+    protected <T> T upload(Locale locale, Class<T> returnType, JsonNode node, String path, Object... parameters) {
         try {
             return upload(
                     locale,
@@ -237,6 +253,8 @@ public abstract class AbstractClient<C extends UIClient<C>> implements UIClient<
                 throw new ClientForbiddenException(request);
             } else if (statusCode == HttpStatus.SC_NOT_FOUND) {
                 throw new ClientNotFoundException(getMessage(response));
+            } else if (statusCode == HttpStatus.SC_NO_CONTENT) {
+                return null;
             } else if (statusCode == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
                 String content = getMessage(response);
                 if (StringUtils.isNotBlank(content)) {
