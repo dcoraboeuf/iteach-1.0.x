@@ -82,10 +82,10 @@ public class OpenIdAuthenticationUserDetailsService implements AuthenticationUse
             }
             // Checks name & email
             if (StringUtils.isBlank(name) || StringUtils.isBlank(email)) {
-                // FIXME Unknown attributes - need for a custom registration
-                // TODO Use a OpenIDAuthenticationFailureHandler
-                // TODO Intercept the AccountOpenIDNotFoundException
-                // TODO Redirect to a page that allows the registration
+                // TODO Unknown attributes - need for a custom registration (not planned yet)
+                // Use a OpenIDAuthenticationFailureHandler
+                // Intercept the AccountOpenIDNotFoundException
+                // Redirect to a page that allows the registration
                 throw new AccountOpenIDNotFoundException(identityUrl);
             }
             // Creates an account
