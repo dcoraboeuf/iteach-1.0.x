@@ -81,7 +81,6 @@ var iteach = angular.module('iteach', [
         })
         // Routing configuration
         .config(function ($routeProvider) {
-            // TODO Try to register routes in the modules themselves
             $routeProvider
                 // Error page
                 .when('/error', {
