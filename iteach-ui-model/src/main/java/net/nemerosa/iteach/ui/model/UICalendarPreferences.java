@@ -12,5 +12,6 @@ public class UICalendarPreferences {
     private final LocalTime minTime;
     @NotNull
     private final LocalTime maxTime;
+    private final boolean weekEnds;
 
 }

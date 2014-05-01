@@ -18,6 +18,7 @@ public class PreferencesServiceImpl implements PreferencesService {
     private static final String INVOICE_STUDENT_DETAIL = "invoice.student.detail";
     private static final String CALENDAR_MIN_TIME = "calendar.minTime";
     private static final String CALENDAR_MAX_TIME = "calendar.maxTime";
+    private static final String CALENDAR_WEEKENDS = "calendar.weekEnds";
 
     private final PreferencesRepository preferencesRepository;
     private final SecurityUtils securityUtils;
@@ -43,7 +44,8 @@ public class PreferencesServiceImpl implements PreferencesService {
         int teacherId = securityUtils.checkTeacher();
         return new CalendarPreferences(
                 preferencesRepository.getTime(teacherId, CALENDAR_MIN_TIME, LocalTime.of(7, 0)),
-                preferencesRepository.getTime(teacherId, CALENDAR_MAX_TIME, LocalTime.of(21, 0))
+                preferencesRepository.getTime(teacherId, CALENDAR_MAX_TIME, LocalTime.of(21, 0)),
+                preferencesRepository.getBoolean(teacherId, CALENDAR_WEEKENDS, false)
         );
     }
 
@@ -59,6 +61,7 @@ public class PreferencesServiceImpl implements PreferencesService {
         }
         preferencesRepository.setTime(teacherId, CALENDAR_MIN_TIME, minTime);
         preferencesRepository.setTime(teacherId, CALENDAR_MAX_TIME, maxTime);
+        preferencesRepository.setBoolean(teacherId, CALENDAR_WEEKENDS, preferences.isWeekEnds());
         return Ack.OK;
     }
 }

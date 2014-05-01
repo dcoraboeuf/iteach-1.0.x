@@ -9,5 +9,6 @@ public class CalendarPreferences {
 
     private final LocalTime minTime;
     private final LocalTime maxTime;
+    private final boolean weekEnds;
 
 }

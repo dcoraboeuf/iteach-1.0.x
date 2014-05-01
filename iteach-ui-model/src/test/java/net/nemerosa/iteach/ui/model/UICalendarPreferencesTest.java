@@ -32,7 +32,8 @@ public class UICalendarPreferencesTest {
     private UICalendarPreferences uiCalendarPreferences() {
         return new UICalendarPreferences(
                 LocalTime.of(8, 0),
-                LocalTime.of(22, 0)
+                LocalTime.of(22, 0),
+                true
         );
     }
 
@@ -40,6 +41,7 @@ public class UICalendarPreferencesTest {
         return object()
                 .with("minTime", "08:00")
                 .with("maxTime", "22:00")
+                .with("weekEnds", true)
                 .end();
     }
 

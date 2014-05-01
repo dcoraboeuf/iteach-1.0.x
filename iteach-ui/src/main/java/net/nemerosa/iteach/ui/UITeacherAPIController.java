@@ -559,7 +559,8 @@ public class UITeacherAPIController implements UITeacherAPI {
         CalendarPreferences preferences = preferencesService.getCalendarPreferences();
         return new UICalendarPreferences(
                 preferences.getMinTime(),
-                preferences.getMaxTime()
+                preferences.getMaxTime(),
+                preferences.isWeekEnds()
         );
     }
 
@@ -569,7 +570,8 @@ public class UITeacherAPIController implements UITeacherAPI {
         return preferencesService.setCalendarPreferences(
                 new CalendarPreferences(
                         preferences.getMinTime(),
-                        preferences.getMaxTime()
+                        preferences.getMaxTime(),
+                        preferences.isWeekEnds()
                 )
         );
     }
