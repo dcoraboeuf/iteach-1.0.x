@@ -27,7 +27,8 @@ angular.module('iteach.dialog.calendar.preferences', [
         $scope.submit = function () {
             var preferences = {
                 minTime: toTime($scope.calendarPreferences.minHour),
-                maxTime: toTime($scope.calendarPreferences.maxHour)
+                maxTime: toTime($scope.calendarPreferences.maxHour),
+                weekEnds: $scope.calendarPreferences.weekEnds
             };
             modalController.onSubmit(preferences).then(
                 function () {

@@ -236,5 +236,6 @@ var map_fr = {
     // Calendar preferences
     'calendar.preferences': "Préférences pour le calendrier",
     'calendar.preferences.minTime': "Heure minimale",
-    'calendar.preferences.maxTime': "Heure maximale"
+    'calendar.preferences.maxTime': "Heure maximale",
+    'calendar.preferences.weekEnds': "Afficher les week-ends"
 };
