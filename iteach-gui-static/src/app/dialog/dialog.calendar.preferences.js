@@ -5,7 +5,8 @@ angular.module('iteach.dialog.calendar.preferences', [
         // Hours only
         $scope.calendarPreferences = {
             minHour: Number.parseInt(calendarPreferences.data.minTime.substring(0, 2), 10),
-            maxHour: Number.parseInt(calendarPreferences.data.maxTime.substring(0, 2), 10)
+            maxHour: Number.parseInt(calendarPreferences.data.maxTime.substring(0, 2), 10),
+            weekEnds: calendarPreferences.data.weekEnds
         };
 
         console.log('calendarPreferences=', $scope.calendarPreferences);
