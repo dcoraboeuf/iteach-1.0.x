@@ -73,6 +73,7 @@ if (['master', 'feature', 'release', 'hotfix'].contains(branchType)) {
             }
             // Maven version
             maven {
+               mavenInstallation 'Maven-3.2.x'
                goals 'versions:set'
                property 'newVersion', '${VERSION_DISPLAY}'
                property 'generateBackupPoms', 'false'
