@@ -1,0 +1,8 @@
+plugins {
+    id 'net.nemerosa.versioning' version '1.3.0'
+}
+
+versionFile {
+   // Path to the file to be written
+   file = new File('target', 'version.properties')
+}
