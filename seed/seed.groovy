@@ -66,7 +66,7 @@ if (['master', 'feature', 'release', 'hotfix'].contains(branchType)) {
         }
         steps {
             // Version computation
-            gradle 'versionDisplay versionFile'
+            gradle 'versionDisplay versionFile --info'
             // Loading version information
             environmentVariables {
                 propertiesFile 'target/version.properties'
