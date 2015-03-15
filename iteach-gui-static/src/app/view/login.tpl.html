@@ -14,24 +14,6 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h3>{{'login.signin.google' | translate}}</h3>
-
-                        <form action="api/login/openid" method="post" class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-md-offset-1">
-                                    <input name="openid_identifier" size="50" maxlength="100" type="hidden"
-                                           value="https://www.google.com/accounts/o8/id"/>
-                                    <button type="submit" class="btn btn-default">
-                                        {{'login.signin.with' | translate}}
-                                        <img src="assets/google.png"/>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
                         <h3>{{'login.signin.form' | translate}}</h3>
                         <form name="password" ng-submit="iteachLogin()" class="form-horizontal">
                             <div class="form-group">
