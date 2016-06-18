@@ -16,6 +16,8 @@ import java.time.ZoneOffset;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.lang.String.format;
+
 @Component
 public class Migration extends NamedParameterJdbcDaoSupport {
 
@@ -88,7 +90,15 @@ public class Migration extends NamedParameterJdbcDaoSupport {
                 school,
                 "id", "name", "contact", "colour", "email", "postalAddress", "phone", "mobilePhone", "webSite"
         );
-        // TODO School contract
+        int schoolId = (Integer) school.get("ID");
+        // School contract
+        createNode(
+                format("MATCH (s: School {id: %d})", schoolId),
+                "Contract",
+                ", (n)-[:SCHOOL]->(s)",
+                school,
+                "id", "name", "hourlyRate", "vat", "vatRate"
+        );
     }
 
     private void createNode(String label, Map<String, Object> source, String... fields) {
@@ -105,16 +115,20 @@ public class Migration extends NamedParameterJdbcDaoSupport {
         sources.put("CREATEDBY", createdBy);
         sources.put("CREATEDAT", createdAt);
 
+        String cypher = format(
+                "%s%nCREATE (n: %s {%s})%n%s",
+                match,
+                label,
+                parameters.stream()
+                        .map(field -> format("%s: {%s}", field, field.toUpperCase()))
+                        .collect(Collectors.joining(", ")),
+                associations
+        );
+
+        logger.info("CYPHER: {}", cypher);
+
         template.query(
-                String.format(
-                        "%s%nCREATE (n: %s {%s})%n%s",
-                        match,
-                        label,
-                        parameters.stream()
-                                .map(field -> String.format("%s: {%s}", field, field.toUpperCase()))
-                                .collect(Collectors.joining(", ")),
-                        associations
-                ),
+                cypher,
                 sources
         );
     }
@@ -128,7 +142,7 @@ public class Migration extends NamedParameterJdbcDaoSupport {
     }
 
     private void createUniqueIdGenerator(String label) {
-        Result query = template.query(String.format("MATCH (p:%s) RETURN MAX(p.id) as MAX", label),
+        Result query = template.query(format("MATCH (p:%s) RETURN MAX(p.id) as MAX", label),
                 ImmutableMap.<String, Object>builder()
                         .put("label", label)
                         .build());
