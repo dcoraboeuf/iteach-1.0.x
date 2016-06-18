@@ -63,20 +63,39 @@ public class Migration extends NamedParameterJdbcDaoSupport {
                 "SELECT * FROM ACCOUNT WHERE EMAIL = :email",
                 Collections.singletonMap("email", email)
         );
+        int teacherId = (Integer) teacher.get("ID");
         createNode(
                 "Teacher",
                 teacher,
                 "id", "email", "name", "company", "postalAddress", "phone", "vat", "iban", "bic"
         );
 
-        // TODO Migrating the schools
+        // Migrating the schools
+        h2.queryForList("SELECT * FROM SCHOOL WHERE TEACHERID = :teacherId", Collections.singletonMap("teacherId", teacherId)).forEach(
+                school -> migrateSchool(teacherId, school)
+        );
+
         // TODO Migrating the contracts
         // TODO Migrating the students
         // TODO Migrating the lessons
 
     }
 
+    private void migrateSchool(int teacherId, Map<String, Object> school) {
+        logger.info("Migrating school: {}", school.get("NAME"));
+        createNode(
+                "School",
+                school,
+                "id", "name", "contact", "colour", "email", "postalAddress", "phone", "mobilePhone", "webSite"
+        );
+        // TODO School contract
+    }
+
     private void createNode(String label, Map<String, Object> source, String... fields) {
+        createNode("", label, "", source, fields);
+    }
+
+    private void createNode(String match, String label, String associations, Map<String, Object> source, String... fields) {
 
         List<String> parameters = new ArrayList<>(Arrays.asList(fields));
         parameters.add("createdBy");
@@ -88,11 +107,13 @@ public class Migration extends NamedParameterJdbcDaoSupport {
 
         template.query(
                 String.format(
-                        "CREATE (n: %s {%s})",
+                        "%s%nCREATE (n: %s {%s})%n%s",
+                        match,
                         label,
                         parameters.stream()
                                 .map(field -> String.format("%s: {%s}", field, field.toUpperCase()))
-                                .collect(Collectors.joining(", "))
+                                .collect(Collectors.joining(", ")),
+                        associations
                 ),
                 sources
         );
@@ -100,7 +121,7 @@ public class Migration extends NamedParameterJdbcDaoSupport {
 
     private void createUniqueIdGenerators() {
         createUniqueIdGenerator("Teacher");
-        // TODO createUniqueIdGenerator("School");
+        createUniqueIdGenerator("School");
         // TODO createUniqueIdGenerator("Student");
         // TODO createUniqueIdGenerator("Contract");
         // TODO createUniqueIdGenerator("Lesson");
