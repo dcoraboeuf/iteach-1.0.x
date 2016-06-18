@@ -7,10 +7,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.template.Neo4jOperations;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class Migration extends NamedParameterJdbcDaoSupport {
@@ -19,12 +23,14 @@ public class Migration extends NamedParameterJdbcDaoSupport {
 
     private final MigrationProperties properties;
     private final Neo4jOperations template;
+    private final NamedParameterJdbcTemplate h2;
 
     @Autowired
     public Migration(Neo4jOperations template, DataSource dataSource, MigrationProperties properties) {
         this.template = template;
         this.properties = properties;
         this.setDataSource(dataSource);
+        this.h2 = new NamedParameterJdbcTemplate(dataSource);
     }
 
     public void run() {
@@ -48,7 +54,18 @@ public class Migration extends NamedParameterJdbcDaoSupport {
 
     private void migrateTeacher(String email) {
         logger.info("Migrating teacher: {}", email);
-        // TODO Migrating the teacher
+
+        // Migrating the teacher
+        Map<String, Object> teacher = h2.queryForMap(
+                "SELECT * FROM ACCOUNT WHERE EMAIL = :email",
+                Collections.singletonMap("email", email)
+        );
+        createNode(
+                "Teacher",
+                teacher,
+                "id", "email", "name", "company", "postalAddress", "phone", "vat", "iban", "bic"
+        );
+
         // TODO Migrating the schools
         // TODO Migrating the contracts
         // TODO Migrating the students
@@ -56,8 +73,22 @@ public class Migration extends NamedParameterJdbcDaoSupport {
 
     }
 
+    private void createNode(String label, Map<String, Object> source, String... fields) {
+        template.query(
+                String.format(
+                        "CREATE (n: %s {%s})",
+                        label,
+                        Arrays.asList(fields).stream()
+                                .map(field -> String.format("%s: {%s}", field, field.toUpperCase()))
+                                .collect(Collectors.joining(", "))
+                ),
+                source
+                // TODO Creation source and time
+        );
+    }
+
     private void createUniqueIdGenerators() {
-        // TODO createUniqueIdGenerator("Teacher");
+        createUniqueIdGenerator("Teacher");
         // TODO createUniqueIdGenerator("School");
         // TODO createUniqueIdGenerator("Student");
         // TODO createUniqueIdGenerator("Contract");
