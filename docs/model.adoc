@@ -1,0 +1,7 @@
+= Model
+
+The iTeach model is strongly segregated per teacher account - no other teacher
+account can see the data of any other teacher.
+
+NOTE: In a future version of iTeach, some kind of sharing could still be put in
+place by grouping teachers accounts in groups where data can be shared.

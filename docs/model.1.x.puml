@@ -1,0 +1,83 @@
+@startuml
+
+class account {
+    id
+    administrator: boolean
+    mode: String [PASSWORD, OPEN_ID]
+    identifier: String [mail, Google link] unique
+    password: String [encrypted password, not used]
+    email: String unique
+    name: String
+    verified: boolean
+    disabled: boolean
+    company: String
+    postalAddress: String
+    phone: String
+    vat: String
+    iban: String
+    bic: String
+    companyLogo_type: String [image/png]
+    companyLogo_content: binary
+}
+
+class school {
+    id
+    name
+    contact
+    colour
+    email
+    hourlyrate: Money
+    postaladdress
+    phone
+    mobilephone
+    website
+    vat
+    vatrate
+}
+
+class contract {
+    id
+    name
+    hourlyrate: Money
+    vatrate
+}
+
+class student {
+    id
+    name
+    disabled: boolean
+    subject
+    email
+    postaladdress
+    phone
+    mobilephone
+}
+
+class lesson {
+    id
+    planningFrom
+    planningTo
+    location
+}
+
+class preferences {
+    id
+    name
+    value
+}
+
+school --> "1" account: teacherid
+
+contract --> "1" account: teacherid
+contract --> "1" school: schoolid
+
+student --> "1" account: teacherid
+student --> "1" school: schoolid
+student --> "0..1" contract: contractid
+
+lesson --> "1" account: teacherid
+lesson --> "1" student: studentid
+
+preferences --> "1" account: teacherid
+
+@enduml
