@@ -50,11 +50,11 @@ class lesson {
     location
 }
 
-contract --> "1" school: for school
-contract --> "1" teacher: by teacher
-contract --> "*" student: with student
+contract --> "1" school: SCHOOL
+contract --> "1" teacher: TEACHER
+contract --> "*" student: STUDENT
 
-lesson --> "1" contract: for contract
+lesson --> "1" contract: CONTRACT
 
 note right of lesson
     Lessons can also be
