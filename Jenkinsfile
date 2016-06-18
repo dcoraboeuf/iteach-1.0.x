@@ -5,7 +5,7 @@ node {
     stage 'Checkout'
 
     // Get some code from a GitHub repository
-    git url: 'https://github.com/nemerosa/iteach.git', branch: BRANCH
+    git url: 'https://github.com/nemerosa/iteach.git', branch: BRANCH_NAME
 
     // Get the JDK
     def javaHome = tool name: 'JDK8u74', type: 'hudson.model.JDK'
