@@ -30,6 +30,7 @@ ext {
             postgresql   : 'org.postgresql:postgresql:9.4.1208',
             flyway       : 'org.flywaydb:flyway-core:4.0',
             joda_money   : 'org.joda:joda-money:0.9',
+            guava        : 'com.google.guava:guava:18.0',
 
             // Test
             junit        : 'junit:junit:4.11',
