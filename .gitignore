@@ -8,4 +8,4 @@ build/
 .DS_Store
 .release
 work
-/data.h2.db
+/data.*.db

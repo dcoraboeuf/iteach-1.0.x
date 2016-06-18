@@ -11,9 +11,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -24,6 +24,9 @@ public class Migration extends NamedParameterJdbcDaoSupport {
     private final MigrationProperties properties;
     private final Neo4jOperations template;
     private final NamedParameterJdbcTemplate h2;
+
+    private final String createdBy = "migration";
+    private final Date createdAt = Date.from(LocalDateTime.now(ZoneOffset.UTC).toInstant(ZoneOffset.UTC));
 
     @Autowired
     public Migration(Neo4jOperations template, DataSource dataSource, MigrationProperties properties) {
@@ -74,16 +77,24 @@ public class Migration extends NamedParameterJdbcDaoSupport {
     }
 
     private void createNode(String label, Map<String, Object> source, String... fields) {
+
+        List<String> parameters = new ArrayList<>(Arrays.asList(fields));
+        parameters.add("createdBy");
+        parameters.add("createdAt");
+
+        Map<String, Object> sources = new HashMap<>(source);
+        sources.put("CREATEDBY", createdBy);
+        sources.put("CREATEDAT", createdAt);
+
         template.query(
                 String.format(
                         "CREATE (n: %s {%s})",
                         label,
-                        Arrays.asList(fields).stream()
+                        parameters.stream()
                                 .map(field -> String.format("%s: {%s}", field, field.toUpperCase()))
                                 .collect(Collectors.joining(", "))
                 ),
-                source
-                // TODO Creation source and time
+                sources
         );
     }
 
