@@ -17,11 +17,13 @@ public class Migration extends NamedParameterJdbcDaoSupport {
 
     private final Logger logger = LoggerFactory.getLogger(Migration.class);
 
+    private final MigrationProperties properties;
     private final Neo4jOperations template;
 
     @Autowired
-    public Migration(Neo4jOperations template, DataSource dataSource) {
+    public Migration(Neo4jOperations template, DataSource dataSource, MigrationProperties properties) {
         this.template = template;
+        this.properties = properties;
         this.setDataSource(dataSource);
     }
 
@@ -31,17 +33,27 @@ public class Migration extends NamedParameterJdbcDaoSupport {
         // Deleting all nodes
         logger.info("Removing all nodes...");
         template.query("MATCH (n) DETACH DELETE n", Collections.emptyMap());
-        // TODO Migrating the teachers
-        // TODO Migrating the schools
-        // TODO Migrating the contracts
-        // TODO Migrating the students
-        // TODO Migrating the lessons
+
+        // For each teacher
+        logger.info("Migrating teachers...");
+        properties.getTeacher().forEach(this::migrateTeacher);
+
         // Creating the counters
         logger.info("Creating unique id generators...");
         createUniqueIdGenerators();
         // OK
         long end = System.currentTimeMillis();
         logger.info("End of migration ({} ms)", end - start);
+    }
+
+    private void migrateTeacher(String email) {
+        logger.info("Migrating teacher: {}", email);
+        // TODO Migrating the teacher
+        // TODO Migrating the schools
+        // TODO Migrating the contracts
+        // TODO Migrating the students
+        // TODO Migrating the lessons
+
     }
 
     private void createUniqueIdGenerators() {
