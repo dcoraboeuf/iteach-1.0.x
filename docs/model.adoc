@@ -5,3 +5,5 @@ account can see the data of any other teacher.
 
 NOTE: In a future version of iTeach, some kind of sharing could still be put in
 place by grouping teachers accounts in groups where data can be shared.
+
+image::model.2.x.png[Model 2.x]

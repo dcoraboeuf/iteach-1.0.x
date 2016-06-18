@@ -1,0 +1,71 @@
+@startuml
+
+class teacher {
+    id
+    email: unique
+    name
+    company
+    postalAddress
+    phone
+    vat
+    iban
+    bic
+}
+
+class school {
+    id
+    name: unique
+    contact
+    colour
+    email
+    postaladdress
+    phone
+    mobilephone
+    website
+}
+
+class contract {
+    id
+    name
+    hourlyrate: Money
+    vat: boolean
+    vatrate: float
+}
+
+class student {
+    id
+    name: unique
+    disabled: boolean
+    subject
+    email
+    postaladdress
+    phone
+    mobilephone
+}
+
+class lesson {
+    id
+    planningFrom
+    planningTo
+    location
+}
+
+contract --> "1" school: for school
+contract --> "1" teacher: by teacher
+contract --> "*" student: with student
+
+lesson --> "1" contract: for contract
+
+note right of lesson
+    Lessons can also be
+    for groups of students
+end note
+
+note right of contract
+    A contract is not only between
+    a teacher and a school,
+    it's more between a teacher,
+    a school and a (group of) student(s)
+end note
+
+@enduml
