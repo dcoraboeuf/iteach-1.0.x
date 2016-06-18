@@ -1,12 +1,9 @@
 package net.nemerosa.iteach.common;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import net.nemerosa.iteach.common.json.ObjectMapperFactory;
 import org.junit.Test;
 
-import java.io.IOException;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class AckTest {
 
@@ -43,13 +40,6 @@ public class AckTest {
     @Test
     public void one_more() {
         assertFalse(Ack.one(2).isSuccess());
-    }
-
-    @Test
-    public void to_json() throws IOException {
-        ObjectMapper mapper = ObjectMapperFactory.create();
-        String value = mapper.writeValueAsString(Ack.OK);
-        assertEquals("{\"success\":true}", value);
     }
 
     @Test

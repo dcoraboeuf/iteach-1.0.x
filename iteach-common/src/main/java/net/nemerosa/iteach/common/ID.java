@@ -1,7 +1,5 @@
 package net.nemerosa.iteach.common;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 
 public class ID {
@@ -23,14 +21,6 @@ public class ID {
             }
         }
 
-    }
-
-    @JsonCreator
-    public static ID fromJson(JsonNode node) {
-        return new ID(
-                node.get("success").booleanValue(),
-                node.get("value").intValue()
-        );
     }
 
     public static ID failure() {

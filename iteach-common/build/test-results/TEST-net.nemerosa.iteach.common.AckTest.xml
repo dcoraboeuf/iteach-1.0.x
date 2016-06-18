@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.nemerosa.iteach.common.AckTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2016-06-18T15:28:23" hostname="Damiens-MBP" time="0.004">
+  <properties/>
+  <testcase name="validate_true" classname="net.nemerosa.iteach.common.AckTest" time="0.002"/>
+  <testcase name="ok" classname="net.nemerosa.iteach.common.AckTest" time="0.0"/>
+  <testcase name="or" classname="net.nemerosa.iteach.common.AckTest" time="0.0"/>
+  <testcase name="and" classname="net.nemerosa.iteach.common.AckTest" time="0.0"/>
+  <testcase name="nok" classname="net.nemerosa.iteach.common.AckTest" time="0.0"/>
+  <testcase name="validate_false" classname="net.nemerosa.iteach.common.AckTest" time="0.0"/>
+  <testcase name="one_0" classname="net.nemerosa.iteach.common.AckTest" time="0.0"/>
+  <testcase name="one_1" classname="net.nemerosa.iteach.common.AckTest" time="0.0"/>
+  <testcase name="one_more" classname="net.nemerosa.iteach.common.AckTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

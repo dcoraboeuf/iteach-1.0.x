@@ -1,3 +1,46 @@
+buildscript {
+    repositories {
+        maven {
+           url "http://repo.spring.io/milestone"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.0.M3")
+    }
+}
+
 plugins {
     id 'net.nemerosa.versioning' version '2.0.0'
+}
+
+/**
+ * Meta information
+ */
+
+allprojects {
+   group = 'net.nemerosa.iteach'
+   version = versioning.info.display
+}
+
+/**
+ * Dependency management
+ */
+
+apply from: "$rootDir/gradle/dependencies.gradle"
+
+/**
+ * Java projects
+ */
+
+def javaProjects = subprojects.findAll {
+   true
+   // it.path != ':iteach-gui-static'
+}
+configure(javaProjects) {
+   apply plugin: 'java'
+
+    dependencies {
+        compile libraries.lombok
+        testCompile libraries.junit
+    }
 }

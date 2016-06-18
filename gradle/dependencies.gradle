@@ -1,0 +1,41 @@
+/**
+ * Resolution
+ */
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url "http://repo.spring.io/milestone" }
+    }
+}
+
+/**
+ * Common versions
+ */
+
+def springBootVersion = '1.3.3.RELEASE'
+def springVersion = '4.2.5.RELEASE'
+def springSecurityVersion = '4.0.3.RELEASE'
+def httpClientVersion = '4.5.1'
+def slf4jVersion = '1.7.16'
+def metricsVersion = '3.1.2'
+
+/**
+ * List of dependencies
+ */
+
+ext {
+    libraries = [
+            // Misc
+            commons_lang3: 'org.apache.commons:commons-lang3:3.3.2',
+            postgresql   : 'org.postgresql:postgresql:9.4.1208',
+            flyway       : 'org.flywaydb:flyway-core:4.0',
+            joda_money   : 'org.joda:joda-money:0.9',
+
+            // Test
+            junit        : 'junit:junit:4.11',
+            mockito      : 'org.mockito:mockito-core:1.9.5',
+
+            // Other
+            lombok       : 'org.projectlombok:lombok:1.14.4',
+    ]
+}
