@@ -50,11 +50,24 @@ class lesson {
     location
 }
 
+class meeting {
+    id
+    subject
+    description
+    planningFrom
+    planningTo
+    location
+}
+
 contract --> "1" school: SCHOOL
 contract --> "1" teacher: TEACHER
 contract --> "*" student: STUDENT
 
 lesson --> "1" contract: CONTRACT
+
+meeting --> "1" teacher: TEACHER
+meeting --> "0..1" school: SCHOOL
+meeting --> "0..*" student: STUDENT
 
 note right of lesson
     Lessons can also be
