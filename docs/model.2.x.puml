@@ -28,7 +28,6 @@ class contract {
     id
     name
     hourlyrate: Money
-    vat: boolean
     vatrate: float
 }
 

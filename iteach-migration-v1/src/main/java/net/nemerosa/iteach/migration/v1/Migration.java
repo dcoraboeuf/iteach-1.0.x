@@ -66,6 +66,7 @@ public class Migration extends NamedParameterJdbcDaoSupport {
                 Collections.singletonMap("email", email)
         );
         int teacherId = (Integer) teacher.get("ID");
+        Map<String, Integer> teacherParam = Collections.singletonMap("teacherId", teacherId);
         createNode(
                 "Teacher",
                 teacher,
@@ -73,14 +74,34 @@ public class Migration extends NamedParameterJdbcDaoSupport {
         );
 
         // Migrating the schools
-        h2.queryForList("SELECT * FROM SCHOOL WHERE TEACHERID = :teacherId", Collections.singletonMap("teacherId", teacherId)).forEach(
+        h2.queryForList("SELECT * FROM SCHOOL WHERE TEACHERID = :teacherId", teacherParam).forEach(
                 school -> migrateSchool(teacherId, school)
         );
 
-        // TODO Migrating the contracts
+        // Migrating the contracts
+        h2.queryForList("SELECT * FROM CONTRACT WHERE TEACHERID = :teacherId", teacherParam).forEach(
+                contract -> migrateContract(teacherId, contract)
+        );
+
         // TODO Migrating the students
         // TODO Migrating the lessons
 
+    }
+
+    private void migrateContract(int teacherId, Map<String, Object> contract) {
+        logger.info("Migrating contract: {}", contract.get("NAME"));
+        int schoolId = (Integer) contract.get("SCHOOLID");
+        createNode(
+                format(
+                        "MATCH (s: School {id: %d}), (t: Teacher {id: %d})",
+                        schoolId,
+                        teacherId
+                ),
+                "Contract",
+                ", (n)-[:SCHOOL]->(s), (n)-[:TEACHER]->(t)",
+                contract,
+                "id", "name", "hourlyRate", "vatRate"
+        );
     }
 
     private void migrateSchool(int teacherId, Map<String, Object> school) {
@@ -93,11 +114,15 @@ public class Migration extends NamedParameterJdbcDaoSupport {
         int schoolId = (Integer) school.get("ID");
         // School contract
         createNode(
-                format("MATCH (s: School {id: %d})", schoolId),
+                format(
+                        "MATCH (s: School {id: %d}), (t: Teacher {id: %d})",
+                        schoolId,
+                        teacherId
+                ),
                 "Contract",
-                ", (n)-[:SCHOOL]->(s)",
+                ", (n)-[:SCHOOL]->(s), (n)-[:TEACHER]->(t)",
                 school,
-                "id", "name", "hourlyRate", "vat", "vatRate"
+                "id", "name", "hourlyRate", "vatRate"
         );
     }
 
@@ -137,7 +162,7 @@ public class Migration extends NamedParameterJdbcDaoSupport {
         createUniqueIdGenerator("Teacher");
         createUniqueIdGenerator("School");
         // TODO createUniqueIdGenerator("Student");
-        // TODO createUniqueIdGenerator("Contract");
+        createUniqueIdGenerator("Contract");
         // TODO createUniqueIdGenerator("Lesson");
     }
 
