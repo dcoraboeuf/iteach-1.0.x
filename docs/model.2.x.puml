@@ -42,13 +42,6 @@ class student {
     mobilephone
 }
 
-class lesson {
-    id
-    planningFrom
-    planningTo
-    location
-}
-
 class meeting {
     id
     subject
@@ -62,16 +55,9 @@ contract --> "1" school: SCHOOL
 contract --> "1" teacher: TEACHER
 contract --> "*" student: STUDENT
 
-lesson --> "1" contract: CONTRACT
-
 meeting --> "1" teacher: TEACHER
-meeting --> "0..1" school: SCHOOL
-meeting --> "0..*" student: STUDENT
-
-note right of lesson
-    Lessons can also be
-    for groups of students
-end note
+meeting --> "0..1" contract: CONTRACT
+meeting --> "1..*" student: STUDENT
 
 note right of contract
     A contract is not only between

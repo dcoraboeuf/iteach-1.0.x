@@ -11,6 +11,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.*;
@@ -85,14 +87,54 @@ public class Migration extends NamedParameterJdbcDaoSupport {
 
         // Migrating the students
         h2.queryForList("SELECT * FROM STUDENT WHERE TEACHERID = :teacherId", teacherParam).forEach(
-                student -> migrateStudent(teacherId, student)
+                this::migrateStudent
         );
 
-        // TODO Migrating the lessons
+        // Migrating the meetings
+        h2.queryForList("SELECT * FROM LESSON WHERE TEACHERID = :teacherId", teacherParam).forEach(
+                meeting -> migrateMeeting(teacherId, meeting)
+        );
 
     }
 
-    private void migrateStudent(int teacherId, Map<String, Object> student) {
+    private void migrateMeeting(int teacherId, Map<String, Object> meeting) {
+        // Meeting data
+        int id = (Integer) meeting.get("ID");
+        int studentId = (Integer) meeting.get("STUDENTID");
+        String from = (String) meeting.get("PLANNINGFROM");
+        String to = (String) meeting.get("PLANNINGTO");
+        String location = (String) meeting.get("LOCATION");
+
+        // Date conversion
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        Date dateFrom;
+        Date dateTo;
+        try {
+            dateFrom = f.parse(from);
+            dateTo = f.parse(to);
+        } catch (ParseException e) {
+            throw new RuntimeException("Cannot parse date", e);
+        }
+
+        // Creates the Meeting node and its link to the teacher & student
+        template.query(
+                "MATCH (t: Teacher {id: {teacherId}}), (st: Student {id: {studentId}}) " +
+                        "CREATE (m: Meeting {id: {id}, planningFrom: {dateFrom}, planningTo: {dateTo}, location: {location}}), " +
+                        "(m)-[:TEACHER]->(t), (m)-[:STUDENT]->(st)",
+                ImmutableMap.<String, Object>builder()
+                        .put("id", id)
+                        .put("teacherId", teacherId)
+                        .put("studentId", studentId)
+                        .put("dateFrom", dateFrom)
+                        .put("dateTo", dateTo)
+                        .put("location", location == null ? "" : location)
+                        .build()
+        );
+
+        // TODO Link to the contract (via the student)
+    }
+
+    private void migrateStudent(Map<String, Object> student) {
         logger.info("Migrating student: {}", student.get("NAME"));
         Integer schoolId = (Integer) student.get("SCHOOLID");
         Integer contractId = (Integer) student.get("CONTRACTID");
