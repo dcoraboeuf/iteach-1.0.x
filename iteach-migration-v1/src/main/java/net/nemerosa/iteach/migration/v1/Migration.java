@@ -83,9 +83,51 @@ public class Migration extends NamedParameterJdbcDaoSupport {
                 contract -> migrateContract(teacherId, contract)
         );
 
-        // TODO Migrating the students
+        // Migrating the students
+        h2.queryForList("SELECT * FROM STUDENT WHERE TEACHERID = :teacherId", teacherParam).forEach(
+                student -> migrateStudent(teacherId, student)
+        );
+
         // TODO Migrating the lessons
 
+    }
+
+    private void migrateStudent(int teacherId, Map<String, Object> student) {
+        logger.info("Migrating student: {}", student.get("NAME"));
+        Integer schoolId = (Integer) student.get("SCHOOLID");
+        Integer contractId = (Integer) student.get("CONTRACTID");
+        // Student node
+        createNode(
+                "Student",
+                student,
+                // TODO `subject` should be part of the contract
+                "id", "name", "disabled", "subject", "email", "postalAddress", "phone", "mobilePhone"
+        );
+        // No contract --> link to school contract
+        int studentId = (Integer) student.get("ID");
+        if (contractId == null) {
+            template.query(
+                    format(
+                            "MATCH (c: Contract {id: %d}), (st: Student {id: %d}) " +
+                                    "CREATE (c)-[:STUDENT]->(st)",
+                            schoolId,
+                            studentId
+                    ),
+                    Collections.emptyMap()
+            );
+        }
+        // Contract, direct link
+        else {
+            template.query(
+                    format(
+                            "MATCH (c: Contract {id: %d}), (st: Student {id: %d}) " +
+                                    "CREATE (c)-[:STUDENT]->(st)",
+                            contractId,
+                            studentId
+                    ),
+                    Collections.emptyMap()
+            );
+        }
     }
 
     private void migrateContract(int teacherId, Map<String, Object> contract) {
@@ -113,6 +155,7 @@ public class Migration extends NamedParameterJdbcDaoSupport {
         );
         int schoolId = (Integer) school.get("ID");
         // School contract
+        // TODO Marks as default school contract
         createNode(
                 format(
                         "MATCH (s: School {id: %d}), (t: Teacher {id: %d})",
@@ -161,7 +204,7 @@ public class Migration extends NamedParameterJdbcDaoSupport {
     private void createUniqueIdGenerators() {
         createUniqueIdGenerator("Teacher");
         createUniqueIdGenerator("School");
-        // TODO createUniqueIdGenerator("Student");
+        createUniqueIdGenerator("Student");
         createUniqueIdGenerator("Contract");
         // TODO createUniqueIdGenerator("Lesson");
     }
