@@ -117,10 +117,12 @@ public class Migration extends NamedParameterJdbcDaoSupport {
         }
 
         // Creates the Meeting node and its link to the teacher & student
+        // At migration time, we know that we have only ONE contract by student - this might not be true any
+        // longer in v2
         template.query(
-                "MATCH (t: Teacher {id: {teacherId}}), (st: Student {id: {studentId}}) " +
+                "MATCH (t: Teacher {id: {teacherId}})<-[:TEACHER]-(c: Contract)-[:STUDENT]->(st: Student {id: {studentId}}) " +
                         "CREATE (m: Meeting {id: {id}, planningFrom: {dateFrom}, planningTo: {dateTo}, location: {location}}), " +
-                        "(m)-[:TEACHER]->(t), (m)-[:STUDENT]->(st)",
+                        "(m)-[:TEACHER]->(t), (m)-[:STUDENT]->(st), (m)-[:CONTRACT]->(c)",
                 ImmutableMap.<String, Object>builder()
                         .put("id", id)
                         .put("teacherId", teacherId)
@@ -131,7 +133,6 @@ public class Migration extends NamedParameterJdbcDaoSupport {
                         .build()
         );
 
-        // TODO Link to the contract (via the student)
     }
 
     private void migrateStudent(Map<String, Object> student) {
