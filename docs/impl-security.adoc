@@ -1,0 +1,5 @@
+= Security implementation
+
+== Resources
+
+* https://spring.io/guides/tutorials/spring-boot-oauth2/ – _Spring Boot and OAuth2_
