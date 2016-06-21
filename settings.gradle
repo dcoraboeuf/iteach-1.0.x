@@ -1,4 +1,5 @@
 rootProject.name = 'iteach'
 
 include ':iteach-common'
+include ':iteach-app'
 include ':iteach-migration-v1'
